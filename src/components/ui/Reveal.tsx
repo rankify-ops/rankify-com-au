@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 const variants: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -24,13 +24,39 @@ export function Reveal({
   scale?: boolean;
   className?: string;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.95 && rect.bottom > 0) {
+      setInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -5% 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <motion.div
+      ref={ref}
       className={className}
       variants={scale ? scaleVariants : variants}
       initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.2, margin: "0px 0px -5% 0px" }}
+      animate={inView ? "show" : "hidden"}
       transition={{ duration: scale ? 0.9 : 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
