@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+:root {
+  --green-deep: #002117;
+  --ink: #0a0a0a;
+  --body-dark: #121212;
+  --paper: #f5f5f5;
+  --line: #e7e7e7;
+  --line-dark: rgba(255, 255, 255, 0.12);
+  --grey: #999999;
+}
+
+@theme inline {
+  --color-green-deep: var(--green-deep);
+  --color-ink: var(--ink);
+  --color-body-dark: var(--body-dark);
+  --color-paper: var(--paper);
+  --color-line: var(--line);
+  --color-line-dark: var(--line-dark);
+  --color-grey: var(--grey);
+  --font-sans: var(--font-inter);
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--body-dark);
+  color: var(--ink);
+  font-family: var(--font-inter), "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
