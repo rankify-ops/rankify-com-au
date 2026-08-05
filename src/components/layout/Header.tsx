@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { asset } from "@/lib/basePath";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
@@ -23,7 +24,7 @@ export function Header() {
         <nav className="flex h-[60px] items-center justify-between gap-6 px-5">
           <Link href="/" aria-label="Rankify home" className="flex-none">
             <Image
-              src="/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg"
+              src={asset("/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg")}
               alt="Rankify®"
               width={186}
               height={40}

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 
 const STEPS = [
@@ -51,7 +52,7 @@ export function Process() {
 
             <Reveal scale className="mt-10 aspect-[16/8] overflow-hidden rounded-2xl lg:mt-16">
               <Image
-                src="/assets/images/X1v7Yb87Igg23yIVi0lRCQBliQ.jpg"
+                src={asset("/assets/images/X1v7Yb87Igg23yIVi0lRCQBliQ.jpg")}
                 alt="Rankify team at work"
                 width={1280}
                 height={853}

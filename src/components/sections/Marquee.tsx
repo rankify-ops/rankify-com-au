@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { asset } from "@/lib/basePath";
 
 const LOGOS = [
   { src: "/assets/images/FOGjLSJec0TAQCAifujN9P3s.webp", alt: "WordPress" },
@@ -20,7 +21,7 @@ export function Marquee() {
             className="flex w-[clamp(180px,18vw,268px)] flex-none items-center justify-center border-r border-line py-10"
           >
             <Image
-              src={logo.src}
+              src={asset(logo.src)}
               alt={i < LOGOS.length ? logo.alt : ""}
               aria-hidden={i >= LOGOS.length}
               width={200}

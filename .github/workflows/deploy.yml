@@ -25,6 +25,10 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+        env:
+          # Remove this once rankify.com.au DNS is cut over to point here —
+          # a custom domain serves from the root and no basePath is needed.
+          NEXT_PUBLIC_BASE_PATH: /rankify-com-au
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out

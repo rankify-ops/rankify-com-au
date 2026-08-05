@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { Counter } from "@/components/ui/Counter";
 import { Button } from "@/components/ui/Button";
@@ -36,7 +37,7 @@ export function WhyChooseUs() {
           <Reveal scale>
             <div className="aspect-[0.72] max-w-[380px] overflow-hidden rounded-2xl">
               <Image
-                src="/assets/images/kcxjwUcQKZbRLbLzb6nVeWSrM.jpg"
+                src={asset("/assets/images/kcxjwUcQKZbRLbLzb6nVeWSrM.jpg")}
                 alt=""
                 width={736}
                 height={1313}

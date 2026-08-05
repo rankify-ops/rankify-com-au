@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
+import { asset } from "@/lib/basePath";
 
 const PROJECTS = [
   {
@@ -47,13 +48,13 @@ export function Projects() {
               <Link href={p.href} className="group block">
                 <div className="relative aspect-[4/3.4] overflow-hidden rounded-2xl bg-[#e9e9e9]">
                   <Image
-                    src={p.photo}
+                    src={asset(p.photo)}
                     alt={`${p.name} website`}
                     fill
                     className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
                   />
                   <Image
-                    src={p.logo}
+                    src={asset(p.logo)}
                     alt=""
                     width={220}
                     height={220}

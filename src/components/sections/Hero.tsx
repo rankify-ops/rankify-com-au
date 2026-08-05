@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 
@@ -15,7 +16,7 @@ export function Hero() {
     <section className="grain relative mx-2 overflow-hidden rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white">
       <video
         className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-50"
-        src="/assets/hero-bg.mp4"
+        src={asset("/assets/hero-bg.mp4")}
         autoPlay
         muted
         loop
@@ -34,7 +35,7 @@ export function Hero() {
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
           <Reveal>
             <Image
-              src="/assets/images/n92JU5BqmoxMotdcH6fGsTpi7e4.svg"
+              src={asset("/assets/images/n92JU5BqmoxMotdcH6fGsTpi7e4.svg")}
               alt="Rankify®"
               width={974}
               height={210}
@@ -75,7 +76,7 @@ export function Hero() {
           <Reveal delay={0.35}>
             <div className="flex max-w-[400px] gap-4 rounded-2xl border border-white/15 bg-white/5 p-3 backdrop-blur-md">
               <Image
-                src="/assets/images/fZdV1icYbXIkqfVAekWtJEAifo.png"
+                src={asset("/assets/images/fZdV1icYbXIkqfVAekWtJEAifo.png")}
                 alt="Thomas Flood"
                 width={104}
                 height={118}

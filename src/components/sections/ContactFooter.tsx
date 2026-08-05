@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/basePath";
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { Reveal } from "@/components/ui/Reveal";
@@ -180,7 +181,7 @@ export function ContactFooter() {
 
           <div className="pt-6 sm:pt-14">
             <Image
-              src="/assets/images/n92JU5BqmoxMotdcH6fGsTpi7e4.svg"
+              src={asset("/assets/images/n92JU5BqmoxMotdcH6fGsTpi7e4.svg")}
               alt="Rankify®"
               width={974}
               height={210}

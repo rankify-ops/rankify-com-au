@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 import { Counter } from "@/components/ui/Counter";
 import { Button } from "@/components/ui/Button";
+import { asset } from "@/lib/basePath";
 
 const AVATARS = [
   "/assets/images/7XElicIcn53vdnwyFHTpct98.jpg",
@@ -68,7 +69,7 @@ export function Testimonials() {
               {AVATARS.map((a, i) => (
                 <Image
                   key={a}
-                  src={a}
+                  src={asset(a)}
                   alt=""
                   width={48}
                   height={48}
@@ -91,7 +92,7 @@ export function Testimonials() {
             <Reveal key={t.name} delay={i * 0.1}>
               <div className="flex h-full flex-col gap-5 rounded-2xl border border-line bg-white p-7">
                 <div className="flex items-center gap-3.5">
-                  <Image src={t.img} alt={t.name} width={52} height={52} className="h-[52px] w-[52px] rounded-full object-cover" />
+                  <Image src={asset(t.img)} alt={t.name} width={52} height={52} className="h-[52px] w-[52px] rounded-full object-cover" />
                   <div>
                     <strong className="block text-base font-semibold">{t.name}</strong>
                     <span className="text-[13.5px] text-grey">{t.role}</span>

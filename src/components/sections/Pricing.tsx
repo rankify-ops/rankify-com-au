@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 
@@ -68,7 +69,7 @@ export function Pricing() {
             </p>
             <div className="mt-auto flex items-center gap-3.5">
               <Image
-                src="/assets/images/nK7vZP41akJ7EzYYCVQPQGuVRQg.png"
+                src={asset("/assets/images/nK7vZP41akJ7EzYYCVQPQGuVRQg.png")}
                 alt="Thomas Flood"
                 width={56}
                 height={56}
