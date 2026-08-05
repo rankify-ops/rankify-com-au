@@ -75,6 +75,17 @@
     });
   }
 
+  /* ----- services accordion (single-open) ----- */
+  var serviceRows = document.querySelectorAll("[data-service]");
+  serviceRows.forEach(function (row) {
+    var head = row.querySelector(".service-head");
+    head.addEventListener("click", function () {
+      if (row.classList.contains("is-open")) return;
+      serviceRows.forEach(function (r) { r.classList.remove("is-open"); });
+      row.classList.add("is-open");
+    });
+  });
+
   /* ----- FAQ accordion ----- */
   document.querySelectorAll(".faq-item").forEach(function (item) {
     var q = item.querySelector(".faq-q");
