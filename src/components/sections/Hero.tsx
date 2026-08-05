@@ -2,6 +2,7 @@ import Image from "next/image";
 import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
+import { PlusIcon } from "@/components/ui/PlusIcon";
 
 const SERVICES = [
   { href: "/shopify-development-services", label: "Shopify Web Development" },
@@ -54,7 +55,7 @@ export function Hero() {
                     href={s.href}
                     className="group inline-flex items-center gap-2.5 text-[15px] font-medium opacity-95 transition-all hover:translate-x-1 hover:opacity-100"
                   >
-                    <span className="h-4 w-4 flex-none rounded-full bg-white [mask-image:radial-gradient(circle,black_55%,transparent_60%)]" />
+                    <PlusIcon className="h-4 w-4" />
                     {s.label}
                   </a>
                 </li>

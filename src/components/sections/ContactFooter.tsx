@@ -98,16 +98,22 @@ export function ContactFooter() {
                 Tell us about your project—whether it&rsquo;s a Website, SEO or Branding.
               </p>
             </Reveal>
-            <div className="grid gap-6">
+            <div className="mt-8 grid gap-8 border-t border-white/15 pt-8 sm:grid-cols-2">
               <Reveal delay={0.15}>
+                <svg viewBox="0 0 24 24" className="mb-3 h-6 w-6" fill="none" stroke="white" strokeWidth="1.5">
+                  <path d="M3 12l3-8 15 8-15 8 3-8h9" strokeLinejoin="round" strokeLinecap="round" />
+                </svg>
                 <strong className="mb-1 block text-[17px] font-semibold">Quick response.</strong>
-                <p className="max-w-[360px] text-[14.5px] text-white/60">
+                <p className="max-w-[300px] text-[14.5px] text-white/60">
                   If you&rsquo;re ready to create and collaborate, we&rsquo;d love to hear from you.
                 </p>
               </Reveal>
               <Reveal delay={0.25}>
+                <svg viewBox="0 0 24 24" className="mb-3 h-6 w-6" fill="none" stroke="white" strokeWidth="1.5">
+                  <path d="M4 20V15M10 20V10M16 20V13M22 20V6" strokeLinecap="round" />
+                </svg>
                 <strong className="mb-1 block text-[17px] font-semibold">Clear next steps.</strong>
-                <p className="max-w-[360px] text-[14.5px] text-white/60">
+                <p className="max-w-[300px] text-[14.5px] text-white/60">
                   After the consultation, we&rsquo;ll provide you with a detailed plan and timeline.
                 </p>
               </Reveal>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
+import { PlusIcon } from "@/components/ui/PlusIcon";
 import { Counter } from "@/components/ui/Counter";
 import { Button } from "@/components/ui/Button";
 import { asset } from "@/lib/basePath";
@@ -41,7 +42,7 @@ export function Testimonials() {
         <div className="mb-10 grid gap-6 sm:mb-16 lg:mb-24">
           <Reveal>
             <span className="inline-flex items-center gap-2 text-[15px] font-medium">
-              <span className="h-[18px] w-[18px] rounded-full bg-current opacity-80" />
+              <PlusIcon dark className="h-[18px] w-[18px]" />
               Testimonials
             </span>
           </Reveal>

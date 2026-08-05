@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { href: "/web-design-and-development", label: "Web Development" },
   { href: "/shopify-development-services", label: "Shopify Development" },
   { href: "/seo", label: "SEO" },
+  { href: "/contact", label: "Contact" },
   { href: "/blog", label: "Blog" },
 ];
 
@@ -78,7 +79,7 @@ export function Header() {
             className="fixed inset-0 z-[90] flex flex-col justify-between bg-paper px-6 pb-8 pt-24"
           >
             <nav className="flex flex-col gap-2">
-              {[...NAV_LINKS, { href: "/schedule-strategy-call", label: "Schedule Call" }, { href: "/contact", label: "Contact" }].map(
+              {[...NAV_LINKS, { href: "/schedule-strategy-call", label: "Schedule Call" }].map(
                 (l) => (
                   <Link
                     key={l.href}

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
+import { PlusIcon } from "@/components/ui/PlusIcon";
 import { Button } from "@/components/ui/Button";
 
 export function Pricing() {
@@ -10,7 +11,7 @@ export function Pricing() {
         <div className="mb-10 sm:mb-16 lg:mb-24">
           <Reveal>
             <span className="inline-flex items-center gap-2 text-[15px] font-medium">
-              <span className="h-[18px] w-[18px] rounded-full bg-current opacity-80" />
+              <PlusIcon dark className="h-[18px] w-[18px]" />
               Simple pricing
             </span>
           </Reveal>

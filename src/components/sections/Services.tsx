@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
+import { PlusIcon } from "@/components/ui/PlusIcon";
+import { asset } from "@/lib/basePath";
 
 const SERVICES = [
   {
@@ -12,6 +15,7 @@ const SERVICES = [
     cat: "Features",
     tags: ["Mobile-Friendly", "Responsive Design", "Speed Optimised", "UX/UI Design", "Conversion-Focused", "SEO-Ready"],
     count: "6+",
+    img: "/assets/images/vGSJoy0fkCYvuK5CETUzS64NNo.jpg",
   },
   {
     title: "SEO Optimisation",
@@ -19,6 +23,7 @@ const SERVICES = [
     cat: "Categories",
     tags: ["Technical SEO", "On-Page SEO", "Keyword Strategy", "Content Strategy", "Link Building", "Local SEO"],
     count: "4+",
+    img: "/assets/images/qQlR5lTiRYzT2lPzSWLLVkcgH6Y.jpg",
   },
   {
     title: "Branding and Identity",
@@ -26,6 +31,7 @@ const SERVICES = [
     cat: "Categories",
     tags: ["Brand strategy", "Visual Identity", "Tone of Voice", "Logo Design", "Brand Messaging", "Brand Guidelines"],
     count: "6+",
+    img: "/assets/images/9hTP0obDSaEcVCyC5kaHbx7FfI.jpg",
   },
 ];
 
@@ -38,7 +44,7 @@ export function Services() {
         <div className="mb-10 flex flex-wrap items-center justify-between gap-4 sm:mb-16 lg:mb-24">
           <Reveal>
             <span className="inline-flex items-center gap-2 text-[15px] font-medium">
-              <span className="h-[18px] w-[18px] rounded-full bg-current opacity-80" />
+              <PlusIcon className="h-[18px] w-[18px]" />
               What we do
             </span>
           </Reveal>
@@ -89,24 +95,33 @@ export function Services() {
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                     className="overflow-hidden"
                   >
-                    <div className="pb-6 pl-[60px] pr-4 sm:pb-8 sm:pl-[104px] sm:pr-10">
-                      <p className="max-w-[480px] text-[15.5px] text-white/65">{s.desc}</p>
-                      <div className="mt-5">
-                        <p className="mb-3 text-[13px] text-white/50">{s.cat}</p>
-                        <div className="flex max-w-[460px] flex-wrap gap-2">
-                          {s.tags.map((t) => (
-                            <span
-                              key={t}
-                              className="rounded-full border border-white/18 px-3.5 py-2 text-[13.5px] text-white/85"
-                            >
-                              {t}
-                            </span>
-                          ))}
+                    <div className="flex flex-col gap-5 pb-6 pl-[60px] pr-4 sm:flex-row sm:pb-8 sm:pl-[104px] sm:pr-10">
+                      <Image
+                        src={asset(s.img)}
+                        alt=""
+                        width={160}
+                        height={110}
+                        className="h-[80px] w-[110px] flex-none rounded-lg object-cover sm:h-[90px] sm:w-[120px]"
+                      />
+                      <div>
+                        <p className="max-w-[480px] text-[15.5px] text-white/65">{s.desc}</p>
+                        <div className="mt-5">
+                          <p className="mb-3 text-[13px] text-white/50">{s.cat}</p>
+                          <div className="flex max-w-[460px] flex-wrap gap-2">
+                            {s.tags.map((t) => (
+                              <span
+                                key={t}
+                                className="rounded-full border border-white/18 px-3.5 py-2 text-[13.5px] text-white/85"
+                              >
+                                {t}
+                              </span>
+                            ))}
+                          </div>
                         </div>
+                        <span className="mt-5 block text-[clamp(26px,2.2vw,40px)] font-medium tracking-[-0.03em] text-white/90">
+                          {s.count}
+                        </span>
                       </div>
-                      <span className="mt-5 block text-[clamp(26px,2.2vw,40px)] font-medium tracking-[-0.03em] text-white/90">
-                        {s.count}
-                      </span>
                     </div>
                   </motion.div>
                 </div>
