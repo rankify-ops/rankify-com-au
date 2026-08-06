@@ -12,6 +12,13 @@ const AVATARS = [
   "/assets/images/lVMA2BWo8D0yz8GINpzGpDx4.jpg",
 ];
 
+const STATS = [
+  { to: 5, suffix: "", label: "Average Review Rating", note: "/5" },
+  { to: 40, suffix: "+", label: "Successful projects launched" },
+  { to: 100, suffix: "%", label: "Client satisfaction rate" },
+  { to: 50, suffix: "k+", label: "Monthly visitors driven through SEO" },
+];
+
 const TESTIMONIALS = [
   {
     img: "/assets/images/x3PIV2yZWhx27F6e2PFrLp8eOw.png",
@@ -103,6 +110,18 @@ export function Testimonials() {
                   {t.quote}
                 </blockquote>
               </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="mt-14 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-line pt-10 sm:mt-20 sm:pt-16 lg:grid-cols-4">
+          {STATS.map((s, i) => (
+            <Reveal key={s.label} delay={i * 0.1}>
+              <div className="text-[clamp(40px,4vw,72px)] font-medium leading-none tracking-[-0.05em]">
+                <Counter to={s.to} suffix={s.suffix} />
+                {s.note && <span className="text-[0.4em] text-grey">{s.note}</span>}
+              </div>
+              <p className="mt-2.5 text-[14.5px] text-grey">{s.label}</p>
             </Reveal>
           ))}
         </div>

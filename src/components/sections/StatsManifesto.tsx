@@ -1,30 +1,10 @@
 import { Reveal } from "@/components/ui/Reveal";
-import { Counter } from "@/components/ui/Counter";
-
-const STATS = [
-  { to: 5, suffix: "", label: "Average Review Rating", note: "/5" },
-  { to: 40, suffix: "+", label: "Successful projects launched" },
-  { to: 100, suffix: "%", label: "Client satisfaction rate" },
-  { to: 10, suffix: "k+", label: "Monthly visitors driven through SEO" },
-];
 
 export function StatsManifesto() {
   return (
-    <section className="grain mx-2 mt-2 rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white">
-      <div className="relative z-[2] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 border-t border-line-dark pt-10 sm:pt-16 lg:grid-cols-4">
-          {STATS.map((s, i) => (
-            <Reveal key={s.label} delay={i * 0.1}>
-              <div className="text-[clamp(48px,5vw,92px)] font-medium leading-none tracking-[-0.05em]">
-                <Counter to={s.to} suffix={s.suffix} />
-                {s.note && <span className="text-white/50 text-[0.4em]">{s.note}</span>}
-              </div>
-              <p className="mt-2.5 text-[14.5px] text-white/60">{s.label}</p>
-            </Reveal>
-          ))}
-        </div>
-
-        <div className="mt-16 max-w-[1080px] sm:mt-24 lg:mt-32">
+    <section className="mx-2 mt-2 rounded-3xl bg-paper text-ink">
+      <div className="px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
+        <div className="max-w-[1080px]">
           <Reveal>
             <p className="mb-5 font-semibold">Rankify®</p>
           </Reveal>
