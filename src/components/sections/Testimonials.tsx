@@ -45,7 +45,7 @@ const TESTIMONIALS = [
 export function Testimonials() {
   return (
     <section className="mx-2 mt-2 rounded-3xl bg-paper text-ink">
-      <div className="px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
+      <div className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
         <div className="mb-10 grid gap-6 sm:mb-16 lg:mb-24">
           <Reveal>
             <span className="inline-flex items-center gap-2 text-[15px] font-medium">

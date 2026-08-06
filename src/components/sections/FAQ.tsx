@@ -36,7 +36,7 @@ export function FAQ() {
 
   return (
     <section className="mx-2 mt-2 rounded-3xl bg-paper text-ink">
-      <div className="px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
+      <div className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
         <div className="mx-auto max-w-[880px]">
           <div className="mb-9 text-center sm:mb-16">
             <Reveal>

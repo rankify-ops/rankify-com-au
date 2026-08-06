@@ -20,7 +20,7 @@ function FeatureBadgeIcon() {
 export function Pricing() {
   return (
     <section className="grain mx-2 mt-2 rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white">
-      <div className="relative z-[2] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
+      <div className="relative z-[2] mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
         <div className="mb-8 sm:mb-12">
           <Reveal>
             <span className="inline-flex items-center gap-2 text-[15px] font-medium">

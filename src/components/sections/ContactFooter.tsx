@@ -23,7 +23,7 @@ export function ContactFooter() {
 
   return (
     <section className="grain mx-2 my-2 rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white">
-      <div className="relative z-[2] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
+      <div className="relative z-[2] mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
         <div className="grid gap-14 lg:grid-cols-[1.1fr_1fr] lg:gap-24">
           <Reveal className="rounded-[18px] bg-white p-7 text-ink sm:p-9">
             <p className="mb-2 text-[20px] font-semibold tracking-[-0.04em]">Rankify® </p>
