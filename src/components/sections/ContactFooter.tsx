@@ -16,18 +16,12 @@ function ExternalArrow() {
   );
 }
 
-export function ContactFooter() {
+export function ContactPrompt() {
   const [sent, setSent] = useState(false);
-  const [subscribed, setSubscribed] = useState(false);
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();
     setSent(true);
-  }
-
-  function onSubscribe(e: FormEvent) {
-    e.preventDefault();
-    setSubscribed(true);
   }
 
   return (
@@ -139,9 +133,21 @@ export function ContactFooter() {
           </div>
         </div>
       </section>
+    </>
+  );
+}
 
-      <section className="mx-2 mt-2 rounded-3xl bg-paper text-ink">
-        <footer className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24">
+export function SiteFooter() {
+  const [subscribed, setSubscribed] = useState(false);
+
+  function onSubscribe(e: FormEvent) {
+    e.preventDefault();
+    setSubscribed(true);
+  }
+
+  return (
+    <section className="mx-2 mt-2 rounded-3xl bg-paper text-ink">
+      <footer className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24">
           <div className="grid gap-10 pb-10 sm:pb-16 lg:grid-cols-2 lg:gap-20">
             <Reveal>
               <p className="max-w-[420px] text-[clamp(18px,1.6vw,24px)] font-medium leading-snug tracking-[-0.02em] text-grey">
@@ -285,6 +291,14 @@ export function ContactFooter() {
           </div>
         </div>
       </section>
+  );
+}
+
+export function ContactFooter() {
+  return (
+    <>
+      <ContactPrompt />
+      <SiteFooter />
     </>
   );
 }

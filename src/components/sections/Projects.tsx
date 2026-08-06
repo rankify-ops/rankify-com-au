@@ -1,24 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
-import { asset } from "@/lib/basePath";
-
-const PROJECTS = [
-  {
-    href: "/projects/myoko-embodied",
-    name: "Myoko Embodied",
-    photo: "/assets/images/WRjXIBfZxMI8DrDHJoRoBdiFgds.webp",
-    logo: "/assets/images/lRNcR8O5y55ArWKxP92bLXu9k.png",
-    tags: ["Web Design", "SEO", "/", "2026"],
-  },
-  {
-    href: "/projects/hawker-studio",
-    name: "Hawker Studios",
-    photo: "/assets/images/RDhRQ4WWoWivfy4MLnSL2MKu2qA.webp",
-    logo: "/assets/images/nqynozke2KURfAvDnstCnT89oE.png",
-    tags: ["Web Design", "SEO", "/", "2026"],
-  },
-];
+import { ProjectCard } from "@/components/ui/ProjectCard";
+import { PROJECTS } from "@/content/projects";
 
 export function Projects() {
   return (
@@ -45,31 +27,7 @@ export function Projects() {
         <div className="grid gap-6 sm:grid-cols-2">
           {PROJECTS.map((p, i) => (
             <Reveal key={p.href} delay={i * 0.15}>
-              <Link href={p.href} className="group block">
-                <div className="relative aspect-[4/3.4] overflow-hidden rounded-2xl bg-[#e9e9e9]">
-                  <Image
-                    src={asset(p.photo)}
-                    alt={`${p.name} website`}
-                    fill
-                    className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
-                  />
-                  <Image
-                    src={asset(p.logo)}
-                    alt=""
-                    width={220}
-                    height={220}
-                    className="absolute inset-0 z-[2] m-auto w-[clamp(120px,14vw,220px)] h-auto drop-shadow-[0_6px_24px_rgba(0,0,0,0.25)]"
-                  />
-                </div>
-                <div className="flex items-baseline gap-3.5 pt-4 text-sm text-grey">
-                  <strong className="mr-auto text-[clamp(20px,1.6vw,28px)] font-semibold tracking-[-0.03em] text-ink">
-                    {p.name}
-                  </strong>
-                  {p.tags.map((t, ti) => (
-                    <span key={ti}>{t}</span>
-                  ))}
-                </div>
-              </Link>
+              <ProjectCard project={p} />
             </Reveal>
           ))}
         </div>

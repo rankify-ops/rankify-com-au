@@ -1,7 +1,25 @@
 # rankify.com.au rebuild — bugfix log
 
-Purpose: stop repeating the same category of mistake across the remaining 19 pages.
+Purpose: stop repeating the same category of mistake across the site's pages.
 Read this before building any new page. Add an entry every time a real bug is confirmed and fixed.
+
+## All 19 inner pages built (service pages, blog, projects, contact/schedule, legal)
+
+Built via 4 parallel agents against real scraped content from the live site, then reviewed
+and integration-tested together. One real cross-cutting finding from that review:
+
+- **`ContactFooter` was one component rendering two sections (dark contact-form prompt +
+  paper footer), always together.** Three independent agents each found, on their own,
+  that the real site does NOT show the dark contact-form section on `/contact`,
+  `/schedule-strategy-call`, or `/projects` — only the paper footer. Those pages already
+  have their own form (or don't need one), so the dark prompt is redundant there. Split
+  `ContactFooter.tsx` into `ContactPrompt` (dark section) + `SiteFooter` (paper section),
+  kept `ContactFooter` as a wrapper composing both for pages that use the full thing
+  (homepage, blog posts, project case studies, legal pages, service pages, 404). Pages
+  that only need the footer import `SiteFooter` directly.
+  **Lesson: when multiple independent builders flag the same "the shared component doesn't
+  quite fit here" pattern, that's signal, not noise — go split the component instead of
+  letting each page silently duplicate or misuse it.**
 
 ## Recurring failure patterns (check these FIRST on every new section/page)
 
