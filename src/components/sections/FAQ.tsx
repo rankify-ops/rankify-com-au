@@ -32,26 +32,27 @@ const FAQS = [
 ];
 
 export function FAQ() {
-  const [open, setOpen] = useState<number | null>(null);
+  const [open, setOpen] = useState<number | null>(0);
 
   return (
     <section className="mx-2 mt-2 rounded-3xl bg-paper text-ink">
       <div className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
-        <div className="mx-auto max-w-[880px]">
-          <div className="mb-9 text-center sm:mb-16">
+        <div className="grid gap-10 lg:grid-cols-[minmax(220px,1fr)_2.2fr] lg:gap-16">
+          <div>
             <Reveal>
               <h2 className="text-[clamp(40px,3.55vw,68px)] font-medium leading-[0.92] tracking-[-0.06em]">
                 FAQ.
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
-              <p className="mx-auto mt-4 max-w-[480px] text-grey">
+              <p className="mt-4 max-w-[300px] text-grey">
                 Got questions? We&rsquo;ve got answers. Here&rsquo;s everything you need to know about
                 working with us.
               </p>
             </Reveal>
           </div>
 
+          <div>
           {FAQS.map((f, i) => {
             const isOpen = open === i;
             return (
@@ -87,6 +88,7 @@ export function FAQ() {
               </Reveal>
             );
           })}
+          </div>
         </div>
       </div>
     </section>

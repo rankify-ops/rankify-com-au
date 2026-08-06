@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
+import { Stars } from "@/components/ui/Stars";
 import { PlusIcon } from "@/components/ui/PlusIcon";
 import { Counter } from "@/components/ui/Counter";
 import { Button } from "@/components/ui/Button";
@@ -65,14 +66,17 @@ export function Testimonials() {
           </Reveal>
         </div>
 
-        <div className="mb-10 grid gap-8 lg:mb-16 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div className="mb-10 flex flex-col gap-8 lg:mb-16 lg:flex-row lg:items-end lg:justify-between">
           <Reveal>
-            <div className="text-[clamp(56px,6vw,104px)] font-medium leading-none tracking-[-0.05em]">
-              <Counter to={5} />
-              <small className="text-[0.4em] text-grey">/5</small>
+            <div className="flex items-baseline gap-4">
+              <div className="text-[clamp(56px,6vw,104px)] font-medium leading-none tracking-[-0.05em]">
+                <Counter to={5} />
+                <small className="text-[0.4em] text-grey">/5</small>
+              </div>
+              <Stars className="h-5 w-5" />
             </div>
           </Reveal>
-          <Reveal delay={0.1} className="flex items-center gap-4">
+          <Reveal delay={0.1} className="flex flex-wrap items-center gap-4">
             <div className="flex">
               {AVATARS.map((a, i) => (
                 <Image
@@ -81,15 +85,15 @@ export function Testimonials() {
                   alt=""
                   width={48}
                   height={48}
-                  className="-ml-3 h-12 w-12 rounded-full border-2 border-paper object-cover first:ml-0"
+                  className="-ml-3 h-12 w-12 flex-none rounded-full border-2 border-paper object-cover first:ml-0"
                   style={{ zIndex: AVATARS.length - i }}
                 />
               ))}
             </div>
-            <p className="text-[14.5px] text-grey">
+            <p className="max-w-[220px] text-[14.5px] text-grey sm:max-w-none">
               <strong className="text-ink">40+</strong> Trusted by clients Australia wide
             </p>
-            <Button href="https://g.page/r/CaTZLZ8xYIa5EAI/review" external>
+            <Button href="https://g.page/r/CaTZLZ8xYIa5EAI/review" external className="flex-none whitespace-nowrap">
               Leave a review
             </Button>
           </Reveal>
@@ -106,6 +110,7 @@ export function Testimonials() {
                     <span className="text-[13.5px] text-grey">{t.role}</span>
                   </div>
                 </div>
+                <Stars />
                 <blockquote className="text-[16.5px] font-medium leading-snug tracking-[-0.01em]">
                   {t.quote}
                 </blockquote>
