@@ -40,7 +40,7 @@ export function ProcessIcon({ name, className = "h-7 w-7" }: { name: keyof typeo
     <span
       ref={ref}
       data-inview={inView}
-      className={`block ${className}`}
+      className={`process-icon block ${className}`}
       dangerouslySetInnerHTML={{ __html: ICONS[name] }}
     />
   );
