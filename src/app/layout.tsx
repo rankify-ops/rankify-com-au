@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-AU" className={`${inter.variable}`}>
+    <html lang="en-AU" className={inter.variable}>
       <body>{children}</body>
     </html>
   );
