@@ -3,18 +3,27 @@
 Purpose: stop repeating the same category of mistake across the site's pages.
 Read this before building any new page. Add an entry every time a real bug is confirmed and fixed.
 
-## Recurring: `npm ci` fails in CI after any `npm install` done on Windows (2nd time this has happened)
+## SOLVED (was recurring 3x): `npm ci` failing in CI — root cause was cross-platform, fix is in the workflow now
 
-Windows-generated `package-lock.json` ends up with different/invalid optional
-platform-dependency entries than what `npm ci` on the Linux GitHub Actions runner
-accepts, even right after a fresh `npm install` on this machine. Deploy then silently
-**fails at the build step** — the GitHub Pages site just keeps serving the last good
-build with no obvious error on the surface (check `gh run view <id> --log` if a page
-that should exist 404s after a deploy "succeeded" in your local build).
-**Standing rule: after ANY `npm install`/dependency change on this project, before
-pushing, run `rm -rf node_modules && npm ci` locally and confirm it succeeds — don't
-just trust `npm run build` succeeding, that uses the already-installed node_modules
-and won't catch this.**
+Every time this project's `package-lock.json` got regenerated on this Windows machine
+(happened 3 times), `npm ci` failed on the Linux GitHub Actions runner with
+"Missing: @emnapi/runtime@x.x.x" / "@emnapi/core@x.x.x" errors. Deploy then silently
+**fails at the build step** — GitHub Pages just keeps serving the last good build with
+no obvious error on the surface (a page that 404s after a deploy "succeeded" locally is
+the tell — check `gh run view <id> --log`).
+Root cause: `lightningcss` (a Tailwind v4 dependency) ships per-platform optional native
+binaries, each pulling different `@emnapi/*` WASM-shim versions. A lockfile written by
+`npm install` on Windows locks in the Windows-resolved versions, which are NOT what
+Linux needs — this can't be fixed by re-running `npm install`/`npm ci` locally no matter
+how many times, because local verification happens on the same Windows platform that
+caused the drift in the first place (confirmed: regenerated the lockfile, verified
+`npm ci` passed *locally*, pushed, CI failed again with the same error).
+**Actual fix: changed `.github/workflows/deploy.yml` to run `npm install` instead of
+`npm ci`.** `npm install` re-resolves optional deps correctly per-platform at CI time
+regardless of what lockfile state got committed from Windows — trades a bit of the
+hermetic-install guarantee `ci` gives for actually working. Don't revert this back to
+`npm ci` without solving the cross-platform lockfile problem first (e.g. generating the
+lockfile inside a Linux container/WSL instead of native Windows).
 
 ## All 19 inner pages built (service pages, blog, projects, contact/schedule, legal)
 
