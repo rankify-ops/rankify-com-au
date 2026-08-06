@@ -1,6 +1,30 @@
 # rankify.com.au rebuild — bugfix log
 
 Purpose: stop repeating the same category of mistake across the site's pages.
+
+## Service pages shipped without their dot-progress + index number treatment
+
+Every numbered card grid on the real site (service pages, at least — confirmed on
+`/shopify-development-services`) shows a row of small progress dots (one per item in
+that specific grid, filled up to the card's own index) plus the "01".."0N" index number,
+in the top row of EVERY card — not just process/step sections, ALSO plain feature-list
+grids. The service-page build only added this to the homepage's bespoke `Process.tsx`
+and never generalized it into the shared `CardGridSection.tsx` used by all 4 service
+pages, so every single card on every service page was missing it. Fixed in
+`CardGridSection.tsx` — now renders `CardProgressDots` (dot count = that block's own
+`items.length`, not a fixed number) + the idx label as the first row of every card that
+has an `idx`, and adds a circular numbered badge overlapping the bottom of the image for
+image-style (process) cards specifically.
+Also found: one service page (`shopify-development-services.ts`) had a "Testimonials"
+section built as a dead `cardgrid` stub with `items: []` and a giant subheading crammed
+with a quote — never actually rendered like a real testimonials section. Added a
+`"testimonials"` block type to the service-page schema that renders the same shared
+`<Testimonials />` component the homepage uses, instead of re-inventing it per page.
+**Lesson: when a "shared" component is introduced late (after a pattern already exists
+elsewhere, like the homepage's Process cards), audit it against the *specific* real
+pages it will render, not just the generic shape of the data — a generic card grid can
+compile and look plausible while silently missing a treatment that's actually universal
+across the real site.**
 Read this before building any new page. Add an entry every time a real bug is confirmed and fixed.
 
 ## SOLVED (was recurring 3x): `npm ci` failing in CI — root cause was cross-platform, fix is in the workflow now

@@ -6,6 +6,7 @@ import { MarqueeSection } from "@/components/service-page/MarqueeSection";
 import { PortfolioSection } from "@/components/service-page/PortfolioSection";
 import { PricingBlockSection } from "@/components/service-page/PricingBlockSection";
 import { ServiceFaq } from "@/components/service-page/ServiceFaq";
+import { Testimonials } from "@/components/sections/Testimonials";
 import type { ServicePageData } from "@/content/service-pages/types";
 
 export function ServicePageTemplate({ data }: { data: ServicePageData }) {
@@ -27,6 +28,8 @@ export function ServicePageTemplate({ data }: { data: ServicePageData }) {
             const idx = pricingIndex++;
             return <PricingBlockSection key={i} block={block} index={idx} />;
           }
+          case "testimonials":
+            return <Testimonials key={i} />;
           default:
             return null;
         }

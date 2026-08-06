@@ -11,6 +11,21 @@ const COL_CLASS: Record<number, string> = {
   4: "sm:grid-cols-2 lg:grid-cols-4",
 };
 
+function CardProgressDots({ total, active, dark }: { total: number; active: number; dark: boolean }) {
+  return (
+    <div className="flex items-center gap-1">
+      {Array.from({ length: total }).map((_, i) => (
+        <span
+          key={i}
+          className={`h-1.5 w-1.5 rounded-full ${
+            i < active ? (dark ? "bg-white" : "bg-ink") : dark ? "bg-white/20" : "bg-[#e9e9e9]"
+          }`}
+        />
+      ))}
+    </div>
+  );
+}
+
 export function CardGridSection({ block }: { block: CardGridBlock }) {
   const dark = block.theme === "dark";
   const cols = block.columns ?? (block.items.length >= 4 ? 4 : block.items.length === 3 ? 3 : 2);
@@ -73,32 +88,37 @@ export function CardGridSection({ block }: { block: CardGridBlock }) {
                   dark ? "border-white/12 bg-white/[0.04]" : "border-line bg-white"
                 }`}
               >
-                {item.image ? (
-                  <div className={`-mx-6 -mt-6 aspect-[16/10] overflow-hidden ${dark ? "bg-white/5" : "bg-[#eee]"}`}>
-                    <Image src={asset(item.image)} alt="" width={528} height={330} className="h-full w-full object-cover" />
-                  </div>
-                ) : (
+                {item.idx && (
                   <div className="flex items-center justify-between">
-                    <span
-                      className={`flex h-11 w-11 items-center justify-center rounded-[10px] border ${
-                        dark ? "border-white/15" : "border-line"
-                      }`}
-                    >
-                      <PlusIcon dark={!dark} className="h-5 w-5" />
+                    <CardProgressDots total={block.items.length} active={i + 1} dark={dark} />
+                    <span className={`text-[10px] font-semibold tracking-[-0.06em] ${dark ? "text-white/50" : "text-grey"}`}>
+                      {item.idx}
                     </span>
+                  </div>
+                )}
+                {item.image ? (
+                  <div className={`relative -mx-6 mb-2 aspect-[16/10] overflow-hidden ${dark ? "bg-white/5" : "bg-[#eee]"}`}>
+                    <Image src={asset(item.image)} alt="" width={528} height={330} className="h-full w-full object-cover" />
                     {item.idx && (
-                      <span className={`text-[10px] font-semibold tracking-[-0.06em] ${dark ? "text-white/50" : "text-grey"}`}>
-                        {item.idx}
+                      <span
+                        className={`absolute bottom-0 left-1/2 flex h-9 w-9 -translate-x-1/2 translate-y-1/2 items-center justify-center rounded-full text-[15px] font-semibold text-white ${
+                          dark ? "bg-white/20 ring-4 ring-white/5" : "bg-[color:var(--green-deep)] ring-4 ring-white"
+                        }`}
+                      >
+                        {Number(item.idx)}
                       </span>
                     )}
                   </div>
+                ) : (
+                  <span
+                    className={`flex h-11 w-11 items-center justify-center rounded-[10px] border ${
+                      dark ? "border-white/15" : "border-line"
+                    }`}
+                  >
+                    <PlusIcon dark={!dark} className="h-5 w-5" />
+                  </span>
                 )}
                 <div>
-                  {item.image && item.idx && (
-                    <span className={`mb-2 block text-[10px] font-semibold tracking-[-0.06em] ${dark ? "text-white/50" : "text-grey"}`}>
-                      {item.idx}
-                    </span>
-                  )}
                   <h4 className="mb-2 text-[18px] font-semibold tracking-[-0.02em]">{item.title}</h4>
                   {Array.isArray(item.desc) ? (
                     <ul className="grid gap-1.5">

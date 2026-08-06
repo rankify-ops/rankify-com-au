@@ -30,15 +30,7 @@ export const shopifyDevelopmentServices: ServicePageData = {
   },
   blocks: [
     { type: "marquee", logos: CLIENT_LOGOS },
-    {
-      type: "cardgrid",
-      theme: "paper",
-      kicker: "Testimonials",
-      heading: "Let us take care of your custom Shopify development needs.",
-      subheading:
-        "What our Shopify clients say: “Great experience working with Thomas. He instantly understood what I was after, even with some custom Shopify tweaks, and executed everything with precision and speed. Professional, responsive, and super skilled — I couldn't be happier with the result. I'll keep working with him in future projects, highly recommend.” — Marlen Wolff, Founder of Wolff Studios.",
-      items: [],
-    },
+    { type: "testimonials" },
     {
       type: "cardgrid",
       theme: "paper",

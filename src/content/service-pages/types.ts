@@ -61,7 +61,9 @@ export type PricingBlock = {
   lookingForMoreCta?: { label: string; href: string };
 };
 
-export type Block = CardGridBlock | MarqueeBlock | PortfolioBlock | PricingBlock;
+export type TestimonialsBlock = { type: "testimonials" };
+
+export type Block = CardGridBlock | MarqueeBlock | PortfolioBlock | PricingBlock | TestimonialsBlock;
 
 export type FaqItem = { q: string; a: string };
 
