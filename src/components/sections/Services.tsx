@@ -39,7 +39,7 @@ export function Services() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="grain mx-2 mt-2 rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white">
+    <section className="grain mx-2 mt-12 sm:mt-24 lg:mt-48 rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white">
       <div className="relative z-[2] mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
         <div className="mb-10 flex flex-wrap items-center justify-between gap-4 sm:mb-16 lg:mb-24">
           <Reveal>

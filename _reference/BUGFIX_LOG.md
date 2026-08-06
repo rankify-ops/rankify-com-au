@@ -8,6 +8,16 @@ Read this before building any new page. Add an entry every time a real bug is co
 1. **Never assumed a section's theme (dark green vs paper) — always confirmed from real evidence.**
    Got StatsManifesto, Contact form, and Footer theme wrong by guessing. Sections do not
    all alternate dark/paper in a neat pattern — check every single one.
+2. **Section-to-section vertical gap: every homepage section used `mt-2` (8px) between them —
+   invented, never measured. Real site is `mt-12 sm:mt-24 lg:mt-48` (~50px mobile / ~190px
+   desktop) between every major section, confirmed by measuring `getBoundingClientRect()`
+   deltas between consecutive full-width rounded sections on the live site at both 1920px
+   and 375px. This was wrong on every single section of the homepage, not just one — this
+   is why Tom's "no spacing" complaint applied broadly. Exception: the dark-green contact
+   section and the paper footer directly beneath it touch with ~0px gap on the real site —
+   don't blindly apply the big gap to every section boundary, verify each one.
+   **New pages must use `mt-12 sm:mt-24 lg:mt-48` between top-level sections by default,
+   not the old `mt-2`.**
 2. **Never trusted "it renders in my headless tool" as proof of correctness.**
    Screenshot tools (Firecrawl single-shot, the interactive pane when backgrounded) don't
    run scroll-linked reveal animations — content shows as ghosted/invisible even when the
