@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - run: npm ci
+      - run: npm install
       - run: npm run build
         env:
           # Remove this once rankify.com.au DNS is cut over to point here —
