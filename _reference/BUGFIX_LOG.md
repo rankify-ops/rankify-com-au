@@ -67,39 +67,21 @@ Read this before building any new page. Add an entry every time a real bug is co
   enough. **The real icons are Lottie animations that Framer renders client-side into
   inline SVG — they do NOT exist as static files anywhere (confirmed 3x: raw HTML grep,
   DOM inspection, live network request inspection all show nothing until JS hydrates).**
-  Fix: instead of hand-drawing shapes from a screenshot, pulled the real `<svg>` that
-  Framer's Lottie renderer produces directly out of the live DOM (`document.querySelector`
-  on the actual card element after JS hydration, not the raw curl'd HTML), rasterized it
-  to a transparent PNG via an in-page `<canvas>` + `toDataURL`, and used that PNG as a real
-  static asset. This is pixel-exact to the real icon since it's rendered from the actual
-  source data, not a guess. Also revealed the "Measureable Results" icon is a tape-measure/
-  ruler shape, not a magnifying glass as originally assumed from the screenshot alone.
+  First pass: pulled the real `<svg>` out of the live DOM post-hydration and rasterized it
+  to a static PNG — pixel-accurate but flat, and Tom correctly called out that the real
+  icons **animate** (a one-shot draw-on when the card enters view), so a flat image isn't
+  the fix. Second pass: pulled the same live DOM `<svg>` but kept it as real `<path>`
+  elements (stripped only the Lottie-internal `<mask>`/`<defs>`/`<filter>` wipe-reveal
+  machinery, which isn't needed once you're driving the reveal yourself), tagged each
+  path `pathLength="1"` + a `.icon-draw` class, and drive `stroke-dashoffset: 1 → 0` via
+  CSS when the same per-card IntersectionObserver used by `Reveal.tsx` flips a
+  `data-inview` attribute — see `ui/ProcessIcon.tsx`. One path in the "Custom Solutions"
+  icon is a solid fill (not an outline), found by comparing the raster capture against the
+  DOM's stroke-only paths — that one gets `.icon-pop` (fade + scale) instead of a stroke
+  draw. Also revealed the "Measureable Results" icon is a tape-measure/ruler shape, not a
+  magnifying glass as originally assumed from a screenshot alone.
   **Lesson: for any icon/graphic that's animation-driven (Lottie, After Effects exports,
-  etc.), don't hand-redraw from a screenshot — capture the real rendered SVG from the live
-  DOM after hydration and rasterize it. Raw `curl` HTML will NOT show it (client-rendered),
-  and screenshots alone are not enough to get exact geometry right.**
-
-## Known issue being fixed right now (footer)
-
-Real site, confirmed from fresh screenshots (not yet re-verified after fix):
-- The contact-form / "Let's talk" content sits inside the normal max-w-[1400px] constraint
-  like every other section — reverting last commit's "make footer full-bleed" change, that
-  was wrong, the ORIGINAL max-width was correct.
-- Small "© 2025 Rankify® Studio" text appears bottom-left of the dark green section, below
-  the white form card — currently missing entirely.
-- The footer block below that (newsletter/nav/social/wordmark) is on a LIGHT/PAPER
-  background with BLACK text and a BLACK logo — not dark green with white text/logo like
-  currently built.
-- Footer newsletter column has a testimonial-style quote — "Whether you're looking to
-  build a stunning website, boost your brand, or drive measurable results, we're here to
-  help." — plus a Thomas Flood avatar/name/title block. Currently missing entirely.
-- Newsletter form has TWO fields — "Your first name *" and "Email *" — not just one email
-  field.
-- Social links ("Instagram", "LinkedIn") have an external-link arrow icon — currently plain
-  text.
-- There are unexplained small "+" icon rows near the newsletter section in the real
-  screenshot — content/purpose not yet confirmed. Left alone for now rather than guessing
-  wrong; flag to Tom if it's still missing after everything else is fixed.
-- The very bottom legal bar (copyright/Privacy Policy/Terms) is its OWN black strip with
-  white text, not blended into the paper footer section above it. Also has a "Created by
-  [logo] Rankify" attribution — currently missing.
+  etc.), don't hand-redraw from a screenshot and don't stop at a static raster — capture
+  the real rendered `<path>` geometry from the live DOM after hydration and re-drive the
+  reveal yourself with plain CSS/JS. Raw `curl` HTML will NOT show any of this (it's
+  client-rendered), and a flat screenshot loses the motion even when the shape is right.**
