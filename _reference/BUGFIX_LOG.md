@@ -18,6 +18,13 @@ Read this before building any new page. Add an entry every time a real bug is co
    don't blindly apply the big gap to every section boundary, verify each one.
    **New pages must use `mt-12 sm:mt-24 lg:mt-48` between top-level sections by default,
    not the old `mt-2`.**
+3. **Third-party visual components that measure their own DOM size or read
+   `prefers-color-scheme` (e.g. react-bits' `GlassSurface`, used on `/not-found`) will
+   always throw a benign hydration-mismatch console warning even wrapped in
+   `next/dynamic(..., { ssr: false })`, because static export still prerenders the
+   fallback. This is cosmetic only — the component self-corrects after mount, no visible
+   break, no functional impact. Don't burn time chasing it away; just confirm the page
+   content/layout is correct via `get_page_text` + a manual look, not a clean console.
 2. **Never trusted "it renders in my headless tool" as proof of correctness.**
    Screenshot tools (Firecrawl single-shot, the interactive pane when backgrounded) don't
    run scroll-linked reveal animations — content shows as ghosted/invisible even when the
