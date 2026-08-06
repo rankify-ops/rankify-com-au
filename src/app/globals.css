@@ -27,7 +27,7 @@ html {
 }
 
 body {
-  background: var(--body-dark);
+  background: var(--paper);
   color: var(--ink);
   font-family: var(--font-inter), "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
