@@ -25,18 +25,14 @@ export function ContactFooter() {
     <section className="grain mx-2 my-2 rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white">
       <div className="relative z-[2] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
         <div className="grid gap-14 lg:grid-cols-[1.1fr_1fr] lg:gap-24">
-          <div>
-            <Reveal>
-              <p className="mb-2 font-semibold">Rankify®</p>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <h2 className="mb-7 text-[clamp(24px,2vw,34px)] font-semibold tracking-[-0.03em]">
-                Have a project in mind?
-              </h2>
-            </Reveal>
+          <Reveal className="rounded-[18px] bg-white p-7 text-ink sm:p-9">
+            <p className="mb-2 text-[20px] font-semibold tracking-[-0.04em]">Rankify® </p>
+            <h2 className="mb-7 text-[clamp(24px,2vw,34px)] font-semibold tracking-[-0.03em]">
+              Have a project <span className="text-black/60">in mind?</span>
+            </h2>
             <form onSubmit={onSubmit} className="space-y-4">
               <div>
-                <label htmlFor="cf-name" className="mb-2 block text-[13.5px] text-white/60">
+                <label htmlFor="cf-name" className="mb-2 block text-[13.5px] font-medium">
                   Your name*
                 </label>
                 <input
@@ -45,11 +41,12 @@ export function ContactFooter() {
                   type="text"
                   required
                   autoComplete="name"
-                  className="w-full rounded-[10px] border border-white/15 bg-white/5 px-4 py-3.5 text-[15.5px] outline-none transition-colors focus:border-white/50"
+                  placeholder="John Doe"
+                  className="w-full rounded-[10px] bg-paper px-4 py-3.5 text-[15.5px] text-ink outline-none placeholder:text-grey"
                 />
               </div>
               <div>
-                <label htmlFor="cf-email" className="mb-2 block text-[13.5px] text-white/60">
+                <label htmlFor="cf-email" className="mb-2 block text-[13.5px] font-medium">
                   E-mail*
                 </label>
                 <input
@@ -58,23 +55,28 @@ export function ContactFooter() {
                   type="email"
                   required
                   autoComplete="email"
-                  className="w-full rounded-[10px] border border-white/15 bg-white/5 px-4 py-3.5 text-[15.5px] outline-none transition-colors focus:border-white/50"
+                  placeholder="hello@site.com"
+                  className="w-full rounded-[10px] bg-paper px-4 py-3.5 text-[15.5px] text-ink outline-none placeholder:text-grey"
                 />
               </div>
               <div>
-                <label htmlFor="cf-message" className="mb-2 block text-[13.5px] text-white/60">
+                <label htmlFor="cf-message" className="mb-2 block text-[13.5px] font-medium">
                   Message
                 </label>
                 <textarea
                   id="cf-message"
                   name="message"
-                  className="min-h-[120px] w-full resize-y rounded-[10px] border border-white/15 bg-white/5 px-4 py-3.5 text-[15.5px] outline-none transition-colors focus:border-white/50"
+                  placeholder="Your message"
+                  className="min-h-[120px] w-full resize-y rounded-[10px] bg-paper px-4 py-3.5 text-[15.5px] text-ink outline-none placeholder:text-grey"
                 />
               </div>
-              <Button type="submit" variant="light">
+              <button
+                type="submit"
+                className="w-full rounded-full bg-ink py-3.5 text-[15px] font-semibold text-white transition-transform hover:scale-[1.02]"
+              >
                 {sent ? "Thanks — we'll be in touch!" : "Send Message"}
-              </Button>
-              <p className="mt-3.5 text-[12.5px] text-white/45">
+              </button>
+              <p className="mt-3.5 text-[12.5px] text-grey">
                 By submitting, you agree to our{" "}
                 <Link href="/legal/terms-of-service" className="underline">
                   Terms
@@ -86,7 +88,7 @@ export function ContactFooter() {
                 .
               </p>
             </form>
-          </div>
+          </Reveal>
           <div>
             <Reveal>
               <h2 className="mb-5 text-[clamp(44px,4.5vw,80px)] font-medium leading-none tracking-[-0.05em]">
