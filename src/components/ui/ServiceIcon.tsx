@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useInViewOnce } from "@/lib/useInViewOnce";
 import { SERVICE_ICONS } from "@/content/service-icons";
 
 /**
@@ -17,31 +17,7 @@ export function ServiceIcon({
   dark?: boolean;
 }) {
   const paths = SERVICE_ICONS[name];
-  const ref = useRef<HTMLSpanElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.95 && rect.bottom > 0) {
-      setInView(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const [ref, inView] = useInViewOnce<HTMLSpanElement>();
 
   if (!paths) return null;
 

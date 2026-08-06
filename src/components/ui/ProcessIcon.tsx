@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useInViewOnce } from "@/lib/useInViewOnce";
 
 const ICONS = {
   communication: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 430" width="430" height="430" preserveAspectRatio="xMidYMid slice"><g><g transform="matrix(1,0,0,1,0,0)" opacity="1" style="display: block;"><g transform="matrix(1,0,0,1,214.5,215.70001220703125)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="round" stroke-linejoin="round" fill-opacity="0" class="primary icon-draw" stroke="rgb(18,19,48)" stroke-opacity="1" stroke-width="12" d=" M-68.21099853515625,-100.12899780273438 C-68.21099853515625,-100.12899780273438 69.04900360107422,-100.12899780273438 69.04900360107422,-100.12899780273438 C115.67500305175781,-100.12899780273438 153.5,-62.30400085449219 153.5,-15.572999954223633 C153.5,-15.572999954223633 153.5,15.678000450134277 153.5,15.678000450134277 C153.5,62.30400085449219 115.67500305175781,100.12899780273438 69.04900360107422,100.12899780273438 C69.04900360107422,100.12899780273438 -153.5,100.12899780273438 -153.5,100.12899780273438 C-153.5,100.12899780273438 -153.5,-14.84000015258789 -153.5,-14.84000015258789 C-153.5,-61.9900016784668 -115.25599670410156,-100.12899780273438 -68.21099853515625,-100.12899780273438z" pathLength="1"></path></g></g><g transform="matrix(1,0,0,1,148.6610107421875,215.0150146484375)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="round" stroke-linejoin="round" fill-opacity="0" class="secondary icon-draw" stroke="rgb(7,168,137)" stroke-opacity="1" stroke-width="33" d=" M-0.035999998450279236,0.10999999940395355 C-0.035999998450279236,0.10999999940395355 -0.035999998450279236,0.36000001430511475 -0.035999998450279236,0.36000001430511475" pathLength="1"></path></g></g><g transform="matrix(1,0,0,1,216.59300231933594,214.65501403808594)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="round" stroke-linejoin="round" fill-opacity="0" class="secondary icon-draw" stroke="rgb(7,168,137)" stroke-opacity="1" stroke-width="33" d=" M-0.035999998450279236,0.10999999940395355 C-0.035999998450279236,0.10999999940395355 -0.035999998450279236,0.36000001430511475 -0.035999998450279236,0.36000001430511475" pathLength="1"></path></g></g><g transform="matrix(1,0,0,1,281.45098876953125,214.65501403808594)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="round" stroke-linejoin="round" fill-opacity="0" class="secondary icon-draw" stroke="rgb(7,168,137)" stroke-opacity="1" stroke-width="33" d=" M-0.035999998450279236,0.10999999940395355 C-0.035999998450279236,0.10999999940395355 -0.035999998450279236,0.36000001430511475 -0.035999998450279236,0.36000001430511475" pathLength="1"></path></g></g></g></g></svg>`,
@@ -10,31 +10,7 @@ const ICONS = {
 } as const;
 
 export function ProcessIcon({ name, className = "h-7 w-7" }: { name: keyof typeof ICONS; className?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.95 && rect.bottom > 0) {
-      setInView(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const [ref, inView] = useInViewOnce<HTMLSpanElement>();
 
   return (
     <span

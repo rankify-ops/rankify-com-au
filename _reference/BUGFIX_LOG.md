@@ -2,6 +2,27 @@
 
 Purpose: stop repeating the same category of mistake across the site's pages.
 
+## Scroll-triggered CSS transitions must not be flipped synchronously on mount
+
+Icons rendered but never visibly animated. Cause: the reveal components set
+`setInView(true)` synchronously inside `useEffect` when the element was already on
+screen at mount. React then commits the "shown" state before the browser has painted
+the "hidden" start state, so the CSS transition has no start value to interpolate from
+and the element just pops in. Fixed with a shared `useInViewOnce()` hook
+(`src/lib/useInViewOnce.ts`) that defers the flip by two `requestAnimationFrame`s —
+one frame paints the start state, the next flips to the end state. Used by
+`ServiceIcon`, `ProcessIcon` and `IconPop`.
+
+**Testing trap that cost real time here:** both the built-in Browser pane AND a
+background Chrome tab report `document.hidden === true`, and in that state
+`requestAnimationFrame` never fires, IntersectionObserver never fires, and CSS
+transitions never advance. So a perfectly working scroll animation looks completely
+dead. Verified by checking `document.hidden` / whether a rAF callback ever runs.
+**To actually test any scroll/transition behaviour, bring a real Chrome tab to the
+foreground first (take a screenshot via the Chrome MCP — that focuses the tab), then
+sample `getComputedStyle`.** Watching `stroke-dashoffset` go `1px → 0.917px` and then
+freeze the moment the tab backgrounded was the proof the animation was fine all along.
+
 ## Service pages shipped without their dot-progress + index number treatment
 
 Every numbered card grid on the real site (service pages, at least — confirmed on
