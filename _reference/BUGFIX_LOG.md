@@ -56,8 +56,28 @@ Read this before building any new page. Add an entry every time a real bug is co
   flex-col/flex-row responsive + flex-wrap + flex-none on avatars/button.
 - No star icons anywhere near ratings/reviews — added an SVG Stars component, used next to
   the big 5/5 number and on each testimonial card.
-- **IN PROGRESS:** Footer (below the contact form / "Let's talk" block) is wrong in
-  multiple ways — see next entry once fixed.
+- Footer (below the contact form / "Let's talk" block) rebuilt to match real site: form
+  card stays in the normal max-w-[1400px] constraint, small copyright line added below it,
+  the newsletter/nav/social/wordmark block is paper/light with black text and black logo
+  (not dark green), added the testimonial-style quote + Thomas Flood block, two-field
+  newsletter form, external-link arrows on social links, and a separate black legal bar
+  with "Created by [logo] Rankify" at the very bottom.
+- Process/"How we launch" card icons were hand-drawn approximations of the shape concepts
+  (chat bubble, puzzle, squares, magnifying glass) and did not match the real site closely
+  enough. **The real icons are Lottie animations that Framer renders client-side into
+  inline SVG — they do NOT exist as static files anywhere (confirmed 3x: raw HTML grep,
+  DOM inspection, live network request inspection all show nothing until JS hydrates).**
+  Fix: instead of hand-drawing shapes from a screenshot, pulled the real `<svg>` that
+  Framer's Lottie renderer produces directly out of the live DOM (`document.querySelector`
+  on the actual card element after JS hydration, not the raw curl'd HTML), rasterized it
+  to a transparent PNG via an in-page `<canvas>` + `toDataURL`, and used that PNG as a real
+  static asset. This is pixel-exact to the real icon since it's rendered from the actual
+  source data, not a guess. Also revealed the "Measureable Results" icon is a tape-measure/
+  ruler shape, not a magnifying glass as originally assumed from the screenshot alone.
+  **Lesson: for any icon/graphic that's animation-driven (Lottie, After Effects exports,
+  etc.), don't hand-redraw from a screenshot — capture the real rendered SVG from the live
+  DOM after hydration and rasterize it. Raw `curl` HTML will NOT show it (client-rendered),
+  and screenshots alone are not enough to get exact geometry right.**
 
 ## Known issue being fixed right now (footer)
 
