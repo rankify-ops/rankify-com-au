@@ -3,6 +3,7 @@ import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { PlusIcon } from "@/components/ui/PlusIcon";
+import { IconPop } from "@/components/ui/IconPop";
 import type { CardGridBlock } from "@/content/service-pages/types";
 
 const COL_CLASS: Record<number, string> = {
@@ -110,13 +111,15 @@ export function CardGridSection({ block }: { block: CardGridBlock }) {
                     )}
                   </div>
                 ) : (
-                  <span
-                    className={`flex h-11 w-11 items-center justify-center rounded-[10px] border ${
-                      dark ? "border-white/15" : "border-line"
-                    }`}
-                  >
-                    <PlusIcon dark={!dark} className="h-5 w-5" />
-                  </span>
+                  <IconPop>
+                    <span
+                      className={`flex h-11 w-11 items-center justify-center rounded-[10px] border ${
+                        dark ? "border-white/15" : "border-line"
+                      }`}
+                    >
+                      <PlusIcon dark={!dark} className="h-5 w-5" />
+                    </span>
+                  </IconPop>
                 )}
                 <div>
                   <h4 className="mb-2 text-[18px] font-semibold tracking-[-0.02em]">{item.title}</h4>
