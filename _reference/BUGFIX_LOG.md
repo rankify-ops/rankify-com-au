@@ -3,6 +3,19 @@
 Purpose: stop repeating the same category of mistake across the site's pages.
 Read this before building any new page. Add an entry every time a real bug is confirmed and fixed.
 
+## Recurring: `npm ci` fails in CI after any `npm install` done on Windows (2nd time this has happened)
+
+Windows-generated `package-lock.json` ends up with different/invalid optional
+platform-dependency entries than what `npm ci` on the Linux GitHub Actions runner
+accepts, even right after a fresh `npm install` on this machine. Deploy then silently
+**fails at the build step** — the GitHub Pages site just keeps serving the last good
+build with no obvious error on the surface (check `gh run view <id> --log` if a page
+that should exist 404s after a deploy "succeeded" in your local build).
+**Standing rule: after ANY `npm install`/dependency change on this project, before
+pushing, run `rm -rf node_modules && npm ci` locally and confirm it succeeds — don't
+just trust `npm run build` succeeding, that uses the already-installed node_modules
+and won't catch this.**
+
 ## All 19 inner pages built (service pages, blog, projects, contact/schedule, legal)
 
 Built via 4 parallel agents against real scraped content from the live site, then reviewed
