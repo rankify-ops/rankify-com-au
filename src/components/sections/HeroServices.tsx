@@ -47,9 +47,9 @@ export function HeroServices() {
             <button
               onClick={() => setOpenLabel(s.label)}
               aria-haspopup="dialog"
-              className="group inline-flex items-center gap-2 whitespace-nowrap text-[12.5px] font-medium text-white/80 transition-colors hover:text-white sm:text-[14px]"
+              className="group inline-flex items-center gap-2 whitespace-nowrap text-[12.5px] font-medium text-white/80 transition-colors hover:text-white sm:text-[14px] lg:gap-2.5 lg:text-[16px]"
             >
-              <span className="flex h-[26px] w-[26px] flex-none items-center justify-center rounded-[8px] border border-white/12 bg-white/[0.07] text-[color:#07a889] transition-all duration-300 group-hover:border-[color:#07a889]/40 group-hover:bg-[color:#07a889]/15 sm:h-7 sm:w-7 sm:rounded-[9px] [&_svg]:h-[14px] [&_svg]:w-[14px] sm:[&_svg]:h-[15px] sm:[&_svg]:w-[15px]">
+              <span className="flex h-[26px] w-[26px] flex-none items-center justify-center rounded-[8px] border border-white/12 bg-white/[0.07] text-[color:#07a889] transition-colors duration-300 group-hover:border-[color:#07a889]/40 group-hover:bg-[color:#07a889]/15 sm:h-7 sm:w-7 sm:rounded-[9px] lg:h-[34px] lg:w-[34px] lg:rounded-[10px] [&_svg]:h-[14px] [&_svg]:w-[14px] sm:[&_svg]:h-[15px] sm:[&_svg]:w-[15px] lg:[&_svg]:h-[18px] lg:[&_svg]:w-[18px]">
                 {s.icon}
               </span>
               {s.label}

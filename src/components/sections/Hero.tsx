@@ -28,17 +28,21 @@ export function Hero() {
       ))}
       <div className="relative z-[2] flex flex-col px-5 py-8 sm:px-10 lg:min-h-[calc(100svh-60px)]">
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
-          <Reveal>
+          {/* The corner holds a fixed width from lg up and the wordmark takes
+              whatever's left. Sizing the wordmark at 62vw instead left the
+              corner only 113px per column at 1024 — narrow enough that the
+              service tiles overflowed it by 46px. */}
+          <Reveal className="lg:min-w-0 lg:flex-1">
             <Image
               src={asset("/assets/images/n92JU5BqmoxMotdcH6fGsTpi7e4.svg")}
               alt="Rankify®"
               width={974}
               height={210}
               priority
-              className="h-auto w-full lg:w-[62vw] lg:max-w-[1180px]"
+              className="h-auto w-full lg:max-w-[1180px]"
             />
           </Reveal>
-          <Reveal delay={0.15}>
+          <Reveal delay={0.15} className="lg:w-[400px] lg:flex-none">
             {/* same type treatment as the big page headings (weight 500,
                 leading 0.92, tracking -0.05em), scaled to fit the corner */}
             <h1 className="max-w-[430px] text-[clamp(26px,2.65vw,38px)] font-medium leading-[0.92] tracking-[-0.05em]">
