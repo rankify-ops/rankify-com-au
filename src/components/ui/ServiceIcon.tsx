@@ -38,7 +38,8 @@ export function ServiceIcon({
             d={p.d}
             stroke={p.c === "s" ? "#07a889" : dark ? "#ffffff" : "var(--ink)"}
             strokeWidth={p.w}
-            style={{ transitionDelay: `${i * 55}ms` }}
+            // stagger each stroke so the loop reads as one continuous draw
+            style={{ animationDelay: `${i * 90}ms` }}
           />
         ))}
       </svg>

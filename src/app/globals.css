@@ -131,10 +131,41 @@ body {
   height: 100%;
 }
 
+/* Looping line-draw, matching how the source Lottie icons behave:
+   draw on, hold, draw off, repeat. dasharray/pathLength are both 1, so
+   offset 1 = hidden, 0 = fully drawn, -1 = hidden again (dash slid through). */
+@keyframes icon-draw-loop {
+  0% {
+    stroke-dashoffset: 1;
+  }
+  30% {
+    stroke-dashoffset: 0;
+  }
+  62% {
+    stroke-dashoffset: 0;
+  }
+  92%,
+  100% {
+    stroke-dashoffset: -1;
+  }
+}
+
+@keyframes icon-pop-loop {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  18%,
+  62% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .icon-draw {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  transition: stroke-dashoffset 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .icon-pop {
@@ -142,16 +173,25 @@ body {
   transform-origin: center;
   opacity: 0;
   transform: scale(0.4);
-  transition: opacity 0.4s ease 0.55s, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.55s;
 }
 
+/* only run while the icon is actually on screen */
 [data-inview="true"] .icon-draw {
-  stroke-dashoffset: 0;
+  animation: icon-draw-loop 4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 
 [data-inview="true"] .icon-pop {
-  opacity: 1;
-  transform: scale(1);
+  animation: icon-pop-loop 4s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-inview="true"] .icon-draw,
+  [data-inview="true"] .icon-pop {
+    animation: none;
+    stroke-dashoffset: 0;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .dark {

@@ -13,7 +13,7 @@ const LOGOS = [
 export function Marquee() {
   const doubled = [...LOGOS, ...LOGOS];
   return (
-    <section aria-label="Tools and platforms we work with" className="overflow-hidden border-y border-line bg-paper">
+    <section aria-label="Tools and platforms we work with" className="overflow-hidden border-y border-line bg-white">
       <div className="flex w-max animate-[marquee_36s_linear_infinite] hover:[animation-play-state:paused]">
         {doubled.map((logo, i) => (
           <div
