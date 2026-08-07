@@ -22,6 +22,13 @@ export function useInViewOnce<T extends HTMLElement>(): [RefObject<T | null>, bo
     let raf1 = 0;
     let raf2 = 0;
     const reveal = () => {
+      // A background tab never runs rAF, so the two-frame dance below would
+      // strand the reveal forever — and there's no paint to sequence against
+      // anyway. Flip straight away in that case.
+      if (document.hidden) {
+        setInView(true);
+        return;
+      }
       // two frames: one to paint the start state, one to flip to the end state
       raf1 = requestAnimationFrame(() => {
         raf2 = requestAnimationFrame(() => setInView(true));

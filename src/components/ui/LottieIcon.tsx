@@ -3,10 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import { asset } from "@/lib/basePath";
 import { useInViewOnce } from "@/lib/useInViewOnce";
-import { SERVICE_ICONS } from "@/content/service-icons";
+import { getServiceIcon, iconKey } from "@/content/service-icons";
 import LOTTIE_MAP from "@/content/lottie-map.json";
 
-const MAP = LOTTIE_MAP as Record<string, string>;
+// same loose matching as the static icons — the source site has at least one
+// heading with a missing space, which would otherwise drop the animation
+const MAP: Record<string, string> = Object.fromEntries(
+  Object.entries(LOTTIE_MAP as Record<string, string>).map(([k, v]) => [iconKey(k), v])
+);
 
 /**
  * Plays the real Lottie animation lifted from the live site.
@@ -25,8 +29,8 @@ export function LottieIcon({
   className?: string;
   dark?: boolean;
 }) {
-  const file = MAP[name];
-  const staticPaths = SERVICE_ICONS[name];
+  const file = MAP[iconKey(name)];
+  const staticPaths = getServiceIcon(name);
   const [wrapRef, inView] = useInViewOnce<HTMLSpanElement>();
   const holder = useRef<HTMLSpanElement>(null);
   const [playing, setPlaying] = useState(false);

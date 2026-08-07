@@ -10,6 +10,8 @@
  * c: "p" = primary (ink), "s" = secondary (teal #07a889)
  * w: stroke width, already scaled into the 0 0 430 430 viewBox
  */
+import LOTTIE_MAP from "./lottie-map.json";
+
 export type IconPath = { d: string; c: "p" | "s"; w: number };
 
 export const SERVICE_ICONS: Record<string, IconPath[]> = {
@@ -161,3 +163,30 @@ export const SERVICE_ICONS: Record<string, IconPath[]> = {
     { d: "M353.5,295.2C334.3,314.5 308.8,340 308.8,340C308.8,340 300.4,331.7 290.4,321.7", c: "s", w: 12 },
   ],
 };
+
+/**
+ * Titles are matched loosely: the source site occasionally renders a heading
+ * with a missing space (e.g. "Outstandingvalue for money"), which would
+ * otherwise silently fail an exact-key lookup and drop the icon.
+ */
+const normKey = (s: string) => s.toLowerCase().replace(/\s+/g, "");
+
+const BY_KEY: Record<string, IconPath[]> = Object.fromEntries(
+  Object.entries(SERVICE_ICONS).map(([k, v]) => [normKey(k), v])
+);
+
+export const getServiceIcon = (title: string): IconPath[] | undefined => BY_KEY[normKey(title)];
+
+export const iconKey = normKey;
+
+/**
+ * Whether a card title has any icon at all.
+ *
+ * Most pages only have the real Lottie (downloaded from the live site) with no
+ * hand-flattened static fallback, so gating on SERVICE_ICONS alone would drop
+ * their icons back to the generic plus badge.
+ */
+const LOTTIE_KEYS = new Set(Object.keys(LOTTIE_MAP as Record<string, string>).map(normKey));
+
+export const hasIcon = (title: string): boolean =>
+  normKey(title) in BY_KEY || LOTTIE_KEYS.has(normKey(title));

@@ -2,35 +2,16 @@ import Image from "next/image";
 import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { PlusIcon } from "@/components/ui/PlusIcon";
-import { ProcessIcon } from "@/components/ui/ProcessIcon";
+import { LottieIcon } from "@/components/ui/LottieIcon";
 
 const DOT_COUNT = 6;
 
+// Titles double as the Lottie lookup key — see src/content/lottie-map.json.
 const STEPS = [
-  {
-    idx: "01",
-    title: "Communication",
-    desc: "A team that communicates every step",
-    icon: "communication",
-  },
-  {
-    idx: "02",
-    title: "Custom Solutions",
-    desc: "Customised solutions for your unique needs",
-    icon: "custom",
-  },
-  {
-    idx: "03",
-    title: "Transparent Pricing",
-    desc: "Transparent pricing with no hidden fees",
-    icon: "pricing",
-  },
-  {
-    idx: "04",
-    title: "Measureable Results",
-    desc: "Proven track record with measurable results",
-    icon: "results",
-  },
+  { idx: "01", title: "Communication", desc: "A team that communicates every step" },
+  { idx: "02", title: "Custom Solutions", desc: "Customised solutions for your unique needs" },
+  { idx: "03", title: "Transparent Pricing", desc: "Transparent pricing with no hidden fees" },
+  { idx: "04", title: "Measureable Results", desc: "Proven track record with measurable results" },
 ] as const;
 
 function ProgressDots({ active }: { active: number }) {
@@ -78,17 +59,18 @@ export function Process() {
         <div className="mt-10 grid gap-4 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4">
           {STEPS.map((s, i) => (
             <Reveal key={s.idx} delay={i * 0.08}>
-              <div className="flex h-full flex-col justify-between gap-8 rounded-2xl border border-line bg-white p-6">
+              {/* Same card shape as the service pages: index row, heading,
+                  then the animated icon beside the copy — no border box
+                  around the icon, matching the live site. */}
+              <div className="flex h-full flex-col gap-[30px] rounded-2xl border border-line bg-white p-[30px]">
                 <div className="flex items-center justify-between">
                   <ProgressDots active={i + 1} />
                   <span className="text-[10px] font-semibold tracking-[-0.06em]">{s.idx}</span>
                 </div>
-                <div>
-                  <h4 className="mb-3 text-[19px] font-semibold tracking-[-0.02em]">{s.title}</h4>
-                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-[10px] border border-line bg-white">
-                    <ProcessIcon name={s.icon} className="h-7 w-7" />
-                  </div>
-                  <p className="text-[15px] text-grey">{s.desc}</p>
+                <h4 className="text-[19px] font-semibold tracking-[-0.02em]">{s.title}</h4>
+                <div className="flex gap-5">
+                  <LottieIcon name={s.title} className="h-[50px] w-[58px] flex-none" />
+                  <p className="min-w-0 flex-1 text-[15px] text-grey">{s.desc}</p>
                 </div>
               </div>
             </Reveal>

@@ -187,3 +187,59 @@ and integration-tested together. One real cross-cutting finding from that review
   the real rendered `<path>` geometry from the live DOM after hydration and re-drive the
   reveal yourself with plain CSS/JS. Raw `curl` HTML will NOT show any of this (it's
   client-rendered), and a flat screenshot loses the motion even when the shape is right.**
+
+## Real Lottie animations, sitewide (supersedes the hand-drawn ProcessIcon work above)
+
+- **The earlier "Lottie JSON is never served as a file" conclusion was wrong.** It *is*
+  served — the entries just don't show up when you filter `performance.getEntriesByType`
+  by `transferSize`, because a warm cache reports `0`. Listing every resource path with no
+  size filter immediately shows `framerusercontent.com/assets/<id>.json`, one per icon.
+  Cost of the wrong conclusion: two fallback pipelines (raster capture, then flattening
+  the rendered `<path>` matrices by hand) that were never needed. **Lesson: before
+  concluding an asset is unreachable, list resources unfiltered.**
+- Extraction is now a two-liner per page: walk each icon `<svg>`'s React fiber for a prop
+  matching `framerusercontent.com/assets/*.json`, which gives a `title -> asset id` map a
+  few hundred bytes in size. Node then downloads the real source files directly. These are
+  4–8x smaller than the fiber-dumped `animationData` objects (the dump is the parsed,
+  expanded runtime form).
+- `ProcessIcon.tsx` deleted. `LottieIcon` (real animation, looping, lazily fetched per
+  icon on first view) now drives all 45 icons: home 4, seo 9, web-dev 4, logo 10,
+  shopify 18.
+- Icon lookup gate was `getServiceIcon(title)` — the *static* path table — so any page
+  without a hand-flattened fallback silently fell back to the generic plus badge even
+  though its Lottie existed. Replaced with `hasIcon()`, which checks the Lottie map too.
+- **Card layout was a row out of step everywhere.** Live order is
+  `dots/index -> heading -> [icon | copy] -> illustration`, with 30px padding and a 30px
+  row gap, icon 58x50 sitting *beside* the copy. We had `index -> icon -> heading -> copy`
+  with the icon stacked above, 24px padding, and the homepage additionally wrapped its
+  icon in a bordered rounded box the live site does not have. Fixed in both
+  `CardGridSection.tsx` and `sections/Process.tsx`.
+
+### Testing trap (third time this has cost time — read this before debugging "it doesn't animate")
+
+A background tab renders **no frames**, and that breaks far more than rAF:
+
+| Thing | Works in a hidden tab? |
+|---|---|
+| `requestAnimationFrame` | no |
+| `IntersectionObserver` callbacks | no (delivered at end of frame) |
+| CSS transitions / animations | no |
+| `scroll` **events** | no — not even for programmatic scrolls |
+| `window.scrollTo` with `scroll-behavior: smooth` | no (never advances) |
+| `el.scrollTop = n` | yes, position changes silently |
+
+Both the Browser pane and a non-fronted Chrome tab report `document.hidden === true`, so
+none of the reveal-on-scroll machinery can be exercised there. Two workarounds that do work:
+
+1. **Tall viewport** — `resize_window` to e.g. 1440x9000 so everything passes the
+   mount-time `getBoundingClientRect` check with no scrolling at all. Fails on pages built
+   from `100vh` sections, whose height grows with the viewport.
+2. **Scroll then reload** — set `scrollTop`, then `location.reload()`. Chrome restores the
+   scroll position *before* hydration, so the mount-time check sees the target section.
+   This is the reliable one; union the results of two passes to cover a long page.
+
+`useInViewOnce` now reveals immediately when `document.hidden` is true: rAF never fires in
+a background tab, so the deliberate two-frame delay (which exists so the CSS start state
+gets painted) would otherwise strand the reveal forever. A `scroll`-event fallback was
+tried and reverted — scroll events don't fire in hidden tabs either, so it fixed nothing
+and cost a listener per element.

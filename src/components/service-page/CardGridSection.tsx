@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { PlusIcon } from "@/components/ui/PlusIcon";
 import { IconPop } from "@/components/ui/IconPop";
 import { LottieIcon } from "@/components/ui/LottieIcon";
-import { SERVICE_ICONS } from "@/content/service-icons";
+import { hasIcon } from "@/content/service-icons";
 import type { CardGridBlock } from "@/content/service-pages/types";
 
 const COL_CLASS: Record<number, string> = {
@@ -86,8 +86,14 @@ export function CardGridSection({ block }: { block: CardGridBlock }) {
         <div className={`grid gap-4 ${block.heading ? "mt-10 sm:mt-16" : ""} ${COL_CLASS[cols]}`}>
           {block.items.map((item, i) => (
             <Reveal key={item.title} delay={i * 0.06}>
+              {/*
+                Card order matches the live site exactly: index row, then the
+                heading, then the animated icon sitting *beside* the copy, then
+                the illustration underneath. The icon used to sit above the
+                heading, which put every service page a row out of step.
+              */}
               <div
-                className={`flex h-full flex-col gap-5 overflow-hidden rounded-2xl border p-6 ${
+                className={`flex h-full flex-col gap-[30px] overflow-hidden rounded-2xl border p-[30px] ${
                   dark ? "border-white/12 bg-white/[0.04]" : "border-line bg-white"
                 }`}
               >
@@ -99,11 +105,53 @@ export function CardGridSection({ block }: { block: CardGridBlock }) {
                     </span>
                   </div>
                 )}
-                {item.image ? (
-                  // These illustrations are 2:1 and already contain their own
-                  // panel background and numbered badge — show them whole at
-                  // full width rather than cropping to a fixed aspect.
-                  <div className="mb-2 overflow-hidden rounded-xl">
+
+                <h4 className="text-[18px] font-semibold tracking-[-0.02em]">{item.title}</h4>
+
+                <div className="flex gap-5">
+                  {hasIcon(item.title) ? (
+                    <LottieIcon name={item.title} dark={dark} className="h-[50px] w-[58px] flex-none" />
+                  ) : (
+                    <IconPop>
+                      <span
+                        className={`flex h-11 w-11 flex-none items-center justify-center rounded-[10px] border ${
+                          dark ? "border-white/15" : "border-line"
+                        }`}
+                      >
+                        <PlusIcon dark={!dark} className="h-5 w-5" />
+                      </span>
+                    </IconPop>
+                  )}
+                  <div className="min-w-0 flex-1">
+                    {Array.isArray(item.desc) ? (
+                      <ul className="grid gap-1.5">
+                        {item.desc.map((d) => (
+                          <li key={d} className={`flex gap-2 text-[14px] leading-snug ${dark ? "text-white/65" : "text-grey"}`}>
+                            <span className="mt-2 h-1 w-1 flex-none rounded-full bg-current" />
+                            {d}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className={`text-[14.5px] leading-snug ${dark ? "text-white/65" : "text-grey"}`}>{item.desc}</p>
+                    )}
+                    {item.cta && (
+                      <a
+                        href={item.cta.href}
+                        className={`mt-4 inline-flex items-center gap-1.5 text-[13.5px] font-medium underline ${
+                          dark ? "text-white" : "text-ink"
+                        }`}
+                      >
+                        {item.cta.label}
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                {item.image && (
+                  // 2:1 illustrations that already carry their own panel
+                  // background and numbered badge — never crop them.
+                  <div className="mt-auto overflow-hidden rounded-xl">
                     <Image
                       src={asset(item.image)}
                       alt=""
@@ -112,44 +160,7 @@ export function CardGridSection({ block }: { block: CardGridBlock }) {
                       className="h-auto w-full"
                     />
                   </div>
-                ) : SERVICE_ICONS[item.title] ? (
-                  <LottieIcon name={item.title} dark={dark} className="h-11 w-11" />
-                ) : (
-                  <IconPop>
-                    <span
-                      className={`flex h-11 w-11 items-center justify-center rounded-[10px] border ${
-                        dark ? "border-white/15" : "border-line"
-                      }`}
-                    >
-                      <PlusIcon dark={!dark} className="h-5 w-5" />
-                    </span>
-                  </IconPop>
                 )}
-                <div>
-                  <h4 className="mb-2 text-[18px] font-semibold tracking-[-0.02em]">{item.title}</h4>
-                  {Array.isArray(item.desc) ? (
-                    <ul className="grid gap-1.5">
-                      {item.desc.map((d) => (
-                        <li key={d} className={`flex gap-2 text-[14px] leading-snug ${dark ? "text-white/65" : "text-grey"}`}>
-                          <span className="mt-2 h-1 w-1 flex-none rounded-full bg-current" />
-                          {d}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className={`text-[14.5px] leading-snug ${dark ? "text-white/65" : "text-grey"}`}>{item.desc}</p>
-                  )}
-                  {item.cta && (
-                    <a
-                      href={item.cta.href}
-                      className={`mt-4 inline-flex items-center gap-1.5 text-[13.5px] font-medium underline ${
-                        dark ? "text-white" : "text-ink"
-                      }`}
-                    >
-                      {item.cta.label}
-                    </a>
-                  )}
-                </div>
               </div>
             </Reveal>
           ))}
