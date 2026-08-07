@@ -220,7 +220,8 @@ export function SiteFooter() {
                 {[
                   ["Home", "/"],
                   ["Web Development", "/web-design-and-development"],
-                  ["Shopify Development", "/shopify-development-services"],
+                  ["Shopify Store Builds", "/shopify-development-services"],
+                  ["Shopify Developer", "/shopify-developer"],
                   ["SEO Optimisation", "/seo"],
                   ["Google Ads", "/google-ads"],
                   ["Meta Ads", "/meta-ads"],

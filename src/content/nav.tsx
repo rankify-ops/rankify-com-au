@@ -15,6 +15,7 @@ const Target = () => (
 );
 const Tag = () => <I d="M12.6 3.5H19a1.5 1.5 0 0 1 1.5 1.5v6.4a2 2 0 0 1-.6 1.4l-6.6 6.6a2 2 0 0 1-2.8 0l-5.8-5.8a2 2 0 0 1 0-2.8l6.6-6.6a2 2 0 0 1 1.3-.7ZM16.4 7.6h.01" />;
 const Page = () => <I d="M6 3.5h8l4 4v13H6v-17ZM9.5 12h5M9.5 15.5h5" />;
+const Phone = () => <I d="M6.5 3.8h3l1.4 3.5-2 1.4a11.5 11.5 0 0 0 5.4 5.4l1.4-2 3.5 1.4v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 6a2 2 0 0 1 2-2.2Z" />;
 const Code = () => <I d="m9 8-4.5 4L9 16M15 8l4.5 4L15 16" />;
 const Cart = () => <I d="M4 5h2l2 10h9l2-7H7M9.5 19.5h.01M16.5 19.5h.01" />;
 const Palette = () => <I d="M12 3.5a8.5 8.5 0 1 0 0 17c1.4 0 1.9-1 1.4-1.9-.6-1.1.2-2.3 1.5-2.3h1.3a4.3 4.3 0 0 0 4.3-4.3c0-4.7-3.8-8.5-8.5-8.5ZM7.5 12h.01M10 8.2h.01M14.5 7.8h.01" />;
@@ -35,8 +36,16 @@ const Plug = () => <I d="M9 3.5v5M15 3.5v5M6.5 8.5h11v3a5.5 5.5 0 0 1-11 0v-3ZM1
 
 export type MegaItem = { label: string; href: string; icon: ReactNode };
 export type MegaColumn = { title: string; items: MegaItem[] };
+
+/**
+ * An intent chooser instead of a link list — used where the visitor's goal
+ * splits cleanly and sending them to the wrong page wastes a click.
+ */
+export type MegaChoice = { label: string; sub: string; href: string; icon: ReactNode };
+
 export type MegaMenu = {
-  columns: MegaColumn[];
+  columns?: MegaColumn[];
+  choices?: MegaChoice[];
   promo: { kicker: string; heading: string; ctaLabel: string; ctaHref: string };
 };
 export type NavItem = { label: string; href: string; mega?: MegaMenu };
@@ -45,6 +54,7 @@ const BOOK = { ctaLabel: "Book a strategy call", ctaHref: "/schedule-strategy-ca
 
 const WEB = "/web-design-and-development";
 const SHOP = "/shopify-development-services";
+const DEV = "/shopify-developer";
 
 /**
  * Every mega-menu item points at a section or card that actually exists on the
@@ -92,34 +102,34 @@ export const NAV_ITEMS: NavItem[] = [
   {
     label: "Shopify",
     href: SHOP,
+    // Intent chooser rather than a link list: new builds and ongoing work are
+    // two different pages with two different prices, and guessing wrong costs
+    // the visitor a click.
     mega: {
-      columns: [
+      choices: [
         {
-          title: "Build",
-          items: [
-            { label: "Custom Store Design & Build", href: `${SHOP}#custom-store-build`, icon: <Cart /> },
-            { label: "Custom Theme Development", href: `${SHOP}#theme-development`, icon: <Code /> },
-            { label: "Customisation Requests", href: `${SHOP}#customisation-requests`, icon: <Bolt /> },
-            { label: "Shopify Migration", href: `${SHOP}#shopify-migration`, icon: <Plug /> },
-          ],
+          label: "I want a new website",
+          sub: "Custom Shopify store designed and built from scratch. Fixed quote, from $5,999.",
+          href: SHOP,
+          icon: <Cart />,
         },
         {
-          title: "Grow & maintain",
-          items: [
-            { label: "Shopify SEO Setup", href: `${SHOP}#shopify-seo`, icon: <Search /> },
-            { label: "App & Third-Party Integrations", href: `${SHOP}#app-integrations`, icon: <Plug /> },
-            { label: "Ongoing Support & Maintenance", href: `${SHOP}#ongoing-support`, icon: <Shield /> },
-            { label: "Store Audits", href: `${SHOP}#store-audits`, icon: <Chart /> },
-          ],
+          label: "I want an ongoing developer",
+          sub: "A dedicated developer on monthly retainer. From $499/month, no lock in.",
+          href: `${DEV}#hourly-pricing`,
+          icon: <Shield />,
         },
         {
-          title: "How it works",
-          items: [
-            { label: "Who we work with", href: `${SHOP}#who-we-work-with`, icon: <Target /> },
-            { label: "Building your store", href: `${SHOP}#build-process`, icon: <Spark /> },
-            { label: "Retainer & Hourly Pricing", href: `${SHOP}#hourly-pricing`, icon: <Tag /> },
-            { label: "FAQ", href: `${SHOP}#faq`, icon: <Page /> },
-          ],
+          label: "I want to update my site",
+          sub: "One-off fixes, design tweaks and new features on your live store. Hourly, no commitment.",
+          href: `${DEV}#customisation-requests`,
+          icon: <Bolt />,
+        },
+        {
+          label: "I want to book a strategy call",
+          sub: "Not sure which you need? Talk it through with the developer, not a salesperson.",
+          href: "/schedule-strategy-call",
+          icon: <Phone />,
         },
       ],
       promo: { kicker: "Free audit", heading: "See exactly where your store is losing sales.", ...BOOK },

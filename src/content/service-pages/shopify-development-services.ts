@@ -1,14 +1,14 @@
+/**
+ * Shopify — new store builds. This is a paid-traffic landing page: one intent,
+ * one process, one price. Retainer and hourly work lives on /shopify-developer.
+ */
 import type { ServicePageData } from "./types";
-
-const CLOSING_NOTE =
-  "We believe that a website should be more than just a digital presence—it should be a tool that works for your business. That's why we prioritise performance, user experience in everything we create. We build websites that are fast, efficient, and easy to manage, so you can focus on what matters—running your business.";
-
-const CLIENT_LOGOS = [
-  { src: "/assets/images/HMUE3r6JAKaPWYA6DDbyyXpFgc.png", alt: "Hiatus" },
-  { src: "/assets/images/Etb1ssGsCa82U7P2SGIWZKY5s4c.png", alt: "Natasha Schweitzer" },
-  { src: "/assets/images/Fnzg0J4UppeMwrI6fyjIrvxgtmc.png", alt: "Myoko" },
-  { src: "/assets/images/Q6HHTRxcZl4eS1atKChkiC6AH0.png", alt: "Wolff Studios" },
-];
+import {
+  SHOPIFY_CLIENT_LOGOS,
+  SHOPIFY_CLOSING_NOTE,
+  SHOPIFY_COMMON_FAQ,
+  SHOPIFY_WHY_US,
+} from "./shopify-shared";
 
 export const shopifyDevelopmentServices: ServicePageData = {
   hero: {
@@ -16,20 +16,20 @@ export const shopifyDevelopmentServices: ServicePageData = {
     heading: "Shopify Development Services",
     subheading: "Custom stores built to sell — not just look good.",
     intro:
-      "Whether you need a new store built, or a developer for ongoing and hourly work — we handle the full scope of Shopify development so you can focus on running your business.",
+      "We design and build custom Shopify stores from the ground up — design, development, products, payments, shipping, and SEO, all handled. Already have a store and just need a developer on call? That's over on our Shopify developer page.",
     badges: [
       "Registered Shopify Partner",
       "100% money-back guarantee",
-      "Pay monthly or hourly, no lock in",
+      "Fixed quote before any work starts",
       "Expert custom developer",
       "Deal direct, no managers",
     ],
-    ctaPrimary: { label: "Hourly Pricing", href: "#hourly-pricing" },
-    ctaSecondary: { label: "New Website Pricing", href: "#website-pricing" },
+    ctaPrimary: { label: "View Pricing", href: "#website-pricing" },
+    ctaSecondary: { label: "Schedule free strategy Call", href: "/schedule-strategy-call" },
     heroImage: "/assets/images/WRjXIBfZxMI8DrDHJoRoBdiFgds.webp",
   },
   blocks: [
-    { type: "marquee", logos: CLIENT_LOGOS },
+    SHOPIFY_CLIENT_LOGOS,
     { type: "testimonials" },
     {
       type: "cardgrid",
@@ -38,13 +38,12 @@ export const shopifyDevelopmentServices: ServicePageData = {
       eyebrow: "Rankify®",
       anchorId: "who-we-work-with",
       heading: "Who we work with.",
-      cta: { label: "Hourly Packages", href: "#hourly-pricing" },
-      columns: 4,
+      cta: { label: "View Pricing", href: "#website-pricing" },
+      columns: 3,
       items: [
-        { idx: "01", title: "Launching a new store", desc: "You need a custom Shopify store built properly from day one. Design, development, products, payments, shipping, and SEO — all handled." },
-        { idx: "02", title: "Migrating to Shopify", desc: "You're on WooCommerce, Squarespace, Magento, or an outdated platform and need a clean migration to Shopify without losing your search rankings or customer data." },
-        { idx: "03", title: "Ongoing web development", desc: "Your store is live but you need a reliable developer on retainer for updates, fixes, new features, and design changes. No more chasing freelancers." },
-        { idx: "04", title: "Scaling & Shopify Plus", desc: "You've outgrown standard Shopify and need custom checkout, B2B functionality, or advanced integrations. We work with Shopify Plus for stores that need enterprise-level features." },
+        { idx: "01", anchorId: "launching-a-new-store", title: "Launching a new store", desc: "You need a custom Shopify store built properly from day one. Design, development, products, payments, shipping, and SEO — all handled." },
+        { idx: "02", anchorId: "migrating-to-shopify", title: "Migrating to Shopify", desc: "You're on WooCommerce, Squarespace, Magento, or an outdated platform and need a clean migration to Shopify without losing your search rankings or customer data." },
+        { idx: "03", anchorId: "scaling-shopify-plus", title: "Scaling & Shopify Plus", desc: "You've outgrown standard Shopify and need custom checkout, B2B functionality, or advanced integrations. We work with Shopify Plus for stores that need enterprise-level features." },
       ],
     },
     {
@@ -53,116 +52,16 @@ export const shopifyDevelopmentServices: ServicePageData = {
       kicker: "Services Section",
       eyebrow: "Rankify®",
       anchorId: "services",
-      heading: "Our Shopify development services",
+      heading: "What's included in a new store build",
       subheading:
-        "Whether you're launching your first store or scaling an existing one, we handle the full scope of Shopify development — design, build, migration, and ongoing support.",
-      cta: { label: "Hourly Packages", href: "#hourly-pricing" },
+        "Everything needed to get a custom Shopify store designed, built, migrated where necessary, and ready to rank from day one.",
+      cta: { label: "View Pricing", href: "#website-pricing" },
       columns: 4,
       items: [
         { idx: "01", anchorId: "custom-store-build", title: "Custom Shopify Store Design & Build", desc: "We design and build fully custom Shopify stores. Not a template with your logo dropped in — a store designed around your brand, products, and how your customers actually shop. Responsive, fast, and built for conversions." },
-        { idx: "02", anchorId: "customisation-requests", title: "Shopify Customisation Requests", desc: "Already have a Shopify store? We customise existing themes — section layouts, custom Liquid code, design tweaks, and functionality improvements. Get the store you want without starting from zero." },
-        { idx: "03", anchorId: "theme-development", title: "Custom Shopify Theme Development", desc: "Need something a pre-built theme can't do? We build custom themes with advanced layouts, product filtering, dynamic sections, and custom functionality that off-the-shelf themes can't deliver." },
-        { idx: "04", anchorId: "shopify-migration", title: "Shopify Migration", desc: "Moving from WooCommerce, WordPress, Squarespace, BigCommerce, or Magento? We handle the full migration — products, customers, order history, URL redirects, and SEO preservation. Zero lost rankings." },
-        { idx: "05", anchorId: "shopify-seo", title: "Shopify SEO Setup & Optimisation", desc: "Every store we build includes SEO foundations as standard — title tags, meta descriptions, heading structure, image optimisation, schema markup, URL structure, and site speed. Not bolted on after the fact. Built in from the first commit." },
-        { idx: "06", anchorId: "ongoing-support", title: "Ongoing Shopify Support & Maintenance", desc: "Retainer-based support for businesses that need a reliable Shopify developer on call. Bug fixes, design updates, new features, product uploads, third-party app troubleshooting, and performance monitoring — all covered under a monthly plan." },
-        { idx: "07", anchorId: "app-integrations", title: "Shopify App & Third-Party Integrations", desc: "We integrate apps for email marketing (Klaviyo, Mailchimp), reviews (Judge.me, Loox), subscriptions (Recharge), shipping (Sendle, Australia Post), accounting (Xero, MYOB), and more. We recommend what you actually need — not every app in the store." },
-        { idx: "08", anchorId: "store-audits", title: "Shopify Store Audits", desc: "Existing store underperforming? We audit your Shopify store for speed, UX, SEO, conversion blockers, and technical issues — then give you a prioritised action plan to fix what matters most." },
-      ],
-    },
-    {
-      type: "pricing",
-      anchorId: "hourly-pricing",
-      eyebrow: "Retainer & Hourly Pricing",
-      heading: "Retainer & Hourly Pricing",
-      subheading: "Most agencies charge $350–$500/hr for Shopify development. We offer dedicated retainer support from $499/month.",
-      lookingForMore: true,
-      lookingForMoreCta: { label: "Book a call", href: "/schedule-strategy-call" },
-      tiers: [
-        {
-          name: "Casual",
-          spots: "8 Spots Available",
-          price: "$275",
-          period: "/ hourly",
-          note: "On-demand Shopify development for one-off jobs. Pay per hour, no commitment.",
-          features: [
-            "Bug fixes",
-            "Design or content changes",
-            "Troubleshooting",
-            "Content updates",
-            "Product and collection uploads",
-            "App installs and configuration",
-            "Custom Liquid code edits",
-            "SEO and metadata updates",
-          ],
-          ctaLabel: "Order Now",
-          ctaHref: "/contact",
-        },
-        {
-          name: "Growth",
-          spots: "8 Spots Available",
-          price: "$499",
-          period: "/ monthly",
-          note: "2 hours of dedicated Shopify development each month for your custom requests. No lock in.",
-          features: [
-            "Overflow hours $249/hr",
-            "Priority response (within 24hrs)",
-            "Priority in job queue",
-            "Summary of work completed",
-            "Dedicated developer who knows your store",
-            "Bug fixes, content updates & troubleshooting",
-            "Product and collection uploads",
-            "App installs and configuration",
-          ],
-          ctaLabel: "Order Now",
-          ctaHref: "/contact",
-        },
-        {
-          name: "Scale",
-          badge: "MOST POPULAR",
-          highlighted: true,
-          spots: "8 Spots Available",
-          price: "$999",
-          period: "/ monthly",
-          note: "5 hours of dedicated Shopify development each month for your custom requests. No lock in.",
-          features: [
-            "Overflow hours $199/hr",
-            "Priority response (within 24hrs)",
-            "Priority in job queue",
-            "Summary of work completed",
-            "Dedicated developer who knows your store",
-            "Bug fixes, content updates & troubleshooting",
-            "Product and collection uploads",
-            "App installs and configuration",
-          ],
-          ctaLabel: "Order Now",
-          ctaHref: "/contact",
-        },
-      ],
-    },
-    {
-      type: "cardgrid",
-      theme: "paper",
-      kicker: "Hourly & Retainer Work",
-      eyebrow: "Rankify®",
-      anchorId: "how-it-works",
-      heading: "How does it work? A simple process",
-      cta: { label: "Hourly Packages", href: "#hourly-pricing" },
-      columns: 2,
-      items: [
-        { idx: "01", title: "Place your order or book a call", image: "/assets/images/Z6tHt1zj6Xzi4mqYcUDecqw9s.png", desc: "Choose a package or chat with us if you want to ask a few questions first." },
-        { idx: "02", title: "Submit your request", image: "/assets/images/ZZc0y2OxRuZ9xbEv3CFdHDFMw.webp", desc: "Send through what you need — bug fixes, design changes, new features, content updates. We'll confirm scope and give you a time estimate." },
-        { idx: "03", title: "We get to work", image: "/assets/images/OcCBB2O75VsaHiIw8nfSpLAtJjo.webp", desc: "Your developer picks it up and gets it done. No project managers, no back-and-forth. Direct communication the whole way." },
-        { idx: "04", title: "Review & approve", image: "/assets/images/8TLWcrZrVHY4Nwhm6KhqsAbL9A.webp", desc: "We walk you through the changes on your live or staging site. Not happy? We adjust until it's right." },
-      ],
-    },
-    {
-      type: "cardgrid",
-      theme: "paper",
-      columns: 3,
-      items: [
-        { idx: "01", title: "Expert Shopify Developer", desc: "Years of hands-on experience building custom stores, themes, and integrations — without the agency overhead." },
-        { idx: "02", title: "AI-Accelerated Development", desc: "We use AI-powered tools to build and ship faster. What takes agencies weeks, we deliver in days." },
-        { idx: "03", title: "Outstanding value for money", desc: "Senior-level Shopify development at a fraction of the agency cost. No bloated teams, no inflated invoices." },
+        { idx: "02", anchorId: "theme-development", title: "Custom Shopify Theme Development", desc: "Need something a pre-built theme can't do? We build custom themes with advanced layouts, product filtering, dynamic sections, and custom functionality that off-the-shelf themes can't deliver." },
+        { idx: "03", anchorId: "shopify-migration", title: "Shopify Migration", desc: "Moving from WooCommerce, WordPress, Squarespace, BigCommerce, or Magento? We handle the full migration — products, customers, order history, URL redirects, and SEO preservation. Zero lost rankings." },
+        { idx: "04", anchorId: "shopify-seo", title: "Shopify SEO Setup & Optimisation", desc: "Every store we build includes SEO foundations as standard — title tags, meta descriptions, heading structure, image optimisation, schema markup, URL structure, and site speed. Not bolted on after the fact. Built in from the first commit." },
       ],
     },
     {
@@ -171,8 +70,8 @@ export const shopifyDevelopmentServices: ServicePageData = {
       kicker: "Our Design Process",
       eyebrow: "Rankify®",
       anchorId: "build-process",
-      heading: "Still a simple process. Building your new store:",
-      cta: { label: "New Website Pricing", href: "#website-pricing" },
+      heading: "A simple process. Building your new store:",
+      cta: { label: "View Pricing", href: "#website-pricing" },
       columns: 3,
       items: [
         { idx: "01", title: "Discovery Call & Scoping", image: "/assets/images/Z6tHt1zj6Xzi4mqYcUDecqw9s.png", desc: "We start with a call to understand your business, products, customers, and goals. No generic questionnaires. You get a detailed scope document and fixed quote before any work begins." },
@@ -180,7 +79,7 @@ export const shopifyDevelopmentServices: ServicePageData = {
         { idx: "03", title: "Shopify Development", image: "/assets/images/OcCBB2O75VsaHiIw8nfSpLAtJjo.webp", desc: "We build your store using clean, custom Liquid code on top of your approved design. Products, collections, payment gateways, shipping rules, tax settings, app integrations — everything configured and tested." },
         { idx: "04", title: "Testing, Revisions & SEO", image: "/assets/images/BRmVb3sj222Zc8G43z2kcUcKHy8.webp", desc: "Full SEO setup — metadata, schema markup, redirects (for migrations), site speed optimisation. Cross-browser and cross-device testing. We catch the problems before your customers do." },
         { idx: "05", title: "Launch", image: "/assets/images/jeJzliriilgkAa6aYwiNxC60o.webp", desc: "We handle DNS, domain configuration, and go-live. You get a training walkthrough so you can manage day-to-day product and content updates yourself." },
-        { idx: "06", title: "Ongoing support (optional)", image: "/assets/images/htpsqYBKyKw4QhDxfxQWLbtZXE.webp", desc: "Your store is live but the work doesn't have to stop. Move onto a monthly retainer for bug fixes, design updates, new features, and performance monitoring. Your developer already knows your store — no re-onboarding, no handovers." },
+        { idx: "06", title: "Ongoing support (optional)", image: "/assets/images/htpsqYBKyKw4QhDxfxQWLbtZXE.webp", desc: "Your store is live but the work doesn't have to stop. Move onto a monthly retainer for bug fixes, design updates, new features, and performance monitoring. Your developer already knows your store — no re-onboarding, no handovers.", cta: { label: "See retainer options", href: "/shopify-developer" } },
       ],
     },
     {
@@ -202,6 +101,7 @@ export const shopifyDevelopmentServices: ServicePageData = {
       ],
       lookingForMore: true,
     },
+    SHOPIFY_WHY_US,
     {
       type: "cardgrid",
       theme: "paper",
@@ -209,7 +109,7 @@ export const shopifyDevelopmentServices: ServicePageData = {
       eyebrow: "Rankify®",
       anchorId: "why-rankify",
       heading: "Why invest in an expert Shopify developer with Rankify.",
-      cta: { label: "New Website Pricing", href: "#website-pricing" },
+      cta: { label: "View Pricing", href: "#website-pricing" },
       columns: 3,
       items: [
         {
@@ -254,19 +154,16 @@ export const shopifyDevelopmentServices: ServicePageData = {
   faq: {
     heading: "FAQ.",
     subheading: "Got questions? We've got answers. Here's everything you need to know about working with us.",
-    closingNote: CLOSING_NOTE,
+    closingNote: SHOPIFY_CLOSING_NOTE,
     items: [
       { q: "How long does it take to build a custom Shopify store?", a: "Most custom Shopify stores take 3–5 weeks from kickoff to launch. That includes design, development, product setup, SEO configuration, and testing. More complex builds with large catalogues or platform migrations can take 6–8 weeks. You'll get a clear timeline before any work starts." },
       { q: "Do you build custom Shopify themes or use pre-made templates?", a: "Both. We own a library of base themes and assets, and we also work with premium third-party themes when they provide a strong foundation. From there we customise with custom Liquid code, bespoke sections, and layouts built around your brand and products. Sometimes we build from scratch, sometimes a theme gives us 70% of what's needed and we build the rest on top." },
       { q: "Can you migrate my store to Shopify from WooCommerce or another platform?", a: "Yes. We handle full migrations from WooCommerce, WordPress, Squarespace, BigCommerce, and Magento. That includes products, customer data, order history, URL redirects, and SEO preservation. The goal is to move you to Shopify without losing rankings, customers, or data." },
-      { q: "What does your ongoing Shopify support retainer include?", a: "Our retainer plans start at $249/month for 2 hours and cover bug fixes, design updates, content changes, new features, app troubleshooting, and performance monitoring. You get a dedicated developer who already knows your store — no re-explaining your setup every time. Overflow hours are billed at $125/hr." },
       { q: "Do you work with Shopify Plus?", a: "Yes. We build on Shopify Plus for businesses that need advanced features — custom checkout, B2B wholesale portals, multi-currency, and advanced API integrations. We'll advise whether standard Shopify or Shopify Plus is the right fit based on your requirements and sales volume." },
       { q: "What Shopify plan do I need?", a: "For most small to medium eCommerce businesses, the standard Shopify plan works well. If you're just starting out, Basic Shopify is fine. For larger catalogues, higher volume, or advanced reporting, Advanced Shopify or Shopify Plus may be needed. We'll recommend the right plan during the discovery call." },
       { q: "Do you offer Shopify SEO services?", a: "Every store we build includes SEO foundations — title tags, meta descriptions, heading structure, image optimisation, site speed, schema markup, and clean URL structure. For ongoing SEO beyond the initial build — content strategy, link building, keyword targeting — we offer that separately through our SEO packages." },
-      { q: "Can you integrate third-party apps with my Shopify store?", a: "Yes. We integrate with Klaviyo, Mailchimp, Judge.me, Loox, Recharge, Sendle, Australia Post, Xero, MYOB, and more. We recommend apps based on what your business actually needs rather than loading your store with unnecessary tools." },
-      { q: "Where are you based?", a: "We're based on the Gold Coast, Queensland. We work with Shopify clients across Australia — Sydney, Melbourne, Brisbane, Perth, Adelaide, and regional areas. All work is handled remotely with clear communication throughout." },
-      { q: "How is your pricing structured?", a: "We offer hourly development ($175/hr, 2 hour minimum), monthly retainers (from $249/month), and custom store builds (from $5,999). Every project is scoped and quoted before work begins. Payment is upfront — no invoicing after the fact." },
-      { q: "What makes you different from larger Shopify agencies?", a: "You work directly with the person building your store. No account managers, no layers, no offshore teams. We handle design, development, and SEO in one team — nothing gets lost between departments. Our retainer clients get a dedicated developer who knows their store, not a rotating roster." },
+      { q: "What happens after launch?", a: "Your store is live but the work doesn't have to stop. You can move onto a monthly retainer for bug fixes, design updates, new features, and performance monitoring. Your developer already knows your store — no re-onboarding, no handovers." },
+      ...SHOPIFY_COMMON_FAQ,
     ],
   },
 };

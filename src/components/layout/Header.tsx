@@ -6,12 +6,48 @@ import { asset } from "@/lib/basePath";
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
-import { NAV_ITEMS, SIMPLE_LINKS, type MegaMenu } from "@/content/nav";
+import { NAV_ITEMS, SIMPLE_LINKS, type MegaChoice, type MegaMenu } from "@/content/nav";
+
+/** Big "what do you actually want" cards, for menus that route by intent. */
+function ChoicePanel({ choices, onNavigate }: { choices: MegaChoice[]; onNavigate: () => void }) {
+  return (
+    <div className="grid gap-3 sm:grid-cols-2">
+      {choices.map((c) => (
+        <Link
+          key={c.label}
+          href={c.href}
+          onClick={onNavigate}
+          className="group/c flex items-start gap-4 rounded-2xl border border-line bg-paper p-5 transition-all duration-300 hover:-skew-x-1 hover:border-[color:#07a889] hover:bg-white"
+        >
+          <span className="mt-0.5 flex h-10 w-10 flex-none items-center justify-center rounded-[10px] border border-line bg-white text-[color:#07a889] transition-transform duration-300 group-hover/c:scale-110">
+            {c.icon}
+          </span>
+          <span className="min-w-0">
+            <span className="flex items-center gap-1.5 text-[16px] font-semibold tracking-[-0.02em] text-ink">
+              {c.label}
+              <span className="transition-transform duration-300 group-hover/c:translate-x-1">→</span>
+            </span>
+            <span className="mt-1 block text-[13.5px] leading-snug text-grey">{c.sub}</span>
+          </span>
+        </Link>
+      ))}
+    </div>
+  );
+}
 
 function MegaPanel({ mega, onNavigate }: { mega: MegaMenu; onNavigate: () => void }) {
+  if (mega.choices) {
+    return (
+      <div className="grid gap-8 lg:grid-cols-[1fr_minmax(240px,300px)]">
+        <ChoicePanel choices={mega.choices} onNavigate={onNavigate} />
+        <MegaPromo promo={mega.promo} onNavigate={onNavigate} />
+      </div>
+    );
+  }
+
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_1fr_1fr_minmax(240px,300px)]">
-      {mega.columns.map((col) => (
+      {(mega.columns ?? []).map((col) => (
         <div key={col.title}>
           <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-grey">{col.title}</p>
           <ul className="grid gap-3.5">
@@ -33,23 +69,29 @@ function MegaPanel({ mega, onNavigate }: { mega: MegaMenu; onNavigate: () => voi
         </div>
       ))}
 
-      <Link
-        href={mega.promo.ctaHref}
-        onClick={onNavigate}
-        className="grain group/p relative flex flex-col justify-between overflow-hidden rounded-2xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] p-6 text-white transition-transform duration-300 hover:-skew-x-1"
-      >
-        <div className="relative z-[2]">
-          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:#07a889]">
-            {mega.promo.kicker}
-          </p>
-          <p className="text-[17px] font-semibold leading-snug tracking-[-0.02em]">{mega.promo.heading}</p>
-        </div>
-        <span className="relative z-[2] mt-8 inline-flex items-center gap-2 text-[14px] font-medium">
-          {mega.promo.ctaLabel}
-          <span className="transition-transform duration-300 group-hover/p:translate-x-1">→</span>
-        </span>
-      </Link>
+      <MegaPromo promo={mega.promo} onNavigate={onNavigate} />
     </div>
+  );
+}
+
+function MegaPromo({ promo, onNavigate }: { promo: MegaMenu["promo"]; onNavigate: () => void }) {
+  return (
+    <Link
+      href={promo.ctaHref}
+      onClick={onNavigate}
+      className="grain group/p relative flex flex-col justify-between overflow-hidden rounded-2xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] p-6 text-white transition-transform duration-300 hover:-skew-x-1"
+    >
+      <div className="relative z-[2]">
+        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:#07a889]">
+          {promo.kicker}
+        </p>
+        <p className="text-[17px] font-semibold leading-snug tracking-[-0.02em]">{promo.heading}</p>
+      </div>
+      <span className="relative z-[2] mt-8 inline-flex items-center gap-2 text-[14px] font-medium">
+        {promo.ctaLabel}
+        <span className="transition-transform duration-300 group-hover/p:translate-x-1">→</span>
+      </span>
+    </Link>
   );
 }
 
@@ -183,7 +225,34 @@ export function Header() {
             className="fixed inset-0 z-[90] flex flex-col justify-between overflow-y-auto bg-paper px-6 pb-8 pt-24"
           >
             <nav className="flex flex-col gap-1.5">
-              {[...NAV_ITEMS, ...SIMPLE_LINKS, { label: "Schedule Call", href: "/schedule-strategy-call" }].map((l) => (
+              {NAV_ITEMS.map((item) => (
+                <div key={item.label}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="text-[clamp(26px,6vw,40px)] font-medium leading-tight tracking-[-0.04em]"
+                  >
+                    {item.label}
+                  </Link>
+                  {/* there's no hover on touch, so the intent chooser is
+                      inlined rather than lost */}
+                  {item.mega?.choices && (
+                    <div className="mb-2 mt-2 flex flex-col gap-1.5 border-l border-line pl-4">
+                      {item.mega.choices.map((c) => (
+                        <Link
+                          key={c.label}
+                          href={c.href}
+                          onClick={() => setOpen(false)}
+                          className="text-[16px] font-medium text-grey"
+                        >
+                          {c.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+              {[...SIMPLE_LINKS, { label: "Schedule Call", href: "/schedule-strategy-call" }].map((l) => (
                 <Link
                   key={l.href + l.label}
                   href={l.href}
