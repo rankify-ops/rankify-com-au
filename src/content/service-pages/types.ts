@@ -85,6 +85,8 @@ export type HeroData = {
   asSeenOn?: { src: string; alt: string }[];
   heroImage?: string;
   heroImages?: string[];
+  /** Scrolling wall of store screenshots instead of a single hero image. */
+  heroScreenshotWall?: boolean;
 };
 
 export type ServicePageData = {

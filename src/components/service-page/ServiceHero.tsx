@@ -4,6 +4,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { PlusIcon } from "@/components/ui/PlusIcon";
 import { Stars } from "@/components/ui/Stars";
+import { ScreenshotWall } from "@/components/service-page/ScreenshotWall";
 import type { HeroData } from "@/content/service-pages/types";
 
 const TRUST_AVATARS = [
@@ -108,7 +109,11 @@ export function ServiceHero({ hero }: { hero: HeroData }) {
               )}
             </div>
             <div>
-              {hero.heroImages ? (
+              {hero.heroScreenshotWall ? (
+                <div className="h-[420px] sm:h-[520px] lg:h-[min(66vh,660px)]">
+                  <ScreenshotWall />
+                </div>
+              ) : hero.heroImages ? (
                 <Reveal scale className="grid grid-cols-2 gap-3">
                   {hero.heroImages.map((img) => (
                     <div key={img} className="aspect-square overflow-hidden rounded-2xl bg-[#e9e9e9]">

@@ -26,7 +26,7 @@ export const shopifyDevelopmentServices: ServicePageData = {
     ],
     ctaPrimary: { label: "View Pricing", href: "#website-pricing" },
     ctaSecondary: { label: "Schedule free strategy Call", href: "/schedule-strategy-call" },
-    heroImage: "/assets/images/WRjXIBfZxMI8DrDHJoRoBdiFgds.webp",
+    heroScreenshotWall: true,
   },
   blocks: [
     SHOPIFY_CLIENT_LOGOS,

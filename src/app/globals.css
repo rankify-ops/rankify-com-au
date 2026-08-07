@@ -134,6 +134,43 @@ body {
 /* Looping line-draw, matching how the source Lottie icons behave:
    draw on, hold, draw off, repeat. dasharray/pathLength are both 1, so
    offset 1 = hidden, 0 = fully drawn, -1 = hidden again (dash slid through). */
+/*
+ * Screenshot wall (service hero). Each track contains its images twice, so
+ * travelling exactly half its height lands back on an identical frame.
+ */
+@keyframes wall-scroll-down {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes wall-scroll-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+.wall-down {
+  animation: wall-scroll-down linear infinite;
+}
+
+.wall-up {
+  animation: wall-scroll-up linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wall-down,
+  .wall-up {
+    animation: none;
+  }
+}
+
 @keyframes icon-draw-loop {
   0% {
     stroke-dashoffset: 1;
