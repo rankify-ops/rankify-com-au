@@ -71,8 +71,8 @@ export function ComingSoonPage({
       </section>
 
       {segments && (
-        <section className="mx-2 mt-12 rounded-3xl bg-paper text-ink sm:mt-24 lg:mt-48">
-          <div className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
+        <section className="mx-2 mt-12 rounded-3xl bg-paper text-ink sm:mt-12 lg:mt-20">
+          <div className="mx-auto max-w-[1400px] px-5 py-12 sm:px-10 sm:py-16 lg:py-20">
             <Reveal>
               <h2 className="mb-10 text-[clamp(32px,3.1vw,58px)] font-medium leading-[0.96] tracking-[-0.05em] sm:mb-16">
                 Who we run {kicker.toLowerCase()} for.

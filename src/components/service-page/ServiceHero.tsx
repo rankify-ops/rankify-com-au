@@ -135,7 +135,7 @@ export function ServiceHero({ hero }: { hero: HeroData }) {
 
   return (
     <section className="mx-2 rounded-3xl bg-paper text-ink">
-      <div className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
+      <div className="mx-auto max-w-[1400px] px-5 py-12 sm:px-10 sm:py-16 lg:py-24">
         <Reveal>
           <h1 className="text-[clamp(32px,3.4vw,52px)] font-medium leading-[1.02] tracking-[-0.04em]">
             {hero.heading}

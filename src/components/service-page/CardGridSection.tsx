@@ -3,7 +3,6 @@ import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { PlusIcon } from "@/components/ui/PlusIcon";
-import { IconPop } from "@/components/ui/IconPop";
 import { LottieIcon } from "@/components/ui/LottieIcon";
 import { hasIcon } from "@/content/service-icons";
 import type { CardGridBlock } from "@/content/service-pages/types";
@@ -38,11 +37,11 @@ export function CardGridSection({ block }: { block: CardGridBlock }) {
       id={block.anchorId}
       className={`scroll-mt-24 ${
         dark
-          ? "grain mx-2 mt-12 sm:mt-24 lg:mt-48 rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white"
-          : "mx-2 mt-12 sm:mt-24 lg:mt-48 rounded-3xl bg-paper text-ink"
+          ? "grain mx-2 mt-8 sm:mt-12 lg:mt-20 rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white"
+          : "mx-2 mt-8 sm:mt-12 lg:mt-20 rounded-3xl bg-paper text-ink"
       }`}
     >
-      <div className="relative z-[2] mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
+      <div className="relative z-[2] mx-auto max-w-[1400px] px-5 py-12 sm:px-10 sm:py-16 lg:py-20">
         {block.heading && (
           <div className="grid gap-8 lg:grid-cols-[minmax(180px,1fr)_2.2fr] lg:gap-20">
             {block.kicker ? (
@@ -84,88 +83,82 @@ export function CardGridSection({ block }: { block: CardGridBlock }) {
           </div>
         )}
 
-        <div className={`grid gap-4 ${block.heading ? "mt-10 sm:mt-16" : ""} ${COL_CLASS[cols]}`}>
-          {block.items.map((item, i) => (
-            <Reveal key={item.title} delay={i * 0.06}>
-              {/*
-                Card order matches the live site exactly: index row, then the
-                heading, then the animated icon sitting *beside* the copy, then
-                the illustration underneath. The icon used to sit above the
-                heading, which put every service page a row out of step.
-              */}
-              <div
-                id={item.anchorId}
-                className={`flex h-full scroll-mt-28 flex-col gap-[30px] overflow-hidden rounded-2xl border p-[30px] ${
-                  dark ? "border-white/12 bg-white/[0.04]" : "border-line bg-white"
-                }`}
-              >
-                {item.idx && (
-                  <div className="flex items-center justify-between">
-                    <CardProgressDots total={block.items.length} active={i + 1} dark={dark} />
-                    <span className={`text-[10px] font-semibold tracking-[-0.06em] ${dark ? "text-white/50" : "text-grey"}`}>
-                      {item.idx}
-                    </span>
-                  </div>
+        {/* Cards butt together — the rounded corners and the 1px border are
+            what separate them, same as the reference. */}
+        <div className={`grid gap-0 ${block.heading ? "mt-8 sm:mt-12" : ""} ${COL_CLASS[cols]}`}>
+          {block.items.map((item, i) => {
+            const copy = (
+              <>
+                {Array.isArray(item.desc) ? (
+                  <ul className="grid gap-1.5">
+                    {item.desc.map((d) => (
+                      <li key={d} className={`flex gap-2 text-[14px] leading-snug ${dark ? "text-white/65" : "text-grey"}`}>
+                        <span className="mt-2 h-1 w-1 flex-none rounded-full bg-current" />
+                        {d}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className={`text-[14.5px] leading-snug ${dark ? "text-white/65" : "text-grey"}`}>{item.desc}</p>
                 )}
+                {item.cta && (
+                  <a
+                    href={item.cta.href}
+                    className={`mt-4 inline-flex items-center gap-1.5 text-[13.5px] font-medium underline ${
+                      dark ? "text-white" : "text-ink"
+                    }`}
+                  >
+                    {item.cta.label}
+                  </a>
+                )}
+              </>
+            );
 
-                <h4 className="text-[18px] font-semibold tracking-[-0.02em]">{item.title}</h4>
-
-                <div className="flex gap-5">
-                  {hasIcon(item.title) ? (
-                    <LottieIcon name={item.title} dark={dark} className="h-[50px] w-[58px] flex-none" />
-                  ) : (
-                    <IconPop>
-                      <span
-                        className={`flex h-11 w-11 flex-none items-center justify-center rounded-[10px] border ${
-                          dark ? "border-white/15" : "border-line"
-                        }`}
-                      >
-                        <PlusIcon dark={!dark} className="h-5 w-5" />
+            return (
+              <Reveal key={item.title} delay={i * 0.06}>
+                <div
+                  id={item.anchorId}
+                  className={`flex h-full scroll-mt-28 flex-col overflow-hidden rounded-2xl border p-[30px] ${
+                    item.image ? "gap-5" : "gap-[30px]"
+                  } ${dark ? "border-white/12 bg-white/[0.04]" : "border-line bg-white"}`}
+                >
+                  {item.idx && (
+                    <div className="flex items-center justify-between">
+                      <CardProgressDots total={block.items.length} active={i + 1} dark={dark} />
+                      <span className={`text-[10px] font-semibold tracking-[-0.06em] ${dark ? "text-white/50" : "text-grey"}`}>
+                        {item.idx}
                       </span>
-                    </IconPop>
+                    </div>
                   )}
-                  <div className="min-w-0 flex-1">
-                    {Array.isArray(item.desc) ? (
-                      <ul className="grid gap-1.5">
-                        {item.desc.map((d) => (
-                          <li key={d} className={`flex gap-2 text-[14px] leading-snug ${dark ? "text-white/65" : "text-grey"}`}>
-                            <span className="mt-2 h-1 w-1 flex-none rounded-full bg-current" />
-                            {d}
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p className={`text-[14.5px] leading-snug ${dark ? "text-white/65" : "text-grey"}`}>{item.desc}</p>
-                    )}
-                    {item.cta && (
-                      <a
-                        href={item.cta.href}
-                        className={`mt-4 inline-flex items-center gap-1.5 text-[13.5px] font-medium underline ${
-                          dark ? "text-white" : "text-ink"
-                        }`}
-                      >
-                        {item.cta.label}
-                      </a>
-                    )}
-                  </div>
-                </div>
 
-                {item.image && (
-                  // 2:1 illustrations that already carry their own panel
-                  // background and numbered badge — never crop them.
-                  <div className="mt-auto overflow-hidden rounded-xl">
-                    <Image
-                      src={asset(item.image)}
-                      alt=""
-                      width={792}
-                      height={393}
-                      className="h-auto w-full"
-                    />
-                  </div>
-                )}
-              </div>
-            </Reveal>
-          ))}
+                  {item.image ? (
+                    /* Illustration first, then the words underneath it. These
+                       2:1 panels carry their own background and numbered badge,
+                       so they're never cropped and never get an icon as well. */
+                    <>
+                      <div className="overflow-hidden rounded-xl">
+                        <Image src={asset(item.image)} alt="" width={792} height={393} className="h-auto w-full" />
+                      </div>
+                      <div>
+                        <h4 className="mb-2.5 text-[18px] font-semibold tracking-[-0.02em]">{item.title}</h4>
+                        {copy}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <h4 className="text-[18px] font-semibold tracking-[-0.02em]">{item.title}</h4>
+                      <div className="flex gap-5">
+                        {hasIcon(item.title) && (
+                          <LottieIcon name={item.title} dark={dark} className="h-[50px] w-[58px] flex-none" />
+                        )}
+                        <div className="min-w-0 flex-1">{copy}</div>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </Reveal>
+            );
+          })}
         </div>
 
         {block.bottomImage && (
