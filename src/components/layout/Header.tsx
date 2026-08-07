@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { asset } from "@/lib/basePath";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { NAV_ITEMS, SIMPLE_LINKS, type MegaMenu } from "@/content/nav";
@@ -71,6 +71,20 @@ export function Header() {
     setOpenSection(null);
   }
 
+  // The divider only earns its place once content is sliding under the header.
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    // rAF rather than a direct call so the initial read isn't a synchronous
+    // setState inside the effect body
+    const id = requestAnimationFrame(onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(id);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
   function show(key: string) {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     setActiveKey(key);
@@ -89,7 +103,9 @@ export function Header() {
   return (
     <>
       <header
-        className="sticky top-0 z-[100] border-b border-line bg-paper"
+        className={`sticky top-0 z-[100] border-b bg-paper transition-colors duration-200 ${
+          scrolled ? "border-line" : "border-transparent"
+        }`}
         onMouseLeave={scheduleHide}
       >
         <nav className="flex h-[60px] items-center justify-between gap-5 px-5">

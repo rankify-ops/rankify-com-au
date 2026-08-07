@@ -24,7 +24,7 @@ export function Hero() {
           +
         </span>
       ))}
-      <div className="relative z-[2] flex min-h-[calc(100svh-60px)] flex-col px-5 py-8 sm:px-10">
+      <div className="relative z-[2] flex flex-col px-5 py-8 sm:px-10 lg:min-h-[calc(100svh-60px)]">
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
           <Reveal>
             <Image
@@ -46,7 +46,10 @@ export function Hero() {
           </Reveal>
         </div>
 
-        <div className="mt-auto flex flex-col items-start justify-between gap-8 pt-16 lg:flex-row lg:items-end">
+        {/* Stacked, the icon grid needs the same air above and below it — the
+            64px top padding plus whatever mt-auto had left over was giving it
+            81px underneath against 20px above. */}
+        <div className="mt-auto flex flex-col items-start justify-between gap-8 pt-5 lg:flex-row lg:items-end lg:pt-16">
           <Reveal delay={0.25}>
             <p className="max-w-[480px] text-[clamp(19px,1.6vw,26px)] font-medium leading-[0.98] tracking-[-0.05em]">
               You work directly with us, and the goal is profit.{" "}
