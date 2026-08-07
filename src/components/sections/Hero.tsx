@@ -46,7 +46,7 @@ export function Hero() {
 
         <div className="mt-auto flex flex-col items-start justify-between gap-8 pt-16 lg:flex-row lg:items-end">
           <Reveal delay={0.25}>
-            <p className="max-w-[480px] text-[clamp(17px,1.25vw,22px)] font-semibold leading-snug tracking-[-0.02em]">
+            <p className="max-w-[480px] text-[clamp(19px,1.6vw,26px)] font-medium leading-[0.98] tracking-[-0.05em]">
               No generic websites. No empty marketing promises.{" "}
               <span className="text-white/65">
                 Just tools and strategies that help your business grow and your brand shine.
