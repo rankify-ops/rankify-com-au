@@ -56,8 +56,12 @@ export function ServiceHero({ hero }: { hero: HeroData }) {
   if (hero.variant === "showcase") {
     return (
       <section className="mx-2 rounded-3xl bg-paper text-ink">
-        <div className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-28">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+        <div className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-20">
+          {/* Stretch, not centre: at 4/5 the image was 785px tall, taller than
+              the copy beside it, so it drove the section to 1009px — past the
+              viewport — and centring pushed it down from the top. It now
+              matches the height of the copy column. */}
+          <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
             <div>
               <Reveal className="mb-6">
                 <TrustRow />
@@ -113,7 +117,7 @@ export function ServiceHero({ hero }: { hero: HeroData }) {
                   ))}
                 </Reveal>
               ) : hero.heroImage ? (
-                <Reveal scale className="aspect-[4/5] overflow-hidden rounded-3xl bg-[#e9e9e9]">
+                <Reveal scale className="aspect-[4/5] overflow-hidden rounded-3xl bg-[#e9e9e9] lg:aspect-auto lg:h-[min(66vh,660px)]">
                   <Image src={asset(hero.heroImage)} alt="" width={800} height={1000} className="h-full w-full object-cover" />
                 </Reveal>
               ) : null}
