@@ -4,12 +4,15 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { PlusIcon } from "@/components/ui/PlusIcon";
 
+// Mirrors the top nav. The headline promises performance marketing, so the
+// list under it has to actually contain the ads services — and the two branding
+// entries came out along with branding's demotion from the nav.
 const SERVICES = [
-  { href: "/shopify-development-services", label: "Shopify Web Development" },
   { href: "/web-design-and-development", label: "Web Design & Development" },
+  { href: "/shopify-development-services", label: "Shopify Web Development" },
   { href: "/seo", label: "SEO Optimisation" },
-  { href: "/professional-logo-design", label: "Professional Logo Design" },
-  { href: "/professional-logo-design", label: "Branding & Identity" },
+  { href: "/google-ads", label: "Google Ads" },
+  { href: "/meta-ads", label: "Meta Ads" },
 ];
 
 export function Hero() {
@@ -46,7 +49,7 @@ export function Hero() {
           </Reveal>
           <Reveal delay={0.15}>
             <h1 className="mb-5 max-w-[430px] text-[clamp(20px,1.5vw,28px)] font-bold leading-tight tracking-[-0.04em]">
-              Web Developer, SEO &amp; Branding Studio
+              Performance Marketing &amp; Web Development
             </h1>
             <ul className="grid gap-2.5">
               {SERVICES.map((s, i) => (
