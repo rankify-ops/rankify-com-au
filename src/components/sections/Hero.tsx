@@ -3,6 +3,15 @@ import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 
+// Short labels matching the top nav — these sit under the hero tagline.
+const SERVICES = [
+  { href: "/web-design-and-development", label: "Web Development" },
+  { href: "/shopify-development-services", label: "Shopify" },
+  { href: "/seo", label: "SEO" },
+  { href: "/google-ads", label: "Google Ads" },
+  { href: "/meta-ads", label: "Meta Ads" },
+];
+
 export function Hero() {
   return (
     <section className="grain relative mx-2 overflow-hidden rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white">
@@ -41,19 +50,28 @@ export function Hero() {
             <h1 className="max-w-[430px] text-[clamp(26px,2.65vw,38px)] font-medium leading-[0.92] tracking-[-0.05em]">
               Performance Marketing &amp; Web Development
             </h1>
-            <p className="mt-4 max-w-[430px] text-[15.5px] leading-snug text-white/65">
-              You work directly with us, and the goal is profit. Not clicks, not views —{" "}
-              <span className="text-white">the business performance that actually matters.</span>
-            </p>
+            <ul className="mt-5 grid max-w-[430px] gap-2">
+              {SERVICES.map((s) => (
+                <li key={s.href}>
+                  <a
+                    href={s.href}
+                    className="group inline-flex items-center gap-2.5 text-[15.5px] font-medium text-white/80 transition-all hover:translate-x-1 hover:text-white"
+                  >
+                    <span className="h-[5px] w-[5px] flex-none rounded-full bg-[color:#07a889]" />
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </Reveal>
         </div>
 
         <div className="mt-auto flex flex-col items-start justify-between gap-8 pt-16 lg:flex-row lg:items-end">
           <Reveal delay={0.25}>
             <p className="max-w-[480px] text-[clamp(19px,1.6vw,26px)] font-medium leading-[0.98] tracking-[-0.05em]">
-              No generic websites. No empty marketing promises.{" "}
+              You work directly with us, and the goal is profit.{" "}
               <span className="text-white/65">
-                Just tools and strategies that help your business grow and your brand shine.
+                Not clicks, not views — the business performance that actually matters.
               </span>
             </p>
           </Reveal>
