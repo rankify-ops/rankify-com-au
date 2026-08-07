@@ -225,6 +225,7 @@ export function SiteFooter() {
                   ["SEO Optimisation", "/seo"],
                   ["Google Ads", "/google-ads"],
                   ["Meta Ads", "/meta-ads"],
+                  ["AI & Automation", "/ai-and-automation"],
                   // Branding is no longer in the top nav — the footer keeps the
                   // page linked so it stays crawlable and sellable.
                   ["Logo & Branding", "/professional-logo-design"],

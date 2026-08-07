@@ -30,6 +30,8 @@ const Search = () => (
 const Megaphone = () => <I d="M4 10v4h3l6 4V6L7 10H4ZM17.5 9.2a4.2 4.2 0 0 1 0 5.6" />;
 const Doc = () => <I d="M5 3.5h14v17H5v-17ZM8.5 8h7M8.5 12h7M8.5 16h4" />;
 const Mail = () => <I d="M3.5 5.5h17v13h-17v-13ZM3.5 7l8.5 5.5L20.5 7" />;
+const Robot = () => <I d="M7.5 9.5h9a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2ZM12 6.5v3M12 4.2h.01M9.5 13.5h.01M14.5 13.5h.01M3.2 12.5v3M20.8 12.5v3" />;
+const Wrench = () => <I d="M15.6 4.4a5 5 0 0 0-6.4 6.4L4 16v4h4l5.2-5.2a5 5 0 0 0 6.4-6.4l-3 3-2.6-.7-.7-2.6 2.3-3.7Z" />;
 
 /**
  * Every menu routes by intent rather than listing links: the visitor says what
@@ -51,6 +53,7 @@ const BOOK = { ctaLabel: "Book a strategy call", ctaHref: "/schedule-strategy-ca
 const WEB = "/web-design-and-development";
 const SHOP = "/shopify-development-services";
 const DEV = "/shopify-developer";
+const AI = "/ai-and-automation";
 
 export const NAV_ITEMS: NavItem[] = [
   {
@@ -226,6 +229,40 @@ export const NAV_ITEMS: NavItem[] = [
         },
       ],
       promo: { kicker: "Free audit", heading: "See exactly where your Meta Ads budget is being wasted.", ...BOOK },
+    },
+  },
+  {
+    label: "AI & Automation",
+    icon: <Robot />,
+    href: AI,
+    mega: {
+      choices: [
+        {
+          label: "I want to automate a manual process",
+          sub: "The repetitive work eating your week, handed to software instead of a person.",
+          href: `${AI}#automations`,
+          icon: <Bolt />,
+        },
+        {
+          label: "I want a custom business dashboard",
+          sub: "One live screen for the numbers you actually run the business on.",
+          href: `${AI}#dashboards`,
+          icon: <Chart />,
+        },
+        {
+          label: "I want an internal tool built",
+          sub: "Custom apps, alerting systems and calculators shaped around how you work.",
+          href: `${AI}#internal-tools`,
+          icon: <Wrench />,
+        },
+        {
+          label: "I want AI consulting",
+          sub: "Where AI genuinely helps your business — and where it doesn't.",
+          href: `${AI}#consulting`,
+          icon: <Phone />,
+        },
+      ],
+      promo: { kicker: "Free audit", heading: "See exactly which parts of your week a machine should be doing.", ...BOOK },
     },
   },
 ];
