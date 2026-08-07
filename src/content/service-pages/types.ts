@@ -4,10 +4,13 @@ export type CardItem = {
   desc: string | string[];
   image?: string;
   cta?: { label: string; href: string };
+  /** Jump target for mega-menu links — see src/content/nav.tsx. */
+  anchorId?: string;
 };
 
 export type CardGridBlock = {
   type: "cardgrid";
+  anchorId?: string;
   theme?: "paper" | "dark";
   kicker?: string;
   eyebrow?: string;
@@ -29,6 +32,7 @@ export type PortfolioItem = { name: string; sub: string; image: string; logo?: s
 
 export type PortfolioBlock = {
   type: "portfolio";
+  anchorId?: string;
   eyebrow?: string;
   heading: string;
   subheading?: string;

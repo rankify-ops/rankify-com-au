@@ -16,8 +16,6 @@ const Target = () => (
 const Tag = () => <I d="M12.6 3.5H19a1.5 1.5 0 0 1 1.5 1.5v6.4a2 2 0 0 1-.6 1.4l-6.6 6.6a2 2 0 0 1-2.8 0l-5.8-5.8a2 2 0 0 1 0-2.8l6.6-6.6a2 2 0 0 1 1.3-.7ZM16.4 7.6h.01" />;
 const Page = () => <I d="M6 3.5h8l4 4v13H6v-17ZM9.5 12h5M9.5 15.5h5" />;
 const Code = () => <I d="m9 8-4.5 4L9 16M15 8l4.5 4L15 16" />;
-const Phone = () => <I d="M6.5 3.8h3l1.4 3.5-2 1.4a11.5 11.5 0 0 0 5.4 5.4l1.4-2 3.5 1.4v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 6a2 2 0 0 1 2-2.2Z" />;
-const Funnel = () => <I d="M4 5h16l-6 7v6l-4 2v-8L4 5Z" />;
 const Cart = () => <I d="M4 5h2l2 10h9l2-7H7M9.5 19.5h.01M16.5 19.5h.01" />;
 const Palette = () => <I d="M12 3.5a8.5 8.5 0 1 0 0 17c1.4 0 1.9-1 1.4-1.9-.6-1.1.2-2.3 1.5-2.3h1.3a4.3 4.3 0 0 0 4.3-4.3c0-4.7-3.8-8.5-8.5-8.5ZM7.5 12h.01M10 8.2h.01M14.5 7.8h.01" />;
 const Type = () => <I d="M5 6.5V5h14v1.5M12 5v14M9 19h6" />;
@@ -45,73 +43,46 @@ export type NavItem = { label: string; href: string; mega?: MegaMenu };
 
 const BOOK = { ctaLabel: "Book a strategy call", ctaHref: "/schedule-strategy-call" };
 
+const WEB = "/web-design-and-development";
+const SHOP = "/shopify-development-services";
+
+/**
+ * Every mega-menu item points at a section or card that actually exists on the
+ * target page — the anchor ids live alongside the copy in
+ * src/content/service-pages/*.ts. Pages without real content yet (Google Ads,
+ * Meta Ads) are plain links rather than menus of invented services.
+ */
 export const NAV_ITEMS: NavItem[] = [
   {
-    label: "Branding",
-    href: "/professional-logo-design",
-    mega: {
-      columns: [
-        {
-          title: "Identity",
-          items: [
-            { label: "Logo Design", href: "/professional-logo-design", icon: <Palette /> },
-            { label: "Visual Identity", href: "/professional-logo-design", icon: <Spark /> },
-            { label: "Brand Guidelines", href: "/professional-logo-design", icon: <Page /> },
-            { label: "Brand Strategy", href: "/professional-logo-design", icon: <Target /> },
-          ],
-        },
-        {
-          title: "Messaging",
-          items: [
-            { label: "Tone of Voice", href: "/professional-logo-design", icon: <Type /> },
-            { label: "Brand Messaging", href: "/professional-logo-design", icon: <Page /> },
-            { label: "Naming", href: "/professional-logo-design", icon: <Tag /> },
-            { label: "Pitch Collateral", href: "/professional-logo-design", icon: <Chart /> },
-          ],
-        },
-        {
-          title: "Applied",
-          items: [
-            { label: "Web Design", href: "/web-design-and-development", icon: <Code /> },
-            { label: "Packaging", href: "/professional-logo-design", icon: <Cart /> },
-            { label: "Social Templates", href: "/professional-logo-design", icon: <Spark /> },
-            { label: "Rebrands", href: "/professional-logo-design", icon: <Bolt /> },
-          ],
-        },
-      ],
-      promo: { kicker: "Free audit", heading: "See exactly where your brand is losing trust.", ...BOOK },
-    },
-  },
-  {
     label: "Web Development",
-    href: "/web-design-and-development",
+    href: WEB,
     mega: {
       columns: [
         {
-          title: "Build",
+          title: "What we build",
           items: [
-            { label: "Custom Websites", href: "/web-design-and-development", icon: <Code /> },
-            { label: "Landing Pages", href: "/web-design-and-development", icon: <Page /> },
-            { label: "Web Applications", href: "/web-design-and-development", icon: <Plug /> },
-            { label: "Redesigns", href: "/web-design-and-development", icon: <Bolt /> },
+            { label: "Shopify Web Development", href: `${WEB}#shopify-web-development`, icon: <Cart /> },
+            { label: "Framer Web Development", href: `${WEB}#framer-web-development`, icon: <Code /> },
+            { label: "WordPress Web Development", href: `${WEB}#wordpress-web-development`, icon: <Plug /> },
+            { label: "Our Website Clients", href: `${WEB}#our-work`, icon: <Spark /> },
           ],
         },
         {
-          title: "Performance",
+          title: "Our process",
           items: [
-            { label: "Speed Optimisation", href: "/web-design-and-development", icon: <Bolt /> },
-            { label: "Mobile Optimisation", href: "/web-design-and-development", icon: <Phone /> },
-            { label: "UX / UI Design", href: "/web-design-and-development", icon: <Palette /> },
-            { label: "Conversion Focused", href: "/web-design-and-development", icon: <Target /> },
+            { label: "Your Goals", href: `${WEB}#your-goals`, icon: <Target /> },
+            { label: "Design", href: `${WEB}#design`, icon: <Palette /> },
+            { label: "SEO Ready", href: `${WEB}#seo-ready`, icon: <Search /> },
+            { label: "Support", href: `${WEB}#support`, icon: <Shield /> },
           ],
         },
         {
-          title: "Ongoing",
+          title: "Before you book",
           items: [
-            { label: "SEO-Ready Builds", href: "/seo", icon: <Search /> },
-            { label: "Maintenance", href: "/web-design-and-development", icon: <Shield /> },
-            { label: "Hosting & Domains", href: "/web-design-and-development", icon: <Plug /> },
-            { label: "Analytics Setup", href: "/web-design-and-development", icon: <Chart /> },
+            { label: "Pricing", href: `${WEB}#pricing`, icon: <Tag /> },
+            { label: "FAQ", href: `${WEB}#faq`, icon: <Page /> },
+            { label: "Shopify Stores", href: SHOP, icon: <Cart /> },
+            { label: "SEO", href: "/seo", icon: <Chart /> },
           ],
         },
       ],
@@ -120,34 +91,34 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "Shopify",
-    href: "/shopify-development-services",
+    href: SHOP,
     mega: {
       columns: [
         {
           title: "Build",
           items: [
-            { label: "Custom Store Build", href: "/shopify-development-services", icon: <Cart /> },
-            { label: "Theme Development", href: "/shopify-development-services", icon: <Code /> },
-            { label: "Customisation Requests", href: "/shopify-development-services", icon: <Bolt /> },
-            { label: "Shopify Plus", href: "/shopify-development-services", icon: <Spark /> },
+            { label: "Custom Store Design & Build", href: `${SHOP}#custom-store-build`, icon: <Cart /> },
+            { label: "Custom Theme Development", href: `${SHOP}#theme-development`, icon: <Code /> },
+            { label: "Customisation Requests", href: `${SHOP}#customisation-requests`, icon: <Bolt /> },
+            { label: "Shopify Migration", href: `${SHOP}#shopify-migration`, icon: <Plug /> },
           ],
         },
         {
-          title: "Migrate & Grow",
+          title: "Grow & maintain",
           items: [
-            { label: "Shopify Migration", href: "/shopify-development-services", icon: <Plug /> },
-            { label: "Shopify SEO Setup", href: "/shopify-development-services", icon: <Search /> },
-            { label: "App Integrations", href: "/shopify-development-services", icon: <Plug /> },
-            { label: "Store Audits", href: "/shopify-development-services", icon: <Chart /> },
+            { label: "Shopify SEO Setup", href: `${SHOP}#shopify-seo`, icon: <Search /> },
+            { label: "App & Third-Party Integrations", href: `${SHOP}#app-integrations`, icon: <Plug /> },
+            { label: "Ongoing Support & Maintenance", href: `${SHOP}#ongoing-support`, icon: <Shield /> },
+            { label: "Store Audits", href: `${SHOP}#store-audits`, icon: <Chart /> },
           ],
         },
         {
-          title: "Support",
+          title: "How it works",
           items: [
-            { label: "Monthly Retainers", href: "/shopify-development-services", icon: <Shield /> },
-            { label: "Hourly Development", href: "/shopify-development-services", icon: <Bolt /> },
-            { label: "Bug Fixes", href: "/shopify-development-services", icon: <Code /> },
-            { label: "Product Uploads", href: "/shopify-development-services", icon: <Cart /> },
+            { label: "Who we work with", href: `${SHOP}#who-we-work-with`, icon: <Target /> },
+            { label: "Building your store", href: `${SHOP}#build-process`, icon: <Spark /> },
+            { label: "Retainer & Hourly Pricing", href: `${SHOP}#hourly-pricing`, icon: <Tag /> },
+            { label: "FAQ", href: `${SHOP}#faq`, icon: <Page /> },
           ],
         },
       ],
@@ -160,108 +131,39 @@ export const NAV_ITEMS: NavItem[] = [
     mega: {
       columns: [
         {
-          title: "Technical",
+          title: "How we do it",
           items: [
-            { label: "Technical SEO", href: "/seo", icon: <Code /> },
-            { label: "Site Speed", href: "/seo", icon: <Bolt /> },
-            { label: "Schema & Markup", href: "/seo", icon: <Page /> },
-            { label: "SEO Audits", href: "/seo", icon: <Search /> },
+            { label: "Research & Strategy", href: "/seo#research-strategy", icon: <Target /> },
+            { label: "Technical SEO", href: "/seo#technical-seo", icon: <Code /> },
+            { label: "On-Page SEO", href: "/seo#on-page-seo", icon: <Page /> },
+            { label: "Content & Authority", href: "/seo#content-authority", icon: <Type /> },
           ],
         },
         {
-          title: "Content",
+          title: "Authority & tracking",
           items: [
-            { label: "Keyword Strategy", href: "/seo", icon: <Target /> },
-            { label: "On-Page SEO", href: "/seo", icon: <Page /> },
-            { label: "Content Strategy", href: "/seo", icon: <Type /> },
+            { label: "Off-Page SEO", href: "/seo#off-page-seo", icon: <Link2 /> },
+            { label: "Tracking & Reporting", href: "/seo#tracking-reporting", icon: <Chart /> },
+            { label: "Pricing", href: "/seo#seo-pricing", icon: <Tag /> },
+            { label: "FAQ", href: "/seo#faq", icon: <Page /> },
+          ],
+        },
+        {
+          title: "Who we work with",
+          items: [
+            { label: "Local Businesses", href: "/seo#local-businesses", icon: <Pin /> },
+            { label: "Corporate & B2B", href: "/seo#corporate-b2b", icon: <Chart /> },
+            { label: "eCommerce Brands", href: "/seo#ecommerce-brands", icon: <Cart /> },
             { label: "Blog & Articles", href: "/blog", icon: <Page /> },
-          ],
-        },
-        {
-          title: "Authority",
-          items: [
-            { label: "Link Building", href: "/seo", icon: <Link2 /> },
-            { label: "Local SEO", href: "/seo", icon: <Pin /> },
-            { label: "Google Business", href: "/seo", icon: <Pin /> },
-            { label: "Reporting", href: "/seo", icon: <Chart /> },
           ],
         },
       ],
       promo: { kicker: "Free audit", heading: "See exactly which keywords you're missing out on.", ...BOOK },
     },
   },
-  {
-    label: "Google Ads",
-    href: "/google-ads",
-    mega: {
-      columns: [
-        {
-          title: "E-commerce",
-          items: [
-            { label: "Google Ads", href: "/google-ads", icon: <Target /> },
-            { label: "Merchant Center", href: "/google-ads", icon: <Tag /> },
-            { label: "Landing Pages", href: "/google-ads", icon: <Page /> },
-            { label: "Web Development", href: "/web-design-and-development", icon: <Code /> },
-          ],
-        },
-        {
-          title: "Lead Generation",
-          items: [
-            { label: "Google Ads", href: "/google-ads", icon: <Target /> },
-            { label: "Call & Form Tracking", href: "/google-ads", icon: <Phone /> },
-            { label: "Landing Pages", href: "/google-ads", icon: <Page /> },
-            { label: "Web Development", href: "/web-design-and-development", icon: <Code /> },
-          ],
-        },
-        {
-          title: "SaaS",
-          items: [
-            { label: "Google Ads", href: "/google-ads", icon: <Target /> },
-            { label: "Demo & Trial Funnels", href: "/google-ads", icon: <Funnel /> },
-            { label: "Landing Pages", href: "/google-ads", icon: <Page /> },
-            { label: "Web Development", href: "/web-design-and-development", icon: <Code /> },
-          ],
-        },
-      ],
-      promo: { kicker: "Free audit", heading: "See exactly where your Google Ads account is leaking budget.", ...BOOK },
-    },
-  },
-  {
-    label: "Meta Ads",
-    href: "/meta-ads",
-    mega: {
-      columns: [
-        {
-          title: "E-commerce",
-          items: [
-            { label: "Meta Ads", href: "/meta-ads", icon: <Target /> },
-            { label: "Catalogue & Shops", href: "/meta-ads", icon: <Cart /> },
-            { label: "Creative Testing", href: "/meta-ads", icon: <Spark /> },
-            { label: "Landing Pages", href: "/meta-ads", icon: <Page /> },
-          ],
-        },
-        {
-          title: "Lead Generation",
-          items: [
-            { label: "Meta Ads", href: "/meta-ads", icon: <Target /> },
-            { label: "Lead Forms", href: "/meta-ads", icon: <Page /> },
-            { label: "Call & Form Tracking", href: "/meta-ads", icon: <Phone /> },
-            { label: "Landing Pages", href: "/meta-ads", icon: <Page /> },
-          ],
-        },
-        {
-          title: "Retargeting",
-          items: [
-            { label: "Pixel & CAPI Setup", href: "/meta-ads", icon: <Plug /> },
-            { label: "Audience Building", href: "/meta-ads", icon: <Funnel /> },
-            { label: "Creative Production", href: "/meta-ads", icon: <Palette /> },
-            { label: "Reporting", href: "/meta-ads", icon: <Chart /> },
-          ],
-        },
-      ],
-      promo: { kicker: "Free audit", heading: "See exactly where your Meta Ads budget is being wasted.", ...BOOK },
-    },
-  },
+  // No mega menus until these pages have real content to jump to.
+  { label: "Google Ads", href: "/google-ads" },
+  { label: "Meta Ads", href: "/meta-ads" },
 ];
 
 export const SIMPLE_LINKS = [

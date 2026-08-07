@@ -17,12 +17,14 @@ export const webDesignAndDevelopment: ServicePageData = {
   blocks: [
     {
       type: "cardgrid",
+      anchorId: "what-we-build",
       theme: "paper",
       columns: 3,
       bottomImage: "/assets/images/BvhgaZCeNF3QqrLv6UbtoFydlGU.jpg",
       items: [
         {
           idx: "01",
+          anchorId: "shopify-web-development",
           title: "Shopify Web Development",
           image: "/assets/images/jhdHQKz8nA2pnUVTCJ9a9QfqMuI.svg",
           desc: "Need a developer for Shopify? Hire me via this page for hourly work or for getting a new website on Shopify. We recommend Shopify for businesses selling products online.",
@@ -30,6 +32,7 @@ export const webDesignAndDevelopment: ServicePageData = {
         },
         {
           idx: "02",
+          anchorId: "framer-web-development",
           title: "Framer Web Development",
           image: "/assets/images/wJ32OUMRhl9dcQUVtCrCYJb00oQ.png",
           desc: "Need a developer for Framer? Hire me via this page for hourly work or for getting a new website on Framer. We recommend Framer for all new websites that are not e-commerce.",
@@ -37,6 +40,7 @@ export const webDesignAndDevelopment: ServicePageData = {
         },
         {
           idx: "03",
+          anchorId: "wordpress-web-development",
           title: "Wordpress Web Development",
           image: "/assets/images/QxH1zvpw4UjNkSmwlty8dYAxUPY.png",
           desc: "Need a developer for Wordpress? Hire me via this page for hourly work or for getting a new website on Wordpress. We don't recommend using Wordpress as we consider it an outdated platform.",
@@ -49,6 +53,7 @@ export const webDesignAndDevelopment: ServicePageData = {
       theme: "paper",
       kicker: "About us",
       eyebrow: "Rankify®",
+      anchorId: "process",
       heading: "Our process to launch new websites.",
       subheading:
         "See how our team combines creativity, technology, and strategy to build powerful digital solutions.",
@@ -57,21 +62,25 @@ export const webDesignAndDevelopment: ServicePageData = {
       items: [
         {
           idx: "01",
+          anchorId: "your-goals",
           title: "Your Goals",
           desc: "We start with a call to understand your goals, brand, and users. This sets the direction for everything that follows.",
         },
         {
           idx: "02",
+          anchorId: "design",
           title: "Design",
           desc: "We create a custom website that fits your brand and audience—clean, modern, and built to convert.",
         },
         {
           idx: "03",
+          anchorId: "seo-ready",
           title: "SEO Ready",
           desc: "We build your site using clean code and modern tech. Mobile-friendly, SEO-ready, and fast.",
         },
         {
           idx: "04",
+          anchorId: "support",
           title: "Support",
           desc: "After testing and launch, we stick around for updates and support.",
         },
@@ -79,6 +88,7 @@ export const webDesignAndDevelopment: ServicePageData = {
     },
     {
       type: "portfolio",
+      anchorId: "our-work",
       eyebrow: "(2024-25©)",
       heading: "Our Website Clients",
       subheading: "A few of the businesses we've built and launched websites for recently.",

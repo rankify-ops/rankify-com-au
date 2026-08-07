@@ -26,6 +26,7 @@ export const seo: ServicePageData = {
       theme: "paper",
       kicker: "About us",
       eyebrow: "Rankify®",
+      anchorId: "how-we-do-it",
       heading: "We take SEO seriously — and strategically. Here's how we do it.",
       subheading:
         "See how our team combines creativity, technology, and strategy to build powerful digital solutions.",
@@ -35,31 +36,37 @@ export const seo: ServicePageData = {
       items: [
         {
           idx: "01",
+          anchorId: "research-strategy",
           title: "Research & Strategy",
           desc: "We start by understanding your site, your competitors, your market, and what your customers are actually searching for. This gives us the insights to build a roadmap based on real data — not assumptions.",
         },
         {
           idx: "02",
+          anchorId: "technical-seo",
           title: "Technical SEO",
           desc: "We audit your site for speed, mobile responsiveness, crawlability, indexation, and structure. Then we optimise it to be fast, clean, and Google-friendly.",
         },
         {
           idx: "03",
+          anchorId: "on-page-seo",
           title: "On-Page SEO",
           desc: "We optimise your metadata, headings, internal linking, and site architecture. Every page is built to perform and written to connect.",
         },
         {
           idx: "04",
+          anchorId: "content-authority",
           title: "Content & Authority",
           desc: "We create and suggest content that positions you as the go-to expert. Blogs, service pages, FAQs — all crafted to attract links, build authority, and rank.",
         },
         {
           idx: "05",
+          anchorId: "off-page-seo",
           title: "Off-Page SEO",
           desc: "We focus on building clean, high-quality backlinks from real sites. We also optimise your Google Business Profile and ensure local citations are accurate and consistent.",
         },
         {
           idx: "06",
+          anchorId: "tracking-reporting",
           title: "Tracking & Reporting",
           desc: "You'll get regular reports showing rankings, traffic, leads, and keyword movements. No fluff — just the data that matters.",
         },
@@ -70,19 +77,21 @@ export const seo: ServicePageData = {
       theme: "paper",
       kicker: "About us",
       eyebrow: "Rankify®",
+      anchorId: "who-we-work-with",
       heading: "Who We Work With.",
       subheading:
         "Whether you're just starting out or scaling fast, we build SEO strategies that fit your business model — and your goals.",
       columns: 3,
       items: [
-        { idx: "01", title: "Local Businesses", desc: "Get found by the people in your area who need you most." },
-        { idx: "02", title: "Corporate & B2B", desc: "Serious SEO for serious growth, scale, and visibility." },
-        { idx: "03", title: "eCommerce Brands", desc: "Turn search traffic into consistent sales and brand loyalty." },
+        { idx: "01", anchorId: "local-businesses", title: "Local Businesses", desc: "Get found by the people in your area who need you most." },
+        { idx: "02", anchorId: "corporate-b2b", title: "Corporate & B2B", desc: "Serious SEO for serious growth, scale, and visibility." },
+        { idx: "03", anchorId: "ecommerce-brands", title: "eCommerce Brands", desc: "Turn search traffic into consistent sales and brand loyalty." },
       ],
     },
     {
       type: "pricing",
       eyebrow: "SEO Pricing",
+      anchorId: "seo-pricing",
       heading: "$499 per page — 3 months minimum engagement.",
       subheading: "Most agencies charge $350–$500/hr for Shopify development. We offer dedicated retainer support from $499/month.",
       lookingForMore: true,

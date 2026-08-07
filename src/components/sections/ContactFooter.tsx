@@ -219,9 +219,14 @@ export function SiteFooter() {
               <div className="grid gap-2.5">
                 {[
                   ["Home", "/"],
-                  ["Logo & Branding", "/professional-logo-design"],
                   ["Web Development", "/web-design-and-development"],
+                  ["Shopify Development", "/shopify-development-services"],
                   ["SEO Optimisation", "/seo"],
+                  ["Google Ads", "/google-ads"],
+                  ["Meta Ads", "/meta-ads"],
+                  // Branding is no longer in the top nav — the footer keeps the
+                  // page linked so it stays crawlable and sellable.
+                  ["Logo & Branding", "/professional-logo-design"],
                   ["Schedule Call", "/schedule-strategy-call"],
                   ["Contact", "/contact"],
                   ["Blog", "/blog"],

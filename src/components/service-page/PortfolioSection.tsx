@@ -5,7 +5,7 @@ import type { PortfolioBlock } from "@/content/service-pages/types";
 
 export function PortfolioSection({ block }: { block: PortfolioBlock }) {
   return (
-    <section className="mx-2 mt-12 sm:mt-24 lg:mt-48 rounded-3xl bg-paper text-ink">
+    <section id={block.anchorId} className="mx-2 mt-12 scroll-mt-24 rounded-3xl bg-paper text-ink sm:mt-24 lg:mt-48">
       <div className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
         <div className="mb-10 grid gap-6 sm:mb-16 lg:mb-24">
           {block.eyebrow && (
