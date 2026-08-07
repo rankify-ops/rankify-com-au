@@ -16,7 +16,7 @@ export const shopifyDevelopmentServices: ServicePageData = {
     heading: "Shopify Development Services",
     subheading: "Built to sell and convert — not just to look good.",
     intro:
-      "We build custom themes around your brand with the only goal that matters: turning the traffic you already have into sales. From high-end fashion and jewellery to trades, tech and accounting, every store is designed around how your customers actually buy — so it doesn't just look world-class, it drives revenue and profit.",
+      "Plenty of Shopify stores look great and still don't sell. We build custom themes for your brand where every page — collection, product, cart, checkout — is designed to turn browsers into buyers. A world-class store that shows up in your sales, revenue and profit.",
     badges: [
       "Registered Shopify Partner",
       "100% money-back guarantee",
