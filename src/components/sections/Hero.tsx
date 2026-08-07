@@ -15,10 +15,12 @@ export function Hero() {
         loop
         playsInline
       />
+      {/* Hidden below lg: once the hero stacks, these sit right on top of the
+          service tiles. From lg up they land in clear space. */}
       {[2.5, 26, 50, 74].map((left) => (
         <span
           key={left}
-          className="absolute z-[1] select-none text-[22px] font-light text-white/35"
+          className="absolute z-[1] hidden select-none text-[22px] font-light text-white/35 lg:block"
           style={{ top: "52%", left: `${left}%` }}
         >
           +
