@@ -1,9 +1,12 @@
 import Image from "next/image";
 import { asset } from "@/lib/basePath";
+import { marqueeHalf } from "@/lib/marquee";
 import type { MarqueeBlock } from "@/content/service-pages/types";
 
 export function MarqueeSection({ block }: { block: MarqueeBlock }) {
-  const doubled = [...block.logos, ...block.logos];
+  // repeat enough that one half of the track spans the widest screen
+  const half = marqueeHalf(block.logos, 240);
+  const doubled = [...half, ...half];
   return (
     <section className="mx-2 mt-2 overflow-hidden rounded-3xl border border-line bg-white">
       {block.label && (

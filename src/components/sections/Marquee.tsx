@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { asset } from "@/lib/basePath";
+import { marqueeHalf } from "@/lib/marquee";
 
 const LOGOS = [
   { src: "/assets/images/FOGjLSJec0TAQCAifujN9P3s.webp", alt: "WordPress" },
@@ -11,7 +12,9 @@ const LOGOS = [
 ];
 
 export function Marquee() {
-  const doubled = [...LOGOS, ...LOGOS];
+  // repeat enough that one half of the track spans the widest screen
+  const half = marqueeHalf(LOGOS, 268);
+  const doubled = [...half, ...half];
   return (
     <section aria-label="Tools and platforms we work with" className="overflow-hidden border-y border-line bg-white">
       <div className="flex w-max animate-[marquee_36s_linear_infinite] hover:[animation-play-state:paused]">
