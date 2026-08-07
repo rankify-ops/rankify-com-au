@@ -93,8 +93,26 @@
 }
 
 html {
-  scroll-behavior: smooth;
   overflow-x: hidden;
+}
+
+/*
+ * Smooth scrolling is switched on only once the page has finished loading —
+ * see components/layout/SmoothScroll.tsx.
+ *
+ * With it set on html from the start, Chrome *animates* its scroll
+ * restoration on reload instead of jumping. On a 13,000px page whose images
+ * are still arriving, the layout grows underneath that animation and it
+ * finishes far below where you actually were.
+ */
+html.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.smooth-scroll {
+    scroll-behavior: auto;
+  }
 }
 
 body {
