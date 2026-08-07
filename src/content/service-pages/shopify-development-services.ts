@@ -16,7 +16,7 @@ export const shopifyDevelopmentServices: ServicePageData = {
     heading: "Shopify Development Services",
     subheading: "Custom stores built to sell — not just look good.",
     intro:
-      "We design and build custom Shopify stores from the ground up — design, development, products, payments, shipping, and SEO, all handled. Already have a store and just need a developer on call? That's over on our Shopify developer page.",
+      "From high-end Shopify stores for fashion & jewellery, to all trades — plumbers, builders, solar — to tech and accounting firms. I've built the lot. I'm a perfectionist, not a single pixel out of line, and I build so your traffic actually calls you or buys your product. Check out my work and results.",
     badges: [
       "Registered Shopify Partner",
       "100% money-back guarantee",
