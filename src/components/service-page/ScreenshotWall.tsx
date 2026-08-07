@@ -47,8 +47,11 @@ export function ScreenshotWall() {
                   width={420}
                   height={747}
                   className="h-auto w-full"
-                  // only the first row is anywhere near the fold
-                  loading={j < 2 ? "eager" : "lazy"}
+                  // Eager, not lazy: the track carries these into view by
+                  // itself, and a lazy image starts downloading only once it
+                  // gets there — so it pops in mid-scroll instead of arriving
+                  // already drawn. All sixteen come to ~350KB.
+                  loading="eager"
                 />
               ))}
             </div>

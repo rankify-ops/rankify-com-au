@@ -21,6 +21,8 @@ export function MarqueeSection({ block }: { block: MarqueeBlock }) {
               aria-hidden={i >= block.logos.length}
               width={160}
               height={70}
+              // the track scrolls these in; lazy makes them pop
+              loading="eager"
               className="h-[clamp(28px,3vw,42px)] w-auto object-contain grayscale"
             />
           </div>

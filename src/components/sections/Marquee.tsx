@@ -26,6 +26,8 @@ export function Marquee() {
               aria-hidden={i >= LOGOS.length}
               width={200}
               height={96}
+              // the track scrolls these in; lazy makes them pop
+              loading="eager"
               className="h-[clamp(56px,6vw,96px)] w-auto object-contain"
             />
           </div>
