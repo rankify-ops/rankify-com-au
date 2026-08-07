@@ -6,68 +6,33 @@ import { asset } from "@/lib/basePath";
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
-import { NAV_ITEMS, SIMPLE_LINKS, type MegaChoice, type MegaMenu } from "@/content/nav";
+import { NAV_ITEMS, SIMPLE_LINKS, type MegaMenu } from "@/content/nav";
 
-/** Big "what do you actually want" cards, for menus that route by intent. */
-function ChoicePanel({ choices, onNavigate }: { choices: MegaChoice[]; onNavigate: () => void }) {
-  return (
-    <div className="grid gap-3 sm:grid-cols-2">
-      {choices.map((c) => (
-        <Link
-          key={c.label}
-          href={c.href}
-          onClick={onNavigate}
-          className="group/c flex items-start gap-4 rounded-2xl border border-line bg-paper p-5 transition-all duration-300 hover:-skew-x-1 hover:border-[color:#07a889] hover:bg-white"
-        >
-          <span className="mt-0.5 flex h-10 w-10 flex-none items-center justify-center rounded-[10px] border border-line bg-white text-[color:#07a889] transition-transform duration-300 group-hover/c:scale-110">
-            {c.icon}
-          </span>
-          <span className="min-w-0">
-            <span className="flex items-center gap-1.5 text-[16px] font-semibold tracking-[-0.02em] text-ink">
-              {c.label}
-              <span className="transition-transform duration-300 group-hover/c:translate-x-1">→</span>
-            </span>
-            <span className="mt-1 block text-[13.5px] leading-snug text-grey">{c.sub}</span>
-          </span>
-        </Link>
-      ))}
-    </div>
-  );
-}
-
+/** Big "what do you actually want" cards — every menu routes by intent. */
 function MegaPanel({ mega, onNavigate }: { mega: MegaMenu; onNavigate: () => void }) {
-  if (mega.choices) {
-    return (
-      <div className="grid gap-8 lg:grid-cols-[1fr_minmax(240px,300px)]">
-        <ChoicePanel choices={mega.choices} onNavigate={onNavigate} />
-        <MegaPromo promo={mega.promo} onNavigate={onNavigate} />
-      </div>
-    );
-  }
-
   return (
-    <div className="grid gap-8 lg:grid-cols-[1fr_1fr_1fr_minmax(240px,300px)]">
-      {(mega.columns ?? []).map((col) => (
-        <div key={col.title}>
-          <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-grey">{col.title}</p>
-          <ul className="grid gap-3.5">
-            {col.items.map((item, i) => (
-              <li key={col.title + item.label + i}>
-                <Link
-                  href={item.href}
-                  onClick={onNavigate}
-                  className="group/i flex items-center gap-2.5 text-[15px] font-medium text-ink transition-colors hover:text-[color:var(--green-deep)]"
-                >
-                  <span className="text-[color:#07a889] transition-transform duration-300 group-hover/i:scale-110">
-                    {item.icon}
-                  </span>
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+    <div className="grid gap-8 lg:grid-cols-[1fr_minmax(240px,300px)]">
+      <div className="grid gap-3 sm:grid-cols-2">
+        {mega.choices.map((c) => (
+          <Link
+            key={c.label}
+            href={c.href}
+            onClick={onNavigate}
+            className="group/c flex items-start gap-4 rounded-2xl border border-line bg-paper p-5 transition-all duration-300 hover:-skew-x-1 hover:border-[color:#07a889] hover:bg-white"
+          >
+            <span className="mt-0.5 flex h-10 w-10 flex-none items-center justify-center rounded-[10px] border border-line bg-white text-[color:#07a889] transition-transform duration-300 group-hover/c:scale-110">
+              {c.icon}
+            </span>
+            <span className="min-w-0">
+              <span className="flex items-center gap-1.5 text-[16px] font-semibold tracking-[-0.02em] text-ink">
+                {c.label}
+                <span className="transition-transform duration-300 group-hover/c:translate-x-1">→</span>
+              </span>
+              <span className="mt-1 block text-[13.5px] leading-snug text-grey">{c.sub}</span>
+            </span>
+          </Link>
+        ))}
+      </div>
 
       <MegaPromo promo={mega.promo} onNavigate={onNavigate} />
     </div>

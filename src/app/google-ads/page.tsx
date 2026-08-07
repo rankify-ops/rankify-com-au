@@ -21,6 +21,28 @@ export default function GoogleAdsPage() {
         "Landing page builds",
         "Transparent reporting",
       ]}
+      // Regrouped from the bullets above so the nav's intent chooser has real
+      // anchors. No new capability claims — full copy still to come from Tom.
+      segments={[
+        {
+          id: "ecommerce",
+          title: "E-commerce",
+          blurb: "Shopping and search campaigns for stores, with the feed and landing pages handled in the same place.",
+          bullets: ["Merchant Center setup & feed management", "Landing page builds", "Transparent reporting"],
+        },
+        {
+          id: "lead-gen",
+          title: "Lead Generation",
+          blurb: "Search campaigns for service businesses, with tracking that shows which clicks actually became enquiries.",
+          bullets: ["Lead generation campaigns", "Call & form tracking", "Landing page builds"],
+        },
+        {
+          id: "saas",
+          title: "SaaS",
+          blurb: "Campaigns pointed at demo requests and free trials rather than raw traffic.",
+          bullets: ["Demo & trial funnels", "Landing page builds", "Transparent reporting"],
+        },
+      ]}
     />
   );
 }

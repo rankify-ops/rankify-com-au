@@ -21,6 +21,29 @@ export default function MetaAdsPage() {
         "Retargeting audiences",
         "Transparent reporting",
       ]}
+      // Anchors for the nav's intent chooser. Blurbs are placeholder wording —
+      // Tom is writing the real Meta Ads copy, including how availability is
+      // described.
+      segments={[
+        {
+          id: "ecommerce",
+          title: "E-commerce",
+          blurb: "Catalogue and prospecting campaigns for stores, with creative treated as the main lever.",
+          bullets: ["Catalogue & Shops setup", "Creative testing & production", "Retargeting audiences"],
+        },
+        {
+          id: "lead-gen",
+          title: "Lead Generation",
+          blurb: "Instant-form and click-to-site campaigns, with tracking wired up so the leads are attributable.",
+          bullets: ["Lead form campaigns", "Pixel & CAPI setup", "Retargeting audiences"],
+        },
+        {
+          id: "saas",
+          title: "SaaS",
+          blurb: "Trial and demo campaigns. Talk to us about scope before committing budget here.",
+          bullets: ["Creative testing & production", "Pixel & CAPI setup", "Transparent reporting"],
+        },
+      ]}
     />
   );
 }

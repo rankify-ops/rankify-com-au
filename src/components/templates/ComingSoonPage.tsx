@@ -4,16 +4,31 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { PlusIcon } from "@/components/ui/PlusIcon";
 
+/**
+ * A vertical the page is being sold into. These exist so the nav's intent
+ * chooser has a real anchor to land on — a menu item that promises
+ * "Google Ads for e-commerce" and drops you at the top of a coming-soon page
+ * is worse than no menu item at all.
+ */
+export type ComingSoonSegment = {
+  id: string;
+  title: string;
+  blurb: string;
+  bullets?: string[];
+};
+
 export function ComingSoonPage({
   kicker,
   heading,
   intro,
   bullets,
+  segments,
 }: {
   kicker: string;
   heading: string;
   intro: string;
   bullets: string[];
+  segments?: ComingSoonSegment[];
 }) {
   return (
     <>
@@ -54,6 +69,48 @@ export function ComingSoonPage({
           </Reveal>
         </div>
       </section>
+
+      {segments && (
+        <section className="mx-2 mt-12 rounded-3xl bg-paper text-ink sm:mt-24 lg:mt-48">
+          <div className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
+            <Reveal>
+              <h2 className="mb-10 text-[clamp(32px,3.1vw,58px)] font-medium leading-[0.96] tracking-[-0.05em] sm:mb-16">
+                Who we run {kicker.toLowerCase()} for.
+              </h2>
+            </Reveal>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {segments.map((s, i) => (
+                <Reveal key={s.id} delay={i * 0.06}>
+                  <div
+                    id={s.id}
+                    className="flex h-full scroll-mt-28 flex-col gap-[30px] rounded-2xl border border-line bg-white p-[30px]"
+                  >
+                    <h3 className="text-[18px] font-semibold tracking-[-0.02em]">{s.title}</h3>
+                    <p className="text-[14.5px] leading-snug text-grey">{s.blurb}</p>
+                    {s.bullets && (
+                      <ul className="grid gap-1.5">
+                        {s.bullets.map((b) => (
+                          <li key={b} className="flex gap-2 text-[14px] leading-snug text-grey">
+                            <span className="mt-2 h-1 w-1 flex-none rounded-full bg-current" />
+                            {b}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    <a
+                      href="/schedule-strategy-call"
+                      className="mt-auto inline-flex items-center gap-1.5 text-[13.5px] font-medium text-ink underline"
+                    >
+                      Book a strategy call
+                    </a>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <ContactFooter />
     </>
   );
