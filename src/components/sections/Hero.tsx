@@ -41,6 +41,10 @@ export function Hero() {
             <h1 className="max-w-[430px] text-[clamp(26px,2.65vw,38px)] font-medium leading-[0.92] tracking-[-0.05em]">
               Performance Marketing &amp; Web Development
             </h1>
+            <p className="mt-4 max-w-[430px] text-[15.5px] leading-snug text-white/65">
+              You work directly with us, and the goal is profit. Not clicks, not views —{" "}
+              <span className="text-white">the business performance that actually matters.</span>
+            </p>
           </Reveal>
         </div>
 
