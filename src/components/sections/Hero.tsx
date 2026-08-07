@@ -2,18 +2,6 @@ import Image from "next/image";
 import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
-import { PlusIcon } from "@/components/ui/PlusIcon";
-
-// Mirrors the top nav. The headline promises performance marketing, so the
-// list under it has to actually contain the ads services — and the two branding
-// entries came out along with branding's demotion from the nav.
-const SERVICES = [
-  { href: "/web-design-and-development", label: "Web Design & Development" },
-  { href: "/shopify-development-services", label: "Shopify Web Development" },
-  { href: "/seo", label: "SEO Optimisation" },
-  { href: "/google-ads", label: "Google Ads" },
-  { href: "/meta-ads", label: "Meta Ads" },
-];
 
 export function Hero() {
   return (
@@ -48,22 +36,9 @@ export function Hero() {
             />
           </Reveal>
           <Reveal delay={0.15}>
-            <h1 className="mb-5 max-w-[430px] text-[clamp(20px,1.5vw,28px)] font-bold leading-tight tracking-[-0.04em]">
+            <h1 className="max-w-[430px] text-[clamp(20px,1.5vw,28px)] font-bold leading-tight tracking-[-0.04em]">
               Performance Marketing &amp; Web Development
             </h1>
-            <ul className="grid gap-2.5">
-              {SERVICES.map((s, i) => (
-                <li key={s.label + i}>
-                  <a
-                    href={s.href}
-                    className="group inline-flex items-center gap-2.5 text-[15px] font-medium opacity-95 transition-all hover:translate-x-1 hover:opacity-100"
-                  >
-                    <PlusIcon className="h-4 w-4" />
-                    {s.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
           </Reveal>
         </div>
 
