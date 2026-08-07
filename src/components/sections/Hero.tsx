@@ -3,13 +3,51 @@ import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 
-// Short labels matching the top nav — these sit under the hero tagline.
+/* Icon-badge rows borrowed from the Adalytical hero's value list: a 30px
+   rounded badge, a 16px stroke icon, 12px gap. Gives the corner some weight
+   that five bare dot points didn't have. */
+const Ico = ({ d }: { d: string }) => (
+  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+    <path d={d} />
+  </svg>
+);
+
 const SERVICES = [
-  { href: "/web-design-and-development", label: "Web Development" },
-  { href: "/shopify-development-services", label: "Shopify" },
-  { href: "/seo", label: "SEO" },
-  { href: "/google-ads", label: "Google Ads" },
-  { href: "/meta-ads", label: "Meta Ads" },
+  {
+    href: "/web-design-and-development",
+    label: "Web Development",
+    icon: <Ico d="m9 8-4.5 4L9 16M15 8l4.5 4L15 16" />,
+  },
+  {
+    href: "/shopify-development-services",
+    label: "Shopify",
+    icon: <Ico d="M4 5h2l2 10h9l2-7H7M9.5 19.5h.01M16.5 19.5h.01" />,
+  },
+  {
+    href: "/seo",
+    label: "SEO",
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round">
+        <circle cx="11" cy="11" r="6.5" />
+        <path d="m20 20-4.4-4.4" />
+      </svg>
+    ),
+  },
+  {
+    href: "/google-ads",
+    label: "Google Ads",
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.7">
+        <circle cx="12" cy="12" r="8" />
+        <circle cx="12" cy="12" r="3.4" />
+      </svg>
+    ),
+  },
+  {
+    href: "/meta-ads",
+    label: "Meta Ads",
+    icon: <Ico d="M4 10v4h3l6 4V6L7 10H4ZM17.5 9.2a4.2 4.2 0 0 1 0 5.6" />,
+  },
 ];
 
 export function Hero() {
@@ -50,14 +88,16 @@ export function Hero() {
             <h1 className="max-w-[430px] text-[clamp(26px,2.65vw,38px)] font-medium leading-[0.92] tracking-[-0.05em]">
               Performance Marketing &amp; Web Development
             </h1>
-            <ul className="mt-5 grid max-w-[430px] gap-2">
+            <ul className="mt-6 grid max-w-[430px] gap-3.5">
               {SERVICES.map((s) => (
                 <li key={s.href}>
                   <a
                     href={s.href}
-                    className="group inline-flex items-center gap-2.5 text-[15.5px] font-medium text-white/80 transition-all hover:translate-x-1 hover:text-white"
+                    className="group inline-flex items-center gap-3 text-[15.5px] font-medium text-white/80 transition-colors hover:text-white"
                   >
-                    <span className="h-[5px] w-[5px] flex-none rounded-full bg-[color:#07a889]" />
+                    <span className="flex h-[30px] w-[30px] flex-none items-center justify-center rounded-[9px] border border-white/12 bg-white/[0.07] text-[color:#07a889] transition-all duration-300 group-hover:border-[color:#07a889]/40 group-hover:bg-[color:#07a889]/15">
+                      {s.icon}
+                    </span>
                     {s.label}
                   </a>
                 </li>
