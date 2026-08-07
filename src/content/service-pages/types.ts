@@ -67,7 +67,47 @@ export type PricingBlock = {
 
 export type TestimonialsBlock = { type: "testimonials" };
 
-export type Block = CardGridBlock | MarqueeBlock | PortfolioBlock | PricingBlock | TestimonialsBlock;
+export type ComparisonIcon =
+  | "person"
+  | "clock"
+  | "dollar"
+  | "repeat"
+  | "trending"
+  | "revisions"
+  | "shield"
+  | "card";
+
+export type ComparisonRow = {
+  icon: ComparisonIcon;
+  label: string;
+  agency: string;
+  us: string;
+  /** Renders as the dark summary row at the bottom of the table. */
+  highlight?: boolean;
+};
+
+/** Us-versus-them table with a supporting argument beside it. */
+export type ComparisonBlock = {
+  type: "comparison";
+  anchorId?: string;
+  tableTitle: string;
+  agencyLabel: string;
+  usLabel: string;
+  rows: ComparisonRow[];
+  footnote?: string;
+  eyebrow: string;
+  heading: string;
+  /** Paragraphs; **wrapped** runs render bold. */
+  body: string[];
+};
+
+export type Block =
+  | CardGridBlock
+  | MarqueeBlock
+  | PortfolioBlock
+  | PricingBlock
+  | TestimonialsBlock
+  | ComparisonBlock;
 
 export type FaqItem = { q: string; a: string };
 

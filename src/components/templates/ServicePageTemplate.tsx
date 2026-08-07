@@ -4,6 +4,7 @@ import { ServiceHero } from "@/components/service-page/ServiceHero";
 import { CardGridSection } from "@/components/service-page/CardGridSection";
 import { MarqueeSection } from "@/components/service-page/MarqueeSection";
 import { PortfolioSection } from "@/components/service-page/PortfolioSection";
+import { ComparisonSection } from "@/components/service-page/ComparisonSection";
 import { PricingBlockSection } from "@/components/service-page/PricingBlockSection";
 import { ServiceFaq } from "@/components/service-page/ServiceFaq";
 import { Testimonials } from "@/components/sections/Testimonials";
@@ -28,6 +29,8 @@ export function ServicePageTemplate({ data }: { data: ServicePageData }) {
             const idx = pricingIndex++;
             return <PricingBlockSection key={i} block={block} index={idx} />;
           }
+          case "comparison":
+            return <ComparisonSection key={i} block={block} />;
           case "testimonials":
             return <Testimonials key={i} />;
           default:
