@@ -4,7 +4,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { PlusIcon } from "@/components/ui/PlusIcon";
 import { IconPop } from "@/components/ui/IconPop";
-import { ServiceIcon } from "@/components/ui/ServiceIcon";
+import { LottieIcon } from "@/components/ui/LottieIcon";
 import { SERVICE_ICONS } from "@/content/service-icons";
 import type { CardGridBlock } from "@/content/service-pages/types";
 
@@ -113,7 +113,7 @@ export function CardGridSection({ block }: { block: CardGridBlock }) {
                     />
                   </div>
                 ) : SERVICE_ICONS[item.title] ? (
-                  <ServiceIcon name={item.title} dark={dark} className="h-11 w-11" />
+                  <LottieIcon name={item.title} dark={dark} className="h-11 w-11" />
                 ) : (
                   <IconPop>
                     <span
