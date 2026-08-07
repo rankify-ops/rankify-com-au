@@ -2,58 +2,7 @@ import Image from "next/image";
 import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
-
-/* Icon-badge rows borrowed from the Adalytical hero's value list: a 30px
-   rounded badge, a 16px stroke icon, 12px gap. Gives the corner some weight
-   that five bare dot points didn't have. */
-const Ico = ({ d }: { d: string }) => (
-  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-    <path d={d} />
-  </svg>
-);
-
-const SERVICES = [
-  {
-    href: "/web-design-and-development",
-    label: "Web Development",
-    icon: <Ico d="m9 8-4.5 4L9 16M15 8l4.5 4L15 16" />,
-  },
-  {
-    href: "/shopify-development-services",
-    label: "Shopify",
-    icon: <Ico d="M4 5h2l2 10h9l2-7H7M9.5 19.5h.01M16.5 19.5h.01" />,
-  },
-  {
-    href: "/seo",
-    label: "SEO",
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round">
-        <circle cx="11" cy="11" r="6.5" />
-        <path d="m20 20-4.4-4.4" />
-      </svg>
-    ),
-  },
-  {
-    href: "/google-ads",
-    label: "Google Ads",
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.7">
-        <circle cx="12" cy="12" r="8" />
-        <circle cx="12" cy="12" r="3.4" />
-      </svg>
-    ),
-  },
-  {
-    href: "/meta-ads",
-    label: "Meta Ads",
-    icon: <Ico d="M4 10v4h3l6 4V6L7 10H4ZM17.5 9.2a4.2 4.2 0 0 1 0 5.6" />,
-  },
-  {
-    href: "/ai-and-automation",
-    label: "AI & Automation",
-    icon: <Ico d="M7.5 9.5h9a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2ZM12 6.5v3M12 4.2h.01M9.5 13.5h.01M14.5 13.5h.01M3.2 12.5v3M20.8 12.5v3" />,
-  },
-];
+import { HeroServices } from "@/components/sections/HeroServices";
 
 export function Hero() {
   return (
@@ -93,23 +42,7 @@ export function Hero() {
             <h1 className="max-w-[430px] text-[clamp(26px,2.65vw,38px)] font-medium leading-[0.92] tracking-[-0.05em]">
               Performance Marketing &amp; Web Development
             </h1>
-            {/* Two columns of three at every width — as a single column the
-                six services ate most of the phone screen. */}
-            <ul className="mt-5 grid max-w-[430px] grid-cols-2 gap-x-3 gap-y-3 sm:mt-6 sm:gap-y-3.5">
-              {SERVICES.map((s) => (
-                <li key={s.href}>
-                  <a
-                    href={s.href}
-                    className="group inline-flex items-center gap-2 whitespace-nowrap text-[12.5px] font-medium text-white/80 transition-colors hover:text-white sm:text-[14px]"
-                  >
-                    <span className="flex h-[26px] w-[26px] flex-none items-center justify-center rounded-[8px] border border-white/12 bg-white/[0.07] text-[color:#07a889] transition-all duration-300 group-hover:border-[color:#07a889]/40 group-hover:bg-[color:#07a889]/15 sm:h-7 sm:w-7 sm:rounded-[9px] [&_svg]:h-[14px] [&_svg]:w-[14px] sm:[&_svg]:h-[15px] sm:[&_svg]:w-[15px]">
-                      {s.icon}
-                    </span>
-                    {s.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <HeroServices />
           </Reveal>
         </div>
 
