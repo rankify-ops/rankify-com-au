@@ -6,7 +6,7 @@ import { asset } from "@/lib/basePath";
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
-import { MOBILE_LINKS, NAV_ITEMS, SIMPLE_LINKS, type MegaMenu } from "@/content/nav";
+import { NAV_ITEMS, SIMPLE_LINKS, type MegaMenu } from "@/content/nav";
 
 /** Big "what do you actually want" cards — every menu routes by intent. */
 function MegaPanel({ mega, onNavigate }: { mega: MegaMenu; onNavigate: () => void }) {
@@ -62,8 +62,14 @@ function MegaPromo({ promo, onNavigate }: { promo: MegaMenu["promo"]; onNavigate
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [openSection, setOpenSection] = useState<string | null>(null);
   const [activeKey, setActiveKey] = useState<string | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function closeMenu() {
+    setOpen(false);
+    setOpenSection(null);
+  }
 
   function show(key: string) {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -187,71 +193,139 @@ export function Header() {
             animate={{ y: 0 }}
             exit={{ y: "-100%" }}
             transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-            className="grain fixed inset-0 z-[110] flex flex-col overflow-y-auto xl:hidden bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] px-5 pb-[calc(20px+env(safe-area-inset-bottom))] pt-4 text-white"
+            /* `grain` sets position:relative in globals.css and beats
+               Tailwind's `fixed`, so the panel has to own the fixed
+               positioning and the grain layer sits inside it. */
+            className="fixed inset-0 z-[110] overflow-y-auto xl:hidden"
           >
-            <div className="relative z-[2] mb-2 flex items-center justify-between border-b border-white/12 px-1 pb-[18px] pt-1.5">
-              <Link href="/" onClick={() => setOpen(false)} aria-label="Rankify home">
-                <Image
-                  src={asset("/assets/images/n92JU5BqmoxMotdcH6fGsTpi7e4.svg")}
-                  alt="Rankify®"
-                  width={974}
-                  height={210}
-                  className="h-[26px] w-auto"
-                />
-              </Link>
-              <button
-                aria-label="Close menu"
-                onClick={() => setOpen(false)}
-                className="flex h-[42px] w-[42px] items-center justify-center rounded-full border border-white/[0.14] bg-white/[0.08] transition-colors hover:bg-white/[0.16]"
-              >
-                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                  <path d="M18 6 6 18M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            <nav className="relative z-[2] mb-5 flex flex-col">
-              {MOBILE_LINKS.map((l) => (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="group flex items-center gap-3.5 border-b border-white/[0.08] py-[15px] pl-1 pr-1 text-[16.5px] font-semibold transition-all duration-200 hover:pl-2.5 hover:text-[color:#07a889]"
-                >
-                  <span className="flex h-[38px] w-[38px] flex-none items-center justify-center rounded-[11px] bg-white/[0.08] text-[color:#07a889]">
-                    {l.icon}
-                  </span>
-                  {l.label}
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="ml-auto h-[18px] w-[18px] flex-none text-white/30"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="m9 6 6 6-6 6" />
-                  </svg>
+            <div className="grain flex min-h-full flex-col bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] px-5 pb-[calc(20px+env(safe-area-inset-bottom))] pt-4 text-white">
+              <div className="relative z-[2] mb-2 flex items-center justify-between border-b border-white/12 px-1 pb-[18px] pt-1.5">
+                <Link href="/" onClick={closeMenu} aria-label="Rankify home">
+                  <Image
+                    src={asset("/assets/images/n92JU5BqmoxMotdcH6fGsTpi7e4.svg")}
+                    alt="Rankify®"
+                    width={974}
+                    height={210}
+                    className="h-[26px] w-auto"
+                  />
                 </Link>
-              ))}
-            </nav>
+                <button
+                  aria-label="Close menu"
+                  onClick={closeMenu}
+                  className="flex h-[42px] w-[42px] items-center justify-center rounded-full border border-white/[0.14] bg-white/[0.08] transition-colors hover:bg-white/[0.16]"
+                >
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <path d="M18 6 6 18M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
 
-            <div className="relative z-[2] mt-auto flex flex-col gap-2.5">
-              <Link
-                href="/schedule-strategy-call"
-                onClick={() => setOpen(false)}
-                className="rounded-full bg-white px-4 py-[15px] text-center text-[15px] font-bold text-ink shadow-[0_8px_24px_rgba(0,0,0,0.28)]"
-              >
-                Book a Strategy Call
-              </Link>
-              <Link
-                href="/contact"
-                onClick={() => setOpen(false)}
-                className="rounded-full border border-white/[0.16] bg-white/[0.08] px-4 py-[15px] text-center text-[15px] font-semibold transition-colors hover:bg-white/[0.14]"
-              >
-                Get in touch
-              </Link>
+              {/* Mirrors the desktop nav: same five items, and tapping one
+                  opens the same four choices the hover panel shows. */}
+              <nav className="relative z-[2] mb-5 flex flex-col">
+                {NAV_ITEMS.map((item) => {
+                  const expanded = openSection === item.label;
+                  return (
+                    <div key={item.label} className="border-b border-white/[0.08]">
+                      <button
+                        onClick={() => setOpenSection(expanded ? null : item.label)}
+                        aria-expanded={expanded}
+                        className="flex w-full items-center gap-3.5 py-[15px] pl-1 pr-1 text-left text-[16.5px] font-semibold transition-colors"
+                      >
+                        <span
+                          className={`flex h-[38px] w-[38px] flex-none items-center justify-center rounded-[11px] transition-colors ${
+                            expanded ? "bg-[color:#07a889]/20 text-[color:#07a889]" : "bg-white/[0.08] text-[color:#07a889]"
+                          }`}
+                        >
+                          {item.icon}
+                        </span>
+                        {item.label}
+                        <svg
+                          viewBox="0 0 24 24"
+                          className={`ml-auto h-[18px] w-[18px] flex-none transition-transform duration-300 ${
+                            expanded ? "rotate-90 text-[color:#07a889]" : "text-white/30"
+                          }`}
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="m9 6 6 6-6 6" />
+                        </svg>
+                      </button>
+
+                      <AnimatePresence initial={false}>
+                        {expanded && item.mega && (
+                          <motion.ul
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                            className="overflow-hidden"
+                          >
+                            {item.mega.choices.map((c) => (
+                              <li key={c.label}>
+                                <Link
+                                  href={c.href}
+                                  onClick={closeMenu}
+                                  className="flex items-center gap-3 py-2.5 pl-[13px] text-[15px] text-white/70 transition-colors hover:text-white"
+                                >
+                                  <span className="text-[color:#07a889] [&_svg]:h-4 [&_svg]:w-4">{c.icon}</span>
+                                  {c.label}
+                                </Link>
+                              </li>
+                            ))}
+                            <li className="h-2" />
+                          </motion.ul>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                })}
+
+                {SIMPLE_LINKS.map((l) => (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    onClick={closeMenu}
+                    className="flex items-center gap-3.5 border-b border-white/[0.08] py-[15px] pl-1 pr-1 text-[16.5px] font-semibold transition-all duration-200 hover:pl-2.5 hover:text-[color:#07a889]"
+                  >
+                    <span className="flex h-[38px] w-[38px] flex-none items-center justify-center rounded-[11px] bg-white/[0.08] text-[color:#07a889]">
+                      {l.icon}
+                    </span>
+                    {l.label}
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="ml-auto h-[18px] w-[18px] flex-none text-white/30"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="m9 6 6 6-6 6" />
+                    </svg>
+                  </Link>
+                ))}
+              </nav>
+
+              <div className="relative z-[2] mt-auto flex flex-col gap-2.5">
+                <Link
+                  href="/schedule-strategy-call"
+                  onClick={closeMenu}
+                  className="rounded-full bg-white px-4 py-[15px] text-center text-[15px] font-bold text-ink shadow-[0_8px_24px_rgba(0,0,0,0.28)]"
+                >
+                  Book a Strategy Call
+                </Link>
+                <Link
+                  href="/contact"
+                  onClick={closeMenu}
+                  className="rounded-full border border-white/[0.16] bg-white/[0.08] px-4 py-[15px] text-center text-[15px] font-semibold transition-colors hover:bg-white/[0.14]"
+                >
+                  Get in touch
+                </Link>
+              </div>
             </div>
           </motion.div>
         )}

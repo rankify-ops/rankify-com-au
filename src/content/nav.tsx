@@ -21,7 +21,6 @@ const Chart = () => <I d="M4.5 19.5V13M9.5 19.5V6.5M14.5 19.5v-8M19.5 19.5V9" />
 const Pin = () => <I d="M12 21s6.5-6 6.5-10.5a6.5 6.5 0 1 0-13 0C5.5 15 12 21 12 21ZM12 12.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />;
 const Bolt = () => <I d="M13.5 3 5.5 13.5H11l-.5 7.5 8-10.5H13l.5-7.5Z" />;
 const Shield = () => <I d="M12 3.5 19 6v5.5c0 4.4-3 7.4-7 9-4-1.6-7-4.6-7-9V6l7-2.5ZM9.3 12.2l1.9 1.9 3.6-3.6" />;
-const Home = () => <I d="M4 11 12 5l8 6v9H4v-9ZM9.5 20v-6h5v6" />;
 const Search = () => (
   <svg viewBox="0 0 24 24" className="h-[18px] w-[18px] flex-none" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
     <circle cx="11" cy="11" r="6.5" />
@@ -31,14 +30,6 @@ const Search = () => (
 const Megaphone = () => <I d="M4 10v4h3l6 4V6L7 10H4ZM17.5 9.2a4.2 4.2 0 0 1 0 5.6" />;
 const Doc = () => <I d="M5 3.5h14v17H5v-17ZM8.5 8h7M8.5 12h7M8.5 16h4" />;
 const Mail = () => <I d="M3.5 5.5h17v13h-17v-13ZM3.5 7l8.5 5.5L20.5 7" />;
-const Grid = () => (
-  <svg viewBox="0 0 24 24" className="h-[18px] w-[18px] flex-none" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round">
-    <rect x="3.5" y="3.5" width="7" height="7" rx="1.5" />
-    <rect x="13.5" y="3.5" width="7" height="7" rx="1.5" />
-    <rect x="3.5" y="13.5" width="7" height="7" rx="1.5" />
-    <rect x="13.5" y="13.5" width="7" height="7" rx="1.5" />
-  </svg>
-);
 
 /**
  * Every menu routes by intent rather than listing links: the visitor says what
@@ -52,7 +43,8 @@ export type MegaMenu = {
   choices: MegaChoice[];
   promo: { kicker: string; heading: string; ctaLabel: string; ctaHref: string };
 };
-export type NavItem = { label: string; href: string; mega?: MegaMenu };
+/** `icon` is used by the mobile drawer, which mirrors this same list. */
+export type NavItem = { label: string; href: string; icon: ReactNode; mega?: MegaMenu };
 
 const BOOK = { ctaLabel: "Book a strategy call", ctaHref: "/schedule-strategy-call" };
 
@@ -63,6 +55,7 @@ const DEV = "/shopify-developer";
 export const NAV_ITEMS: NavItem[] = [
   {
     label: "Web Development",
+    icon: <Code />,
     href: WEB,
     mega: {
       choices: [
@@ -96,6 +89,7 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "Shopify",
+    icon: <Cart />,
     href: SHOP,
     // Intent chooser rather than a link list: new builds and ongoing work are
     // two different pages with two different prices, and guessing wrong costs
@@ -132,6 +126,7 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "SEO",
+    icon: <Search />,
     href: "/seo",
     // Segments are the three the SEO page actually sells to — using
     // e-commerce / lead gen / SaaS here would have pointed at nothing.
@@ -167,6 +162,7 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "Google Ads",
+    icon: <Target />,
     href: "/google-ads",
     mega: {
       choices: [
@@ -200,6 +196,7 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "Meta Ads",
+    icon: <Megaphone />,
     href: "/meta-ads",
     mega: {
       choices: [
@@ -234,27 +231,7 @@ export const NAV_ITEMS: NavItem[] = [
 ];
 
 export const SIMPLE_LINKS = [
-  { label: "Contact", href: "/contact" },
-  { label: "Blog", href: "/blog" },
-];
-
-/**
- * The mobile drawer is a flat icon list rather than the desktop intent chooser
- * — there's no hover on touch, and nesting four choices under each of five
- * items would run to twenty-five rows. The two Shopify pages are listed
- * separately so the build/retainer split still shows without nesting.
- */
-export type MobileLink = { label: string; href: string; icon: ReactNode };
-
-export const MOBILE_LINKS: MobileLink[] = [
-  { label: "Home", href: "/", icon: <Home /> },
-  { label: "Web Development", href: WEB, icon: <Code /> },
-  { label: "Shopify Stores", href: SHOP, icon: <Cart /> },
-  { label: "Shopify Developer", href: DEV, icon: <Shield /> },
-  { label: "SEO", href: "/seo", icon: <Search /> },
-  { label: "Google Ads", href: "/google-ads", icon: <Target /> },
-  { label: "Meta Ads", href: "/meta-ads", icon: <Megaphone /> },
-  { label: "Projects", href: "/projects", icon: <Grid /> },
-  { label: "Blog", href: "/blog", icon: <Doc /> },
   { label: "Contact", href: "/contact", icon: <Mail /> },
+  { label: "Blog", href: "/blog", icon: <Doc /> },
 ];
+
