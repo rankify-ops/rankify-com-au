@@ -36,7 +36,9 @@ export function Hero() {
             />
           </Reveal>
           <Reveal delay={0.15}>
-            <h1 className="max-w-[430px] text-[clamp(20px,1.5vw,28px)] font-bold leading-tight tracking-[-0.04em]">
+            {/* same type treatment as the big page headings (weight 500,
+                leading 0.92, tracking -0.05em), scaled to fit the corner */}
+            <h1 className="max-w-[430px] text-[clamp(26px,2.65vw,38px)] font-medium leading-[0.92] tracking-[-0.05em]">
               Performance Marketing &amp; Web Development
             </h1>
           </Reveal>
