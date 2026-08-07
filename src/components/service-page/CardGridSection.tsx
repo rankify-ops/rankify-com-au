@@ -100,10 +100,17 @@ export function CardGridSection({ block }: { block: CardGridBlock }) {
                   </div>
                 )}
                 {item.image ? (
-                  // the numbered circle badge is already baked into these
-                  // illustrations — don't overlay another one
-                  <div className={`-mx-6 mb-2 aspect-[16/10] overflow-hidden ${dark ? "bg-white/5" : "bg-[#eee]"}`}>
-                    <Image src={asset(item.image)} alt="" width={528} height={330} className="h-full w-full object-cover" />
+                  // These illustrations are 2:1 and already contain their own
+                  // panel background and numbered badge — show them whole at
+                  // full width rather than cropping to a fixed aspect.
+                  <div className="mb-2 overflow-hidden rounded-xl">
+                    <Image
+                      src={asset(item.image)}
+                      alt=""
+                      width={792}
+                      height={393}
+                      className="h-auto w-full"
+                    />
                   </div>
                 ) : SERVICE_ICONS[item.title] ? (
                   <ServiceIcon name={item.title} dark={dark} className="h-11 w-11" />

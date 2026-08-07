@@ -144,7 +144,7 @@ export const shopifyDevelopmentServices: ServicePageData = {
       eyebrow: "Rankify®",
       heading: "How does it work? A simple process",
       cta: { label: "Hourly Packages", href: "#hourly-pricing" },
-      columns: 4,
+      columns: 2,
       items: [
         { idx: "01", title: "Place your order or book a call", image: "/assets/images/Z6tHt1zj6Xzi4mqYcUDecqw9s.png", desc: "Choose a package or chat with us if you want to ask a few questions first." },
         { idx: "02", title: "Submit your request", image: "/assets/images/ZZc0y2OxRuZ9xbEv3CFdHDFMw.webp", desc: "Send through what you need — bug fixes, design changes, new features, content updates. We'll confirm scope and give you a time estimate." },
