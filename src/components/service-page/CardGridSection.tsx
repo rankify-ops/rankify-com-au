@@ -100,17 +100,10 @@ export function CardGridSection({ block }: { block: CardGridBlock }) {
                   </div>
                 )}
                 {item.image ? (
-                  <div className={`relative -mx-6 mb-2 aspect-[16/10] overflow-hidden ${dark ? "bg-white/5" : "bg-[#eee]"}`}>
+                  // the numbered circle badge is already baked into these
+                  // illustrations — don't overlay another one
+                  <div className={`-mx-6 mb-2 aspect-[16/10] overflow-hidden ${dark ? "bg-white/5" : "bg-[#eee]"}`}>
                     <Image src={asset(item.image)} alt="" width={528} height={330} className="h-full w-full object-cover" />
-                    {item.idx && (
-                      <span
-                        className={`absolute bottom-0 left-1/2 flex h-9 w-9 -translate-x-1/2 translate-y-1/2 items-center justify-center rounded-full text-[15px] font-semibold text-white ${
-                          dark ? "bg-white/20 ring-4 ring-white/5" : "bg-[color:var(--green-deep)] ring-4 ring-white"
-                        }`}
-                      >
-                        {Number(item.idx)}
-                      </span>
-                    )}
                   </div>
                 ) : SERVICE_ICONS[item.title] ? (
                   <ServiceIcon name={item.title} dark={dark} className="h-11 w-11" />
