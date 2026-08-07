@@ -26,7 +26,7 @@ export function Hero() {
           +
         </span>
       ))}
-      <div className="relative z-[2] flex flex-col px-5 py-8 sm:px-10 lg:min-h-[calc(100svh-60px)]">
+      <div className="relative z-[2] flex flex-col px-5 py-8 sm:px-10 lg:min-h-[calc(100svh-60px)] lg:justify-center">
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
           {/* The corner holds a fixed width from lg up and the wordmark takes
               whatever's left. Sizing the wordmark at 62vw instead left the
@@ -54,8 +54,10 @@ export function Hero() {
 
         {/* Stacked, the icon grid needs the same air above and below it — the
             64px top padding plus whatever mt-auto had left over was giving it
-            81px underneath against 20px above. */}
-        <div className="mt-auto flex flex-col items-start justify-between gap-8 pt-5 lg:flex-row lg:items-end lg:pt-16">
+            81px underneath against 20px above. On desktop the group is centred
+            rather than pinned top-and-bottom, which is what left a 484px hole
+            down the middle of the hero. */}
+        <div className="flex flex-col items-start justify-between gap-8 pt-5 lg:flex-row lg:items-end lg:pt-24">
           <Reveal delay={0.25}>
             <p className="max-w-[480px] text-[clamp(19px,1.6vw,26px)] font-medium leading-[0.98] tracking-[-0.05em]">
               You work directly with us, and the goal is profit.{" "}
