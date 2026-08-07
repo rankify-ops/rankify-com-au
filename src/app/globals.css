@@ -238,4 +238,14 @@ body {
   html {
     @apply font-sans;
   }
+  /*
+   * Tailwind v4's preflight follows the spec and leaves buttons on the default
+   * arrow cursor, unlike v3. Every button on the site reads as unclickable
+   * without this — restore the v3 behaviour once, here, rather than sprinkling
+   * cursor-pointer through every call site.
+   */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
 }
