@@ -108,6 +108,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
 
   const totalPages = selected.length + servicePages + custom.length;
   const extra = Math.max(0, totalPages - block.includedPages);
+  const remaining = Math.max(0, block.includedPages - totalPages);
   const price = block.basePrice + extra * block.extraPagePrice;
 
   const toggle = (p: string) =>
@@ -394,6 +395,20 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                     · {extra} extra × {money(block.extraPagePrice)}
                   </>
                 )}
+              </p>
+
+              {/* Tells them how much room is left in the base price, which is
+                  the number they're actually deciding against. */}
+              <p
+                className={`mt-3 rounded-xl px-3 py-2.5 text-[13px] font-medium leading-snug ${
+                  remaining > 0
+                    ? "bg-[color:#07a889]/15 text-[color:#3fd8bb]"
+                    : "bg-white/[0.06] text-white/70"
+                }`}
+              >
+                {remaining > 0
+                  ? `You can select ${remaining} more page${remaining === 1 ? "" : "s"} before the price increases!`
+                  : `All ${block.includedPages} included pages used — every page after this adds ${money(block.extraPagePrice)}.`}
               </p>
 
               <ul className="mt-6 grid gap-2 border-t border-white/10 pt-5">
