@@ -79,7 +79,7 @@ export function Hero() {
                 <span className="text-[12.5px] text-white/60">
                   Thomas Flood – Director of Digital Strategy
                 </span>
-                <div className="mt-auto self-start">
+                <div id="hero-cta" className="mt-auto self-start">
                   <Button href="/schedule-strategy-call" variant="light" className="px-5 py-2.5 text-[13.5px]">
                     Let&rsquo;s talk
                   </Button>

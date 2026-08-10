@@ -5,6 +5,7 @@ import { PlusIcon } from "@/components/ui/PlusIcon";
 import { Counter } from "@/components/ui/Counter";
 import { Button } from "@/components/ui/Button";
 import { asset } from "@/lib/basePath";
+import { marqueeHalf } from "@/lib/marquee";
 
 const AVATARS = [
   "/assets/images/7XElicIcn53vdnwyFHTpct98.jpg",
@@ -42,6 +43,9 @@ const TESTIMONIALS = [
       "Thomas was so helpful and patient. Helped with any issues I had and everything looks great. Very happy and highly recommend.",
   },
 ];
+
+const REVIEW_HALF = marqueeHalf(TESTIMONIALS, 400);
+const REVIEW_RAIL = [...REVIEW_HALF, ...REVIEW_HALF];
 
 export function Testimonials() {
   return (
@@ -99,10 +103,17 @@ export function Testimonials() {
           </Reveal>
         </div>
 
-        <div className="grid gap-5 lg:grid-cols-3">
-          {TESTIMONIALS.map((t, i) => (
-            <Reveal key={t.name} delay={i * 0.1}>
-              <div className="flex h-full flex-col gap-5 rounded-2xl border border-line bg-white p-7">
+        {/* Reviews travel left to right. Only three are real, so the rail
+            repeats them enough that one half spans the widest screen — same
+            trick as the logo marquees, otherwise the loop shows a gap. */}
+        <div className="-mx-5 overflow-hidden sm:-mx-10">
+          <div className="flex w-max animate-[marquee-reverse_46s_linear_infinite] gap-5 px-5 hover:[animation-play-state:paused] sm:px-10">
+            {REVIEW_RAIL.map((t, i) => (
+              <div
+                key={t.name + i}
+                aria-hidden={i >= TESTIMONIALS.length}
+                className="neu flex w-[300px] flex-none flex-col gap-5 rounded-2xl border border-line bg-white p-7 sm:w-[380px]"
+              >
                 <div className="flex items-center gap-3.5">
                   <Image src={asset(t.img)} alt={t.name} width={52} height={52} className="h-[52px] w-[52px] rounded-full object-cover" />
                   <div>
@@ -115,8 +126,8 @@ export function Testimonials() {
                   {t.quote}
                 </blockquote>
               </div>
-            </Reveal>
-          ))}
+            ))}
+          </div>
         </div>
 
         <div className="mt-14 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-line pt-10 sm:mt-20 sm:pt-16 lg:grid-cols-4">

@@ -140,6 +140,16 @@ body {
   }
 }
 
+/* Same loop travelling the other way, for the reviews rail. */
+@keyframes marquee-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
 .grain::after {
   content: "";
   position: absolute;

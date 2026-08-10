@@ -18,11 +18,14 @@ export function Reveal({
   delay = 0,
   scale = false,
   className,
+  id,
 }: {
   children: ReactNode;
   delay?: number;
   scale?: boolean;
   className?: string;
+  /** Lets callers mark a wrapper for measurement — e.g. the hero CTA row. */
+  id?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
@@ -53,6 +56,7 @@ export function Reveal({
   return (
     <motion.div
       ref={ref}
+      id={id}
       className={className}
       variants={scale ? scaleVariants : variants}
       initial="hidden"

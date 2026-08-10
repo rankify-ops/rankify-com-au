@@ -71,20 +71,23 @@ export function IndustriesSection({ block }: { block: IndustriesBlock }) {
           </div>
         </div>
 
-        <div className="mt-8 grid gap-2.5 sm:mt-12 sm:grid-cols-2 sm:gap-3 lg:grid-cols-4">
+        {/* Two columns even on a phone — one column made twelve chips eat most
+            of a screen. Long labels take a second line rather than shrinking
+            below readable. */}
+        <div className="mt-8 grid grid-cols-2 gap-2 sm:mt-12 sm:gap-3 lg:grid-cols-4">
           {block.items.map((item, i) => (
             <Reveal key={item.label} delay={Math.min(i, 7) * 0.04}>
-              <span className="neu flex items-center gap-3 rounded-xl border border-line bg-white px-4 py-[15px]">
+              <span className="neu flex h-full items-center gap-2.5 rounded-xl border border-line bg-white px-3 py-3 sm:gap-3 sm:px-4 sm:py-[15px]">
                 <svg
                   viewBox="0 0 24 24"
-                  className="h-5 w-5 flex-none text-[color:var(--green-deep)]"
+                  className="h-[18px] w-[18px] flex-none text-[color:var(--green-deep)] sm:h-5 sm:w-5"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1.8"
                 >
                   {ICONS[item.icon]}
                 </svg>
-                <span className="text-[14.5px] font-semibold tracking-[-0.01em]">{item.label}</span>
+                <span className="text-[12.5px] font-semibold leading-tight tracking-[-0.01em] sm:text-[14.5px]">{item.label}</span>
               </span>
             </Reveal>
           ))}

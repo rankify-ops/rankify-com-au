@@ -105,7 +105,7 @@ export function ServiceHero({ hero }: { hero: HeroData }) {
                   </ul>
                 </Reveal>
               )}
-              <Reveal delay={0.25} className="mt-8 flex flex-wrap gap-3.5">
+              <Reveal id="hero-cta" delay={0.25} className="mt-8 flex flex-wrap gap-3.5">
                 <Button href={hero.ctaPrimary.href} className="bg-[var(--green-deep)]">
                   {hero.ctaPrimary.label}
                 </Button>
@@ -176,7 +176,7 @@ export function ServiceHero({ hero }: { hero: HeroData }) {
                 {hero.intro.split(".").slice(1).join(".").trim()}
               </p>
             </Reveal>
-            <Reveal delay={0.2} className="mt-8 flex flex-wrap gap-3.5">
+            <Reveal id="hero-cta" delay={0.2} className="mt-8 flex flex-wrap gap-3.5">
               <Button href={hero.ctaPrimary.href}>{hero.ctaPrimary.label}</Button>
               <Button href={hero.ctaSecondary.href}>{hero.ctaSecondary.label}</Button>
             </Reveal>
