@@ -65,7 +65,8 @@ export type PricingBlock = {
   lookingForMoreCta?: { label: string; href: string };
 };
 
-export type TestimonialsBlock = { type: "testimonials" };
+/** `bare` drops the heading, rating and stats — just the review carousel. */
+export type TestimonialsBlock = { type: "testimonials"; bare?: boolean };
 
 export type ComparisonIcon =
   | "person"

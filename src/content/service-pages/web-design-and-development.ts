@@ -82,38 +82,9 @@ export const webDesignAndDevelopment: ServicePageData = {
         { icon: "finance", label: "Finance & Insurance" },
       ],
     },
-    { type: "testimonials" },
-    {
-      type: "cardgrid",
-      theme: "paper",
-      kicker: "Who this is for",
-      eyebrow: "Rankify®",
-      anchorId: "who-we-work-with",
-      heading: "Who we work with.",
-      columns: 3,
-      items: [
-        { idx: "01", anchorId: "launching-a-new-store", title: "Launching a new store", desc: "You need a custom Shopify store built properly from day one. Design, development, products, payments, shipping, and SEO — all handled." },
-        { idx: "02", anchorId: "migrating-to-shopify", title: "Migrating to Shopify", desc: "You're on WooCommerce, Squarespace, Magento, or an outdated platform and need a clean migration to Shopify without losing your search rankings or customer data." },
-        { idx: "03", anchorId: "scaling-shopify-plus", title: "Scaling & Shopify Plus", desc: "You've outgrown standard Shopify and need custom checkout, B2B functionality, or advanced integrations. We work with Shopify Plus for stores that need enterprise-level features." },
-      ],
-    },
-    {
-      type: "cardgrid",
-      theme: "paper",
-      kicker: "Services Section",
-      eyebrow: "Rankify®",
-      anchorId: "services",
-      heading: "What's included in a new store build",
-      subheading:
-        "Everything needed to get a custom Shopify store designed, built, migrated where necessary, and ready to rank from day one.",
-      columns: 4,
-      items: [
-        { idx: "01", anchorId: "custom-store-build", title: "Custom Shopify Store Design & Build", desc: "We design and build fully custom Shopify stores. Not a template with your logo dropped in — a store designed around your brand, products, and how your customers actually shop. Responsive, fast, and built for conversions." },
-        { idx: "02", anchorId: "theme-development", title: "Custom Shopify Theme Development", desc: "Need something a pre-built theme can't do? We build custom themes with advanced layouts, product filtering, dynamic sections, and custom functionality that off-the-shelf themes can't deliver." },
-        { idx: "03", anchorId: "shopify-migration", title: "Shopify Migration", desc: "Moving from WooCommerce, WordPress, Squarespace, BigCommerce, or Magento? We handle the full migration — products, customers, order history, URL redirects, and SEO preservation. Zero lost rankings." },
-        { idx: "04", anchorId: "shopify-seo", title: "Shopify SEO Setup & Optimisation", desc: "Every store we build includes SEO foundations as standard — title tags, meta descriptions, heading structure, image optimisation, schema markup, URL structure, and site speed. Not bolted on after the fact. Built in from the first commit." },
-      ],
-    },
+    // Reviews, then how the build runs, then the configurator — the visitor
+    // gets proof, process and price in that order before the detail sections.
+    { type: "testimonials", bare: true },
     {
       type: "cardgrid",
       theme: "paper",
@@ -154,6 +125,37 @@ export const webDesignAndDevelopment: ServicePageData = {
       tip: "For each main service you offer we recommend a dedicated page — they rank on their own terms and convert far better than one combined services page.",
       ctaLabel: "Book a call",
       ctaHref: "/schedule-strategy-call",
+    },
+    {
+      type: "cardgrid",
+      theme: "paper",
+      kicker: "Who this is for",
+      eyebrow: "Rankify®",
+      anchorId: "who-we-work-with",
+      heading: "Who we work with.",
+      columns: 3,
+      items: [
+        { idx: "01", anchorId: "launching-a-new-store", title: "Launching a new store", desc: "You need a custom Shopify store built properly from day one. Design, development, products, payments, shipping, and SEO — all handled." },
+        { idx: "02", anchorId: "migrating-to-shopify", title: "Migrating to Shopify", desc: "You're on WooCommerce, Squarespace, Magento, or an outdated platform and need a clean migration to Shopify without losing your search rankings or customer data." },
+        { idx: "03", anchorId: "scaling-shopify-plus", title: "Scaling & Shopify Plus", desc: "You've outgrown standard Shopify and need custom checkout, B2B functionality, or advanced integrations. We work with Shopify Plus for stores that need enterprise-level features." },
+      ],
+    },
+    {
+      type: "cardgrid",
+      theme: "paper",
+      kicker: "Services Section",
+      eyebrow: "Rankify®",
+      anchorId: "services",
+      heading: "What's included in a new store build",
+      subheading:
+        "Everything needed to get a custom Shopify store designed, built, migrated where necessary, and ready to rank from day one.",
+      columns: 4,
+      items: [
+        { idx: "01", anchorId: "custom-store-build", title: "Custom Shopify Store Design & Build", desc: "We design and build fully custom Shopify stores. Not a template with your logo dropped in — a store designed around your brand, products, and how your customers actually shop. Responsive, fast, and built for conversions." },
+        { idx: "02", anchorId: "theme-development", title: "Custom Shopify Theme Development", desc: "Need something a pre-built theme can't do? We build custom themes with advanced layouts, product filtering, dynamic sections, and custom functionality that off-the-shelf themes can't deliver." },
+        { idx: "03", anchorId: "shopify-migration", title: "Shopify Migration", desc: "Moving from WooCommerce, WordPress, Squarespace, BigCommerce, or Magento? We handle the full migration — products, customers, order history, URL redirects, and SEO preservation. Zero lost rankings." },
+        { idx: "04", anchorId: "shopify-seo", title: "Shopify SEO Setup & Optimisation", desc: "Every store we build includes SEO foundations as standard — title tags, meta descriptions, heading structure, image optimisation, schema markup, URL structure, and site speed. Not bolted on after the fact. Built in from the first commit." },
+      ],
     },
     SHOPIFY_WHY_US,
     {

@@ -47,7 +47,55 @@ const TESTIMONIALS = [
 const REVIEW_HALF = marqueeHalf(TESTIMONIALS, 400);
 const REVIEW_RAIL = [...REVIEW_HALF, ...REVIEW_HALF];
 
-export function Testimonials() {
+/**
+ * Reviews travel left to right. Only three are real, so the rail repeats them
+ * enough that one half spans the widest screen — same trick as the logo
+ * marquees, otherwise the loop shows a gap.
+ */
+function ReviewRail() {
+  return (
+    <div className="-mx-5 overflow-hidden sm:-mx-10">
+      <div className="flex w-max animate-[marquee-reverse_46s_linear_infinite] gap-5 px-5 hover:[animation-play-state:paused] sm:px-10">
+        {REVIEW_RAIL.map((t, i) => (
+          <div
+            key={t.name + i}
+            aria-hidden={i >= TESTIMONIALS.length}
+            className="neu flex w-[300px] flex-none flex-col gap-5 rounded-2xl border border-line bg-white p-7 sm:w-[380px]"
+          >
+            <div className="flex items-center gap-3.5">
+              <Image src={asset(t.img)} alt={t.name} width={52} height={52} className="h-[52px] w-[52px] rounded-full object-cover" />
+              <div>
+                <strong className="block text-base font-semibold">{t.name}</strong>
+                <span className="text-[13.5px] text-grey">{t.role}</span>
+              </div>
+            </div>
+            <Stars />
+            <blockquote className="text-[16.5px] font-medium leading-snug tracking-[-0.01em]">
+              {t.quote}
+            </blockquote>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * `bare` strips everything but the rail — used on the service pages, where the
+ * heading, the 5/5 counter and the stats grid would repeat what's already been
+ * said further up. The homepage keeps the full section.
+ */
+export function Testimonials({ bare = false }: { bare?: boolean }) {
+  if (bare) {
+    return (
+      <section className="mx-2 mt-8 rounded-3xl bg-paper text-ink sm:mt-12 lg:mt-20">
+        <div className="mx-auto max-w-[1400px] px-5 py-12 sm:px-10 sm:py-16 lg:py-20">
+          <ReviewRail />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="mx-2 mt-12 sm:mt-24 lg:mt-48 rounded-3xl bg-paper text-ink">
       <div className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
@@ -103,32 +151,7 @@ export function Testimonials() {
           </Reveal>
         </div>
 
-        {/* Reviews travel left to right. Only three are real, so the rail
-            repeats them enough that one half spans the widest screen — same
-            trick as the logo marquees, otherwise the loop shows a gap. */}
-        <div className="-mx-5 overflow-hidden sm:-mx-10">
-          <div className="flex w-max animate-[marquee-reverse_46s_linear_infinite] gap-5 px-5 hover:[animation-play-state:paused] sm:px-10">
-            {REVIEW_RAIL.map((t, i) => (
-              <div
-                key={t.name + i}
-                aria-hidden={i >= TESTIMONIALS.length}
-                className="neu flex w-[300px] flex-none flex-col gap-5 rounded-2xl border border-line bg-white p-7 sm:w-[380px]"
-              >
-                <div className="flex items-center gap-3.5">
-                  <Image src={asset(t.img)} alt={t.name} width={52} height={52} className="h-[52px] w-[52px] rounded-full object-cover" />
-                  <div>
-                    <strong className="block text-base font-semibold">{t.name}</strong>
-                    <span className="text-[13.5px] text-grey">{t.role}</span>
-                  </div>
-                </div>
-                <Stars />
-                <blockquote className="text-[16.5px] font-medium leading-snug tracking-[-0.01em]">
-                  {t.quote}
-                </blockquote>
-              </div>
-            ))}
-          </div>
-        </div>
+        <ReviewRail />
 
         <div className="mt-14 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-line pt-10 sm:mt-20 sm:pt-16 lg:grid-cols-4">
           {STATS.map((s, i) => (
