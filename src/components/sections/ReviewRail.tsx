@@ -140,7 +140,9 @@ function ReviewCard({
           type="button"
           onClick={() => setOpen((v) => !v)}
           tabIndex={hidden ? -1 : undefined}
-          className="-mt-1 self-start text-[12.5px] font-semibold text-[color:var(--green-deep)] underline-offset-2 hover:underline"
+          // mt-auto so the link sits on the card's baseline rather than
+          // wherever that particular quote happened to stop
+          className="mt-auto self-start pt-0.5 text-[12.5px] font-semibold text-[color:var(--green-deep)] underline-offset-2 hover:underline"
         >
           {open ? "Show less" : "Learn more"}
         </button>
@@ -161,7 +163,8 @@ export function ReviewRail({ fullWidth = false }: { fullWidth?: boolean }) {
   return (
     <div className={`overflow-hidden ${fullWidth ? "" : "-mx-5 sm:-mx-10"}`}>
       <div
-        className={`flex w-max animate-[marquee-reverse_60s_linear_infinite] items-start gap-4 hover:[animation-play-state:paused] sm:gap-5 ${
+        // stretch, not items-start: every card matches the tallest in the rail
+        className={`flex w-max animate-[marquee-reverse_60s_linear_infinite] gap-4 hover:[animation-play-state:paused] sm:gap-5 ${
           fullWidth ? "" : "px-5 sm:px-10"
         }`}
       >
