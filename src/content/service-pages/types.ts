@@ -36,11 +36,18 @@ export type CardGridBlock = {
   flush?: boolean;
 };
 
+/**
+ * Which logo-row treatment to use. The two are independent by design — see
+ * src/components/service-page/MarqueeSection.tsx. Tuning one must never move
+ * the other.
+ */
+export type MarqueeVariant = "canvas" | "ink";
+
 export type MarqueeBlock = {
   type: "marquee";
   label?: string;
-  /** Logos are desaturated unless a set is meant to run in brand colour. */
-  colour?: boolean;
+  /** Defaults to "ink". */
+  variant?: MarqueeVariant;
   /**
    * `w`/`h` are the file's real pixel dimensions. Without them the row falls
    * back to one assumed aspect for every logo, which letterboxes the ones that

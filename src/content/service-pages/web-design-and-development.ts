@@ -12,7 +12,7 @@ import { SHOPIFY_WHY_US } from "./shopify-shared";
 /** Websites we've built — deliberately not the Shopify page's store logos. */
 const WEB_CLIENT_LOGOS: MarqueeBlock = {
   type: "marquee",
-  colour: true,
+  variant: "canvas",
   logos: [
     { src: "/assets/logos-web/prime-group.webp", alt: "Prime Group Building", w: 1054, h: 465 },
     { src: "/assets/logos-web/cavstruct.webp", alt: "Cavstruct Projects", w: 1054, h: 465 },

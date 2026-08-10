@@ -20,12 +20,19 @@ export function ServiceFaq({ faq }: { faq: ServicePageData["faq"] }) {
           </div>
 
           <Reveal delay={0.1}>
-            <Accordion type="single" collapsible defaultValue="faq-0" className="gap-3">
+            {/* One panel with the questions stacked flush inside it, rather
+                than a dozen separate cards with a gap between each. */}
+            <Accordion
+              type="single"
+              collapsible
+              defaultValue="faq-0"
+              className="overflow-hidden rounded-xl border border-line bg-white"
+            >
               {faq.items.map((f, i) => (
                 <AccordionItem
                   key={f.q}
                   value={`faq-${i}`}
-                  className="mb-3 overflow-hidden rounded-xl border border-line bg-white px-6"
+                  className="border-b border-line px-6 last:border-b-0"
                 >
                   <AccordionTrigger className="py-5 text-[clamp(16px,1.2vw,19px)] font-semibold tracking-[-0.01em] hover:no-underline">
                     {f.q}
