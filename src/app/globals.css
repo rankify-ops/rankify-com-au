@@ -210,6 +210,39 @@ body {
   border-color: rgba(7, 168, 137, 0.32);
 }
 
+/* Buttons get the same soft-UI depth. A dark button needs a brighter top
+   highlight and a heavier ambient shadow than a light one to read the same
+   way, so the two variants carry different values rather than sharing --neu-*. */
+.neu-btn {
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+.neu-btn-light {
+  box-shadow: var(--neu-shadow);
+}
+
+.neu-btn-light:hover {
+  box-shadow: var(--neu-shadow-hover);
+}
+
+.neu-btn-dark {
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.22),
+    0 2px 6px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.neu-btn-dark:hover {
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
 /* Animated gradient ring — the "shine". Painted into a 2px transparent border
    and masked so only the border area shows, which keeps the fill untouched. */
 .shine-border {

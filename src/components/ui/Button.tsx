@@ -16,8 +16,9 @@ export function Button({
   className?: string;
   type?: "submit" | "button";
 }) {
-  const cls = `group relative inline-flex items-center gap-2.5 rounded-full px-6 py-3.5 text-[15px] font-medium transition-transform duration-300 ease-out hover:scale-[1.04] ${
-    variant === "dark" ? "bg-ink text-white" : "bg-white text-ink"
+  // .neu-btn owns the transition so the shadow animates alongside the scale
+  const cls = `group neu-btn relative inline-flex items-center gap-2.5 rounded-full px-6 py-3.5 text-[15px] font-medium ease-out hover:scale-[1.04] ${
+    variant === "dark" ? "neu-btn-dark bg-ink text-white" : "neu-btn-light bg-white text-ink"
   } ${className}`;
 
   const inner = (

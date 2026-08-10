@@ -56,7 +56,7 @@ export function FloatingCta() {
 
         <Link
           href="/schedule-strategy-call"
-          className="relative z-[2] flex-none rounded-full bg-white px-4 py-2 text-[13px] font-bold text-ink transition-transform duration-300 hover:-skew-x-3 sm:px-5 sm:text-[14px]"
+          className="neu-btn neu-btn-light relative z-[2] flex-none rounded-full bg-white px-4 py-2 text-[13px] font-bold text-ink hover:-skew-x-3 sm:px-5 sm:text-[14px]"
         >
           Book now
         </Link>

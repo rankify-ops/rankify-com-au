@@ -330,7 +330,7 @@ export function Header() {
                 <Link
                   href="/schedule-strategy-call"
                   onClick={closeMenu}
-                  className="rounded-full bg-white px-4 py-[15px] text-center text-[15px] font-bold text-ink shadow-[0_8px_24px_rgba(0,0,0,0.28)]"
+                  className="neu-btn neu-btn-light rounded-full bg-white px-4 py-[15px] text-center text-[15px] font-bold text-ink"
                 >
                   Book a Strategy Call
                 </Link>
