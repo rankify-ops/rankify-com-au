@@ -6,6 +6,7 @@ import { MarqueeSection } from "@/components/service-page/MarqueeSection";
 import { PortfolioSection } from "@/components/service-page/PortfolioSection";
 import { ComparisonSection } from "@/components/service-page/ComparisonSection";
 import { ConfiguratorSection } from "@/components/service-page/ConfiguratorSection";
+import { IndustriesSection } from "@/components/service-page/IndustriesSection";
 import { PricingBlockSection } from "@/components/service-page/PricingBlockSection";
 import { ServiceFaq } from "@/components/service-page/ServiceFaq";
 import { Testimonials } from "@/components/sections/Testimonials";
@@ -30,6 +31,8 @@ export function ServicePageTemplate({ data }: { data: ServicePageData }) {
             const idx = pricingIndex++;
             return <PricingBlockSection key={i} block={block} index={idx} />;
           }
+          case "industries":
+            return <IndustriesSection key={i} block={block} />;
           case "configurator":
             return <ConfiguratorSection key={i} block={block} />;
           case "comparison":

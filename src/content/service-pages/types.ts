@@ -124,6 +124,32 @@ export type ConfiguratorBlock = {
   ctaHref: string;
 };
 
+export type IndustryIcon =
+  | "trades"
+  | "plumbing"
+  | "electrical"
+  | "hvac"
+  | "cleaning"
+  | "landscaping"
+  | "accounting"
+  | "legal"
+  | "dental"
+  | "medical"
+  | "realestate"
+  | "finance";
+
+/** "Who we help" — a grid of industry chips. */
+export type IndustriesBlock = {
+  type: "industries";
+  anchorId?: string;
+  kicker: string;
+  eyebrow: string;
+  heading: string;
+  /** Trails the heading in grey, as on the other section headers. */
+  headingDim: string;
+  items: { label: string; icon: IndustryIcon }[];
+};
+
 export type Block =
   | CardGridBlock
   | MarqueeBlock
@@ -131,7 +157,8 @@ export type Block =
   | PricingBlock
   | TestimonialsBlock
   | ComparisonBlock
-  | ConfiguratorBlock;
+  | ConfiguratorBlock
+  | IndustriesBlock;
 
 export type FaqItem = { q: string; a: string };
 
