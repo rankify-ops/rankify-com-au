@@ -75,9 +75,11 @@ export function ServiceHero({ hero }: { hero: HeroData }) {
                       <Image
                         src={asset(hero.partnerLogo.src)}
                         alt={hero.partnerLogo.alt}
-                        width={1031}
-                        height={550}
-                        className="h-9 w-auto object-contain"
+                        width={640}
+                        height={192}
+                        // hero badge, above the fold — no reason to defer 6KB
+                        loading="eager"
+                        className="h-8 w-auto object-contain sm:h-9"
                       />
                     </>
                   )}
