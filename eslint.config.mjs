@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Its own Vercel project with its own deps and tsconfig — the site's
+    // build must not try to resolve stripe/@vercel/node.
+    "checkout-api/**",
   ]),
 ]);
 
