@@ -63,9 +63,11 @@ export const NAV_ITEMS: NavItem[] = [
     mega: {
       choices: [
         {
+          // Top of the page, not the configurator — the menu sends people to
+          // the pitch; Get Started is what jumps them to the price.
           label: "I want a new website",
           sub: "Custom built, designed around how your customers buy. Websites from $2,999.",
-          href: `${WEB}#website-configurator`,
+          href: WEB,
           icon: <Code />,
         },
         {
@@ -77,7 +79,9 @@ export const NAV_ITEMS: NavItem[] = [
         {
           label: "I want work on my existing site",
           sub: "Hourly development on your current Shopify, Framer or WordPress site.",
-          href: `${WEB}#what-we-build`,
+          // #what-we-build doesn't exist on the rebuilt page — the top of it is
+          // at least a real destination until there's a section to aim at.
+          href: WEB,
           icon: <Bolt />,
         },
         {
