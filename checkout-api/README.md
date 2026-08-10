@@ -42,8 +42,13 @@ numbers in step with the configurator block** in
 
 ## Allowed origins
 
-`_lib.ts` has an explicit allow-list for CORS. Anything not on it can't create
-a session. Add new domains there — never widen it to `*`.
+`_lib.ts` holds an explicit allow-list, and it is **enforced**: a request whose
+`Origin` isn't on it gets a 403 before any Stripe call. Header-only CORS would
+protect browsers and nothing else — curl sends no `Origin` and ignores response
+headers. Add new domains to that array; never widen it to `*`.
+
+The webhook is exempt — Stripe sends no `Origin` and authenticates by
+signature. That's why `webhook.ts` doesn't call `cors()`.
 
 ## Testing
 

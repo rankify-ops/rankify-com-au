@@ -26,12 +26,33 @@ const ALLOWED_ORIGINS = [
   "http://localhost:3000",
 ];
 
+/**
+ * Returns true when the request is already dealt with — either a preflight was
+ * answered or the caller was turned away.
+ *
+ * The allow-list is enforced, not merely advertised. CORS headers alone only
+ * bind browsers: curl sends no `Origin` and ignores the response headers, so
+ * header-only "protection" let anything script sessions against the account.
+ * Pricing is server-side so nobody could buy a website cheap, but there's no
+ * reason to let strangers fill the dashboard with abandoned sessions.
+ *
+ * Stripe's webhook does not come through here — it sends no Origin, and it
+ * authenticates by signature instead.
+ */
 export function cors(req: VercelRequest, res: VercelResponse): boolean {
   const origin = req.headers.origin ?? "";
-  if (ALLOWED_ORIGINS.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-    res.setHeader("Vary", "Origin");
+  const allowed = ALLOWED_ORIGINS.includes(origin);
+
+  res.setHeader("Vary", "Origin");
+
+  if (!allowed) {
+    // 403 on the preflight too, so the browser reports a refusal rather than
+    // a vague network error.
+    res.status(403).json({ error: "Origin not allowed." });
+    return true;
   }
+
+  res.setHeader("Access-Control-Allow-Origin", origin);
   res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
