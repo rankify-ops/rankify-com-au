@@ -26,6 +26,8 @@ type Body = {
   email?: string;
   phone?: string;
   returnUrl?: string;
+  /** From /api/lead — lets the webhook flip that record to a paying client. */
+  crmClientId?: string;
 };
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -82,6 +84,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       about: clip(b.about),
       contact_name: clip(b.name, 100),
       contact_phone: clip(b.phone, 40),
+      crm_client_id: clip(b.crmClientId, 64),
     };
 
     const returnUrl =

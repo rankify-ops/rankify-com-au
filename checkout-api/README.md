@@ -8,9 +8,25 @@ deployed from this subdirectory.
 
 | Endpoint | What it does |
 |---|---|
+| `POST /api/lead` | Records the brief in rankify-crm as soon as a valid email is typed, before the card form. Returns the CRM client id. |
 | `POST /api/create-checkout-session` | Prices the order **server-side** from the page count and returns a client secret for embedded Checkout. |
 | `GET /api/session-status?session_id=` | What the return page asks to show paid / not paid. |
-| `POST /api/webhook` | Stripe's callback. The real confirmation that an order was paid. |
+| `POST /api/webhook` | Stripe's callback. The real confirmation that an order was paid — and what flips the CRM record to a client. |
+
+## Where an order ends up
+
+1. Valid email typed → `/api/lead` → CRM record, `status: lead`, with the pages,
+   business details and estimated value. Its id rides along as
+   `crm_client_id` in the Stripe session metadata.
+2. Reaches the card form and leaves → the Stripe session keeps the whole brief,
+   and `after_expiration.recovery` emails them a link back to it.
+3. Pays → webhook sets that CRM record to `status: active` with the amount and
+   the Stripe session id in the notes. If no lead was captured (they moved
+   faster than the debounce) the webhook creates the record from the session
+   metadata instead, so a paid order can't go missing.
+
+A CRM outage never fails a payment: the webhook catches and logs, and still
+returns 200 so Stripe doesn't retry an event we've already handled.
 
 ## Pricing lives here, not in the browser
 
@@ -30,8 +46,10 @@ numbers in step with the configurator block** in
 
    | Name | Value |
    |---|---|
-   | `STRIPE_SECRET_KEY` | `sk_test_…` to start, `sk_live_…` when you go live |
+   | `STRIPE_SECRET_KEY` | `rk_test_…` to start, `rk_live_…` when you go live |
    | `STRIPE_WEBHOOK_SECRET` | from step 5 |
+   | `CRM_API_URL` | origin of rankify-crm, e.g. `https://rankify-crm.vercel.app` |
+   | `CRM_ROUTINE_SECRET` | the same value as `ROUTINE_SECRET` in the CRM project |
 
 5. Once deployed, in the Stripe dashboard: **Developers → Webhooks → Add
    endpoint**, URL `https://<your-deployment>.vercel.app/api/webhook`, event

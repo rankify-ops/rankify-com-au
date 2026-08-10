@@ -1,11 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/service-page/SectionHeading";
 import { CheckoutModal } from "@/components/service-page/CheckoutModal";
-import { checkoutConfigured, type OrderPayload } from "@/lib/checkout";
+import { captureLead, checkoutConfigured, type OrderPayload } from "@/lib/checkout";
 import type { ConfiguratorBlock } from "@/content/service-pages/types";
 
 const INDUSTRIES = [
@@ -137,6 +137,8 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
   // enough to be repliable — a lead with no name and no address is no lead
   const canSubmit = details.name.trim().length > 1 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
+  const [crmClientId, setCrmClientId] = useState<string | null>(null);
+
   const summary = useMemo(
     () =>
       [
@@ -167,7 +169,34 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
     name: details.name,
     email,
     phone: details.phone,
+    crmClientId: crmClientId ?? undefined,
   };
+
+  /**
+   * Send the brief to the CRM once there's an email worth following up, so a
+   * visitor who configures a site and leaves is still reachable. Declared
+   * after `order` because it reads it. Fires once per visit — the ref guards
+   * the re-render every keystroke causes — and after a pause, so we record a
+   * finished address rather than "t@e".
+   */
+  const leadSentRef = useRef(false);
+  const orderRef = useRef(order);
+
+  useEffect(() => {
+    // Kept fresh in an effect rather than during render — the timeout below
+    // needs the latest brief, not the one from the render that scheduled it.
+    orderRef.current = order;
+  });
+
+  useEffect(() => {
+    if (!canSubmit || leadSentRef.current) return;
+    const t = setTimeout(() => {
+      if (leadSentRef.current) return;
+      leadSentRef.current = true;
+      captureLead(orderRef.current).then(setCrmClientId);
+    }, 1200);
+    return () => clearTimeout(t);
+  }, [canSubmit, email]);
 
   return (
     <section

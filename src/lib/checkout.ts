@@ -34,7 +34,30 @@ export type OrderPayload = {
   name: string;
   email: string;
   phone: string;
+  /** CRM record created by captureLead, so payment can update it. */
+  crmClientId?: string;
 };
+
+/**
+ * Records the brief in the CRM as soon as there's an email to follow up on —
+ * before the card form, so a configured-but-not-bought visitor is still a
+ * lead. Silent by design: a failure here must never interrupt the form.
+ */
+export async function captureLead(order: OrderPayload): Promise<string | null> {
+  if (!CHECKOUT_API) return null;
+  try {
+    const res = await fetch(`${CHECKOUT_API}/api/lead`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(order),
+    });
+    if (!res.ok) return null;
+    const { clientId } = await res.json();
+    return clientId ?? null;
+  } catch {
+    return null;
+  }
+}
 
 /**
  * Asks the API for a session. Note it sends the *selections*, never a price —

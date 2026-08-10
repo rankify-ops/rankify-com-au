@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { stripe } from "./_lib.js";
+import { addLead, crmConfigured, markPaid } from "./_crm.js";
 
 /**
  * Stripe's own callback. This — not the return page — is the source of truth
@@ -38,17 +39,48 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   if (event.type === "checkout.session.completed") {
     const s = event.data.object;
+    const m = s.metadata ?? {};
+
     // Everything needed to start the build, in one log line Vercel keeps.
     console.log("ORDER PAID", {
       session: s.id,
       amount: s.amount_total,
       currency: s.currency,
       email: s.customer_details?.email,
-      ...s.metadata,
+      ...m,
     });
 
-    // Fulfilment hook — wire a Lert push or an email here when you want the
-    // order to reach your phone rather than the Vercel log.
+    // Flip the CRM record from lead to paying client. Wrapped because a CRM
+    // outage must never make us return non-200 — Stripe would retry the event
+    // and we'd double-handle a payment that already succeeded.
+    try {
+      const clientId = m.crm_client_id;
+      if (clientId) {
+        await markPaid(
+          clientId,
+          s.amount_total ?? 0,
+          `PAID $${((s.amount_total ?? 0) / 100).toLocaleString("en-AU")} via Stripe (${s.id}). ${m.total_pages ?? "?"} pages. Build starts on discovery call.`,
+        );
+      } else if (crmConfigured) {
+        // No lead was recorded (they moved faster than the capture) — create
+        // the record now so a paid order is never missing from the CRM.
+        await addLead({
+          pages: (m.pages ?? "").split(", ").filter(Boolean),
+          servicePages: Number(m.service_pages ?? 0),
+          totalPages: Number(m.total_pages ?? 0),
+          price: Math.round((s.amount_total ?? 0) / 100),
+          business: m.business ?? "",
+          industry: m.industry ?? "",
+          existing: m.existing_site ?? "",
+          about: m.about ?? "",
+          name: m.contact_name ?? "",
+          email: s.customer_details?.email ?? "",
+          phone: m.contact_phone ?? "",
+        });
+      }
+    } catch (err) {
+      console.error("CRM update failed for", s.id, err);
+    }
   }
 
   return res.status(200).json({ received: true });
