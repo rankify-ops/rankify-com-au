@@ -219,9 +219,9 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                   {/* Card payment is being wired up — until it is, the order
                       still has to reach us, so the same details go by email. */}
                   <p className="mt-2 max-w-[420px] text-[14.5px] text-white/60">
-                    {totalPages} pages, {money(price)}, built in 7&ndash;14 days. Card checkout goes live
-                    shortly — send your order through now and we&rsquo;ll get you started, or book a call
-                    and we&rsquo;ll walk through it together.
+                    {totalPages} pages, {money(price)} in full, built in 7&ndash;14 days. Card checkout goes
+                    live shortly — send your order through now and we&rsquo;ll get you started, or book a
+                    call and we&rsquo;ll walk through it together.
                   </p>
                   <div className="mt-6 flex flex-wrap gap-3">
                     <a
@@ -482,8 +482,10 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                 )}
               </ul>
 
+              {/* Fixed price, paid in one go — not an estimate to be quoted
+                  against later. */}
               <p className="mt-6 text-[12.5px] leading-snug text-white/45">
-                Indicative only — we confirm a fixed quote before any work starts.
+                Charged in full at checkout. One payment, no deposit and no invoices later.
               </p>
             </div>
           </div>
