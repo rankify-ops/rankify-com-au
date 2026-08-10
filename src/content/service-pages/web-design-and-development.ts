@@ -18,7 +18,7 @@ const CLOSING_NOTE =
 export const webDesignAndDevelopment: ServicePageData = {
   hero: {
     variant: "showcase",
-    heading: "I build high-performance websites that actually convert traffic to drive real profit and growth to your business.",
+    heading: "High-performance websites that actually convert traffic to drive real profit and growth to your business.",
     // No subheading: the headline already carries the promise, same as the
     // reference. No Shopify Partner badge either — this page isn't Shopify.
     intro:
