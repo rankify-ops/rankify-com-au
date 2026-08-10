@@ -31,7 +31,7 @@ export const webDesignAndDevelopment: ServicePageData = {
     ],
     ctaPrimary: { label: "Get Started", href: "#website-configurator" },
     ctaSecondary: { label: "Schedule free strategy Call", href: "/schedule-strategy-call" },
-    heroScreenshotWall: true,
+    heroScreenshotWall: "web",
   },
   blocks: [
     SHOPIFY_CLIENT_LOGOS,

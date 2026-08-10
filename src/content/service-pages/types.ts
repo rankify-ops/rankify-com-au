@@ -1,3 +1,5 @@
+import type { ScreenshotSet } from "@/components/service-page/ScreenshotWall";
+
 export type CardItem = {
   idx?: string;
   title: string;
@@ -177,8 +179,11 @@ export type HeroData = {
   asSeenOn?: { src: string; alt: string }[];
   heroImage?: string;
   heroImages?: string[];
-  /** Scrolling wall of store screenshots instead of a single hero image. */
-  heroScreenshotWall?: boolean;
+  /**
+   * Scrolling wall of screenshots instead of a single hero image. The value
+   * picks the image set — the Shopify and web dev pages show different work.
+   */
+  heroScreenshotWall?: ScreenshotSet;
   /** Accreditation logo shown beside the trust row. */
   partnerLogo?: { src: string; alt: string };
 };

@@ -30,7 +30,7 @@ export const shopifyDevelopmentServices: ServicePageData = {
     ],
     ctaPrimary: { label: "View Pricing", href: "#website-pricing" },
     ctaSecondary: { label: "Schedule free strategy Call", href: "/schedule-strategy-call" },
-    heroScreenshotWall: true,
+    heroScreenshotWall: "shopify",
   },
   blocks: [
     SHOPIFY_CLIENT_LOGOS,

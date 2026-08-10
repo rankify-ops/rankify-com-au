@@ -127,7 +127,7 @@ export function ServiceHero({ hero }: { hero: HeroData }) {
             <div>
               {hero.heroScreenshotWall ? (
                 <div className="h-[420px] sm:h-[520px] lg:h-[min(66vh,660px)]">
-                  <ScreenshotWall />
+                  <ScreenshotWall set={hero.heroScreenshotWall} />
                 </div>
               ) : hero.heroImages ? (
                 <Reveal scale className="grid grid-cols-2 gap-3">
