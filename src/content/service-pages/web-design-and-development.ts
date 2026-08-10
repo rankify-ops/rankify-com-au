@@ -1,106 +1,99 @@
+/**
+ * Web development — new websites.
+ *
+ * Structure and copy were carried over wholesale from the Shopify builds page
+ * at Tom's request so the layout matches; the wording is still Shopify's and
+ * needs replacing section by section. Only the FAQ and the pricing timeline
+ * are this page's own.
+ */
 import type { ServicePageData } from "./types";
+import {
+  SHOPIFY_CLIENT_LOGOS,
+  SHOPIFY_WHY_US,
+} from "./shopify-shared";
 
 const CLOSING_NOTE =
   "We believe that a website should be more than just a digital presence—it should be a tool that works for your business. That's why we prioritise performance, user experience in everything we create. We build websites that are fast, efficient, and easy to manage, so you can focus on what matters—running your business.";
 
 export const webDesignAndDevelopment: ServicePageData = {
   hero: {
-    variant: "content",
-    kicker: "About us",
-    heading: "Web Design & Development",
+    variant: "showcase",
+    heading: "Shopify Development Services",
+    subheading: "Built to sell and convert — not just to look good.",
     intro:
-      "We are a digital studio specialising in website design & development. We offer services to existing websites and new website builds, our focus is on creating functional, fast, and well structured websites that meet business goals without unnecessary complexity.",
-    note: "No overcomplicated processes, just effective solutions tailored to your needs.",
-    ctaPrimary: { label: "View Pricing", href: "#pricing" },
+      "Plenty of Shopify stores look great and still don't sell. We build custom themes for your brand where every page — collection, product, cart, checkout — is designed to turn browsers into buyers. A world-class store that shows up in your sales, revenue and profit.",
+    partnerLogo: {
+      src: "/assets/images/itYXCWTMEyLhUl5y8mb9eKNL4mY.webp",
+      alt: "Shopify Partner",
+    },
+    badges: [
+      "Registered Shopify Partner",
+      "100% money-back guarantee",
+      "Fixed quote before any work starts",
+      "Expert custom developer",
+      "Deal direct, no managers",
+    ],
+    ctaPrimary: { label: "View Pricing", href: "#website-pricing" },
     ctaSecondary: { label: "Schedule free strategy Call", href: "/schedule-strategy-call" },
+    heroScreenshotWall: true,
   },
   blocks: [
-    {
-      type: "cardgrid",
-      anchorId: "what-we-build",
-      theme: "paper",
-      columns: 3,
-      bottomImage: "/assets/images/BvhgaZCeNF3QqrLv6UbtoFydlGU.jpg",
-      items: [
-        {
-          idx: "01",
-          anchorId: "shopify-web-development",
-          title: "Shopify Web Development",
-          image: "/assets/images/jhdHQKz8nA2pnUVTCJ9a9QfqMuI.svg",
-          desc: "Need a developer for Shopify? Hire me via this page for hourly work or for getting a new website on Shopify. We recommend Shopify for businesses selling products online.",
-          cta: { label: "View Shopify Page", href: "/shopify-development-services" },
-        },
-        {
-          idx: "02",
-          anchorId: "framer-web-development",
-          title: "Framer Web Development",
-          image: "/assets/images/wJ32OUMRhl9dcQUVtCrCYJb00oQ.png",
-          desc: "Need a developer for Framer? Hire me via this page for hourly work or for getting a new website on Framer. We recommend Framer for all new websites that are not e-commerce.",
-          cta: { label: "Schedule a call", href: "/schedule-strategy-call" },
-        },
-        {
-          idx: "03",
-          anchorId: "wordpress-web-development",
-          title: "Wordpress Web Development",
-          image: "/assets/images/QxH1zvpw4UjNkSmwlty8dYAxUPY.png",
-          desc: "Need a developer for Wordpress? Hire me via this page for hourly work or for getting a new website on Wordpress. We don't recommend using Wordpress as we consider it an outdated platform.",
-          cta: { label: "Schedule a call", href: "/schedule-strategy-call" },
-        },
-      ],
-    },
+    SHOPIFY_CLIENT_LOGOS,
+    { type: "testimonials" },
     {
       type: "cardgrid",
       theme: "paper",
-      kicker: "About us",
+      kicker: "Who this is for",
       eyebrow: "Rankify®",
-      anchorId: "process",
-      heading: "Our process to launch new websites.",
-      subheading:
-        "See how our team combines creativity, technology, and strategy to build powerful digital solutions.",
-      columns: 4,
-      bottomImage: "/assets/images/Jz7xVlXPS5OtC5L5UzoV5v38coA.jpg",
+      anchorId: "who-we-work-with",
+      heading: "Who we work with.",
+      cta: { label: "View Pricing", href: "#website-pricing" },
+      columns: 3,
       items: [
-        {
-          idx: "01",
-          anchorId: "your-goals",
-          title: "Your Goals",
-          desc: "We start with a call to understand your goals, brand, and users. This sets the direction for everything that follows.",
-        },
-        {
-          idx: "02",
-          anchorId: "design",
-          title: "Design",
-          desc: "We create a custom website that fits your brand and audience—clean, modern, and built to convert.",
-        },
-        {
-          idx: "03",
-          anchorId: "seo-ready",
-          title: "SEO Ready",
-          desc: "We build your site using clean code and modern tech. Mobile-friendly, SEO-ready, and fast.",
-        },
-        {
-          idx: "04",
-          anchorId: "support",
-          title: "Support",
-          desc: "After testing and launch, we stick around for updates and support.",
-        },
+        { idx: "01", anchorId: "launching-a-new-store", title: "Launching a new store", desc: "You need a custom Shopify store built properly from day one. Design, development, products, payments, shipping, and SEO — all handled." },
+        { idx: "02", anchorId: "migrating-to-shopify", title: "Migrating to Shopify", desc: "You're on WooCommerce, Squarespace, Magento, or an outdated platform and need a clean migration to Shopify without losing your search rankings or customer data." },
+        { idx: "03", anchorId: "scaling-shopify-plus", title: "Scaling & Shopify Plus", desc: "You've outgrown standard Shopify and need custom checkout, B2B functionality, or advanced integrations. We work with Shopify Plus for stores that need enterprise-level features." },
       ],
     },
     {
-      type: "portfolio",
-      anchorId: "our-work",
-      eyebrow: "(2024-25©)",
-      heading: "Our Website Clients",
-      subheading: "A few of the businesses we've built and launched websites for recently.",
+      type: "cardgrid",
+      theme: "paper",
+      kicker: "Services Section",
+      eyebrow: "Rankify®",
+      anchorId: "services",
+      heading: "What's included in a new store build",
+      subheading:
+        "Everything needed to get a custom Shopify store designed, built, migrated where necessary, and ready to rank from day one.",
+      cta: { label: "View Pricing", href: "#website-pricing" },
+      columns: 4,
       items: [
-        { name: "Hiatus Collection", sub: "View Live Website | 2025", image: "/assets/images/WRjXIBfZxMI8DrDHJoRoBdiFgds.webp", logo: "/assets/images/slyRihVSReT5BPI1GoT4o8EG0Q8.png" },
-        { name: "Tintek", sub: "View Live Website | 2025", image: "/assets/images/RDhRQ4WWoWivfy4MLnSL2MKu2qA.webp", logo: "/assets/images/8stgJ2tUk2iS12WWBvhVMVtUs.png" },
-        { name: "Rankify", sub: "View Live Website | 2025", image: "/assets/images/X1v7Yb87Igg23yIVi0lRCQBliQ.jpg", logo: "/assets/images/obmy72UpDOVaDmxxpPltJniBY.png" },
-        { name: "Hawker Studios", sub: "Coming Soon | 2025", image: "/assets/images/kcxjwUcQKZbRLbLzb6nVeWSrM.jpg", logo: "/assets/images/RdBvsWhCLhy3Rw3vkfbtVPk.png" },
+        { idx: "01", anchorId: "custom-store-build", title: "Custom Shopify Store Design & Build", desc: "We design and build fully custom Shopify stores. Not a template with your logo dropped in — a store designed around your brand, products, and how your customers actually shop. Responsive, fast, and built for conversions." },
+        { idx: "02", anchorId: "theme-development", title: "Custom Shopify Theme Development", desc: "Need something a pre-built theme can't do? We build custom themes with advanced layouts, product filtering, dynamic sections, and custom functionality that off-the-shelf themes can't deliver." },
+        { idx: "03", anchorId: "shopify-migration", title: "Shopify Migration", desc: "Moving from WooCommerce, WordPress, Squarespace, BigCommerce, or Magento? We handle the full migration — products, customers, order history, URL redirects, and SEO preservation. Zero lost rankings." },
+        { idx: "04", anchorId: "shopify-seo", title: "Shopify SEO Setup & Optimisation", desc: "Every store we build includes SEO foundations as standard — title tags, meta descriptions, heading structure, image optimisation, schema markup, URL structure, and site speed. Not bolted on after the fact. Built in from the first commit." },
+      ],
+    },
+    {
+      type: "cardgrid",
+      theme: "paper",
+      kicker: "Our Design Process",
+      eyebrow: "Rankify®",
+      anchorId: "build-process",
+      heading: "A simple process. Building your new store:",
+      cta: { label: "View Pricing", href: "#website-pricing" },
+      columns: 3,
+      items: [
+        { idx: "01", title: "Discovery Call & Scoping", image: "/assets/images/Z6tHt1zj6Xzi4mqYcUDecqw9s.png", desc: "We start with a call to understand your business, products, customers, and goals. No generic questionnaires. You get a detailed scope document and fixed quote before any work begins." },
+        { idx: "02", title: "Design Mockup", image: "/assets/images/DPStQ1OLWHQEotlRG324OWMdXgA.png", desc: "We mock up your homepage, key page templates (collection, product, about, contact), and mobile layouts. You review and approve before development starts. Nothing gets built until you're happy with the design." },
+        { idx: "03", title: "Shopify Development", image: "/assets/images/OcCBB2O75VsaHiIw8nfSpLAtJjo.webp", desc: "We build your store using clean, custom Liquid code on top of your approved design. Products, collections, payment gateways, shipping rules, tax settings, app integrations — everything configured and tested." },
+        { idx: "04", title: "Testing, Revisions & SEO", image: "/assets/images/BRmVb3sj222Zc8G43z2kcUcKHy8.webp", desc: "Full SEO setup — metadata, schema markup, redirects (for migrations), site speed optimisation. Cross-browser and cross-device testing. We catch the problems before your customers do." },
+        { idx: "05", title: "Launch", image: "/assets/images/jeJzliriilgkAa6aYwiNxC60o.webp", desc: "We handle DNS, domain configuration, and go-live. You get a training walkthrough so you can manage day-to-day product and content updates yourself." },
+        { idx: "06", title: "Ongoing support (optional)", image: "/assets/images/htpsqYBKyKw4QhDxfxQWLbtZXE.webp", desc: "Your store is live but the work doesn't have to stop. Move onto a monthly retainer for bug fixes, design updates, new features, and performance monitoring. Your developer already knows your store — no re-onboarding, no handovers.", cta: { label: "See retainer options", href: "/shopify-developer" } },
       ],
     },
     {
       type: "pricing",
+      anchorId: "website-pricing",
       eyebrow: "Simple pricing",
       heading: "Websites Starting From",
       tag: "Per project",
@@ -110,10 +103,84 @@ export const webDesignAndDevelopment: ServicePageData = {
         {
           price: "$5,999",
           period: "/project",
-          note: "Delivery time 3-4 weeks",
+          note: "Delivery time 2-3 weeks",
           features: ["Homepage + up to 4 inner pages", "Design and Development", "Mobile-Optimised Design"],
           ctaLabel: "Get in touch",
           ctaHref: "/contact",
+        },
+      ],
+    },
+    SHOPIFY_WHY_US,
+    {
+      type: "comparison",
+      anchorId: "vs-agency",
+      tableTitle: "Seriously.. look at the difference!",
+      agencyLabel: "Typical Agency",
+      usLabel: "Rankify",
+      rows: [
+        { icon: "person", label: "Who you talk to", agency: "Account managers, juniors, whoever", us: "Just the developer" },
+        { icon: "clock", label: "Timeline", agency: "2–4 months", us: "7–14 days" },
+        { icon: "dollar", label: "Build Cost", agency: "$20k–$40k+", us: "A fraction of that" },
+        { icon: "repeat", label: "Retainer", agency: "Mandatory, up to $500/mo", us: "Optional, only if you want ongoing work" },
+        { icon: "trending", label: "Built to convert", agency: "Looks nice, maybe", us: "Engineered to sell, and looks better" },
+        { icon: "revisions", label: "Revisions", agency: "Billed hourly", us: "Unlimited changes included" },
+        { icon: "shield", label: "Hosting & security", agency: "Up to $600/yr, ongoing", us: "We host & secure it, $0" },
+        { icon: "card", label: "Ongoing cost / year", agency: "$2,000 – $7,000+", us: "$0", highlight: true },
+      ],
+      footnote: "Retainers and hosting add up every single year. With me, your running cost is zero.",
+      eyebrow: "One developer. Whole-agency output.",
+      heading: "A developer who knows AI, conversion, and design is a whole agency in one person.",
+      body: [
+        "Developers who build with AI are unbeatable on speed — what took a team months now takes one person days, with **cleaner, more optimised code**. Add real conversion knowledge and genuine taste, and you get everything a high-end agency delivers, from the one person who actually does the work.",
+        "Here's the part agencies won't tell you: the work got faster for everyone. **They just keep the savings. I pass them straight on to you.** Same high-end result, a fraction of the price — because I'm not paying for overhead, and I'm not here to rip you off.",
+        "I'm genuinely passionate about building **high-performance sites that look as good as they convert**.",
+      ],
+    },
+    {
+      type: "cardgrid",
+      theme: "paper",
+      kicker: "Why choose rankify?",
+      eyebrow: "Rankify®",
+      anchorId: "why-rankify",
+      heading: "Why invest in an expert Shopify developer with Rankify.",
+      cta: { label: "View Pricing", href: "#website-pricing" },
+      columns: 3,
+      items: [
+        {
+          idx: "01",
+          title: "DIY or AI Website Builders",
+          desc: [
+            "Generic templates that look like every other store.",
+            "No custom functionality — stuck with what the theme gives you.",
+            "SEO issues you won't know about until you're not ranking.",
+            "Broken mobile layouts, slow page speeds, no schema markup.",
+            "Hours spent troubleshooting instead of running your business.",
+            "No one to call when something breaks.",
+          ],
+        },
+        {
+          idx: "02",
+          title: "With other freelancers or agencies",
+          desc: [
+            "Agencies charge $15k–$50k+ for the same scope of work.",
+            "Freelancers disappear mid-project or go unresponsive.",
+            "Passed between project managers — never speak to the developer.",
+            "Slow timelines, weeks of waiting for simple changes.",
+            "Cookie-cutter builds disguised as “custom” development.",
+            "No ongoing support after launch — you're on your own.",
+          ],
+        },
+        {
+          idx: "03",
+          title: "With Rankify",
+          desc: [
+            "Custom Shopify development, no shortcuts.",
+            "Direct access to your developer, every time.",
+            "AI-accelerated workflow — agency quality in a fraction of the time.",
+            "SEO, schema, and speed optimisation built into every build.",
+            "Fixed quotes with no surprise invoices.",
+            "Ongoing retainer support so your store keeps improving after launch.",
+          ],
         },
       ],
     },
