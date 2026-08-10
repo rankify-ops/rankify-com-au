@@ -6,6 +6,7 @@ import { asset } from "@/lib/basePath";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { SmartLink } from "@/components/ui/SmartLink";
 import { NAV_ITEMS, SIMPLE_LINKS, type MegaMenu } from "@/content/nav";
 
 /** Big "what do you actually want" cards — every menu routes by intent. */
@@ -14,7 +15,7 @@ function MegaPanel({ mega, onNavigate }: { mega: MegaMenu; onNavigate: () => voi
     <div className="grid gap-8 lg:grid-cols-[1fr_minmax(240px,300px)]">
       <div className="grid gap-3 sm:grid-cols-2">
         {mega.choices.map((c) => (
-          <Link
+          <SmartLink
             key={c.label}
             href={c.href}
             onClick={onNavigate}
@@ -30,7 +31,7 @@ function MegaPanel({ mega, onNavigate }: { mega: MegaMenu; onNavigate: () => voi
               </span>
               <span className="mt-1 block text-[13.5px] leading-snug text-grey">{c.sub}</span>
             </span>
-          </Link>
+          </SmartLink>
         ))}
       </div>
 
@@ -282,14 +283,14 @@ export function Header() {
                           >
                             {item.mega.choices.map((c) => (
                               <li key={c.label}>
-                                <Link
+                                <SmartLink
                                   href={c.href}
                                   onClick={closeMenu}
                                   className="flex items-center gap-3 py-2.5 pl-[13px] text-[15px] text-white/70 transition-colors hover:text-white"
                                 >
                                   <span className="text-[color:#07a889] [&_svg]:h-4 [&_svg]:w-4">{c.icon}</span>
                                   {c.label}
-                                </Link>
+                                </SmartLink>
                               </li>
                             ))}
                             <li className="h-2" />

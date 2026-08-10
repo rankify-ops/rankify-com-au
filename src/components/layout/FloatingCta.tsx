@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { SmartLink } from "@/components/ui/SmartLink";
 
 /**
  * Persistent bottom action bar — not dismissible, so there's always a live call
@@ -67,12 +68,12 @@ export function FloatingCta() {
         {/* Buttons split the bar on a phone; on desktop they shrink back to
             their own width so the copy has room. */}
         <div className="relative z-[2] flex min-w-0 flex-1 items-center gap-2 sm:flex-none sm:gap-2.5">
-          <Link
+          <SmartLink
             href="/web-design-and-development#website-configurator"
             className="neu-btn neu-btn-dark flex-1 whitespace-nowrap rounded-full border border-transparent bg-[var(--green-deep)] px-4 py-2.5 text-center text-[13.5px] font-bold text-white hover:-skew-x-3 sm:flex-none sm:px-5 sm:py-2 sm:text-[14px]"
           >
             Get Started
-          </Link>
+          </SmartLink>
           <Link
             href="/schedule-strategy-call"
             className="flex-1 whitespace-nowrap rounded-full border border-ink/15 bg-white/50 px-4 py-2.5 text-center text-[13.5px] font-semibold transition-colors hover:bg-white sm:flex-none sm:px-5 sm:py-2 sm:text-[14px]"
