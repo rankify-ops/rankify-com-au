@@ -13,8 +13,8 @@ import {
 export const shopifyDevelopmentServices: ServicePageData = {
   hero: {
     variant: "showcase",
-    heading: "Shopify Development Services",
-    subheading: "Built to sell and convert — not just to look good.",
+    heading: "High-performance Shopify stores that actually convert traffic to drive real profit and growth to your business.",
+    // No subheading — the headline already says it converts.
     intro:
       "Plenty of Shopify stores look great and still don't sell. We build custom themes for your brand where every page — collection, product, cart, checkout — is designed to turn browsers into buyers. A world-class store that shows up in your sales, revenue and profit.",
     partnerLogo: {
