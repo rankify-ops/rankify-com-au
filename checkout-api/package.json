@@ -1,0 +1,15 @@
+{
+  "name": "rankify-checkout-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Stripe endpoints for the rankify.com.au website configurator. Deployed to Vercel separately from the static site.",
+  "type": "module",
+  "dependencies": {
+    "stripe": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@vercel/node": "^5.9.7",
+    "typescript": "^5"
+  }
+}

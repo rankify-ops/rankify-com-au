@@ -4,6 +4,8 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/service-page/SectionHeading";
+import { CheckoutPanel } from "@/components/service-page/CheckoutPanel";
+import { checkoutConfigured, type OrderPayload } from "@/lib/checkout";
 import type { ConfiguratorBlock } from "@/content/service-pages/types";
 
 const INDUSTRIES = [
@@ -105,6 +107,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
     phone: "",
   });
   const [sent, setSent] = useState(false);
+  const [paying, setPaying] = useState(false);
 
   const totalPages = selected.length + servicePages + custom.length;
   const extra = Math.max(0, totalPages - block.includedPages);
@@ -151,6 +154,20 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
   const mailto = `mailto:hello@rankify.com.au?subject=${encodeURIComponent(
     `Website order — ${money(price)}`
   )}&body=${encodeURIComponent(summary)}`;
+
+  // Selections only — the API prices the order itself, so a tampered payload
+  // can't buy a website for a dollar.
+  const order: OrderPayload = {
+    pages: [...selected, ...custom],
+    servicePages,
+    business: details.business,
+    industry: details.industry,
+    existing: details.existing,
+    about: details.about,
+    name: details.name,
+    email,
+    phone: details.phone,
+  };
 
   return (
     <section
@@ -210,7 +227,23 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
 
             {/* ---- form ---- */}
             <div className="p-7 sm:p-10">
-              {sent ? (
+              {paying ? (
+                <div>
+                  <div className="mb-5 flex items-center justify-between gap-4">
+                    <p className="text-[12.5px] font-semibold uppercase tracking-[0.12em] text-white/50">
+                      Payment — {totalPages} page{totalPages === 1 ? "" : "s"}, {money(price)}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setPaying(false)}
+                      className="rounded-full border border-white/20 px-4 py-1.5 text-[13px] font-semibold transition-colors hover:bg-white/10"
+                    >
+                      Back
+                    </button>
+                  </div>
+                  <CheckoutPanel order={order} />
+                </div>
+              ) : sent ? (
                 <div className="flex h-full flex-col justify-center py-6">
                   <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[color:#07a889] text-[22px]">
                     ✓
@@ -415,7 +448,12 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                     <button
                       type="button"
                       disabled={step === 3 && !canSubmit}
-                      onClick={() => (step === 3 ? setSent(true) : setStep((s) => s + 1))}
+                      onClick={() => {
+                        if (step < 3) return setStep((s) => s + 1);
+                        // Falls back to the email brief until the Stripe keys
+                        // are set — better than a dead button.
+                        return checkoutConfigured ? setPaying(true) : setSent(true);
+                      }}
                       className="neu-btn neu-btn-light rounded-full bg-white px-6 py-2.5 text-[14px] font-bold text-ink disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       {step === 3 ? `Checkout — ${money(price)}` : "Continue"}
