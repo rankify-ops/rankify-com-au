@@ -16,7 +16,7 @@ export function MarqueeSection({ block }: { block: MarqueeBlock }) {
         {doubled.map((logo, i) => (
           <div
             key={logo.alt + i}
-            className="flex w-[clamp(160px,16vw,240px)] flex-none items-center justify-center border-r border-line py-9"
+            className="flex w-[clamp(160px,16vw,240px)] flex-none items-center justify-center border-r border-line px-5 py-9 sm:px-7"
           >
             <Image
               src={asset(logo.src)}
@@ -26,7 +26,9 @@ export function MarqueeSection({ block }: { block: MarqueeBlock }) {
               height={70}
               // the track scrolls these in; lazy makes them pop
               loading="eager"
-              className="h-[clamp(28px,3vw,42px)] w-auto object-contain grayscale"
+              // max-w so a very wide wordmark shrinks to the cell instead of
+              // bleeding into its neighbour; object-contain keeps the aspect
+              className="h-[clamp(28px,3vw,42px)] w-auto max-w-full object-contain grayscale"
             />
           </div>
         ))}

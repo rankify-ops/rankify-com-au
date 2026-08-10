@@ -6,11 +6,23 @@
  * Nothing on this page should read as Shopify — an online store is a separate
  * build on a separate page.
  */
-import type { ServicePageData } from "./types";
-import {
-  SHOPIFY_CLIENT_LOGOS,
-  SHOPIFY_WHY_US,
-} from "./shopify-shared";
+import type { MarqueeBlock, ServicePageData } from "./types";
+import { SHOPIFY_WHY_US } from "./shopify-shared";
+
+/** Websites we've built — deliberately not the Shopify page's store logos. */
+const WEB_CLIENT_LOGOS: MarqueeBlock = {
+  type: "marquee",
+  logos: [
+    { src: "/assets/logos-web/prime-group.webp", alt: "Prime Group Building" },
+    { src: "/assets/logos-web/cavstruct.webp", alt: "Cavstruct Projects" },
+    { src: "/assets/logos-web/mjb-electrical.webp", alt: "MJB Electrical Group" },
+    { src: "/assets/logos-web/tintek.webp", alt: "Tintek Roofing & Cladding" },
+    { src: "/assets/logos-web/evosolar.webp", alt: "Evosolar" },
+    { src: "/assets/logos-web/adalytical.webp", alt: "Adalytical" },
+    { src: "/assets/logos-web/ottilie-studios.webp", alt: "Ottilie Studios" },
+    { src: "/assets/logos-web/hawker-studio.webp", alt: "Hawker Studio" },
+  ],
+};
 
 const CLOSING_NOTE =
   "We believe that a website should be more than just a digital presence—it should be a tool that works for your business. That's why we prioritise performance, user experience in everything we create. We build websites that are fast, efficient, and easy to manage, so you can focus on what matters—running your business.";
@@ -34,7 +46,7 @@ export const webDesignAndDevelopment: ServicePageData = {
     heroScreenshotWall: "web",
   },
   blocks: [
-    SHOPIFY_CLIENT_LOGOS,
+    WEB_CLIENT_LOGOS,
     {
       type: "comparison",
       anchorId: "vs-agency",
