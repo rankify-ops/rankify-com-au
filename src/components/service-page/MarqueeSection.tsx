@@ -22,7 +22,9 @@ export function MarqueeSection({ block }: { block: MarqueeBlock }) {
                 canvas, so the canvas is the alignment — don't trim it, don't
                 fit to the ink. Every file is the same size, dropped into the
                 same box, and they line up. */}
-            <span className="flex h-[clamp(56px,6vw,84px)] w-full items-center justify-center">
+            {/* 85% of the cell in both directions — shrinks every logo by the
+                same amount, since they all share one canvas size. */}
+            <span className="flex h-[clamp(48px,5.1vw,71px)] w-[85%] items-center justify-center">
               <Image
                 src={asset(logo.src)}
                 alt={i < block.logos.length ? logo.alt : ""}
