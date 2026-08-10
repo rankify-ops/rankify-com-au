@@ -1,5 +1,5 @@
 import { Reveal } from "@/components/ui/Reveal";
-import { PlusIcon } from "@/components/ui/PlusIcon";
+import { SectionHeading } from "@/components/service-page/SectionHeading";
 import type { IndustriesBlock, IndustryIcon } from "@/content/service-pages/types";
 
 /* Paths lifted from the Adalytical lead-gen page so the two stay recognisably
@@ -64,25 +64,7 @@ export function IndustriesSection({
           mergeNext ? "pb-10 sm:pb-12" : "pb-12 sm:pb-16 lg:pb-20"
         }`}
       >
-        {/* Same header shape as the card grids — kicker left, title right. */}
-        <div className="grid gap-8 lg:grid-cols-[minmax(180px,1fr)_2.2fr] lg:gap-20">
-          <Reveal>
-            <span className="inline-flex items-center gap-2 text-[15px] font-medium">
-              <PlusIcon dark className="h-[18px] w-[18px]" />
-              {block.kicker}
-            </span>
-          </Reveal>
-          <div>
-            <Reveal>
-              <p className="mb-3.5 font-semibold text-grey">{block.eyebrow}</p>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <h2 className="text-[clamp(32px,3.1vw,58px)] font-medium leading-[0.96] tracking-[-0.05em]">
-                {block.heading} <span className="text-grey">{block.headingDim}</span>
-              </h2>
-            </Reveal>
-          </div>
-        </div>
+        <SectionHeading label={block.kicker} heading={block.heading} headingDim={block.headingDim} />
 
         {/* Two columns even on a phone — one column made twelve chips eat most
             of a screen. Long labels take a second line rather than shrinking

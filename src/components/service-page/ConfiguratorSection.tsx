@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
-import { PlusIcon } from "@/components/ui/PlusIcon";
+import { SectionHeading } from "@/components/service-page/SectionHeading";
 import type { ConfiguratorBlock } from "@/content/service-pages/types";
 
 const INDUSTRIES = [
@@ -145,22 +145,13 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
       className="grain mx-2 mt-8 scroll-mt-24 rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white sm:mt-12 lg:mt-20"
     >
       <div className="relative z-[2] mx-auto max-w-[1400px] px-5 py-12 sm:px-10 sm:py-16 lg:py-20">
-        <div className="mb-8 sm:mb-12">
-          <Reveal>
-            <span className="inline-flex items-center gap-2 text-[15px] font-medium">
-              <PlusIcon className="h-[18px] w-[18px]" />
-              {block.eyebrow}
-            </span>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h2 className="mt-4 max-w-[720px] text-[clamp(32px,3.1vw,58px)] font-medium leading-[0.98] tracking-[-0.05em]">
-              {block.heading}
-            </h2>
-          </Reveal>
-          <Reveal delay={0.12}>
-            <p className="mt-3 max-w-[620px] text-[15px] text-white/60">{block.blurb}</p>
-          </Reveal>
-        </div>
+        <SectionHeading
+          label={block.eyebrow}
+          heading={block.heading}
+          sub={block.blurb}
+          dark
+          className="mb-8 sm:mb-12"
+        />
 
         <Reveal delay={0.2} className="overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04]">
           <div className="grid lg:grid-cols-[1.35fr_1fr]">

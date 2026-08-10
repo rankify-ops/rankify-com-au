@@ -9,7 +9,8 @@ export function ServiceFaq({ faq }: { faq: ServicePageData["faq"] }) {
         <div className="grid gap-10 lg:grid-cols-[minmax(220px,1fr)_2.2fr] lg:gap-16">
           <div>
             <Reveal>
-              <h2 className="text-[clamp(40px,3.55vw,68px)] font-medium leading-[0.92] tracking-[-0.06em]">
+              {/* Same type as every other section heading — see SectionHeading. */}
+              <h2 className="text-[clamp(28px,2.7vw,44px)] font-medium leading-[1.05] tracking-[-0.04em]">
                 {faq.heading}
               </h2>
             </Reveal>

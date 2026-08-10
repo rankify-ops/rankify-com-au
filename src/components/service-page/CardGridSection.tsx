@@ -2,7 +2,7 @@ import Image from "next/image";
 import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
-import { PlusIcon } from "@/components/ui/PlusIcon";
+import { SectionHeading } from "@/components/service-page/SectionHeading";
 import { LottieIcon } from "@/components/ui/LottieIcon";
 import { hasIcon } from "@/content/service-icons";
 import type { CardGridBlock } from "@/content/service-pages/types";
@@ -60,47 +60,20 @@ export function CardGridSection({
         }`}
       >
         {block.heading && (
-          <div className="grid gap-8 lg:grid-cols-[minmax(180px,1fr)_2.2fr] lg:gap-20">
-            {block.kicker ? (
-              <Reveal>
-                <span className="inline-flex items-center gap-2 text-[15px] font-medium">
-                  <PlusIcon dark={!dark} className="h-[18px] w-[18px]" />
-                  {block.kicker}
-                </span>
-              </Reveal>
-            ) : (
-              <span />
-            )}
-            <div>
-              {block.eyebrow && (
-                <Reveal>
-                  <p className={`mb-3.5 font-semibold ${dark ? "text-white/70" : "text-grey"}`}>{block.eyebrow}</p>
-                </Reveal>
-              )}
-              <Reveal delay={0.1}>
-                <h2 className="text-[clamp(32px,3.1vw,58px)] font-medium leading-[0.96] tracking-[-0.05em]">
-                  {block.heading}
-                  {block.headingDim && (
-                    <span className={dark ? "text-white/50" : "text-grey"}> {block.headingDim}</span>
-                  )}
-                </h2>
-              </Reveal>
-              {block.subheading && (
-                <Reveal delay={0.15}>
-                  <p className={`mt-4 max-w-[420px] text-base ${dark ? "text-white/65" : "text-grey"}`}>
-                    {block.subheading}
-                  </p>
-                </Reveal>
-              )}
-              {block.cta && (
-                <Reveal delay={0.2} className="mt-6">
-                  <Button href={block.cta.href} variant={dark ? "light" : "dark"}>
-                    {block.cta.label}
-                  </Button>
-                </Reveal>
-              )}
-            </div>
-          </div>
+          <SectionHeading
+            label={block.kicker ?? block.eyebrow}
+            heading={block.heading}
+            headingDim={block.headingDim}
+            sub={block.subheading}
+            dark={dark}
+          />
+        )}
+        {block.heading && block.cta && (
+          <Reveal delay={0.2} className="mt-6">
+            <Button href={block.cta.href} variant={dark ? "light" : "dark"}>
+              {block.cta.label}
+            </Button>
+          </Reveal>
         )}
 
         {/* Cards butt together — the rounded corners and the 1px border are
