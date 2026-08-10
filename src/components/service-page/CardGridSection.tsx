@@ -28,20 +28,37 @@ function CardProgressDots({ total, active, dark }: { total: number; active: numb
   );
 }
 
-export function CardGridSection({ block }: { block: CardGridBlock }) {
+export function CardGridSection({
+  block,
+  mergeNext = false,
+}: {
+  block: CardGridBlock;
+  /** The next section is flush against this one — drop the bottom rounding. */
+  mergeNext?: boolean;
+}) {
   const dark = block.theme === "dark";
   const cols = block.columns ?? (block.items.length >= 4 ? 4 : block.items.length === 3 ? 3 : 2);
+  // A headerless grid reads as a continuation of the section above it, not as
+  // its own chapter — so it loses the gap, the top rounding and the top
+  // padding and sits flush against it.
+  const flush = block.flush === true;
 
   return (
     <section
       id={block.anchorId}
-      className={`scroll-mt-24 ${
+      className={`mx-2 scroll-mt-24 ${flush ? "" : "mt-8 sm:mt-12 lg:mt-20"} ${
+        flush ? (mergeNext ? "" : "rounded-b-3xl") : mergeNext ? "rounded-t-3xl" : "rounded-3xl"
+      } ${
         dark
-          ? "grain mx-2 mt-8 sm:mt-12 lg:mt-20 rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white"
-          : "mx-2 mt-8 sm:mt-12 lg:mt-20 rounded-3xl bg-paper text-ink"
+          ? "grain bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white"
+          : "bg-paper text-ink"
       }`}
     >
-      <div className="relative z-[2] mx-auto max-w-[1400px] px-5 py-12 sm:px-10 sm:py-16 lg:py-20">
+      <div
+        className={`relative z-[2] mx-auto max-w-[1400px] px-5 pb-12 sm:px-10 sm:pb-16 lg:pb-20 ${
+          flush ? "pt-0" : "pt-12 sm:pt-16 lg:pt-20"
+        }`}
+      >
         {block.heading && (
           <div className="grid gap-8 lg:grid-cols-[minmax(180px,1fr)_2.2fr] lg:gap-20">
             {block.kicker ? (

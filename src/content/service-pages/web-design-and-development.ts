@@ -85,7 +85,9 @@ export const webDesignAndDevelopment: ServicePageData = {
     // Three reasons, then reviews, then how the build runs, then the
     // configurator — the visitor gets the pitch, proof, process and price in
     // that order before the detail sections.
-    SHOPIFY_WHY_US,
+    // Headerless, so it joins the industries panel above rather than floating
+    // in its own. Local copy — the Shopify pages use the shared block as is.
+    { ...SHOPIFY_WHY_US, flush: true },
     { type: "testimonials", bare: true },
     {
       type: "cardgrid",

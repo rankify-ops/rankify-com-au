@@ -22,6 +22,11 @@ export type CardGridBlock = {
   items: CardItem[];
   columns?: 2 | 3 | 4;
   bottomImage?: string;
+  /**
+   * Renders as a continuation of the section above rather than its own
+   * chapter — no gap, no top rounding, no top padding. For headerless grids.
+   */
+  flush?: boolean;
 };
 
 export type MarqueeBlock = {
