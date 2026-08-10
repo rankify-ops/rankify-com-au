@@ -118,7 +118,11 @@ function ReviewCard({
   return (
     <div
       aria-hidden={hidden}
-      className="neu flex w-[260px] flex-none flex-col gap-3.5 rounded-2xl border border-line bg-white p-5 sm:w-[320px] sm:p-6"
+      // self-start once expanded so the card grows on its own — stretched, it
+      // dragged every other card in the rail up to its new height
+      className={`neu flex w-[260px] flex-none flex-col gap-3.5 rounded-2xl border border-line bg-white p-5 sm:w-[320px] sm:p-6 ${
+        open ? "self-start" : ""
+      }`}
     >
       <div className="flex items-center gap-3">
         <Avatar img={review.img} name={review.name} />
@@ -142,7 +146,8 @@ function ReviewCard({
           tabIndex={hidden ? -1 : undefined}
           // mt-auto so the link sits on the card's baseline rather than
           // wherever that particular quote happened to stop
-          className="mt-auto self-start pt-0.5 text-[12.5px] font-semibold text-[color:var(--green-deep)] underline-offset-2 hover:underline"
+          // -mb/-ml pull the padded hit area back so it doesn't shift the text
+          className="-mb-2 -ml-2 mt-auto flex min-h-[34px] items-center self-start px-2 pt-0.5 text-[12.5px] font-semibold text-[color:var(--green-deep)] underline-offset-2 hover:underline"
         >
           {open ? "Show less" : "Learn more"}
         </button>

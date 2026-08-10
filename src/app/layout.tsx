@@ -11,14 +11,15 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Rankify | Web Design, Branding & Digital Growth",
+  title: "Rankify | Performance Marketing & Web Development",
   description:
-    "Rankify is a web design, SEO and branding studio. No generic websites. No empty marketing promises. Just tools and strategies that help your business grow.",
+    "High-performance websites, Shopify stores and SEO for Australian businesses. Custom built, conversion focused, and priced up front — you work directly with the developer.",
   metadataBase: new URL("https://www.rankify.com.au"),
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Rankify | Web Design, Branding & Digital Growth",
+    title: "Rankify | Performance Marketing & Web Development",
     description:
-      "No generic websites. No empty marketing promises. Just tools and strategies that help your business grow and your brand shine.",
+      "No generic websites. No empty marketing promises. Just work that shows up in your sales, revenue and profit.",
     url: "https://www.rankify.com.au/",
     type: "website",
   },

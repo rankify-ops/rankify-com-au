@@ -221,7 +221,7 @@ export const webDesignAndDevelopment: ServicePageData = {
           idx: "02",
           title: "With other freelancers or agencies",
           desc: [
-            "Agencies charge $15k–$50k+ for the same scope of work.",
+            "Agencies charge $20k–$40k+ for the same scope of work.",
             "Freelancers disappear mid-project or go unresponsive.",
             "Passed between project managers — never speak to the developer.",
             "Slow timelines, weeks of waiting for simple changes.",
@@ -251,7 +251,7 @@ export const webDesignAndDevelopment: ServicePageData = {
     items: [
       {
         q: "How much does web design cost, and how long does it take?",
-        a: "Web design costs vary depending on the complexity of the project, the features required, and the level of customisation. A basic business website typically costs between $3,000 and $10,000 and takes 2–6 weeks to complete. More complex projects, such as eCommerce or custom functionality, may require a higher budget and a longer timeline. Contact us for a tailored quote based on your specific needs.",
+        a: "A website is $2,999. That's the base price whether you need one page or ten — ten pages are included, and every page after that is $200. Build time is 7–14 days from the day the design is signed off. Pick your pages in the configurator above and you'll see the exact price before you commit. Larger projects with custom functionality are quoted separately, but you'll always have the number before any work starts.",
       },
       {
         q: "Why is web design important for my business?",
@@ -259,7 +259,7 @@ export const webDesignAndDevelopment: ServicePageData = {
       },
       {
         q: "What is included in your web design services?",
-        a: "Our web design services include custom website design tailored to your brand, mobile-responsive layouts, SEO-ready development to boost search visibility, and integration of contact forms, eCommerce solutions, and analytics tools. We use user-friendly content management systems (CMS) like WordPress, and we also offer post-launch support to ensure your site stays updated and secure.",
+        a: "Custom website design tailored to your brand, mobile-responsive layouts, SEO-ready development to boost search visibility, and integration of contact forms, bookings and analytics. Content is written for you. You get an editor you can manage day-to-day updates in, and post-launch support to keep the site updated and secure.",
       },
       {
         q: "How do you ensure my website is mobile-friendly?",

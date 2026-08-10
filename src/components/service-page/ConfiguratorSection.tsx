@@ -114,19 +114,32 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
   const toggle = (p: string) =>
     setSelected((cur) => (cur.includes(p) ? cur.filter((x) => x !== p) : [...cur, p]));
 
+  // Case-insensitive against both lists — adding "Blog" when Blog is already
+  // selected used to bill it twice.
   const addCustom = () => {
     const v = draft.trim();
     if (!v) return;
+    const taken = [...selected, ...custom, ...block.corePages, ...block.optionalPages].some(
+      (p) => p.toLowerCase() === v.toLowerCase(),
+    );
+    if (taken) {
+      setDraft("");
+      return;
+    }
     setCustom((c) => [...c, v]);
     setDraft("");
   };
+
+  const email = details.email.trim();
+  // enough to be repliable — a lead with no name and no address is no lead
+  const canSubmit = details.name.trim().length > 1 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const summary = useMemo(
     () =>
       [
         `Pages (${totalPages}): ${[...selected, ...custom].join(", ")}` +
           (servicePages ? `, ${servicePages} dedicated service page(s)` : ""),
-        `Estimate: ${money(price)}`,
+        `Total: ${money(price)}`,
         `Business: ${details.business || "—"} (${details.industry || "—"})`,
         `Existing site: ${details.existing || "—"}`,
         `About: ${details.about || "—"}`,
@@ -136,7 +149,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
   );
 
   const mailto = `mailto:hello@rankify.com.au?subject=${encodeURIComponent(
-    `Website configurator — ${money(price)} estimate`
+    `Website order — ${money(price)}`
   )}&body=${encodeURIComponent(summary)}`;
 
   return (
@@ -203,16 +216,19 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                     ✓
                   </span>
                   <p className="text-[22px] font-medium tracking-[-0.03em]">That&rsquo;s your build mapped out.</p>
+                  {/* Card payment is being wired up — until it is, the order
+                      still has to reach us, so the same details go by email. */}
                   <p className="mt-2 max-w-[420px] text-[14.5px] text-white/60">
-                    {totalPages} pages, {money(price)}. Send it through and we&rsquo;ll come back with a fixed
-                    quote and a timeline, or book a call and we&rsquo;ll walk through it together.
+                    {totalPages} pages, {money(price)}, built in 7&ndash;14 days. Card checkout goes live
+                    shortly — send your order through now and we&rsquo;ll get you started, or book a call
+                    and we&rsquo;ll walk through it together.
                   </p>
                   <div className="mt-6 flex flex-wrap gap-3">
                     <a
                       href={mailto}
                       className="neu-btn neu-btn-light rounded-full bg-white px-5 py-3 text-[14px] font-bold text-ink"
                     >
-                      Send my brief
+                      Send my order
                     </a>
                     <Link
                       href={block.ctaHref}
@@ -259,7 +275,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                               type="button"
                               aria-label="Fewer service pages"
                               onClick={() => setServicePages((n) => Math.max(0, n - 1))}
-                              className="flex h-7 w-7 items-center justify-center rounded-full border border-white/20 text-[15px] leading-none hover:bg-white/10"
+                              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-[16px] leading-none hover:bg-white/10"
                             >
                               −
                             </button>
@@ -270,7 +286,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                               type="button"
                               aria-label="More service pages"
                               onClick={() => setServicePages((n) => n + 1)}
-                              className="flex h-7 w-7 items-center justify-center rounded-full border border-white/20 text-[15px] leading-none hover:bg-white/10"
+                              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-[16px] leading-none hover:bg-white/10"
                             >
                               +
                             </button>
@@ -398,11 +414,15 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                     )}
                     <button
                       type="button"
+                      disabled={step === 3 && !canSubmit}
                       onClick={() => (step === 3 ? setSent(true) : setStep((s) => s + 1))}
-                      className="neu-btn neu-btn-light rounded-full bg-white px-6 py-2.5 text-[14px] font-bold text-ink"
+                      className="neu-btn neu-btn-light rounded-full bg-white px-6 py-2.5 text-[14px] font-bold text-ink disabled:cursor-not-allowed disabled:opacity-40"
                     >
-                      {step === 3 ? "Get my quote" : "Continue"}
+                      {step === 3 ? `Checkout — ${money(price)}` : "Continue"}
                     </button>
+                    {step === 3 && !canSubmit && (
+                      <p className="text-[12.5px] text-white/45">Name and email first.</p>
+                    )}
                   </div>
                 </>
               )}

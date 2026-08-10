@@ -20,14 +20,9 @@ export function ServicePageTemplate({ data }: { data: ServicePageData }) {
       <Header />
       <ServiceHero hero={data.hero} />
       {data.blocks.map((block, i) => {
-        // A flush block sits against the one above it, so that one has to give
-        // up its bottom rounding or the join shows two curved notches.
-        const next = data.blocks[i + 1];
-        const mergeNext = next?.type === "cardgrid" && next.flush === true;
-
         switch (block.type) {
           case "cardgrid":
-            return <CardGridSection key={i} block={block} mergeNext={mergeNext} />;
+            return <CardGridSection key={i} block={block} />;
           case "marquee":
             return <MarqueeSection key={i} block={block} />;
           case "portfolio":
@@ -37,7 +32,7 @@ export function ServicePageTemplate({ data }: { data: ServicePageData }) {
             return <PricingBlockSection key={i} block={block} index={idx} />;
           }
           case "industries":
-            return <IndustriesSection key={i} block={block} mergeNext={mergeNext} />;
+            return <IndustriesSection key={i} block={block} />;
           case "configurator":
             return <ConfiguratorSection key={i} block={block} />;
           case "comparison":
