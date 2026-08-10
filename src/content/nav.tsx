@@ -65,7 +65,7 @@ export const NAV_ITEMS: NavItem[] = [
         {
           label: "I want a new website",
           sub: "Custom built, designed around how your customers buy. Websites from $2,999.",
-          href: `${WEB}#framer-web-development`,
+          href: `${WEB}#website-configurator`,
           icon: <Code />,
         },
         {
