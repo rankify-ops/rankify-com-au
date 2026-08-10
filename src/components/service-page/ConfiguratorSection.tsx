@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/service-page/SectionHeading";
-import { CheckoutPanel } from "@/components/service-page/CheckoutPanel";
+import { CheckoutModal } from "@/components/service-page/CheckoutModal";
 import { checkoutConfigured, type OrderPayload } from "@/lib/checkout";
 import type { ConfiguratorBlock } from "@/content/service-pages/types";
 
@@ -227,23 +227,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
 
             {/* ---- form ---- */}
             <div className="p-7 sm:p-10">
-              {paying ? (
-                <div>
-                  <div className="mb-5 flex items-center justify-between gap-4">
-                    <p className="text-[12.5px] font-semibold uppercase tracking-[0.12em] text-white/50">
-                      Payment — {totalPages} page{totalPages === 1 ? "" : "s"}, {money(price)}
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => setPaying(false)}
-                      className="rounded-full border border-white/20 px-4 py-1.5 text-[13px] font-semibold transition-colors hover:bg-white/10"
-                    >
-                      Back
-                    </button>
-                  </div>
-                  <CheckoutPanel order={order} />
-                </div>
-              ) : sent ? (
+              {sent ? (
                 <div className="flex h-full flex-col justify-center py-6">
                   <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[color:#07a889] text-[22px]">
                     ✓
@@ -529,6 +513,14 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
           </div>
         </Reveal>
       </div>
+
+      {paying && (
+        <CheckoutModal
+          order={order}
+          summary={`${totalPages} page${totalPages === 1 ? "" : "s"} · ${money(price)}`}
+          onClose={() => setPaying(false)}
+        />
+      )}
     </section>
   );
 }
