@@ -16,14 +16,13 @@ export function MarqueeSection({ block }: { block: MarqueeBlock }) {
         {doubled.map((logo, i) => (
           <div
             key={logo.alt + i}
-            className="flex w-[clamp(170px,17vw,250px)] flex-none items-center justify-center border-r border-line px-5 py-9 sm:px-7"
+            className="flex w-[clamp(170px,17vw,250px)] flex-none items-center justify-center border-r border-line px-5 py-6 sm:px-7 sm:py-7"
           >
-            {/* Every logo is centred inside an identical box and scaled down to
-                fit it. Constraining with max-height/max-width rather than a
-                forced height means each keeps its own aspect — a forced height
-                letterboxes anything that isn't the assumed shape, which is what
-                left them sitting at different heights. */}
-            <span className="flex h-[clamp(30px,3.1vw,44px)] w-full items-center justify-center">
+            {/* Each logo is already positioned and scaled inside a shared
+                canvas, so the canvas is the alignment — don't trim it, don't
+                fit to the ink. Every file is the same size, dropped into the
+                same box, and they line up. */}
+            <span className="flex h-[clamp(56px,6vw,84px)] w-full items-center justify-center">
               <Image
                 src={asset(logo.src)}
                 alt={i < block.logos.length ? logo.alt : ""}
