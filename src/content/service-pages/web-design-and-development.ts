@@ -29,7 +29,7 @@ export const webDesignAndDevelopment: ServicePageData = {
       "Unlimited revisions until it's right",
       "No contracts, you own your site",
     ],
-    ctaPrimary: { label: "View Pricing", href: "#website-pricing" },
+    ctaPrimary: { label: "Get Started", href: "#website-configurator" },
     ctaSecondary: { label: "Schedule free strategy Call", href: "/schedule-strategy-call" },
     heroScreenshotWall: true,
   },
@@ -43,7 +43,7 @@ export const webDesignAndDevelopment: ServicePageData = {
       eyebrow: "Rankify®",
       anchorId: "who-we-work-with",
       heading: "Who we work with.",
-      cta: { label: "View Pricing", href: "#website-pricing" },
+      cta: { label: "Get Started", href: "#website-configurator" },
       columns: 3,
       items: [
         { idx: "01", anchorId: "launching-a-new-store", title: "Launching a new store", desc: "You need a custom Shopify store built properly from day one. Design, development, products, payments, shipping, and SEO — all handled." },
@@ -60,7 +60,7 @@ export const webDesignAndDevelopment: ServicePageData = {
       heading: "What's included in a new store build",
       subheading:
         "Everything needed to get a custom Shopify store designed, built, migrated where necessary, and ready to rank from day one.",
-      cta: { label: "View Pricing", href: "#website-pricing" },
+      cta: { label: "Get Started", href: "#website-configurator" },
       columns: 4,
       items: [
         { idx: "01", anchorId: "custom-store-build", title: "Custom Shopify Store Design & Build", desc: "We design and build fully custom Shopify stores. Not a template with your logo dropped in — a store designed around your brand, products, and how your customers actually shop. Responsive, fast, and built for conversions." },
@@ -76,7 +76,7 @@ export const webDesignAndDevelopment: ServicePageData = {
       eyebrow: "Rankify®",
       anchorId: "build-process",
       heading: "A simple process. Building your new store:",
-      cta: { label: "View Pricing", href: "#website-pricing" },
+      cta: { label: "Get Started", href: "#website-configurator" },
       columns: 3,
       items: [
         { idx: "01", title: "Discovery Call & Scoping", image: "/assets/images/Z6tHt1zj6Xzi4mqYcUDecqw9s.png", desc: "We start with a call to understand your business, products, customers, and goals. No generic questionnaires. You get a detailed scope document and fixed quote before any work begins." },
@@ -88,23 +88,28 @@ export const webDesignAndDevelopment: ServicePageData = {
       ],
     },
     {
-      type: "pricing",
-      anchorId: "website-pricing",
-      eyebrow: "Simple pricing",
-      heading: "Websites Starting From",
-      tag: "Per project",
-      addon: { label: "Want more traffic and leads?", sub: "Get marketing and SEO that starts with your goals.", price: "+$1,999" },
-      lookingForMore: true,
-      tiers: [
-        {
-          price: "$5,999",
-          period: "/project",
-          note: "Delivery time 2-3 weeks",
-          features: ["Homepage + up to 4 inner pages", "Design and Development", "Mobile-Optimised Design"],
-          ctaLabel: "Get in touch",
-          ctaHref: "/contact",
-        },
+      type: "configurator",
+      anchorId: "website-configurator",
+      eyebrow: "Website Configurator",
+      heading: "You tell us what pages you want.",
+      blurb:
+        "We build the website, handle the content, and deliver a high-performance site for your business. Pick your pages and see the price as you go.",
+      basePrice: 2999,
+      includedPages: 10,
+      extraPagePrice: 200,
+      corePages: ["Home", "About", "Services", "Contact", "FAQ", "Testimonials", "Location Pages"],
+      optionalPages: [
+        "Pricing",
+        "Gallery / Portfolio",
+        "Blog",
+        "Case Studies",
+        "Team",
+        "Booking",
+        "Careers",
       ],
+      tip: "For each main service you offer we recommend a dedicated page — they rank on their own terms and convert far better than one combined services page.",
+      ctaLabel: "Book a call",
+      ctaHref: "/schedule-strategy-call",
     },
     SHOPIFY_WHY_US,
     {
@@ -139,7 +144,7 @@ export const webDesignAndDevelopment: ServicePageData = {
       eyebrow: "Rankify®",
       anchorId: "why-rankify",
       heading: "Why invest in an expert Shopify developer with Rankify.",
-      cta: { label: "View Pricing", href: "#website-pricing" },
+      cta: { label: "Get Started", href: "#website-configurator" },
       columns: 3,
       items: [
         {

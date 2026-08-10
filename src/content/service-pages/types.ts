@@ -101,13 +101,37 @@ export type ComparisonBlock = {
   body: string[];
 };
 
+/**
+ * "Website Configurator" — visitor picks their pages, price updates live.
+ * Replaces a static pricing card on the web dev page.
+ */
+export type ConfiguratorBlock = {
+  type: "configurator";
+  anchorId?: string;
+  eyebrow: string;
+  heading: string;
+  blurb: string;
+  /** Base price, covering `includedPages` pages. */
+  basePrice: number;
+  includedPages: number;
+  extraPagePrice: number;
+  /** Ticked when the form loads. */
+  corePages: string[];
+  /** Offered but unticked. */
+  optionalPages: string[];
+  tip: string;
+  ctaLabel: string;
+  ctaHref: string;
+};
+
 export type Block =
   | CardGridBlock
   | MarqueeBlock
   | PortfolioBlock
   | PricingBlock
   | TestimonialsBlock
-  | ComparisonBlock;
+  | ComparisonBlock
+  | ConfiguratorBlock;
 
 export type FaqItem = { q: string; a: string };
 

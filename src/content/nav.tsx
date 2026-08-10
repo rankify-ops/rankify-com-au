@@ -64,13 +64,13 @@ export const NAV_ITEMS: NavItem[] = [
       choices: [
         {
           label: "I want a new website",
-          sub: "Designed and built from scratch on Framer — fast, SEO-ready, no page builder bloat.",
+          sub: "Custom built, designed around how your customers buy. Websites from $2,999.",
           href: `${WEB}#framer-web-development`,
           icon: <Code />,
         },
         {
           label: "I want an online store",
-          sub: "Selling products online? That's a Shopify build. Fixed quote, from $5,999.",
+          sub: "Selling products online? That's a Shopify build. Stores from $5,999.",
           href: SHOP,
           icon: <Cart />,
         },
@@ -101,7 +101,7 @@ export const NAV_ITEMS: NavItem[] = [
       choices: [
         {
           label: "I want a new website",
-          sub: "Custom Shopify store designed and built from scratch. Fixed quote, from $5,999.",
+          sub: "Custom Shopify store designed and built from scratch. Stores from $5,999.",
           href: SHOP,
           icon: <Cart />,
         },
