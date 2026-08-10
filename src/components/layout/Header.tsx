@@ -29,7 +29,14 @@ function MegaPanel({ mega, onNavigate }: { mega: MegaMenu; onNavigate: () => voi
                 {c.label}
                 <span className="transition-transform duration-300 group-hover/c:translate-x-1">→</span>
               </span>
-              <span className="mt-1 block text-[13.5px] leading-snug text-grey">{c.sub}</span>
+              {/* "Learn more" runs on from the sentence in ink, so the grey
+                  copy reads as one line with the prompt at the end of it. */}
+              <span className="mt-1 block text-[13.5px] leading-snug text-grey">
+                {c.sub}{" "}
+                <span className="font-semibold text-ink underline-offset-2 group-hover/c:underline">
+                  Learn more
+                </span>
+              </span>
             </span>
           </SmartLink>
         ))}
