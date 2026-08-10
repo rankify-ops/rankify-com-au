@@ -127,6 +127,8 @@ export type HeroData = {
   heroImages?: string[];
   /** Scrolling wall of store screenshots instead of a single hero image. */
   heroScreenshotWall?: boolean;
+  /** Accreditation logo shown beside the trust row. */
+  partnerLogo?: { src: string; alt: string };
 };
 
 export type ServicePageData = {

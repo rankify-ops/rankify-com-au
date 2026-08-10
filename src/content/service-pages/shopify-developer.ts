@@ -17,6 +17,10 @@ export const shopifyDeveloper: ServicePageData = {
     subheading: "A developer on call for your live store.",
     intro:
       "Your store is live but you need a reliable developer for updates, fixes, new features, and design changes. No more chasing freelancers. Pay hourly for one-off jobs or take a monthly retainer — no lock in.",
+    partnerLogo: {
+      src: "/assets/images/itYXCWTMEyLhUl5y8mb9eKNL4mY.webp",
+      alt: "Shopify Partner",
+    },
     badges: [
       "Registered Shopify Partner",
       "Pay monthly or hourly, no lock in",

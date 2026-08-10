@@ -65,7 +65,23 @@ export function ServiceHero({ hero }: { hero: HeroData }) {
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
             <div>
               <Reveal className="mb-6">
-                <TrustRow />
+                {/* Accreditation sits with the other credibility signals rather
+                    than off on its own — same row as the client count. */}
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+                  <TrustRow />
+                  {hero.partnerLogo && (
+                    <>
+                      <span className="hidden h-9 w-px bg-line sm:block" />
+                      <Image
+                        src={asset(hero.partnerLogo.src)}
+                        alt={hero.partnerLogo.alt}
+                        width={1031}
+                        height={550}
+                        className="h-9 w-auto object-contain"
+                      />
+                    </>
+                  )}
+                </div>
               </Reveal>
               <Reveal delay={0.05}>
                 <h1 className="text-[clamp(34px,4vw,52px)] font-medium leading-[1.02] tracking-[-0.04em]">
