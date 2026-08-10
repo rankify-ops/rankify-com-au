@@ -1,10 +1,10 @@
 /**
  * Web development — new websites.
  *
- * Structure and copy were carried over wholesale from the Shopify builds page
- * at Tom's request so the layout matches; the wording is still Shopify's and
- * needs replacing section by section. Only the FAQ and the pricing timeline
- * are this page's own.
+ * Structure was carried over wholesale from the Shopify builds page at Tom's
+ * request so the two layouts match, then the copy was rewritten for websites.
+ * Nothing on this page should read as Shopify — an online store is a separate
+ * build on a separate page.
  */
 import type { ServicePageData } from "./types";
 import {
@@ -189,15 +189,15 @@ export const webDesignAndDevelopment: ServicePageData = {
       kicker: "Why choose rankify?",
       eyebrow: "Rankify®",
       anchorId: "why-rankify",
-      heading: "Why invest in an expert Shopify developer with Rankify.",
+      heading: "Why invest in an expert web developer with Rankify.",
       columns: 3,
       items: [
         {
           idx: "01",
           title: "DIY or AI Website Builders",
           desc: [
-            "Generic templates that look like every other store.",
-            "No custom functionality — stuck with what the theme gives you.",
+            "Generic templates that look like every other site in your industry.",
+            "No custom functionality — stuck with whatever the builder gives you.",
             "SEO issues you won't know about until you're not ranking.",
             "Broken mobile layouts, slow page speeds, no schema markup.",
             "Hours spent troubleshooting instead of running your business.",
@@ -220,12 +220,12 @@ export const webDesignAndDevelopment: ServicePageData = {
           idx: "03",
           title: "With Rankify",
           desc: [
-            "Custom Shopify development, no shortcuts.",
+            "Custom development, no shortcuts.",
             "Direct access to your developer, every time.",
             "AI-accelerated workflow — agency quality in a fraction of the time.",
             "SEO, schema, and speed optimisation built into every build.",
             "Fixed quotes with no surprise invoices.",
-            "Ongoing retainer support so your store keeps improving after launch.",
+            "Ongoing support so your site keeps improving after launch.",
           ],
         },
       ],
@@ -262,11 +262,11 @@ export const webDesignAndDevelopment: ServicePageData = {
       },
       {
         q: "Do you offer eCommerce website design?",
-        a: "Yes, we specialise in designing eCommerce websites that are visually appealing and optimised for sales. Whether you need a simple product showcase or a full-featured online store, we can integrate platforms like Shopify, Framer or WooCommerce / WordPress to meet your business needs.",
+        a: "Yes — but selling products online is its own build, with its own platform and its own pricing, so it's covered on our online store page rather than here. If you're setting up a full store, start there. If you just need a handful of products alongside a service website, mention it on the call and we'll scope it in.",
       },
       {
         q: "What platform do you use to build websites?",
-        a: "We primarily use Framer & Shopify for e-commerce. Non-eCommerce websites will use Framer or WordPress. We also work with other platforms depending on your requirements.",
+        a: "We primarily use Framer, and WordPress where a client needs it. We also work with other platforms depending on your requirements — the platform is chosen to suit the project, not the other way around. Online stores are a separate build, covered on our online store page.",
       },
       {
         q: "What kind of businesses do you work with?",
