@@ -18,20 +18,16 @@ const CLOSING_NOTE =
 export const webDesignAndDevelopment: ServicePageData = {
   hero: {
     variant: "showcase",
-    heading: "Shopify Development Services",
-    subheading: "Built to sell and convert — not just to look good.",
+    heading: "I build websites that turn visitors into customers. That's all I do — and I'm the best at it.",
+    // No subheading: the headline already carries the promise, same as the
+    // reference. No Shopify Partner badge either — this page isn't Shopify.
     intro:
-      "Plenty of Shopify stores look great and still don't sell. We build custom themes for your brand where every page — collection, product, cart, checkout — is designed to turn browsers into buyers. A world-class store that shows up in your sales, revenue and profit.",
-    partnerLogo: {
-      src: "/assets/images/itYXCWTMEyLhUl5y8mb9eKNL4mY.webp",
-      alt: "Shopify Partner",
-    },
+      "From all trades — plumbers, builders, solar — to tech and accounting firms. I've built the lot. I'm a perfectionist, not a single pixel out of line, and I build so your traffic actually calls you or buys your product. Check out my work and results.",
     badges: [
-      "Registered Shopify Partner",
-      "100% money-back guarantee",
-      "Fixed quote before any work starts",
-      "Expert custom developer",
-      "Deal direct, no managers",
+      "Custom-built, conversion-focused",
+      "Direct developer access, no middlemen",
+      "Unlimited revisions until it's right",
+      "No contracts, you own your site",
     ],
     ctaPrimary: { label: "View Pricing", href: "#website-pricing" },
     ctaSecondary: { label: "Schedule free strategy Call", href: "/schedule-strategy-call" },

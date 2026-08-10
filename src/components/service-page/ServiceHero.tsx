@@ -42,7 +42,7 @@ function TrustRow() {
 
 function CheckItem({ label }: { label: string }) {
   return (
-    <li className="flex items-center gap-2.5 text-[15px] font-medium text-ink">
+    <li className="flex items-center gap-2 text-[14px] font-medium text-ink">
       <span className="flex h-5 w-5 flex-none items-center justify-center rounded-full bg-[#e9f5f0]">
         <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="var(--green-deep)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
           <path d="M5 13l4 4L19 7" />
@@ -98,7 +98,7 @@ export function ServiceHero({ hero }: { hero: HeroData }) {
               </Reveal>
               {hero.badges && (
                 <Reveal delay={0.2}>
-                  <ul className="mt-6 grid gap-2.5">
+                  <ul className="mt-6 grid gap-x-6 gap-y-2.5 sm:grid-cols-2">
                     {hero.badges.map((b) => (
                       <CheckItem key={b} label={b} />
                     ))}
