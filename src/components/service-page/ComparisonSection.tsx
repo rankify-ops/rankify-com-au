@@ -156,7 +156,7 @@ export function ComparisonSection({ block }: { block: ComparisonBlock }) {
                       {row.label}
                     </p>
                     <p
-                      className={`relative z-[2] flex items-start gap-2 pl-[26px] text-[13px] leading-snug sm:pl-0 ${
+                      className={`relative z-[2] order-2 flex items-start gap-2 pl-[26px] text-[13px] leading-snug sm:order-none sm:pl-0 ${
                         row.highlight ? "text-white/70" : "text-grey"
                       }`}
                     >
@@ -169,7 +169,7 @@ export function ComparisonSection({ block }: { block: ComparisonBlock }) {
                       </span>
                     </p>
                     <p
-                      className={`relative z-[2] flex items-start gap-2 pl-[26px] text-[13px] font-medium leading-snug sm:pl-0 ${
+                      className={`relative z-[2] order-1 flex items-start gap-2 pl-[26px] text-[13px] font-medium leading-snug sm:order-none sm:pl-0 ${
                         row.highlight ? "text-white" : "text-ink"
                       }`}
                     >
