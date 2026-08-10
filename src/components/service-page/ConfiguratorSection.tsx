@@ -383,6 +383,13 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                           placeholder="What you do, who you serve, what makes you different."
                         />
                       </Field>
+                      {/* Heads off the "is this everything they need?" worry —
+                          a few lines here shouldn't feel like the whole brief. */}
+                      <p className="-mt-1 flex items-start gap-2 rounded-xl bg-white/[0.06] px-3.5 py-3 text-[13px] leading-snug text-white/60">
+                        <span className="mt-[3px] text-[color:#07a889]">✓</span>
+                        A sentence or two is plenty here. Once you order, we take you through a proper
+                        onboarding to collect your logo, services, photos and everything else we need.
+                      </p>
                     </div>
                   )}
 

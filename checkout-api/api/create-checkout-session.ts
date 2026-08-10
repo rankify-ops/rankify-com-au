@@ -98,6 +98,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       payment_intent_data: { metadata },
       return_url: `${returnUrl}${returnUrl.includes("?") ? "&" : "?"}session_id={CHECKOUT_SESSION_ID}`,
       automatic_tax: { enabled: false },
+      // Someone who reaches the card form and leaves is a real lead — the
+      // session keeps the whole brief. Stripe emails them a link back to it
+      // once it expires, and the abandoned session stays in the dashboard
+      // either way.
+      after_expiration: { recovery: { enabled: true, allow_promotion_codes: false } },
+      consent_collection: { promotions: "auto" },
     });
 
     return res.status(200).json({ clientSecret: session.client_secret });
