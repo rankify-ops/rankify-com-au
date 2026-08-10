@@ -164,6 +164,46 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
 
         <Reveal delay={0.2} className="overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04]">
           <div className="grid lg:grid-cols-[1.35fr_1fr]">
+            {/* ---- running total, phone only ----
+                Stacked, the desktop right-hand column lands below the form,
+                so the number you're deciding against is off-screen while you
+                tap the chips. This puts it above them; the panel underneath
+                keeps the page list. */}
+            <div className="border-b border-white/10 bg-white/[0.06] px-7 py-5 sm:px-10 lg:hidden">
+              <div className="flex items-end justify-between gap-4">
+                <div>
+                  <p className="text-[11.5px] font-semibold uppercase tracking-[0.12em] text-white/50">
+                    Your build
+                  </p>
+                  <span className="mt-1.5 block text-[36px] font-semibold leading-none tracking-[-0.05em]">
+                    {money(price)}
+                  </span>
+                </div>
+                <p className="text-right text-[13px] leading-snug text-white/60">
+                  {totalPages} page{totalPages === 1 ? "" : "s"}
+                  <br />
+                  {block.includedPages} included
+                  {extra > 0 && (
+                    <>
+                      <br />
+                      {extra} extra × {money(block.extraPagePrice)}
+                    </>
+                  )}
+                </p>
+              </div>
+              <p
+                className={`mt-3 rounded-xl px-3 py-2 text-[12.5px] font-medium leading-snug ${
+                  remaining > 0
+                    ? "bg-[color:#07a889]/15 text-[color:#3fd8bb]"
+                    : "bg-white/[0.06] text-white/70"
+                }`}
+              >
+                {remaining > 0
+                  ? `You can select ${remaining} more page${remaining === 1 ? "" : "s"} before the price increases!`
+                  : `All ${block.includedPages} included pages used — every page after this adds ${money(block.extraPagePrice)}.`}
+              </p>
+            </div>
+
             {/* ---- form ---- */}
             <div className="p-7 sm:p-10">
               {sent ? (
@@ -380,38 +420,43 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
             {/* ---- running total ---- */}
             <div className="border-t border-white/10 bg-white/[0.04] p-7 sm:p-10 lg:border-l lg:border-t-0">
               <p className="text-[12.5px] font-semibold uppercase tracking-[0.12em] text-white/50">
-                Your build
+                <span className="lg:hidden">Your pages</span>
+                <span className="hidden lg:inline">Your build</span>
               </p>
-              <div className="mt-3 flex items-baseline gap-1.5">
-                <span className="text-[46px] font-semibold leading-none tracking-[-0.05em]">
-                  {money(price)}
-                </span>
+
+              {/* Repeated on a phone by the bar above the form. */}
+              <div className="hidden lg:block">
+                <div className="mt-3 flex items-baseline gap-1.5">
+                  <span className="text-[46px] font-semibold leading-none tracking-[-0.05em]">
+                    {money(price)}
+                  </span>
+                </div>
+                <p className="mt-2 text-[13.5px] text-white/60">
+                  {totalPages} page{totalPages === 1 ? "" : "s"} · {block.includedPages} included
+                  {extra > 0 && (
+                    <>
+                      {" "}
+                      · {extra} extra × {money(block.extraPagePrice)}
+                    </>
+                  )}
+                </p>
+
+                {/* Tells them how much room is left in the base price, which is
+                    the number they're actually deciding against. */}
+                <p
+                  className={`mt-3 rounded-xl px-3 py-2.5 text-[13px] font-medium leading-snug ${
+                    remaining > 0
+                      ? "bg-[color:#07a889]/15 text-[color:#3fd8bb]"
+                      : "bg-white/[0.06] text-white/70"
+                  }`}
+                >
+                  {remaining > 0
+                    ? `You can select ${remaining} more page${remaining === 1 ? "" : "s"} before the price increases!`
+                    : `All ${block.includedPages} included pages used — every page after this adds ${money(block.extraPagePrice)}.`}
+                </p>
               </div>
-              <p className="mt-2 text-[13.5px] text-white/60">
-                {totalPages} page{totalPages === 1 ? "" : "s"} · {block.includedPages} included
-                {extra > 0 && (
-                  <>
-                    {" "}
-                    · {extra} extra × {money(block.extraPagePrice)}
-                  </>
-                )}
-              </p>
 
-              {/* Tells them how much room is left in the base price, which is
-                  the number they're actually deciding against. */}
-              <p
-                className={`mt-3 rounded-xl px-3 py-2.5 text-[13px] font-medium leading-snug ${
-                  remaining > 0
-                    ? "bg-[color:#07a889]/15 text-[color:#3fd8bb]"
-                    : "bg-white/[0.06] text-white/70"
-                }`}
-              >
-                {remaining > 0
-                  ? `You can select ${remaining} more page${remaining === 1 ? "" : "s"} before the price increases!`
-                  : `All ${block.includedPages} included pages used — every page after this adds ${money(block.extraPagePrice)}.`}
-              </p>
-
-              <ul className="mt-6 grid gap-2 border-t border-white/10 pt-5">
+              <ul className="mt-4 grid gap-2 border-t border-white/10 pt-5 lg:mt-6">
                 {[...selected, ...custom].map((p) => (
                   <li key={p} className="flex items-center gap-2 text-[13.5px] text-white/75">
                     <span className="text-[color:#07a889]">✓</span>

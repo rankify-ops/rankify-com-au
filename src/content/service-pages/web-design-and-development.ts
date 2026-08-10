@@ -94,6 +94,26 @@ export const webDesignAndDevelopment: ServicePageData = {
       eyebrow: "Rankify®",
       heading: "Agency-level work.",
       headingDim: "Without the agency.",
+      // Same three reasons as the Shopify pages, written for websites. `icon`
+      // keeps the artwork that was keyed to the old title.
+      items: [
+        {
+          idx: "01",
+          title: "Expert Web Developer",
+          icon: "Expert Shopify Developer",
+          desc: "Years of hands-on experience building custom websites, custom features, and the integrations behind them — without the agency overhead.",
+        },
+        {
+          idx: "02",
+          title: "AI-Accelerated Development",
+          desc: "We use AI-powered tools to build and ship faster. What takes agencies weeks, we deliver in days.",
+        },
+        {
+          idx: "03",
+          title: "Outstanding value for money",
+          desc: "Senior-level web development at a fraction of the agency cost. No bloated teams, no inflated invoices.",
+        },
+      ],
     },
     {
       type: "testimonials",
@@ -109,15 +129,15 @@ export const webDesignAndDevelopment: ServicePageData = {
       kicker: "Our Design Process",
       eyebrow: "Rankify®",
       anchorId: "build-process",
-      heading: "A simple process. Building your new store:",
+      heading: "A simple process. Building your new website:",
       columns: 3,
       items: [
-        { idx: "01", title: "Discovery Call & Scoping", image: "/assets/images/Z6tHt1zj6Xzi4mqYcUDecqw9s.png", desc: "We start with a call to understand your business, products, customers, and goals. No generic questionnaires. You get a detailed scope document and fixed quote before any work begins." },
-        { idx: "02", title: "Design Mockup", image: "/assets/images/DPStQ1OLWHQEotlRG324OWMdXgA.png", desc: "We mock up your homepage, key page templates (collection, product, about, contact), and mobile layouts. You review and approve before development starts. Nothing gets built until you're happy with the design." },
-        { idx: "03", title: "Shopify Development", image: "/assets/images/OcCBB2O75VsaHiIw8nfSpLAtJjo.webp", desc: "We build your store using clean, custom Liquid code on top of your approved design. Products, collections, payment gateways, shipping rules, tax settings, app integrations — everything configured and tested." },
-        { idx: "04", title: "Testing, Revisions & SEO", image: "/assets/images/BRmVb3sj222Zc8G43z2kcUcKHy8.webp", desc: "Full SEO setup — metadata, schema markup, redirects (for migrations), site speed optimisation. Cross-browser and cross-device testing. We catch the problems before your customers do." },
-        { idx: "05", title: "Launch", image: "/assets/images/jeJzliriilgkAa6aYwiNxC60o.webp", desc: "We handle DNS, domain configuration, and go-live. You get a training walkthrough so you can manage day-to-day product and content updates yourself." },
-        { idx: "06", title: "Ongoing support (optional)", image: "/assets/images/htpsqYBKyKw4QhDxfxQWLbtZXE.webp", desc: "Your store is live but the work doesn't have to stop. Move onto a monthly retainer for bug fixes, design updates, new features, and performance monitoring. Your developer already knows your store — no re-onboarding, no handovers.", cta: { label: "See retainer options", href: "/shopify-developer" } },
+        { idx: "01", title: "Discovery Call & Scoping", image: "/assets/images/Z6tHt1zj6Xzi4mqYcUDecqw9s.png", desc: "We start with a call to understand your business, your services, your customers, and your goals. No generic questionnaires. You get a detailed scope document and fixed quote before any work begins." },
+        { idx: "02", title: "Design Mockup", image: "/assets/images/DPStQ1OLWHQEotlRG324OWMdXgA.png", desc: "We mock up your homepage, your key page templates, and the mobile layouts. You review and approve before development starts. Nothing gets built until you're happy with the design." },
+        { idx: "03", title: "Build & Content", image: "/assets/images/OcCBB2O75VsaHiIw8nfSpLAtJjo.webp", desc: "We build your site in clean, custom code on top of your approved design — and write the content while we're at it. Forms, bookings, tracking, analytics and any third-party tools you use: configured and tested." },
+        { idx: "04", title: "Testing, Revisions & SEO", image: "/assets/images/BRmVb3sj222Zc8G43z2kcUcKHy8.webp", desc: "Full SEO setup — metadata, schema markup, redirects if you're replacing an old site, and page speed optimisation. Cross-browser and cross-device testing. We catch the problems before your customers do." },
+        { idx: "05", title: "Launch", image: "/assets/images/jeJzliriilgkAa6aYwiNxC60o.webp", desc: "We handle DNS, domain configuration, and go-live. You get a training walkthrough so you can manage day-to-day content updates yourself." },
+        { idx: "06", title: "Ongoing support (optional)", image: "/assets/images/htpsqYBKyKw4QhDxfxQWLbtZXE.webp", desc: "Your site is live but the work doesn't have to stop. Keep us on for new pages, new features, design updates and performance monitoring. Your developer already knows your site — no re-onboarding, no handovers.", cta: { label: "Talk about ongoing work", href: "/schedule-strategy-call" } },
       ],
     },
     {
@@ -150,15 +170,17 @@ export const webDesignAndDevelopment: ServicePageData = {
       kicker: "Services Section",
       eyebrow: "Rankify®",
       anchorId: "services",
-      heading: "What's included in a new store build",
+      heading: "What's included in a new website build",
       subheading:
-        "Everything needed to get a custom Shopify store designed, built, migrated where necessary, and ready to rank from day one.",
+        "Everything needed to get a custom website designed, built, written, and ready to rank from day one.",
       columns: 4,
+      // `icon` points at the old Shopify titles so the artwork survives the
+      // rename — see src/content/service-icons.ts.
       items: [
-        { idx: "01", anchorId: "custom-store-build", title: "Custom Shopify Store Design & Build", desc: "We design and build fully custom Shopify stores. Not a template with your logo dropped in — a store designed around your brand, products, and how your customers actually shop. Responsive, fast, and built for conversions." },
-        { idx: "02", anchorId: "theme-development", title: "Custom Shopify Theme Development", desc: "Need something a pre-built theme can't do? We build custom themes with advanced layouts, product filtering, dynamic sections, and custom functionality that off-the-shelf themes can't deliver." },
-        { idx: "03", anchorId: "shopify-migration", title: "Shopify Migration", desc: "Moving from WooCommerce, WordPress, Squarespace, BigCommerce, or Magento? We handle the full migration — products, customers, order history, URL redirects, and SEO preservation. Zero lost rankings." },
-        { idx: "04", anchorId: "shopify-seo", title: "Shopify SEO Setup & Optimisation", desc: "Every store we build includes SEO foundations as standard — title tags, meta descriptions, heading structure, image optimisation, schema markup, URL structure, and site speed. Not bolted on after the fact. Built in from the first commit." },
+        { idx: "01", anchorId: "custom-website-build", icon: "Custom Shopify Store Design & Build", title: "Custom Website Design & Build", desc: "We design and build fully custom websites. Not a template with your logo dropped in — a site built around your services, your customers, and the way they actually decide who to call. Responsive, fast, and built to convert." },
+        { idx: "02", anchorId: "custom-functionality", icon: "Custom Shopify Theme Development", title: "Custom Features & Functionality", desc: "Booking forms, quote calculators, filtered galleries, member areas, live feeds from the tools you already use. If a page builder can't do it, we write it." },
+        { idx: "03", anchorId: "rebuilds-and-migrations", icon: "Shopify Migration", title: "Rebuilds & Migrations", desc: "Stuck on WordPress, Wix, Squarespace, or a build that's slowing you down? We move everything across — pages, content, images, and URL redirects — so you launch fast without losing the rankings you already have." },
+        { idx: "04", anchorId: "seo-included", icon: "Shopify SEO Setup & Optimisation", title: "SEO Built In From Day One", desc: "Every site we build includes SEO foundations as standard — title tags, meta descriptions, heading structure, image optimisation, schema markup, URL structure, and site speed. Not bolted on after the fact. Built in from the first commit." },
       ],
     },
     {

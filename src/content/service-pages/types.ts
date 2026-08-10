@@ -5,6 +5,11 @@ export type CardItem = {
   title: string;
   desc: string | string[];
   image?: string;
+  /**
+   * Icon lookup key, when the card's own title isn't one. Lets a card be
+   * retitled without losing the icon — see src/content/service-icons.ts.
+   */
+  icon?: string;
   cta?: { label: string; href: string };
   /** Jump target for mega-menu links — see src/content/nav.tsx. */
   anchorId?: string;

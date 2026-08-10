@@ -168,8 +168,12 @@ export function CardGridSection({
                     <>
                       <h4 className="text-[18px] font-semibold tracking-[-0.02em]">{item.title}</h4>
                       <div className="flex gap-5">
-                        {hasIcon(item.title) && (
-                          <LottieIcon name={item.title} dark={dark} className="h-[50px] w-[58px] flex-none" />
+                        {hasIcon(item.icon ?? item.title) && (
+                          <LottieIcon
+                            name={item.icon ?? item.title}
+                            dark={dark}
+                            className="h-[50px] w-[58px] flex-none"
+                          />
                         )}
                         <div className="min-w-0 flex-1">{copy}</div>
                       </div>
