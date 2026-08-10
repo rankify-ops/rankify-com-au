@@ -16,20 +16,25 @@ export function MarqueeSection({ block }: { block: MarqueeBlock }) {
         {doubled.map((logo, i) => (
           <div
             key={logo.alt + i}
-            className="flex w-[clamp(160px,16vw,240px)] flex-none items-center justify-center border-r border-line px-5 py-9 sm:px-7"
+            className="flex w-[clamp(170px,17vw,250px)] flex-none items-center justify-center border-r border-line px-5 py-9 sm:px-7"
           >
-            <Image
-              src={asset(logo.src)}
-              alt={i < block.logos.length ? logo.alt : ""}
-              aria-hidden={i >= block.logos.length}
-              width={160}
-              height={70}
-              // the track scrolls these in; lazy makes them pop
-              loading="eager"
-              // max-w so a very wide wordmark shrinks to the cell instead of
-              // bleeding into its neighbour; object-contain keeps the aspect
-              className="h-[clamp(28px,3vw,42px)] w-auto max-w-full object-contain grayscale"
-            />
+            {/* Every logo is centred inside an identical box and scaled down to
+                fit it. Constraining with max-height/max-width rather than a
+                forced height means each keeps its own aspect — a forced height
+                letterboxes anything that isn't the assumed shape, which is what
+                left them sitting at different heights. */}
+            <span className="flex h-[clamp(30px,3.1vw,44px)] w-full items-center justify-center">
+              <Image
+                src={asset(logo.src)}
+                alt={i < block.logos.length ? logo.alt : ""}
+                aria-hidden={i >= block.logos.length}
+                width={logo.w ?? 160}
+                height={logo.h ?? 70}
+                // the track scrolls these in; lazy makes them pop
+                loading="eager"
+                className={`max-h-full max-w-full object-contain ${block.colour ? "" : "grayscale"}`}
+              />
+            </span>
           </div>
         ))}
       </div>

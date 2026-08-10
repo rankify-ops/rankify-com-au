@@ -39,7 +39,14 @@ export type CardGridBlock = {
 export type MarqueeBlock = {
   type: "marquee";
   label?: string;
-  logos: { src: string; alt: string }[];
+  /** Logos are desaturated unless a set is meant to run in brand colour. */
+  colour?: boolean;
+  /**
+   * `w`/`h` are the file's real pixel dimensions. Without them the row falls
+   * back to one assumed aspect for every logo, which letterboxes the ones that
+   * don't match and leaves them sitting at different heights.
+   */
+  logos: { src: string; alt: string; w?: number; h?: number }[];
 };
 
 export type PortfolioItem = { name: string; sub: string; image: string; logo?: string; href?: string };

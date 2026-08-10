@@ -12,15 +12,16 @@ import { SHOPIFY_WHY_US } from "./shopify-shared";
 /** Websites we've built — deliberately not the Shopify page's store logos. */
 const WEB_CLIENT_LOGOS: MarqueeBlock = {
   type: "marquee",
+  colour: true,
   logos: [
-    { src: "/assets/logos-web/prime-group.webp", alt: "Prime Group Building" },
-    { src: "/assets/logos-web/cavstruct.webp", alt: "Cavstruct Projects" },
-    { src: "/assets/logos-web/mjb-electrical.webp", alt: "MJB Electrical Group" },
-    { src: "/assets/logos-web/tintek.webp", alt: "Tintek Roofing & Cladding" },
-    { src: "/assets/logos-web/evosolar.webp", alt: "Evosolar" },
-    { src: "/assets/logos-web/adalytical.webp", alt: "Adalytical" },
-    { src: "/assets/logos-web/ottilie-studios.webp", alt: "Ottilie Studios" },
-    { src: "/assets/logos-web/hawker-studio.webp", alt: "Hawker Studio" },
+    { src: "/assets/logos-web/prime-group.webp", alt: "Prime Group Building", w: 1200, h: 240 },
+    { src: "/assets/logos-web/cavstruct.webp", alt: "Cavstruct Projects", w: 805, h: 240 },
+    { src: "/assets/logos-web/mjb-electrical.webp", alt: "MJB Electrical Group", w: 488, h: 240 },
+    { src: "/assets/logos-web/tintek.webp", alt: "Tintek Roofing & Cladding", w: 1409, h: 240 },
+    { src: "/assets/logos-web/evosolar.webp", alt: "Evosolar", w: 1917, h: 240 },
+    { src: "/assets/logos-web/adalytical.webp", alt: "Adalytical", w: 822, h: 240 },
+    { src: "/assets/logos-web/ottilie-studios.webp", alt: "Ottilie Studios", w: 1169, h: 240 },
+    { src: "/assets/logos-web/hawker-studio.webp", alt: "Hawker Studio", w: 311, h: 240 },
   ],
 };
 

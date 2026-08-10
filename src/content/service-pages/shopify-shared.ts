@@ -15,10 +15,10 @@ export const SHOPIFY_CLOSING_NOTE =
 export const SHOPIFY_CLIENT_LOGOS: MarqueeBlock = {
   type: "marquee",
   logos: [
-    { src: "/assets/images/HMUE3r6JAKaPWYA6DDbyyXpFgc.png", alt: "Hiatus" },
-    { src: "/assets/images/Etb1ssGsCa82U7P2SGIWZKY5s4c.png", alt: "Natasha Schweitzer" },
-    { src: "/assets/images/Fnzg0J4UppeMwrI6fyjIrvxgtmc.png", alt: "Myoko" },
-    { src: "/assets/images/Q6HHTRxcZl4eS1atKChkiC6AH0.png", alt: "Wolff Studios" },
+    { src: "/assets/images/HMUE3r6JAKaPWYA6DDbyyXpFgc.png", alt: "Hiatus", w: 1054, h: 465 },
+    { src: "/assets/images/Etb1ssGsCa82U7P2SGIWZKY5s4c.png", alt: "Natasha Schweitzer", w: 1054, h: 465 },
+    { src: "/assets/images/Fnzg0J4UppeMwrI6fyjIrvxgtmc.png", alt: "Myoko", w: 1054, h: 465 },
+    { src: "/assets/images/Q6HHTRxcZl4eS1atKChkiC6AH0.png", alt: "Wolff Studios", w: 1054, h: 465 },
   ],
 };
 
