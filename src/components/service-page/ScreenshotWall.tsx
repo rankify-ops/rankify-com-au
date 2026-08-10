@@ -32,11 +32,16 @@ const SETS: Record<ScreenshotSet, { dir: string; columns: string[][] }> = {
   },
 };
 
-const MOTION = [
-  { duration: "46s", delay: "0s" },
-  { duration: "34s", delay: "-6s", up: true },
-  { duration: "52s", delay: "-19s" },
-];
+/**
+ * Every column travels at the same pixel speed. The animation runs the height
+ * of one copy of the column, so a column holding more shots has further to go
+ * and needs proportionally longer — a flat duration made the shorter columns
+ * visibly quicker. 6.8s per shot is the middle column's old pace (34s / 5).
+ *
+ * Only the start offsets differ now, so the columns don't all begin on a seam.
+ */
+const SECONDS_PER_SHOT = 6.8;
+const MOTION = [{ delay: "0s" }, { delay: "-6s", up: true }, { delay: "-19s" }];
 
 export function ScreenshotWall({ set = "shopify" }: { set?: ScreenshotSet }) {
   const { dir, columns } = SETS[set];
@@ -61,7 +66,10 @@ export function ScreenshotWall({ set = "shopify" }: { set?: ScreenshotSet }) {
           <div key={i} className="relative overflow-hidden">
             <div
               className={`flex flex-col gap-2.5 sm:gap-3 ${MOTION[i].up ? "wall-up" : "wall-down"}`}
-              style={{ animationDuration: MOTION[i].duration, animationDelay: MOTION[i].delay }}
+              style={{
+                animationDuration: `${(images.length * SECONDS_PER_SHOT).toFixed(1)}s`,
+                animationDelay: MOTION[i].delay,
+              }}
             >
               {[...images, ...images].map((n, j) => (
                 <Image
