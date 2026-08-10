@@ -46,7 +46,10 @@ export function CheckoutModal({
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="my-auto w-full max-w-[620px] overflow-hidden rounded-3xl bg-white shadow-[0_30px_80px_rgba(0,0,0,0.4)]">
+      {/* Wide enough that Stripe lays the order summary beside the card form
+          rather than stacking it — the stacked version reads as a form on a
+          coloured slab, which is what made it feel less like a real checkout. */}
+      <div className="my-auto w-full max-w-[940px] overflow-hidden rounded-3xl bg-white shadow-[0_30px_80px_rgba(0,0,0,0.4)]">
         <div className="flex items-center justify-between gap-4 border-b border-line px-6 py-4">
           <div className="min-w-0">
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:#07a889]">
@@ -68,6 +71,35 @@ export function CheckoutModal({
 
         <div className="p-4 sm:p-6">
           <CheckoutPanel order={order} />
+        </div>
+
+        {/* The reassurance a payment form is expected to carry. Stripe's iframe
+            can't say any of this, and its absence is what reads as sketchy. */}
+        <div className="border-t border-line bg-paper px-6 py-4">
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[12.5px] text-grey">
+            <span className="inline-flex items-center gap-1.5">
+              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 flex-none" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="4" y="10.5" width="16" height="10" rx="2" />
+                <path d="M8 10.5V7a4 4 0 0 1 8 0v3.5" />
+              </svg>
+              Secure, encrypted payment via Stripe
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 flex-none" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              Live in 7&ndash;14 days
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 flex-none" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              Unlimited revisions
+            </span>
+          </div>
+          <p className="mt-2 text-center text-[12px] text-grey/70">
+            Rankify · Gold Coast, Australia · hello@rankify.com.au
+          </p>
         </div>
       </div>
     </div>,

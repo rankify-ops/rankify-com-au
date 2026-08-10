@@ -15,7 +15,14 @@ import { createSession, getStripe, type OrderPayload } from "@/lib/checkout";
  */
 export function CheckoutPanel({ order }: { order: OrderPayload }) {
   const orderRef = useRef(order);
-  const fetchClientSecret = useCallback(() => createSession(orderRef.current), []);
+  // One session per open. StrictMode calls this twice in dev, and without the
+  // cached promise that's two Stripe sessions for one order — the first one
+  // torn down mid-init, which is what surfaces as "Something went wrong".
+  const sessionRef = useRef<Promise<string> | null>(null);
+  const fetchClientSecret = useCallback(() => {
+    sessionRef.current ??= createSession(orderRef.current);
+    return sessionRef.current;
+  }, []);
 
   return (
     <div className="overflow-hidden rounded-2xl bg-white">
