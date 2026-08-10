@@ -119,75 +119,81 @@ export function ComparisonSection({ block }: { block: ComparisonBlock }) {
     >
       <div className="mx-auto max-w-[1400px] px-5 py-12 sm:px-10 sm:py-16 lg:py-20">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
-          <Reveal>
-            {/* Three columns in 326px wrapped every cell into a 105px row.
-                Below sm it keeps a usable width and scrolls sideways instead. */}
-            <div className="-mx-5 overflow-x-auto px-5 py-1 sm:mx-0 sm:overflow-visible sm:px-0">
-              {/* The shine ring lives on its own wrapper: the table below clips
-                  its overflow to round the highlight row, which would cut the
-                  ring off if they shared an element. */}
-              <div className="shine-border min-w-[540px] rounded-2xl sm:min-w-0">
-                <div className="neu overflow-hidden rounded-2xl border border-line bg-white">
-                  {/* header */}
-                  <div className="grid grid-cols-[1.15fr_1fr_1fr] gap-3 border-b border-line px-5 py-5 sm:px-6">
-                    <p className="text-[14px] font-semibold leading-snug tracking-[-0.02em]">
-                      {block.tableTitle}
-                    </p>
-                    <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-grey">
-                      {block.agencyLabel}
-                    </p>
-                    <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-grey">
-                      {block.usLabel}
-                    </p>
-                  </div>
+          {/* Argument first when stacked — it frames the table underneath. */}
+          <Reveal className="order-2 lg:order-1">
+            <div className="shine-border rounded-2xl">
+              <div className="neu overflow-hidden rounded-2xl border border-line bg-white">
+                {/* Column headings only make sense once the row is actually
+                    three columns. Below sm each row stacks and carries its own
+                    "Typical Agency / Rankify" labels inline instead. */}
+                <div className="border-b border-line px-5 py-5 sm:grid sm:grid-cols-[1.15fr_1fr_1fr] sm:gap-3 sm:px-6">
+                  <p className="text-[14px] font-semibold leading-snug tracking-[-0.02em]">
+                    {block.tableTitle}
+                  </p>
+                  <p className="hidden text-[10.5px] font-semibold uppercase tracking-[0.12em] text-grey sm:block">
+                    {block.agencyLabel}
+                  </p>
+                  <p className="hidden text-[10.5px] font-semibold uppercase tracking-[0.12em] text-grey sm:block">
+                    {block.usLabel}
+                  </p>
+                </div>
 
-                  {block.rows.map((row) => (
-                    <div
-                      key={row.label}
-                      className={`grid grid-cols-[1.15fr_1fr_1fr] gap-3 px-5 py-4 sm:px-6 ${
-                        row.highlight
-                          ? "grain bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white"
-                          : "border-b border-line last:border-b-0 odd:bg-[#fafafa]"
+                {block.rows.map((row) => (
+                  <div
+                    key={row.label}
+                    className={`grid gap-2 px-5 py-4 sm:grid-cols-[1.15fr_1fr_1fr] sm:gap-3 sm:px-6 ${
+                      row.highlight
+                        ? "grain bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white"
+                        : "border-b border-line last:border-b-0 sm:odd:bg-[#fafafa]"
+                    }`}
+                  >
+                    <p
+                      className={`relative z-[2] flex items-start gap-2.5 text-[13.5px] font-semibold leading-snug ${
+                        row.highlight ? "text-white" : "text-ink"
                       }`}
                     >
-                      <p
-                        className={`relative z-[2] flex items-start gap-2.5 text-[13.5px] font-semibold leading-snug ${
-                          row.highlight ? "text-white" : "text-ink"
-                        }`}
-                      >
-                        <RowIcon name={row.icon} />
-                        {row.label}
-                      </p>
-                      <p
-                        className={`relative z-[2] flex items-start gap-2 text-[13px] leading-snug ${
-                          row.highlight ? "text-white/70" : "text-grey"
-                        }`}
-                      >
-                        <Cross />
-                        {row.agency}
-                      </p>
-                      <p
-                        className={`relative z-[2] flex items-start gap-2 text-[13px] font-medium leading-snug ${
-                          row.highlight ? "text-white" : "text-ink"
-                        }`}
-                      >
-                        <Tick onDark={row.highlight} />
-                        {row.us}
-                      </p>
-                    </div>
-                  ))}
-
-                  {block.footnote && (
-                    <p className="border-t border-line px-5 py-4 text-center text-[12.5px] italic text-grey sm:px-6">
-                      {block.footnote}
+                      <RowIcon name={row.icon} />
+                      {row.label}
                     </p>
-                  )}
-                </div>
+                    <p
+                      className={`relative z-[2] flex items-start gap-2 pl-[26px] text-[13px] leading-snug sm:pl-0 ${
+                        row.highlight ? "text-white/70" : "text-grey"
+                      }`}
+                    >
+                      <Cross />
+                      <span>
+                        <span className={`sm:hidden ${row.highlight ? "text-white/45" : "text-grey/70"}`}>
+                          {block.agencyLabel}:{" "}
+                        </span>
+                        {row.agency}
+                      </span>
+                    </p>
+                    <p
+                      className={`relative z-[2] flex items-start gap-2 pl-[26px] text-[13px] font-medium leading-snug sm:pl-0 ${
+                        row.highlight ? "text-white" : "text-ink"
+                      }`}
+                    >
+                      <Tick onDark={row.highlight} />
+                      <span>
+                        <span className={`font-normal sm:hidden ${row.highlight ? "text-white/45" : "text-grey/70"}`}>
+                          {block.usLabel}:{" "}
+                        </span>
+                        {row.us}
+                      </span>
+                    </p>
+                  </div>
+                ))}
+
+                {block.footnote && (
+                  <p className="border-t border-line px-5 py-4 text-center text-[12.5px] italic text-grey sm:px-6">
+                    {block.footnote}
+                  </p>
+                )}
               </div>
             </div>
           </Reveal>
 
-          <Reveal delay={0.1}>
+          <Reveal delay={0.1} className="order-1 lg:order-2">
             <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:#07a889]">
               {block.eyebrow}
             </p>
