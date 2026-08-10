@@ -17,6 +17,8 @@ export type CardGridBlock = {
   kicker?: string;
   eyebrow?: string;
   heading?: string;
+  /** Trailing half of the heading, set in grey. */
+  headingDim?: string;
   subheading?: string;
   cta?: { label: string; href: string };
   items: CardItem[];
@@ -72,8 +74,18 @@ export type PricingBlock = {
   lookingForMoreCta?: { label: string; href: string };
 };
 
-/** `bare` drops the heading, rating and stats — just the review carousel. */
-export type TestimonialsBlock = { type: "testimonials"; bare?: boolean };
+/**
+ * `bare` drops the homepage section's rating counter and stats grid, leaving
+ * the carousel under a header of this page's own.
+ */
+export type TestimonialsBlock = {
+  type: "testimonials";
+  bare?: boolean;
+  kicker?: string;
+  eyebrow?: string;
+  heading?: string;
+  headingDim?: string;
+};
 
 export type ComparisonIcon =
   | "person"

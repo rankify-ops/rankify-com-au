@@ -85,10 +85,24 @@ export const webDesignAndDevelopment: ServicePageData = {
     // Three reasons, then reviews, then how the build runs, then the
     // configurator — the visitor gets the pitch, proof, process and price in
     // that order before the detail sections.
-    // Headerless, so it joins the industries panel above rather than floating
-    // in its own. Local copy — the Shopify pages use the shared block as is.
-    { ...SHOPIFY_WHY_US, flush: true },
-    { type: "testimonials", bare: true },
+    // Local copy of the shared three-reason grid so the heading only lands on
+    // this page — the Shopify pages still run it headerless.
+    {
+      ...SHOPIFY_WHY_US,
+      anchorId: "why-us",
+      kicker: "Why Rankify",
+      eyebrow: "Rankify®",
+      heading: "Agency-level work.",
+      headingDim: "Without the agency.",
+    },
+    {
+      type: "testimonials",
+      bare: true,
+      kicker: "Reviews",
+      eyebrow: "Rankify®",
+      heading: "Every review is five stars.",
+      headingDim: "That's not an accident.",
+    },
     {
       type: "cardgrid",
       theme: "paper",

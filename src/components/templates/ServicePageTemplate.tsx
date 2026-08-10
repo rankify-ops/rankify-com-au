@@ -43,7 +43,16 @@ export function ServicePageTemplate({ data }: { data: ServicePageData }) {
           case "comparison":
             return <ComparisonSection key={i} block={block} />;
           case "testimonials":
-            return <Testimonials key={i} bare={block.bare} />;
+            return (
+              <Testimonials
+                key={i}
+                bare={block.bare}
+                kicker={block.kicker}
+                eyebrow={block.eyebrow}
+                heading={block.heading}
+                headingDim={block.headingDim}
+              />
+            );
           default:
             return null;
         }

@@ -22,16 +22,56 @@ const STATS = [
 ];
 
 /**
- * `bare` strips everything but the rail — used on the service pages, where the
- * heading, the 5/5 counter and the stats grid would repeat what's already been
- * said further up. The homepage keeps the full section.
+ * `bare` drops the 5/5 counter and the stats grid the homepage carries, and
+ * takes its own header instead — the service pages have already made those
+ * claims further up the page. The homepage keeps the full section.
  */
-export function Testimonials({ bare = false }: { bare?: boolean }) {
+export function Testimonials({
+  bare = false,
+  kicker,
+  eyebrow,
+  heading,
+  headingDim,
+}: {
+  bare?: boolean;
+  kicker?: string;
+  eyebrow?: string;
+  heading?: string;
+  headingDim?: string;
+}) {
   if (bare) {
     return (
       <section className="mx-2 mt-8 overflow-hidden rounded-3xl bg-paper text-ink sm:mt-12 lg:mt-20">
-        {/* No max-width wrapper — the rail runs the full width of the section. */}
         <div className="py-12 sm:py-16 lg:py-20">
+          {heading && (
+            // Same header shape as the card grids — kicker left, title right.
+            <div className="mx-auto mb-8 grid max-w-[1400px] gap-8 px-5 sm:mb-12 sm:px-10 lg:grid-cols-[minmax(180px,1fr)_2.2fr] lg:gap-20">
+              {kicker ? (
+                <Reveal>
+                  <span className="inline-flex items-center gap-2 text-[15px] font-medium">
+                    <PlusIcon dark className="h-[18px] w-[18px]" />
+                    {kicker}
+                  </span>
+                </Reveal>
+              ) : (
+                <span />
+              )}
+              <div>
+                {eyebrow && (
+                  <Reveal>
+                    <p className="mb-3.5 font-semibold text-grey">{eyebrow}</p>
+                  </Reveal>
+                )}
+                <Reveal delay={0.1}>
+                  <h2 className="text-[clamp(32px,3.1vw,58px)] font-medium leading-[0.96] tracking-[-0.05em]">
+                    {heading}
+                    {headingDim && <span className="text-grey"> {headingDim}</span>}
+                  </h2>
+                </Reveal>
+              </div>
+            </div>
+          )}
+          {/* The rail itself takes no max-width — it runs the full section. */}
           <ReviewRail fullWidth />
         </div>
       </section>

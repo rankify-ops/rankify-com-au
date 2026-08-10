@@ -80,6 +80,9 @@ export function CardGridSection({
               <Reveal delay={0.1}>
                 <h2 className="text-[clamp(32px,3.1vw,58px)] font-medium leading-[0.96] tracking-[-0.05em]">
                   {block.heading}
+                  {block.headingDim && (
+                    <span className={dark ? "text-white/50" : "text-grey"}> {block.headingDim}</span>
+                  )}
                 </h2>
               </Reveal>
               {block.subheading && (
