@@ -118,7 +118,7 @@ export function CardGridSection({ block }: { block: CardGridBlock }) {
               <Reveal key={item.title} delay={i * 0.06}>
                 <div
                   id={item.anchorId}
-                  className={`flex h-full scroll-mt-28 flex-col overflow-hidden rounded-2xl border p-[30px] ${
+                  className={`neu flex h-full scroll-mt-28 flex-col overflow-hidden rounded-2xl border p-[30px] ${
                     item.image ? "gap-5" : "gap-[30px]"
                   } ${dark ? "border-white/12 bg-white/[0.04]" : "border-line bg-white"}`}
                 >

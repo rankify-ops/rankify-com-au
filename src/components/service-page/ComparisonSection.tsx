@@ -122,62 +122,67 @@ export function ComparisonSection({ block }: { block: ComparisonBlock }) {
           <Reveal>
             {/* Three columns in 326px wrapped every cell into a 105px row.
                 Below sm it keeps a usable width and scrolls sideways instead. */}
-            <div className="-mx-5 overflow-x-auto px-5 sm:mx-0 sm:overflow-visible sm:px-0">
-              <div className="min-w-[540px] overflow-hidden rounded-2xl border border-line bg-white sm:min-w-0">
-                {/* header */}
-                <div className="grid grid-cols-[1.15fr_1fr_1fr] gap-3 border-b border-line px-5 py-5 sm:px-6">
-                  <p className="text-[14px] font-semibold leading-snug tracking-[-0.02em]">
-                    {block.tableTitle}
-                  </p>
-                  <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-grey">
-                    {block.agencyLabel}
-                  </p>
-                  <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-grey">
-                    {block.usLabel}
-                  </p>
-                </div>
-
-                {block.rows.map((row) => (
-                  <div
-                    key={row.label}
-                    className={`grid grid-cols-[1.15fr_1fr_1fr] gap-3 px-5 py-4 sm:px-6 ${
-                      row.highlight
-                        ? "grain bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white"
-                        : "border-b border-line last:border-b-0 odd:bg-[#fafafa]"
-                    }`}
-                  >
-                    <p
-                      className={`relative z-[2] flex items-start gap-2.5 text-[13.5px] font-semibold leading-snug ${
-                        row.highlight ? "text-white" : "text-ink"
-                      }`}
-                    >
-                      <RowIcon name={row.icon} />
-                      {row.label}
+            <div className="-mx-5 overflow-x-auto px-5 py-1 sm:mx-0 sm:overflow-visible sm:px-0">
+              {/* The shine ring lives on its own wrapper: the table below clips
+                  its overflow to round the highlight row, which would cut the
+                  ring off if they shared an element. */}
+              <div className="shine-border min-w-[540px] rounded-2xl sm:min-w-0">
+                <div className="neu overflow-hidden rounded-2xl border border-line bg-white">
+                  {/* header */}
+                  <div className="grid grid-cols-[1.15fr_1fr_1fr] gap-3 border-b border-line px-5 py-5 sm:px-6">
+                    <p className="text-[14px] font-semibold leading-snug tracking-[-0.02em]">
+                      {block.tableTitle}
                     </p>
-                    <p
-                      className={`relative z-[2] flex items-start gap-2 text-[13px] leading-snug ${
-                        row.highlight ? "text-white/70" : "text-grey"
-                      }`}
-                    >
-                      <Cross />
-                      {row.agency}
+                    <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-grey">
+                      {block.agencyLabel}
                     </p>
-                    <p
-                      className={`relative z-[2] flex items-start gap-2 text-[13px] font-medium leading-snug ${
-                        row.highlight ? "text-white" : "text-ink"
-                      }`}
-                    >
-                      <Tick onDark={row.highlight} />
-                      {row.us}
+                    <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-grey">
+                      {block.usLabel}
                     </p>
                   </div>
-                ))}
 
-                {block.footnote && (
-                  <p className="border-t border-line px-5 py-4 text-center text-[12.5px] italic text-grey sm:px-6">
-                    {block.footnote}
-                  </p>
-                )}
+                  {block.rows.map((row) => (
+                    <div
+                      key={row.label}
+                      className={`grid grid-cols-[1.15fr_1fr_1fr] gap-3 px-5 py-4 sm:px-6 ${
+                        row.highlight
+                          ? "grain bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white"
+                          : "border-b border-line last:border-b-0 odd:bg-[#fafafa]"
+                      }`}
+                    >
+                      <p
+                        className={`relative z-[2] flex items-start gap-2.5 text-[13.5px] font-semibold leading-snug ${
+                          row.highlight ? "text-white" : "text-ink"
+                        }`}
+                      >
+                        <RowIcon name={row.icon} />
+                        {row.label}
+                      </p>
+                      <p
+                        className={`relative z-[2] flex items-start gap-2 text-[13px] leading-snug ${
+                          row.highlight ? "text-white/70" : "text-grey"
+                        }`}
+                      >
+                        <Cross />
+                        {row.agency}
+                      </p>
+                      <p
+                        className={`relative z-[2] flex items-start gap-2 text-[13px] font-medium leading-snug ${
+                          row.highlight ? "text-white" : "text-ink"
+                        }`}
+                      >
+                        <Tick onDark={row.highlight} />
+                        {row.us}
+                      </p>
+                    </div>
+                  ))}
+
+                  {block.footnote && (
+                    <p className="border-t border-line px-5 py-4 text-center text-[12.5px] italic text-grey sm:px-6">
+                      {block.footnote}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
           </Reveal>

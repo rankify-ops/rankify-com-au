@@ -35,6 +35,13 @@
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
+  /* Soft-UI card treatment lifted from rankify-ai: two ambient shadows for
+     depth plus a 1px inset highlight along the top edge — that top highlight
+     is what makes the border look lit rather than drawn. */
+  --neu-shadow: 0 6px 24px rgba(0, 0, 0, 0.045), 0 2px 8px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 -1px 0 rgba(0, 0, 0, 0.02);
+  --neu-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.07), 0 4px 12px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 rgba(0, 0, 0, 0.02);
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
@@ -182,6 +189,71 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .wall-down,
   .wall-up {
+    animation: none;
+  }
+}
+
+/*
+ * Soft-UI surfaces. Deliberately no transform on hover: these cards butt
+ * together with no gap, so lifting one would break the grid and overlap its
+ * neighbours. Only the shadow and border move.
+ */
+.neu {
+  box-shadow: var(--neu-shadow);
+  transition:
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.neu:hover {
+  box-shadow: var(--neu-shadow-hover);
+  border-color: rgba(7, 168, 137, 0.32);
+}
+
+/* Animated gradient ring — the "shine". Painted into a 2px transparent border
+   and masked so only the border area shows, which keeps the fill untouched. */
+.shine-border {
+  position: relative;
+}
+
+.shine-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 2px solid transparent;
+  background: linear-gradient(
+      90deg,
+      rgba(7, 168, 137, 0.1),
+      rgba(7, 168, 137, 0.5),
+      rgba(7, 168, 137, 0.1)
+    )
+    border-box;
+  background-size: 200% 100%;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: shine-border 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+@keyframes shine-border {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shine-border::before {
     animation: none;
   }
 }

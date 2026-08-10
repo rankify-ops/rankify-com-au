@@ -83,7 +83,7 @@ export function ComingSoonPage({
                 <Reveal key={s.id} delay={i * 0.06}>
                   <div
                     id={s.id}
-                    className="flex h-full scroll-mt-28 flex-col gap-[30px] rounded-2xl border border-line bg-white p-[30px]"
+                    className="neu flex h-full scroll-mt-28 flex-col gap-[30px] rounded-2xl border border-line bg-white p-[30px]"
                   >
                     <h3 className="text-[18px] font-semibold tracking-[-0.02em]">{s.title}</h3>
                     <p className="text-[14.5px] leading-snug text-grey">{s.blurb}</p>

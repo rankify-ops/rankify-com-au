@@ -18,7 +18,7 @@ function FeatureBadgeIcon() {
 function TierCard({ tier }: { tier: PricingBlock["tiers"][number] }) {
   return (
     <div
-      className={`flex flex-col overflow-hidden rounded-[22px] ${
+      className={`neu flex flex-col overflow-hidden rounded-[22px] ${
         tier.highlighted ? "ring-2 ring-white" : ""
       }`}
     >
