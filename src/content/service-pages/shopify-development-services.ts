@@ -34,7 +34,17 @@ export const shopifyDevelopmentServices: ServicePageData = {
   },
   blocks: [
     SHOPIFY_CLIENT_LOGOS,
-    { type: "testimonials" },
+    // `bare` for the same reason as the web dev page: the full homepage
+    // section brings its own "Experiences. ©2025" heading at a different size,
+    // a second 5/5 counter and the stats grid, none of which belong here.
+    {
+      type: "testimonials",
+      bare: true,
+      kicker: "Reviews",
+      eyebrow: "Rankify®",
+      heading: "Every review is five stars.",
+      headingDim: "That's not an accident.",
+    },
     {
       type: "cardgrid",
       theme: "paper",

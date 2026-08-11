@@ -3,6 +3,7 @@ import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { PlusIcon } from "@/components/ui/PlusIcon";
+import { SectionHeading } from "@/components/service-page/SectionHeading";
 import type { PricingBlock } from "@/content/service-pages/types";
 
 function FeatureBadgeIcon() {
@@ -76,22 +77,14 @@ export function PricingBlockSection({ block, index }: { block: PricingBlock; ind
     >
       <div className="relative z-[2] mx-auto max-w-[1400px] px-5 py-12 sm:px-10 sm:py-16 lg:py-20">
         <div className="mb-8 sm:mb-12">
-          <Reveal>
-            <span className="inline-flex items-center gap-2 text-[15px] font-medium">
-              <PlusIcon className="h-[18px] w-[18px]" />
-              {block.eyebrow}
-            </span>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h2 className="mt-4 max-w-[720px] text-[clamp(32px,3.1vw,58px)] font-medium leading-[0.98] tracking-[-0.05em]">
-              {block.heading}
-            </h2>
-          </Reveal>
-          {block.subheading && (
-            <Reveal delay={0.12}>
-              <p className="mt-3 max-w-[560px] text-[15px] text-white/60">{block.subheading}</p>
-            </Reveal>
-          )}
+          {/* Same heading treatment as every other section — this one was still
+              on the old 32-58px scale with a plus-icon kicker. */}
+          <SectionHeading
+            label={block.eyebrow}
+            heading={block.heading}
+            sub={block.subheading}
+            dark
+          />
           {block.tag && (
             <Reveal delay={0.15} className="mt-8">
               <span className="inline-block rounded-full bg-white px-5 py-2.5 text-[14px] font-semibold text-ink">
