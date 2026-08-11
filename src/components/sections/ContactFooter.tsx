@@ -262,13 +262,26 @@ export function SiteFooter() {
             </Reveal>
           </div>
 
+          {/* The logo is the window, not the artwork — the silk animates
+              behind it and the SVG's own alpha masks it into the letterforms.
+              Masking beats background-clip:text here because the mark isn't
+              text, and it keeps the R symbol in the effect too. */}
           <Reveal scale>
-            <Image
-              src={asset("/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg")}
-              alt="Rankify®"
-              width={1300}
-              height={281}
-              className="h-auto w-full"
+            <div
+              role="img"
+              aria-label="Rankify®"
+              className="silk relative w-full"
+              style={{
+                aspectRatio: "1300 / 281",
+                WebkitMaskImage: `url(${asset("/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg")})`,
+                maskImage: `url(${asset("/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg")})`,
+                WebkitMaskSize: "contain",
+                maskSize: "contain",
+                WebkitMaskRepeat: "no-repeat",
+                maskRepeat: "no-repeat",
+                WebkitMaskPosition: "center",
+                maskPosition: "center",
+              }}
             />
           </Reveal>
         </footer>

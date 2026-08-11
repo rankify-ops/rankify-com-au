@@ -442,3 +442,82 @@ body {
     cursor: pointer;
   }
 }
+/*
+ * Silk — the flowing green from adalytical's stat band, masked into the
+ * footer logo.
+ *
+ * Two band gradients drift in opposite directions over the deep-green base;
+ * where they cross they brighten, which is what reads as fabric catching the
+ * light. All three layers share one background-position animation because
+ * background-position animates the whole layer list at once — separate
+ * keyframes per layer isn't a thing.
+ *
+ * Deliberately not the WebGL version adalytical uses: that's three.js plus
+ * @react-three/fiber, and the footer is on every page of a site sold on being
+ * fast.
+ */
+.silk {
+  background-color: var(--green-deep);
+  background-image:
+    repeating-linear-gradient(
+      112deg,
+      rgba(63, 216, 187, 0) 0%,
+      rgba(63, 216, 187, 0.55) 4%,
+      rgba(7, 168, 137, 0.15) 9%,
+      rgba(63, 216, 187, 0) 14%
+    ),
+    repeating-linear-gradient(
+      68deg,
+      rgba(7, 168, 137, 0) 0%,
+      rgba(7, 168, 137, 0.5) 5%,
+      rgba(1, 15, 10, 0.35) 11%,
+      rgba(7, 168, 137, 0) 17%
+    ),
+    radial-gradient(120% 180% at 15% 0%, #0b4a35 0%, var(--green-deep) 55%, #010f0a 100%);
+  background-size:
+    260% 260%,
+    320% 320%,
+    100% 100%;
+  background-position:
+    0% 50%,
+    100% 50%,
+    0 0;
+  animation: silk-drift 22s ease-in-out infinite;
+}
+
+/* Same noise as .grain, but it has to live inside the mask to be seen. */
+.silk::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes silk-drift {
+  0% {
+    background-position:
+      0% 50%,
+      100% 50%,
+      0 0;
+  }
+  50% {
+    background-position:
+      100% 45%,
+      0% 55%,
+      0 0;
+  }
+  100% {
+    background-position:
+      0% 50%,
+      100% 50%,
+      0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .silk {
+    animation: none;
+  }
+}

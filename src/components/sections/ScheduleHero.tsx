@@ -1,7 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
-import { Button } from "@/components/ui/Button";
+import { BookingCalendar } from "@/components/sections/BookingCalendar";
 
 export function ScheduleHero() {
   return (
@@ -13,7 +14,7 @@ export function ScheduleHero() {
           </h1>
         </Reveal>
 
-        <div className="mt-10 grid gap-12 sm:mt-16 lg:grid-cols-2 lg:gap-20">
+        <div className="mt-10 grid gap-12 sm:mt-16 lg:grid-cols-[1fr_minmax(0,420px)] lg:gap-20">
           <div>
             <Reveal delay={0.1}>
               <p className="max-w-[420px] text-[clamp(18px,1.6vw,24px)] font-medium leading-snug tracking-[-0.02em]">
@@ -53,20 +54,20 @@ export function ScheduleHero() {
             </Reveal>
           </div>
 
-          <Reveal delay={0.2}>
-            <div className="flex min-h-[320px] flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-line bg-white p-8 text-center">
-              <span className="text-[13px] font-medium text-grey">Booking calendar coming soon</span>
-              <p className="max-w-[320px] text-[14px] leading-relaxed text-grey">
-                The real rankify.com.au booking calendar is currently broken too (its Cal.com link
-                returns a 404), so rather than invent one, we&rsquo;ve left this here until it&rsquo;s
-                fixed. In the meantime, reach out directly and we&rsquo;ll set up a time that works.
-              </p>
-              <Button href="/contact" className="mt-2">
-                Contact us instead
-              </Button>
-            </div>
-          </Reveal>
         </div>
+
+        {/* Full width, not the right-hand column: Cal's month view needs room,
+            and in a 543px column it collapsed into a 3,500px stack. */}
+        <Reveal delay={0.2} className="mt-12 sm:mt-16">
+          <BookingCalendar />
+          <p className="mt-4 text-center text-[13.5px] text-grey">
+            Can&rsquo;t find a time that suits?{" "}
+            <Link href="/contact" className="font-medium text-ink underline underline-offset-2">
+              Send us a message
+            </Link>{" "}
+            and we&rsquo;ll work around you.
+          </p>
+        </Reveal>
       </div>
     </section>
   );
