@@ -109,10 +109,21 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
   const [sent, setSent] = useState(false);
   const [paying, setPaying] = useState(false);
 
+  // Two pricing models share this form. "build" is a base price covering a
+  // number of pages with extras on top; "per page" charges for every page
+  // selected, monthly, against a minimum term.
+  const perPage = block.pricePerPage != null;
+  const basePrice = block.basePrice ?? 0;
+  const includedPages = block.includedPages ?? 0;
+  const extraPagePrice = block.extraPagePrice ?? 0;
+
   const totalPages = selected.length + servicePages + custom.length;
-  const extra = Math.max(0, totalPages - block.includedPages);
-  const remaining = Math.max(0, block.includedPages - totalPages);
-  const price = block.basePrice + extra * block.extraPagePrice;
+  const extra = Math.max(0, totalPages - includedPages);
+  const remaining = perPage ? 0 : Math.max(0, includedPages - totalPages);
+  const price = perPage
+    ? totalPages * (block.pricePerPage ?? 0)
+    : basePrice + extra * extraPagePrice;
+  const canCheckout = (block.checkout ?? true) && checkoutConfigured;
 
   const toggle = (p: string) =>
     setSelected((cur) => (cur.includes(p) ? cur.filter((x) => x !== p) : [...cur, p]));
@@ -227,16 +238,23 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                   </p>
                   <span className="mt-1.5 block text-[36px] font-semibold leading-none tracking-[-0.05em]">
                     {money(price)}
+                    {perPage && <span className="text-[15px] font-medium text-white/50">/mo</span>}
                   </span>
                 </div>
                 <p className="text-right text-[13px] leading-snug text-white/60">
                   {totalPages} page{totalPages === 1 ? "" : "s"}
                   <br />
-                  {block.includedPages} included
-                  {extra > 0 && (
+                  {perPage ? (
+                    <>× {money(block.pricePerPage ?? 0)} / mo</>
+                  ) : (
                     <>
-                      <br />
-                      {extra} extra × {money(block.extraPagePrice)}
+                      {includedPages} included
+                      {extra > 0 && (
+                        <>
+                          <br />
+                          {extra} extra × {money(extraPagePrice)}
+                        </>
+                      )}
                     </>
                   )}
                 </p>
@@ -248,9 +266,11 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                     : "bg-white/[0.06] text-white/70"
                 }`}
               >
-                {remaining > 0
-                  ? `You can select ${remaining} more page${remaining === 1 ? "" : "s"} before the price increases!`
-                  : `All ${block.includedPages} included pages used — every page after this adds ${money(block.extraPagePrice)}.`}
+                {perPage
+                  ? `${money(price * (block.minMonths ?? 1))} over the ${block.minMonths ?? 1} month minimum.`
+                  : remaining > 0
+                    ? `You can select ${remaining} more page${remaining === 1 ? "" : "s"} before the price increases!`
+                    : `All ${includedPages} included pages used — every page after this adds ${money(extraPagePrice)}.`}
               </p>
             </div>
 
@@ -472,11 +492,15 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                         if (step < 3) return setStep((s) => s + 1);
                         // Falls back to the email brief until the Stripe keys
                         // are set — better than a dead button.
-                        return checkoutConfigured ? setPaying(true) : setSent(true);
+                        return canCheckout ? setPaying(true) : setSent(true);
                       }}
                       className="neu-btn neu-btn-light rounded-full bg-white px-6 py-2.5 text-[14px] font-bold text-ink disabled:cursor-not-allowed disabled:opacity-40"
                     >
-                      {step === 3 ? `Checkout — ${money(price)}` : "Continue"}
+                      {step === 3
+                        ? perPage
+                          ? `Get started — ${money(price)}/mo`
+                          : `Checkout — ${money(price)}`
+                        : "Continue"}
                     </button>
                     {step === 3 && !canSubmit && (
                       <p className="text-[12.5px] text-white/45">Name and email first.</p>
@@ -499,13 +523,23 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                   <span className="text-[46px] font-semibold leading-none tracking-[-0.05em]">
                     {money(price)}
                   </span>
+                  {perPage && <span className="text-[18px] font-medium text-white/50">/mo</span>}
                 </div>
                 <p className="mt-2 text-[13.5px] text-white/60">
-                  {totalPages} page{totalPages === 1 ? "" : "s"} · {block.includedPages} included
-                  {extra > 0 && (
+                  {perPage ? (
                     <>
-                      {" "}
-                      · {extra} extra × {money(block.extraPagePrice)}
+                      {totalPages} page{totalPages === 1 ? "" : "s"} × {money(block.pricePerPage ?? 0)}
+                      {block.minMonths ? ` · ${block.minMonths} month minimum` : ""}
+                    </>
+                  ) : (
+                    <>
+                      {totalPages} page{totalPages === 1 ? "" : "s"} · {includedPages} included
+                      {extra > 0 && (
+                        <>
+                          {" "}
+                          · {extra} extra × {money(extraPagePrice)}
+                        </>
+                      )}
                     </>
                   )}
                 </p>
@@ -514,14 +548,16 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                     the number they're actually deciding against. */}
                 <p
                   className={`mt-3 rounded-xl px-3 py-2.5 text-[13px] font-medium leading-snug ${
-                    remaining > 0
+                    perPage || remaining > 0
                       ? "bg-[color:#07a889]/15 text-[color:#3fd8bb]"
                       : "bg-white/[0.06] text-white/70"
                   }`}
                 >
-                  {remaining > 0
-                    ? `You can select ${remaining} more page${remaining === 1 ? "" : "s"} before the price increases!`
-                    : `All ${block.includedPages} included pages used — every page after this adds ${money(block.extraPagePrice)}.`}
+                  {perPage
+                    ? `${money(price * (block.minMonths ?? 1))} over the ${block.minMonths ?? 1} month minimum, then month to month.`
+                    : remaining > 0
+                      ? `You can select ${remaining} more page${remaining === 1 ? "" : "s"} before the price increases!`
+                      : `All ${includedPages} included pages used — every page after this adds ${money(extraPagePrice)}.`}
                 </p>
               </div>
 
@@ -540,10 +576,23 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                 )}
               </ul>
 
+              {block.includes && (
+                <ul className="mt-5 grid gap-2 border-t border-white/10 pt-5">
+                  {block.includes.map((f) => (
+                    <li key={f} className="flex items-start gap-2 text-[13px] text-white/60">
+                      <span className="mt-[3px] text-[color:#07a889]">✓</span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              )}
+
               {/* Fixed price, paid in one go — not an estimate to be quoted
                   against later. */}
               <p className="mt-6 text-[12.5px] leading-snug text-white/45">
-                Charged in full at checkout. One payment, no deposit and no invoices later.
+                {perPage
+                  ? "Billed monthly. Cancel any time after the minimum term."
+                  : "Charged in full at checkout. One payment, no deposit and no invoices later."}
               </p>
             </div>
           </div>

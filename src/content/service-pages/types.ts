@@ -145,10 +145,22 @@ export type ConfiguratorBlock = {
   eyebrow: string;
   heading: string;
   blurb: string;
-  /** Base price, covering `includedPages` pages. */
-  basePrice: number;
-  includedPages: number;
-  extraPagePrice: number;
+  /**
+   * Build pricing: a base covering `includedPages`, then `extraPagePrice`
+   * each. Omit all three and set `pricePerPage` for the per-page model the
+   * SEO page uses.
+   */
+  basePrice?: number;
+  includedPages?: number;
+  extraPagePrice?: number;
+  /** Per-page pricing — every selected page costs this, monthly. */
+  pricePerPage?: number;
+  /** Minimum commitment in months, shown beside the monthly figure. */
+  minMonths?: number;
+  /** What every engagement includes, listed under the running total. */
+  includes?: string[];
+  /** Card checkout. Off where the product is a subscription we can't yet take. */
+  checkout?: boolean;
   /** Ticked when the form loads. */
   corePages: string[];
   /** Offered but unticked. */
