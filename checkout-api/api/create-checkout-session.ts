@@ -101,6 +101,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       payment_intent_data: { metadata },
       return_url: `${returnUrl}${returnUrl.includes("?") ? "&" : "?"}session_id={CHECKOUT_SESSION_ID}`,
       automatic_tax: { enabled: false },
+      // Promo code field on the checkout. Also how a 100%-off code can be used
+      // to rehearse the live flow without moving money.
+      allow_promotion_codes: true,
       // Someone who reaches the card form and leaves is a real lead — the
       // session keeps the whole brief. Stripe emails them a link back to it
       // once it expires, and the abandoned session stays in the dashboard
