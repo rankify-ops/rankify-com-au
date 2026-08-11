@@ -124,21 +124,25 @@ export const shopifyDevelopmentServices: ServicePageData = {
       usLabel: "Rankify",
       rows: [
         { icon: "person", label: "Who you talk to", agency: "Account managers, juniors, whoever", us: "Just the developer" },
-        { icon: "clock", label: "Timeline", agency: "2–4 months", us: "7–14 days" },
-        { icon: "dollar", label: "Build Cost", agency: "$20k–$40k+", us: "A fraction of that" },
-        { icon: "repeat", label: "Retainer", agency: "Mandatory, up to $500/mo", us: "Optional, only if you want ongoing work" },
-        { icon: "trending", label: "Built to convert", agency: "Looks nice, maybe", us: "Engineered to sell, and looks better" },
-        { icon: "revisions", label: "Revisions", agency: "Billed hourly", us: "Unlimited changes included" },
-        { icon: "shield", label: "Hosting & security", agency: "Up to $600/yr, ongoing", us: "We host & secure it, $0" },
-        { icon: "card", label: "Ongoing cost / year", agency: "$2,000 – $7,000+", us: "$0", highlight: true },
+        { icon: "clock", label: "Timeline", agency: "2–4 months", us: "3–5 weeks" },
+        { icon: "dollar", label: "Build cost", agency: "$20k–$40k+", us: "From $5,999" },
+        { icon: "trending", label: "The theme", agency: "A premium theme reskinned", us: "Custom Liquid, built around your products" },
+        { icon: "repeat", label: "Apps", agency: "Bolted on — $50–200/mo forever", us: "Built into the theme wherever we can" },
+        { icon: "shield", label: "Migration", agency: "Quoted as a separate project", us: "Products, customers, orders and redirects included" },
+        { icon: "revisions", label: "Revisions", agency: "Billed hourly", us: "Unlimited, submitted in 2 rounds" },
+        { icon: "card", label: "Ongoing cost to us / year", agency: "$2,000 – $7,000+ retainer", us: "$0 unless you want us", highlight: true },
       ],
-      footnote: "Retainers and hosting add up every single year. With me, your running cost is zero.",
+      // Says the quiet part: you pay Shopify either way. Claiming "$0 ongoing"
+      // outright — as the web dev page can — would be a lie on a platform the
+      // merchant subscribes to.
+      footnote:
+        "You'll always pay Shopify for the platform itself. Everything else — agency retainers, app subscriptions, per-change invoices — is optional with us.",
       eyebrow: "One developer. Whole-agency output.",
-      heading: "A developer who knows AI, conversion, and design is a whole agency in one person.",
+      heading: "A Shopify developer who knows conversion, design and AI is a whole agency in one person.",
       body: [
-        "Developers who build with AI are unbeatable on speed — what took a team months now takes one person days, with **cleaner, more optimised code**. Add real conversion knowledge and genuine taste, and you get everything a high-end agency delivers, from the one person who actually does the work.",
-        "Here's the part agencies won't tell you: the work got faster for everyone. **They just keep the savings. I pass them straight on to you.** Same high-end result, a fraction of the price — because I'm not paying for overhead, and I'm not here to rip you off.",
-        "I'm genuinely passionate about building **high-performance sites that look as good as they convert**.",
+        "Developers who build with AI are unbeatable on speed — what took a team months now takes one person weeks, with **cleaner, more optimised Liquid**. Add real conversion knowledge and genuine taste, and you get everything a high-end Shopify agency delivers, from the one person who actually does the work.",
+        "Here's the part agencies won't tell you: the work got faster for everyone. **They just keep the savings. I pass them straight on to you.** Same high-end store, a fraction of the price — because I'm not paying for overhead, and I'm not here to rip you off.",
+        "I'm a **Shopify Partner** and I'm genuinely passionate about building **stores that look as good as they sell**.",
       ],
     },
     {
