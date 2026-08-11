@@ -67,7 +67,11 @@ function TierCard({ tier }: { tier: PricingBlock["tiers"][number] }) {
 }
 
 export function PricingBlockSection({ block, index }: { block: PricingBlock; index: number }) {
-  const usePanel = Boolean(block.addon);
+  // The wide panel used to be gated on `block.addon`, so removing the SEO
+  // add-on silently collapsed this whole section into a 400px card. The layout
+  // is about having one headline offer, not about the add-on.
+  const tierCount = block.tiers.length;
+  const usePanel = tierCount === 1 && Boolean(block.tiers[0]?.features.length);
   const tier = block.tiers[0];
 
   return (
@@ -98,15 +102,39 @@ export function PricingBlockSection({ block, index }: { block: PricingBlock; ind
           <>
             <Reveal delay={0.2} className="overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04]">
               <div className="grid gap-10 p-7 sm:p-10 lg:grid-cols-2 lg:gap-16">
+                {/* Left column: the add-on when there is one, otherwise what
+                    the price actually buys — never the add-on's copy with no
+                    add-on under it. */}
                 <div className="flex flex-col justify-between gap-8">
-                  <div>
-                    <p className="text-[15.5px] font-medium">Want more traffic and leads?</p>
-                    <p className="mt-2 text-[14.5px] text-white/60">Get marketing and SEO that starts with your goals.</p>
-                  </div>
-                  {block.addon && (
-                    <div className="flex items-center justify-between">
-                      <span className="text-[27px] font-semibold tracking-[-0.06em]">{block.addon.price}</span>
-                    </div>
+                  {block.addon ? (
+                    <>
+                      <div>
+                        <p className="text-[15.5px] font-medium">{block.addon.label}</p>
+                        <p className="mt-2 text-[14.5px] text-white/60">{block.addon.sub}</p>
+                      </div>
+                      <span className="text-[27px] font-semibold tracking-[-0.06em]">
+                        {block.addon.price}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <div>
+                        {tier.name && <p className="text-[15.5px] font-medium">{tier.name}</p>}
+                        {tier.spots && (
+                          <span className="mt-2 inline-flex items-center gap-1.5 text-[13px] text-white/60">
+                            <span className="h-1.5 w-1.5 rounded-full bg-[color:#07a889]" />
+                            {tier.spots}
+                          </span>
+                        )}
+                        <p className="mt-3 max-w-[320px] text-[14.5px] text-white/60">
+                          Everything below is included. Fixed quote before any work starts, and
+                          nothing gets billed that wasn&rsquo;t agreed.
+                        </p>
+                      </div>
+                      <p className="inline-flex items-center gap-2 text-[14px] text-white/70">
+                        <PlusIcon className="h-4 w-4" /> 100% money back guarantee
+                      </p>
+                    </>
                   )}
                 </div>
 
