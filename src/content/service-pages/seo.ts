@@ -1,38 +1,137 @@
+/**
+ * SEO — the retainer page.
+ *
+ * Same running order as the web dev and Shopify pages: logos, agency
+ * comparison, who it's for, three reasons, reviews, process, price, why
+ * invest. The two card grids that existed only to hold a decorative image are
+ * gone — they said nothing and pushed the price four screens down.
+ */
 import type { ServicePageData } from "./types";
+import { WEB_CLIENT_LOGOS } from "./client-logos";
 
 const CLOSING_NOTE =
-  "We believe that a website should be more than just a digital presence—it should be a tool that works for your business. That's why we prioritise performance, user experience in everything we create. We build websites that are fast, efficient, and easy to manage, so you can focus on what matters—running your business.";
+  "SEO compounds. The work we do in month one is still earning in month twelve, which is the opposite of ads — the moment you stop paying for those, the traffic stops. That's why we scope it properly, report on it honestly, and never lock you into a contract to keep you.";
 
 export const seo: ServicePageData = {
   hero: {
-    variant: "content",
-    kicker: "About us",
-    heading: "Search Engine Optimisation (SEO)",
+    variant: "showcase",
+    heading: "Get found by the people already searching for what you sell.",
     intro:
-      "Strategic SEO that actually delivers. At Rankify, we don't just offer SEO—we engineer it for impact. From day one, we start implementing SEO strategies that push your business forward to rank higher, bring in traffic, and convert more leads.",
-    note: "No overcomplicated processes, just effective solutions tailored to your needs.",
-    ctaPrimary: { label: "View Pricing", href: "#pricing" },
+      "Ranking isn't a vanity metric — it's the cheapest lead source you'll ever own. We do the technical work, the on-page work and the content that gets you onto page one, then show you exactly what it's bringing in.",
+    badges: [
+      "$499 per page, no lock-in contracts",
+      "Direct access to the person doing the work",
+      "Real reporting — rankings, traffic and leads",
+      "Every page optimised, not just the homepage",
+    ],
+    ctaPrimary: { label: "View Pricing", href: "#seo-pricing" },
     ctaSecondary: { label: "Schedule free strategy Call", href: "/schedule-strategy-call" },
+    heroGraphic: "rank",
   },
   blocks: [
+    WEB_CLIENT_LOGOS,
     {
-      type: "cardgrid",
-      theme: "paper",
-      items: [],
-      bottomImage: "/assets/images/fnJ56Jb25VUcg7GUFCVy9YYXQgw.webp",
+      type: "comparison",
+      anchorId: "vs-agency",
+      tableTitle: "Seriously.. look at the difference!",
+      agencyLabel: "Typical SEO Agency",
+      usLabel: "Rankify",
+      rows: [
+        { icon: "person", label: "Who does the work", agency: "Offshore team you never meet", us: "The person you spoke to" },
+        { icon: "card", label: "Contract", agency: "6–12 months, locked in", us: "3 month minimum, then month to month" },
+        { icon: "dollar", label: "What you pay for", agency: "A retainer, scope unclear", us: "$499 per page, you know exactly what's covered" },
+        { icon: "trending", label: "What gets optimised", agency: "A few pages, quietly", us: "Every page you're paying for, listed up front" },
+        { icon: "shield", label: "Backlinks", agency: "Bought in bulk, risky", us: "Earned from real, relevant sites" },
+        { icon: "revisions", label: "Reporting", agency: "Impressions and 'visibility scores'", us: "Rankings, traffic and leads" },
+        { icon: "clock", label: "First results", agency: "\"SEO takes 12 months\"", us: "Movement in 4–8 weeks, compounding after" },
+        { icon: "repeat", label: "If you leave", agency: "Rankings fall over — the work was rented", us: "The work stays on your site", highlight: true },
+      ],
+      footnote:
+        "Nobody can promise you position one. What we can promise is that you'll see exactly what was done, what moved, and what it earned.",
+      eyebrow: "Owned traffic, not rented.",
+      heading: "Every dollar in ads stops working the day you stop paying. SEO doesn't.",
+      body: [
+        "Ads are a tap: turn them off and the leads stop that afternoon. SEO is an asset — **the page we optimise in month one is still bringing you enquiries in month twelve**, and the month after that, without another dollar of spend.",
+        "The catch is that it's slow to start and easy to fake, which is why the industry has the reputation it has. So we price it per page instead of per month, tell you which pages we're working on, and **report on leads rather than impressions**.",
+        "We also build the sites — which means the technical foundations, the page speed and the structure are **fixed properly rather than worked around**.",
+      ],
     },
     {
       type: "cardgrid",
       theme: "paper",
-      kicker: "About us",
+      kicker: "Who this is for",
+      eyebrow: "Rankify®",
+      anchorId: "who-we-work-with",
+      heading: "Who we work with.",
+      subheading:
+        "Whether you're just starting out or scaling fast, we build SEO strategies that fit your business model — and your goals.",
+      columns: 3,
+      items: [
+        {
+          idx: "01",
+          anchorId: "local-businesses",
+          title: "Local Businesses",
+          desc: "You want the calls coming from your own suburbs. Local SEO, Google Business Profile and location pages that put you in the map pack where the ready-to-buy searches happen.",
+        },
+        {
+          idx: "02",
+          anchorId: "corporate-b2b",
+          title: "Corporate & B2B",
+          desc: "Longer sales cycles, higher value deals. We target the research-stage searches your buyers make months before they contact anyone, so you're the name they already know.",
+        },
+        {
+          idx: "03",
+          anchorId: "ecommerce-brands",
+          title: "eCommerce Brands",
+          desc: "Collection and product pages that rank on their own terms, so you're not paying for every single sale through ads. Turn search traffic into repeat customers.",
+        },
+      ],
+    },
+    {
+      type: "cardgrid",
+      theme: "paper",
+      kicker: "Why Rankify",
+      eyebrow: "Rankify®",
+      anchorId: "why-us",
+      heading: "Agency-level work.",
+      headingDim: "Without the agency.",
+      columns: 3,
+      items: [
+        {
+          idx: "01",
+          title: "Expert Web Developer",
+          icon: "Expert Shopify Developer",
+          desc: "Most SEO agencies can't touch your code — they send you a list and hope your developer actions it. We are the developer, so the technical fixes actually get made.",
+        },
+        {
+          idx: "02",
+          title: "AI-Accelerated Development",
+          desc: "Research, content briefs and technical audits that used to take an agency weeks take us days — so more of your budget goes into work that moves rankings.",
+        },
+        {
+          idx: "03",
+          title: "Outstanding value for money",
+          desc: "$499 per page, no retainer you can't leave and no bloated team to fund. You know what's being optimised and what it costs before it starts.",
+        },
+      ],
+    },
+    {
+      type: "testimonials",
+      bare: true,
+      kicker: "Reviews",
+      eyebrow: "Rankify®",
+      heading: "Every review is five stars.",
+      headingDim: "That's not an accident.",
+    },
+    {
+      type: "cardgrid",
+      theme: "paper",
+      kicker: "How it works",
       eyebrow: "Rankify®",
       anchorId: "how-we-do-it",
-      heading: "We take SEO seriously — and strategically. Here's how we do it.",
-      subheading:
-        "See how our team combines creativity, technology, and strategy to build powerful digital solutions.",
-      cta: { label: "View Pricing", href: "#pricing" },
+      heading: "So how does it work?",
+      headingDim: "How do we actually move you up the page?",
       columns: 3,
-      bottomImage: "/assets/images/vd3jPqXLHArRT1YSC4NMwStsnA.png",
       items: [
         {
           idx: "01",
@@ -73,27 +172,12 @@ export const seo: ServicePageData = {
       ],
     },
     {
-      type: "cardgrid",
-      theme: "paper",
-      kicker: "About us",
-      eyebrow: "Rankify®",
-      anchorId: "who-we-work-with",
-      heading: "Who We Work With.",
-      subheading:
-        "Whether you're just starting out or scaling fast, we build SEO strategies that fit your business model — and your goals.",
-      columns: 3,
-      items: [
-        { idx: "01", anchorId: "local-businesses", title: "Local Businesses", desc: "Get found by the people in your area who need you most." },
-        { idx: "02", anchorId: "corporate-b2b", title: "Corporate & B2B", desc: "Serious SEO for serious growth, scale, and visibility." },
-        { idx: "03", anchorId: "ecommerce-brands", title: "eCommerce Brands", desc: "Turn search traffic into consistent sales and brand loyalty." },
-      ],
-    },
-    {
       type: "pricing",
       eyebrow: "SEO Pricing",
       anchorId: "seo-pricing",
-      heading: "$499 per page — 3 months minimum engagement.",
-      subheading: "Most agencies charge $350–$500/hr for Shopify development. We offer dedicated retainer support from $499/month.",
+      heading: "$499 per page — 3 months minimum.",
+      subheading:
+        "You pick the pages that matter, we optimise them properly. No open-ended retainer, and nothing to cancel once the three months are up.",
       lookingForMore: true,
       lookingForMoreCta: { label: "Book a call", href: "/schedule-strategy-call" },
       tiers: [
@@ -117,6 +201,53 @@ export const seo: ServicePageData = {
           ],
           ctaLabel: "Order Now",
           ctaHref: "/contact",
+        },
+      ],
+    },
+    {
+      type: "cardgrid",
+      theme: "paper",
+      kicker: "Why choose rankify?",
+      eyebrow: "Rankify®",
+      anchorId: "why-rankify",
+      heading: "Why invest in SEO with Rankify.",
+      columns: 3,
+      items: [
+        {
+          idx: "01",
+          title: "DIY or AI Website Builders",
+          desc: [
+            "Plugins that tick green without changing a ranking.",
+            "No idea which keywords are worth chasing.",
+            "Technical problems you can't see and can't fix.",
+            "Content written for Google, not for buyers.",
+            "Months of effort with nothing to show for it.",
+            "No reporting, so you never know if it worked.",
+          ],
+        },
+        {
+          idx: "02",
+          title: "With other freelancers or agencies",
+          desc: [
+            "Locked into 6–12 months before you've seen a result.",
+            "A retainer with no clear list of what's included.",
+            "Bulk backlinks that put your site at risk.",
+            "Reports full of impressions and visibility scores.",
+            "Recommendations your developer never actions.",
+            "Rankings that collapse the month you leave.",
+          ],
+        },
+        {
+          idx: "03",
+          title: "With Rankify",
+          desc: [
+            "$499 per page — you know exactly what's covered.",
+            "Three month minimum, then month to month.",
+            "We're the developer, so technical fixes get made.",
+            "Backlinks earned from real, relevant sites.",
+            "Reporting on rankings, traffic and leads.",
+            "The work stays on your site if you leave.",
+          ],
         },
       ],
     },

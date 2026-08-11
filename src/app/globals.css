@@ -521,3 +521,45 @@ body {
     animation: none;
   }
 }
+
+/* SEO hero graphic — see RankGraphic.tsx */
+@keyframes rank-pop {
+  0%,
+  70%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(7, 168, 137, 0);
+  }
+  78% {
+    transform: scale(1.12);
+    box-shadow: 0 0 0 6px rgba(7, 168, 137, 0.22);
+  }
+}
+
+.rank-pop {
+  animation: rank-pop 6s ease-in-out infinite;
+}
+
+/* Grows from the baseline; height stays as authored so the bar shape is
+   still correct with animations off. */
+@keyframes rank-bar {
+  0% {
+    transform: scaleY(0.15);
+  }
+  55%,
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+.rank-bar {
+  transform-origin: bottom;
+  animation: rank-bar 7s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rank-pop,
+  .rank-bar {
+    animation: none;
+  }
+}

@@ -215,6 +215,8 @@ export type HeroData = {
    * picks the image set — the Shopify and web dev pages show different work.
    */
   heroScreenshotWall?: ScreenshotSet;
+  /** A drawn hero visual instead of imagery — "rank" is the SEO climb panel. */
+  heroGraphic?: "rank";
   /** Accreditation logo shown beside the trust row. */
   partnerLogo?: { src: string; alt: string };
 };

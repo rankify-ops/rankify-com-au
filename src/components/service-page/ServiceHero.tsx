@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { PlusIcon } from "@/components/ui/PlusIcon";
 import { Stars } from "@/components/ui/Stars";
 import { ScreenshotWall } from "@/components/service-page/ScreenshotWall";
+import { RankGraphic } from "@/components/service-page/RankGraphic";
 import type { HeroData } from "@/content/service-pages/types";
 
 const TRUST_AVATARS = [
@@ -127,7 +128,11 @@ export function ServiceHero({ hero }: { hero: HeroData }) {
               )}
             </div>
             <div>
-              {hero.heroScreenshotWall ? (
+              {hero.heroGraphic === "rank" ? (
+                <Reveal scale>
+                  <RankGraphic />
+                </Reveal>
+              ) : hero.heroScreenshotWall ? (
                 <div className="h-[420px] sm:h-[520px] lg:h-[min(66vh,660px)]">
                   <ScreenshotWall set={hero.heroScreenshotWall} />
                 </div>
