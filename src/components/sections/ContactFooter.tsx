@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { asset } from "@/lib/basePath";
 import Link from "next/link";
-import { useState, type FormEvent } from "react";
 import { Reveal } from "@/components/ui/Reveal";
+import { BOTCHECK_PROPS, useWeb3Form } from "@/lib/useWeb3Form";
 import { Button } from "@/components/ui/Button";
 import { PlusIcon } from "@/components/ui/PlusIcon";
 
@@ -17,12 +17,7 @@ function ExternalArrow() {
 }
 
 export function ContactPrompt() {
-  const [sent, setSent] = useState(false);
-
-  function onSubmit(e: FormEvent) {
-    e.preventDefault();
-    setSent(true);
-  }
+  const { state, onSubmit } = useWeb3Form("New enquiry — site footer");
 
   return (
     <>
@@ -36,6 +31,7 @@ export function ContactPrompt() {
                   Have a project <span className="text-black/60">in mind?</span>
                 </h2>
                 <form onSubmit={onSubmit} className="space-y-4">
+                  <input {...BOTCHECK_PROPS} />
                   <div>
                     <label htmlFor="cf-name" className="mb-2 block text-[13.5px] font-medium">
                       Your name*
@@ -79,8 +75,17 @@ export function ContactPrompt() {
                     type="submit"
                     className="w-full rounded-full bg-ink py-3.5 text-[15px] font-semibold text-white transition-transform hover:scale-[1.02]"
                   >
-                    {sent ? "Thanks — we'll be in touch!" : "Send Message"}
+                    {state === "sending"
+                      ? "Sending…"
+                      : state === "sent"
+                        ? "Thanks — we'll be in touch!"
+                        : "Send Message"}
                   </button>
+                  {state === "error" && (
+                    <p className="text-[12.5px] text-[#c0392b]">
+                      That didn&rsquo;t send — please email hello@rankify.com.au.
+                    </p>
+                  )}
                   <p className="mt-3.5 text-[12.5px] text-grey">
                     By submitting, you agree to our{" "}
                     <Link href="/legal/terms-of-service" className="underline">
@@ -138,12 +143,7 @@ export function ContactPrompt() {
 }
 
 export function SiteFooter() {
-  const [subscribed, setSubscribed] = useState(false);
-
-  function onSubscribe(e: FormEvent) {
-    e.preventDefault();
-    setSubscribed(true);
-  }
+  const { state: subState, onSubmit: onSubscribe } = useWeb3Form("Newsletter signup");
 
   return (
     <section className="mx-2 mt-2 rounded-3xl bg-paper text-ink">
@@ -172,12 +172,14 @@ export function SiteFooter() {
             <Reveal delay={0.1}>
               <h5 className="mb-5 text-[15px] font-medium">Newsletter</h5>
               <form onSubmit={onSubscribe} className="grid gap-4 border-b border-line pb-2">
+                <input {...BOTCHECK_PROPS} />
                 <div className="border-b border-line pb-3">
                   <label htmlFor="nl-name" className="mb-1 block text-[13px] text-grey">
                     Your first name *
                   </label>
                   <input
                     id="nl-name"
+                    name="name"
                     type="text"
                     required
                     className="w-full bg-transparent text-[15px] text-ink outline-none"
@@ -189,13 +191,18 @@ export function SiteFooter() {
                   </label>
                   <input
                     id="nl-email"
+                    name="email"
                     type="email"
                     required
                     className="w-full bg-transparent text-[15px] text-ink outline-none"
                   />
                 </div>
                 <Button type="submit" className="justify-self-start">
-                  {subscribed ? "Subscribed!" : "Subscribe"}
+                  {subState === "sending"
+                    ? "Subscribing…"
+                    : subState === "sent"
+                      ? "Subscribed!"
+                      : "Subscribe"}
                 </Button>
               </form>
               <p className="mt-4 max-w-[320px] text-[14.5px] text-grey">

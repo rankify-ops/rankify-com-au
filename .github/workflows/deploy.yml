@@ -29,6 +29,9 @@ jobs:
           # Remove this once rankify.com.au DNS is cut over to point here —
           # a custom domain serves from the root and no basePath is needed.
           NEXT_PUBLIC_BASE_PATH: /rankify-com-au
+          # Public by design: this key can only deliver to the address it's
+          # registered to, and it ships in the client bundle either way.
+          NEXT_PUBLIC_WEB3FORMS_KEY: 2e24e577-1645-43a6-98f7-cb7ea581df5b
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out

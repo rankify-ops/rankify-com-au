@@ -3,17 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { asset } from "@/lib/basePath";
-import { useState, type FormEvent } from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
+import { BOTCHECK_PROPS, useWeb3Form } from "@/lib/useWeb3Form";
 
 export function ContactHero() {
-  const [sent, setSent] = useState(false);
-
-  function onSubmit(e: FormEvent) {
-    e.preventDefault();
-    setSent(true);
-  }
+  const { state, onSubmit } = useWeb3Form("New enquiry — contact page");
 
   return (
     <section className="mx-2 rounded-3xl bg-paper text-ink">
@@ -66,6 +61,7 @@ export function ContactHero() {
 
           <Reveal delay={0.2}>
             <form onSubmit={onSubmit} className="grid gap-5">
+              <input {...BOTCHECK_PROPS} />
               <div className="border-b border-line pb-3">
                 <label htmlFor="c-name" className="mb-1 block text-[13px] text-grey">
                   Your name *
@@ -106,8 +102,17 @@ export function ContactHero() {
                 />
               </div>
               <Button type="submit" className="justify-self-start">
-                {sent ? "Submitted!" : "Submit"}
+                {state === "sending" ? "Sending…" : state === "sent" ? "Sent — thanks!" : "Submit"}
               </Button>
+              {state === "error" && (
+                <p className="text-[13.5px] text-[#c0392b]">
+                  That didn&rsquo;t send. Email us at{" "}
+                  <a href="mailto:hello@rankify.com.au" className="font-medium underline">
+                    hello@rankify.com.au
+                  </a>{" "}
+                  and we&rsquo;ll pick it up.
+                </p>
+              )}
               <p className="text-[12.5px] text-grey">
                 By submitting, you agree to our{" "}
                 <Link href="/legal/terms-of-service" className="font-medium text-ink underline">
