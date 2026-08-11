@@ -39,7 +39,9 @@ export const webDesignAndDevelopment: ServicePageData = {
     badges: [
       "Custom-built, conversion-focused",
       "Direct developer access, no middlemen",
-      "Unlimited revisions until it's right",
+      // "Unlimited revisions" alone reads as unlimited rounds. It's unlimited
+      // changes across two rounds — see the process section.
+      "Unlimited changes, 2 revision rounds",
       "No contracts, you own your site",
     ],
     ctaPrimary: { label: "Get Started", href: "#website-configurator" },
@@ -60,7 +62,7 @@ export const webDesignAndDevelopment: ServicePageData = {
         { icon: "dollar", label: "Build Cost", agency: "$20k–$40k+", us: "A fraction of that" },
         { icon: "repeat", label: "Retainer", agency: "Mandatory, up to $500/mo", us: "Optional, only if you want ongoing work" },
         { icon: "trending", label: "Built to convert", agency: "Looks nice, maybe", us: "Engineered to sell, and looks better" },
-        { icon: "revisions", label: "Revisions", agency: "Billed hourly", us: "Unlimited changes included" },
+        { icon: "revisions", label: "Revisions", agency: "Billed hourly", us: "Unlimited changes, 2 rounds" },
         { icon: "shield", label: "Hosting & security", agency: "Up to $600/yr, ongoing", us: "We host & secure it, $0" },
         { icon: "card", label: "Ongoing cost / year", agency: "$2,000 – $7,000+", us: "$0", highlight: true },
       ],
@@ -151,7 +153,7 @@ export const webDesignAndDevelopment: ServicePageData = {
         { idx: "01", title: "Get your price, or talk it through", image: "/assets/images/Z6tHt1zj6Xzi4mqYcUDecqw9s.png", desc: "Already know roughly what you need? Use the configurator above, pick your pages, see the exact price, and check out. Prefer to talk first? Book a call and we'll go through it together — what you need, what you don't, and what it'll cost. No pressure either way." },
         { idx: "02", title: "Fill in the onboarding form", image: "/assets/images/DPStQ1OLWHQEotlRG324OWMdXgA.png", desc: "The moment you order, we send you one form. Your logo, your business details, the services you offer, and anything else you think we should know. That's the only homework — and if you don't have a logo or copy, tell us and we'll sort it." },
         { idx: "03", title: "We design and build it", image: "/assets/images/OcCBB2O75VsaHiIw8nfSpLAtJjo.webp", desc: "You get a custom site — modern, fast, and on brand. Not a template. Every page is laid out around the way your customers actually decide, with the conversion elements that make them call or buy in the right places. Content, forms, tracking and SEO all handled." },
-        { idx: "04", title: "Change anything you want", image: "/assets/images/BRmVb3sj222Zc8G43z2kcUcKHy8.webp", desc: "Two review rounds, and within them you can change whatever you like — a colour, a headline, the whole design if it isn't right. We keep going until you're happy. No per-change invoices, no being told it's out of scope." },
+        { idx: "04", title: "Change anything you want", image: "/assets/images/BRmVb3sj222Zc8G43z2kcUcKHy8.webp", desc: "You get two rounds of revisions, and there's no limit on what goes in them. A colour, a headline, every page, the whole design if it isn't right — send the lot and we'll work through it. Send everything in one go and you'll still have a round spare. No per-change invoices, nothing called out of scope." },
         { idx: "05", title: "Launch", image: "/assets/images/jeJzliriilgkAa6aYwiNxC60o.webp", desc: "We handle the domain, the DNS and going live, then walk you through managing your own content. Live in 7–14 days from sign-off, and we host and secure it for $0." },
         { idx: "06", title: "Getting traffic to it", image: "/assets/images/htpsqYBKyKw4QhDxfxQWLbtZXE.webp", desc: "A website only earns once people find it. When you're ready, the same team handles the SEO and the ads that bring in the traffic — and we keep improving the site as you grow. Optional, and only when it makes sense for you.", cta: { label: "Talk about growing traffic", href: "/schedule-strategy-call" } },
       ],
