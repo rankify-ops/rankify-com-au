@@ -19,13 +19,28 @@ async function rawBody(req: VercelRequest): Promise<Buffer> {
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // GET is a health check: which env vars this deployment can actually see.
+  // Booleans only — never the values. Saves guessing at the Vercel UI when a
+  // variable is saved but scoped to no environment, or saved after the last
+  // build.
+  if (req.method === "GET") {
+    return res.status(200).json({
+      configured: {
+        STRIPE_SECRET_KEY: Boolean(process.env.STRIPE_SECRET_KEY),
+        STRIPE_WEBHOOK_SECRET: Boolean(process.env.STRIPE_WEBHOOK_SECRET),
+        CRM_API_URL: Boolean(process.env.CRM_API_URL),
+        CRM_ROUTINE_SECRET: Boolean(process.env.CRM_ROUTINE_SECRET),
+      },
+    });
+  }
+
   if (req.method !== "POST") return res.status(405).end();
 
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
   const signature = req.headers["stripe-signature"];
-  if (!secret || typeof signature !== "string") {
-    return res.status(400).send("Not signed.");
-  }
+  // Distinct messages: one is our misconfiguration, the other is the caller's.
+  if (!secret) return res.status(500).send("Webhook secret not configured.");
+  if (typeof signature !== "string") return res.status(400).send("Not signed.");
 
   let event;
   try {
