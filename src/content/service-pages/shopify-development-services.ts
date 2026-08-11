@@ -63,6 +63,30 @@ export const shopifyDevelopmentServices: ServicePageData = {
         "I'm a **Shopify Partner** and I'm genuinely passionate about building **stores that look as good as they sell**.",
       ],
     },
+    // Same slot as the web dev page's industry grid — straight after the
+    // agency comparison, before the three reasons.
+    {
+      type: "industries",
+      anchorId: "who-we-help",
+      kicker: "Who we help",
+      eyebrow: "Rankify®",
+      heading: "Built for the brands",
+      headingDim: "that get scaled profitably.",
+      items: [
+        { icon: "fashion", label: "Fashion & Apparel" },
+        { icon: "jewellery", label: "Jewellery & Watches" },
+        { icon: "beauty", label: "Beauty & Cosmetics" },
+        { icon: "homewares", label: "Homewares & Furniture" },
+        { icon: "food", label: "Food & Beverage" },
+        { icon: "supplements", label: "Health & Supplements" },
+        { icon: "pets", label: "Pet Supplies" },
+        { icon: "sporting", label: "Sporting Goods" },
+        { icon: "electronics", label: "Electronics & Gadgets" },
+        { icon: "baby", label: "Baby & Kids" },
+        { icon: "gifts", label: "Gifts & Flowers" },
+        { icon: "multistore", label: "General & Multi-store" },
+      ],
+    },
     {
       type: "cardgrid",
       theme: "paper",

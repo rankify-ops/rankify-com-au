@@ -42,6 +42,75 @@ const ICONS: Record<IndustryIcon, React.ReactNode> = {
       <path d="M10 21v-5h4v5" strokeLinejoin="round" />
     </>
   ),
+
+  /* Ecommerce verticals — the Shopify page. */
+  fashion: <path d="M9 3l3 2 3-2 5 3-2 4h-2v11H8V10H6L4 6z" strokeLinejoin="round" />,
+  jewellery: (
+    <>
+      <path d="M6 3h12l3 6-9 12L3 9z" strokeLinejoin="round" />
+      <path d="M3 9h18M9 3l-3 6 6 12 6-12-3-6" strokeLinejoin="round" />
+    </>
+  ),
+  beauty: (
+    <>
+      <path d="M9 8h6v11a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z" strokeLinejoin="round" />
+      <path d="M10 8V4h4v4M12 12v4" strokeLinecap="round" />
+    </>
+  ),
+  homewares: (
+    <>
+      <path d="M4 21V10l8-6 8 6v11" strokeLinejoin="round" />
+      <path d="M4 15h16M9 21v-6h6v6" strokeLinejoin="round" />
+    </>
+  ),
+  food: (
+    <>
+      <path d="M5 3v8a3 3 0 0 0 6 0V3M8 11v10" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M17 3c-1.5 2-2 4-2 6s.5 3 2 3 2-1 2-3-.5-4-2-6zM17 12v9" strokeLinecap="round" strokeLinejoin="round" />
+    </>
+  ),
+  supplements: (
+    <>
+      <path d="M8.5 3h7l-1 5h-5zM7 8h10l1 11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z" strokeLinejoin="round" />
+      <path d="M12 12v5M9.5 14.5h5" strokeLinecap="round" />
+    </>
+  ),
+  pets: (
+    <>
+      <path d="M12 13c3 0 5 2.5 5 4.8 0 1.8-1.6 2.7-3 2.2a6 6 0 0 0-4 0c-1.4.5-3-.4-3-2.2C7 15.5 9 13 12 13Z" strokeLinejoin="round" />
+      <path d="M6.5 8.5h.01M17.5 8.5h.01M9.5 5.5h.01M14.5 5.5h.01" strokeLinecap="round" strokeWidth="3" />
+    </>
+  ),
+  sporting: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 3c3 3 3 15 0 18M3 12h18M5 6c4 3 10 3 14 0M5 18c4-3 10-3 14 0" strokeLinecap="round" />
+    </>
+  ),
+  electronics: (
+    <>
+      <rect x="6" y="2.5" width="12" height="19" rx="2.5" />
+      <path d="M10.5 18.5h3" strokeLinecap="round" />
+    </>
+  ),
+  baby: (
+    <>
+      <path d="M6 8h12l-1 12a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2z" strokeLinejoin="round" />
+      <path d="M9 8a3 3 0 0 1 6 0" strokeLinecap="round" />
+    </>
+  ),
+  gifts: (
+    <>
+      <path d="M3 11h18v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zM3 7.5h18V11H3zM12 7.5V21" strokeLinejoin="round" />
+      <path d="M12 7.5S10.5 3 8 3a2.2 2.2 0 0 0 0 4.5zM12 7.5S13.5 3 16 3a2.2 2.2 0 0 1 0 4.5z" strokeLinejoin="round" />
+    </>
+  ),
+  multistore: (
+    <>
+      <path d="M4 5h2l2.2 9.5h9L19 8H7" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9.5 19.5h.01M16.5 19.5h.01" strokeLinecap="round" strokeWidth="3" />
+    </>
+  ),
 };
 
 export function IndustriesSection({ block }: { block: IndustriesBlock }) {

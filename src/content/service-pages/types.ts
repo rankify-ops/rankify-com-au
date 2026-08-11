@@ -171,6 +171,7 @@ export type ConfiguratorBlock = {
 };
 
 export type IndustryIcon =
+  // trades and services — the web dev page
   | "trades"
   | "plumbing"
   | "electrical"
@@ -182,7 +183,20 @@ export type IndustryIcon =
   | "dental"
   | "medical"
   | "realestate"
-  | "finance";
+  | "finance"
+  // ecommerce verticals — the Shopify page
+  | "fashion"
+  | "jewellery"
+  | "beauty"
+  | "homewares"
+  | "food"
+  | "supplements"
+  | "pets"
+  | "sporting"
+  | "electronics"
+  | "baby"
+  | "gifts"
+  | "multistore";
 
 /** "Who we help" — a grid of industry chips. */
 export type IndustriesBlock = {
