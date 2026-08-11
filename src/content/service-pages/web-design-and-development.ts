@@ -139,18 +139,21 @@ export const webDesignAndDevelopment: ServicePageData = {
     {
       type: "cardgrid",
       theme: "paper",
-      kicker: "Our Design Process",
+      kicker: "How it works",
       eyebrow: "Rankify®",
       anchorId: "build-process",
-      heading: "A simple process. Building your new website:",
+      // Written for the person hesitating because they can't picture the
+      // process — every step answers "what do I actually have to do?".
+      heading: "So how does it work?",
+      headingDim: "How do we get everything on your website right?",
       columns: 3,
       items: [
-        { idx: "01", title: "Discovery Call & Scoping", image: "/assets/images/Z6tHt1zj6Xzi4mqYcUDecqw9s.png", desc: "We start with a call to understand your business, your services, your customers, and your goals. No generic questionnaires. You get a detailed scope document and fixed quote before any work begins." },
-        { idx: "02", title: "Design Mockup", image: "/assets/images/DPStQ1OLWHQEotlRG324OWMdXgA.png", desc: "We mock up your homepage, your key page templates, and the mobile layouts. You review and approve before development starts. Nothing gets built until you're happy with the design." },
-        { idx: "03", title: "Build & Content", image: "/assets/images/OcCBB2O75VsaHiIw8nfSpLAtJjo.webp", desc: "We build your site in clean, custom code on top of your approved design — and write the content while we're at it. Forms, bookings, tracking, analytics and any third-party tools you use: configured and tested." },
-        { idx: "04", title: "Testing, Revisions & SEO", image: "/assets/images/BRmVb3sj222Zc8G43z2kcUcKHy8.webp", desc: "Full SEO setup — metadata, schema markup, redirects if you're replacing an old site, and page speed optimisation. Cross-browser and cross-device testing. We catch the problems before your customers do." },
-        { idx: "05", title: "Launch", image: "/assets/images/jeJzliriilgkAa6aYwiNxC60o.webp", desc: "We handle DNS, domain configuration, and go-live. You get a training walkthrough so you can manage day-to-day content updates yourself." },
-        { idx: "06", title: "Ongoing support (optional)", image: "/assets/images/htpsqYBKyKw4QhDxfxQWLbtZXE.webp", desc: "Your site is live but the work doesn't have to stop. Keep us on for new pages, new features, design updates and performance monitoring. Your developer already knows your site — no re-onboarding, no handovers.", cta: { label: "Talk about ongoing work", href: "/schedule-strategy-call" } },
+        { idx: "01", title: "Get your price, or talk it through", image: "/assets/images/Z6tHt1zj6Xzi4mqYcUDecqw9s.png", desc: "Already know roughly what you need? Use the configurator above, pick your pages, see the exact price, and check out. Prefer to talk first? Book a call and we'll go through it together — what you need, what you don't, and what it'll cost. No pressure either way." },
+        { idx: "02", title: "Fill in the onboarding form", image: "/assets/images/DPStQ1OLWHQEotlRG324OWMdXgA.png", desc: "The moment you order, we send you one form. Your logo, your business details, the services you offer, and anything else you think we should know. That's the only homework — and if you don't have a logo or copy, tell us and we'll sort it." },
+        { idx: "03", title: "We design and build it", image: "/assets/images/OcCBB2O75VsaHiIw8nfSpLAtJjo.webp", desc: "You get a custom site — modern, fast, and on brand. Not a template. Every page is laid out around the way your customers actually decide, with the conversion elements that make them call or buy in the right places. Content, forms, tracking and SEO all handled." },
+        { idx: "04", title: "Change anything you want", image: "/assets/images/BRmVb3sj222Zc8G43z2kcUcKHy8.webp", desc: "Two review rounds, and within them you can change whatever you like — a colour, a headline, the whole design if it isn't right. We keep going until you're happy. No per-change invoices, no being told it's out of scope." },
+        { idx: "05", title: "Launch", image: "/assets/images/jeJzliriilgkAa6aYwiNxC60o.webp", desc: "We handle the domain, the DNS and going live, then walk you through managing your own content. Live in 7–14 days from sign-off, and we host and secure it for $0." },
+        { idx: "06", title: "Getting traffic to it", image: "/assets/images/htpsqYBKyKw4QhDxfxQWLbtZXE.webp", desc: "A website only earns once people find it. When you're ready, the same team handles the SEO and the ads that bring in the traffic — and we keep improving the site as you grow. Optional, and only when it makes sense for you.", cta: { label: "Talk about growing traffic", href: "/schedule-strategy-call" } },
       ],
     },
     {
