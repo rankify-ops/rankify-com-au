@@ -2,36 +2,61 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { PlusIcon } from "@/components/ui/PlusIcon";
-import { asset } from "@/lib/basePath";
 
+/**
+ * Mirrors the six items in the top nav — see src/content/nav.tsx. The homepage
+ * listed three (and claimed four), which left Shopify, both ad platforms and
+ * AI & Automation unsellable from the front page.
+ *
+ * Branding is deliberately absent: it's out of the nav too, page still live and
+ * linked from the footer.
+ */
 const SERVICES = [
   {
-    title: "Web design and development",
-    desc: "Modern, responsive, and user-friendly websites designed to engage visitors and drive conversions.",
-    cat: "Features",
-    tags: ["Mobile-Friendly", "Responsive Design", "Speed Optimised", "UX/UI Design", "Conversion-Focused", "SEO-Ready"],
-    count: "6+",
-    img: "/assets/images/vGSJoy0fkCYvuK5CETUzS64NNo.jpg",
+    title: "Web Development",
+    href: "/web-design-and-development",
+    desc: "Custom websites built around how your customers actually decide — not a template with your logo on it. From $2,999, live in 7–14 days.",
+    cat: "What's included",
+    tags: ["Custom build", "Conversion-focused", "Mobile-first", "Speed optimised", "SEO-ready", "Unlimited revisions"],
+  },
+  {
+    title: "Shopify Development",
+    href: "/shopify-development-services",
+    desc: "Custom Liquid stores for brands that want to scale profitably. Migrations handled, apps built into the theme rather than bolted on. From $5,999.",
+    cat: "What's included",
+    tags: ["Custom Liquid themes", "Migrations", "Product & collection UX", "Checkout optimisation", "Apps built in", "Shopify Partner"],
   },
   {
     title: "SEO Optimisation",
-    desc: "Comprehensive search optimization and engaging content that increases visibility, drives organic traffic, and establishes thought leadership.",
-    cat: "Categories",
+    href: "/seo",
+    desc: "The cheapest lead source you'll ever own. Priced per page rather than as an open-ended retainer, and reported on in leads — not impressions.",
+    cat: "What's included",
     tags: ["Technical SEO", "On-Page SEO", "Keyword Strategy", "Content Strategy", "Link Building", "Local SEO"],
-    count: "4+",
-    img: "/assets/images/qQlR5lTiRYzT2lPzSWLLVkcgH6Y.jpg",
   },
   {
-    title: "Branding and Identity",
-    desc: "Distinctive, memorable brand experiences that communicate your values and create emotional connections with your customers.",
-    cat: "Categories",
-    tags: ["Brand strategy", "Visual Identity", "Tone of Voice", "Logo Design", "Brand Messaging", "Brand Guidelines"],
-    count: "6+",
-    img: "/assets/images/9hTP0obDSaEcVCyC5kaHbx7FfI.jpg",
+    title: "Google Ads",
+    href: "/google-ads",
+    desc: "Search and Shopping campaigns pointed at profit rather than clicks, with the tracking wired up properly so you can see what each dollar returned.",
+    cat: "What's included",
+    tags: ["Search campaigns", "Shopping & Merchant Center", "Conversion tracking", "Landing pages", "Budget management", "Reporting"],
+  },
+  {
+    title: "Meta Ads",
+    href: "/meta-ads",
+    desc: "Facebook and Instagram campaigns where creative is treated as the main lever, with the pixel and CAPI set up so the data is actually usable.",
+    cat: "What's included",
+    tags: ["Creative strategy", "Catalogue ads", "Pixel & CAPI", "Retargeting", "Testing framework", "Reporting"],
+  },
+  {
+    title: "AI & Automation",
+    href: "/ai-and-automation",
+    desc: "The repetitive work eating your week, handed to software instead of a person — plus the dashboards and internal tools you actually run the business on.",
+    cat: "What we build",
+    tags: ["Process automation", "Custom dashboards", "Internal tools", "Integrations", "Alerting", "AI consulting"],
   },
 ];
 
@@ -39,7 +64,7 @@ export function Services() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="grain mx-2 mt-12 sm:mt-24 lg:mt-48 rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white">
+    <section className="grain mx-2 mt-8 sm:mt-12 lg:mt-20 rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white">
       <div className="relative z-[2] mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
         <div className="mb-10 flex flex-wrap items-center justify-between gap-4 sm:mb-16 lg:mb-24">
           <Reveal>
@@ -50,7 +75,7 @@ export function Services() {
           </Reveal>
           <Reveal delay={0.1}>
             <span className="text-[clamp(24px,2vw,38px)] font-medium tracking-[-0.04em] text-white/40">
-              (4)
+              ({SERVICES.length})
             </span>
           </Reveal>
           <Reveal delay={0.15} className="w-full">
@@ -96,13 +121,6 @@ export function Services() {
                     className="overflow-hidden"
                   >
                     <div className="flex flex-col gap-5 pb-6 pl-[60px] pr-4 sm:flex-row sm:pb-8 sm:pl-[104px] sm:pr-10">
-                      <Image
-                        src={asset(s.img)}
-                        alt=""
-                        width={160}
-                        height={110}
-                        className="h-[80px] w-[110px] flex-none rounded-lg object-cover sm:h-[90px] sm:w-[120px]"
-                      />
                       <div>
                         <p className="max-w-[480px] text-[15.5px] text-white/65">{s.desc}</p>
                         <div className="mt-5">
@@ -118,9 +136,13 @@ export function Services() {
                             ))}
                           </div>
                         </div>
-                        <span className="mt-5 block text-[clamp(26px,2.2vw,40px)] font-medium tracking-[-0.03em] text-white/90">
-                          {s.count}
-                        </span>
+                        <Link
+                          href={s.href}
+                          className="mt-6 inline-flex items-center gap-2 text-[14.5px] font-semibold text-white underline underline-offset-4"
+                        >
+                          See {s.title}
+                          <span aria-hidden>&rarr;</span>
+                        </Link>
                       </div>
                     </div>
                   </motion.div>

@@ -35,7 +35,7 @@ export function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="mx-2 mt-12 sm:mt-24 lg:mt-48 rounded-3xl bg-paper text-ink">
+    <section className="mx-2 mt-8 sm:mt-12 lg:mt-20 rounded-3xl bg-paper text-ink">
       <div className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
         <div className="grid gap-10 lg:grid-cols-[minmax(220px,1fr)_2.2fr] lg:gap-16">
           <div>

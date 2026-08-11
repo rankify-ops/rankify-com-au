@@ -1,5 +1,3 @@
-import Image from "next/image";
-import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { PlusIcon } from "@/components/ui/PlusIcon";
 import { LottieIcon } from "@/components/ui/LottieIcon";
@@ -29,7 +27,7 @@ function ProgressDots({ active }: { active: number }) {
 
 export function Process() {
   return (
-    <section className="mx-2 mt-12 sm:mt-24 lg:mt-48 rounded-3xl bg-paper text-ink">
+    <section className="mx-2 mt-8 sm:mt-12 lg:mt-20 rounded-3xl bg-paper text-ink">
       <div className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
         <div className="grid gap-8 lg:grid-cols-[minmax(180px,1fr)_2.2fr] lg:gap-20">
           <Reveal>
@@ -76,16 +74,6 @@ export function Process() {
             </Reveal>
           ))}
         </div>
-
-        <Reveal scale className="mt-10 aspect-[16/8] overflow-hidden rounded-2xl lg:mt-16">
-          <Image
-            src={asset("/assets/images/X1v7Yb87Igg23yIVi0lRCQBliQ.jpg")}
-            alt="Rankify team at work"
-            width={1280}
-            height={853}
-            className="h-full w-full object-cover"
-          />
-        </Reveal>
       </div>
     </section>
   );

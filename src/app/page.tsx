@@ -1,6 +1,8 @@
 import { Header } from "@/components/layout/Header";
 import { Hero } from "@/components/sections/Hero";
 import { Marquee } from "@/components/sections/Marquee";
+import { ComparisonSection } from "@/components/service-page/ComparisonSection";
+import { HOME_COMPARISON } from "@/content/home-comparison";
 import { Projects } from "@/components/sections/Projects";
 import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 import { Services } from "@/components/sections/Services";
@@ -17,6 +19,7 @@ export default function Home() {
       <Header />
       <Hero />
       <Marquee />
+      <ComparisonSection block={HOME_COMPARISON} />
       <Projects />
       <WhyChooseUs />
       <Services />

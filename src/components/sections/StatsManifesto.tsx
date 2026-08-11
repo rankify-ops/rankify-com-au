@@ -2,7 +2,7 @@ import { Reveal } from "@/components/ui/Reveal";
 
 export function StatsManifesto() {
   return (
-    <section className="mx-2 mt-12 sm:mt-24 lg:mt-48 rounded-3xl bg-paper text-ink">
+    <section className="mx-2 mt-8 sm:mt-12 lg:mt-20 rounded-3xl bg-paper text-ink">
       <div className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
         <div className="max-w-[1080px]">
           <Reveal>

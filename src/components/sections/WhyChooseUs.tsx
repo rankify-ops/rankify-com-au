@@ -1,5 +1,3 @@
-import Image from "next/image";
-import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { PlusIcon } from "@/components/ui/PlusIcon";
 import { Counter } from "@/components/ui/Counter";
@@ -7,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 
 export function WhyChooseUs() {
   return (
-    <section className="mx-2 mt-12 sm:mt-24 lg:mt-48 rounded-3xl bg-paper text-ink">
+    <section className="mx-2 mt-8 sm:mt-12 lg:mt-20 rounded-3xl bg-paper text-ink">
       <div className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
         <div className="grid gap-8 lg:grid-cols-[minmax(200px,1fr)_2.2fr] lg:gap-20">
           <Reveal>
@@ -34,18 +32,7 @@ export function WhyChooseUs() {
           </div>
         </div>
 
-        <div className="mt-14 grid gap-10 lg:mt-28 lg:grid-cols-[minmax(220px,380px)_1fr] lg:gap-20">
-          <Reveal scale>
-            <div className="aspect-[0.72] max-w-[380px] overflow-hidden rounded-2xl">
-              <Image
-                src={asset("/assets/images/kcxjwUcQKZbRLbLzb6nVeWSrM.jpg")}
-                alt=""
-                width={736}
-                height={1313}
-                className="h-full w-full object-cover"
-              />
-            </div>
-          </Reveal>
+        <div className="mt-14 lg:mt-20">
           <div>
             <Reveal>
               <p className="text-[clamp(20px,1.7vw,32px)] font-semibold leading-tight tracking-[-0.06em]">
