@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { SmartLink } from "@/components/ui/SmartLink";
@@ -16,6 +15,27 @@ import { SmartLink } from "@/components/ui/SmartLink";
  * Sits below the mobile drawer (z-110) and the hero chooser (z-120) so it
  * never covers either.
  */
+/**
+ * Pages that sell something you can't put through the configurator. Sending a
+ * Shopify visitor to the web dev configurator offers them the wrong product at
+ * the wrong price, so on these the bar leads with the call instead.
+ */
+const PRIMARY = {
+  label: "Get Started",
+  href: "/web-design-and-development#website-configurator",
+};
+
+const BOOK_INSTEAD: Record<string, { label: string; href: string }> = {
+  "/shopify-development-services": {
+    label: "View pricing",
+    href: "/shopify-development-services#website-pricing",
+  },
+  "/shopify-developer": {
+    label: "View pricing",
+    href: "/shopify-developer#hourly-pricing",
+  },
+};
+
 export function FloatingCta() {
   const pathname = usePathname();
   const [show, setShow] = useState(false);
@@ -42,6 +62,8 @@ export function FloatingCta() {
 
   // no point nudging a call on the page that books the call
   if (pathname === "/schedule-strategy-call" || pathname === "/contact") return null;
+
+  const secondary = BOOK_INSTEAD[pathname];
 
   return (
     // `pointer-events-none` on the full-width track, re-enabled on the pill
@@ -76,18 +98,22 @@ export function FloatingCta() {
         {/* Buttons split the bar on a phone; on desktop they shrink back to
             their own width so the copy has room. */}
         <div className="relative z-[2] flex min-w-0 flex-1 items-center gap-2 sm:flex-none sm:gap-2.5">
+          {/* On a page with a configurator the primary drives the sale and the
+              call is the fallback. Where there's nothing to configure the two
+              swap: booking becomes primary, pricing the fallback. They never
+              both point at the call — two identical buttons is just one. */}
           <SmartLink
-            href="/web-design-and-development#website-configurator"
+            href={secondary ? "/schedule-strategy-call" : PRIMARY.href}
             className="neu-btn neu-btn-dark flex-1 whitespace-nowrap rounded-full border border-transparent bg-[var(--green-deep)] px-4 py-2.5 text-center text-[13.5px] font-bold text-white hover:-skew-x-3 sm:flex-none sm:px-5 sm:py-2 sm:text-[14px]"
           >
-            Get Started
+            {secondary ? "Book a call" : PRIMARY.label}
           </SmartLink>
-          <Link
-            href="/schedule-strategy-call"
+          <SmartLink
+            href={secondary ? secondary.href : "/schedule-strategy-call"}
             className="flex-1 whitespace-nowrap rounded-full border border-ink/15 bg-white/50 px-4 py-2.5 text-center text-[13.5px] font-semibold transition-colors hover:bg-white sm:flex-none sm:px-5 sm:py-2 sm:text-[14px]"
           >
-            Book a call
-          </Link>
+            {secondary ? secondary.label : "Book a call"}
+          </SmartLink>
         </div>
       </div>
     </div>
