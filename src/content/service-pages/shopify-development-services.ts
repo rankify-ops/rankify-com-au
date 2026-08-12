@@ -94,7 +94,6 @@ export const shopifyDevelopmentServices: ServicePageData = {
       eyebrow: "Rankify®",
       anchorId: "who-we-work-with",
       heading: "Who we work with.",
-      cta: { label: "View Pricing", href: "#website-pricing" },
       columns: 3,
       items: [
         { idx: "01", anchorId: "launching-a-new-store", title: "Launching a new store", desc: "You need a custom Shopify store built properly from day one. Design, development, products, payments, shipping, and SEO — all handled." },
@@ -129,7 +128,6 @@ export const shopifyDevelopmentServices: ServicePageData = {
       eyebrow: "Rankify®",
       anchorId: "build-process",
       heading: "A simple process. Building your new store:",
-      cta: { label: "View Pricing", href: "#website-pricing" },
       columns: 3,
       items: [
         { idx: "01", title: "Discovery Call & Scoping", image: "/assets/images/Z6tHt1zj6Xzi4mqYcUDecqw9s.png", desc: "We start with a call to understand your business, products, customers, and goals. No generic questionnaires. You get a detailed scope document and fixed quote before any work begins." },
@@ -167,7 +165,6 @@ export const shopifyDevelopmentServices: ServicePageData = {
       heading: "What's included in a new store build",
       subheading:
         "Everything needed to get a custom Shopify store designed, built, migrated where necessary, and ready to rank from day one.",
-      cta: { label: "View Pricing", href: "#website-pricing" },
       columns: 4,
       items: [
         { idx: "01", anchorId: "custom-store-build", title: "Custom Shopify Store Design & Build", desc: "We design and build fully custom Shopify stores. Not a template with your logo dropped in — a store designed around your brand, products, and how your customers actually shop. Responsive, fast, and built for conversions." },
@@ -183,7 +180,6 @@ export const shopifyDevelopmentServices: ServicePageData = {
       eyebrow: "Rankify®",
       anchorId: "why-rankify",
       heading: "Why invest in an expert Shopify developer with Rankify.",
-      cta: { label: "View Pricing", href: "#website-pricing" },
       columns: 3,
       items: [
         {

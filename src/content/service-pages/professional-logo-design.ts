@@ -39,7 +39,6 @@ export const professionalLogoDesign: ServicePageData = {
       heading: "Be the business that customers trust, instantly.",
       subheading:
         "Attract leads and gain undeniable credibility in your industry. “Rankify built an incredible brand in no time. No dragged-out process or endless calls—just bold, thoughtful design with fast delivery and zero time-wasting.” — J Gregory, Founder of Tintek.",
-      cta: { label: "View our packages", href: "#pricing" },
       columns: 4,
       items: [
         { idx: "01", title: "Built to Be Recognised", image: "/assets/images/obSfGICIGftT1jemF9l88ZVgq8.webp", desc: "Branding that cuts through. Clean, distinct, and easy to remember." },
@@ -83,7 +82,6 @@ export const professionalLogoDesign: ServicePageData = {
       kicker: "Our Design Process",
       eyebrow: "Rankify®",
       heading: "A Uniquely Simple Process.",
-      cta: { label: "View our packages", href: "#pricing" },
       columns: 4,
       items: [
         { idx: "01", title: "Place your order or book a call", image: "/assets/images/Z6tHt1zj6Xzi4mqYcUDecqw9s.png", desc: "Choose a package or chat with us if you want to ask a few questions first." },
@@ -98,7 +96,6 @@ export const professionalLogoDesign: ServicePageData = {
       heading: "World-class branding for 10x less than regular creative agencies.",
       subheading: "The average cost of professional branding in Australia is $7,500*. Our packages start from $499.",
       lookingForMore: true,
-      lookingForMoreCta: { label: "Book a call", href: "/schedule-strategy-call" },
       tiers: [
         {
           name: "Basic",
@@ -193,7 +190,6 @@ export const professionalLogoDesign: ServicePageData = {
       kicker: "Why choose rankify?",
       eyebrow: "Rankify®",
       heading: "Why invest in a professional logo with Rankify.",
-      cta: { label: "View our packages", href: "#pricing" },
       columns: 3,
       items: [
         {

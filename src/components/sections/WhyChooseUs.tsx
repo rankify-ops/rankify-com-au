@@ -1,7 +1,6 @@
 import { Reveal } from "@/components/ui/Reveal";
 import { PlusIcon } from "@/components/ui/PlusIcon";
 import { Counter } from "@/components/ui/Counter";
-import { Button } from "@/components/ui/Button";
 
 export function WhyChooseUs() {
   return (
@@ -21,14 +20,10 @@ export function WhyChooseUs() {
                 <span className="text-grey">with a focus on design and functionality.</span>
               </h2>
             </Reveal>
-            <Reveal delay={0.15}>
-              <div className="mt-10 flex flex-wrap items-center gap-5">
-                <Button href="/contact">Let&rsquo;s talk</Button>
-                <p className="max-w-[240px] text-[15px] text-grey">
-                  Your digital journey begins with a conversation. Let&rsquo;s talk today.
-                </p>
-              </div>
-            </Reveal>
+            {/* The "Let's talk" button and its lead-in sentence lived here.
+                Both went with the mid-page CTA cull — the sentence existed
+                only to set up the button, and reading "let's talk today" with
+                nothing to click is worse than not asking at all. */}
           </div>
         </div>
 

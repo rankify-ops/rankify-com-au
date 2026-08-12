@@ -51,7 +51,6 @@ export const shopifyDeveloper: ServicePageData = {
       heading: "What we handle on your live store",
       subheading:
         "Bug fixes, design changes, new features, integrations and audits — handled by a developer who already knows your setup.",
-      cta: { label: "Hourly Packages", href: "#hourly-pricing" },
       columns: 4,
       items: [
         { idx: "01", anchorId: "customisation-requests", title: "Shopify Customisation Requests", desc: "Already have a Shopify store? We customise existing themes — section layouts, custom Liquid code, design tweaks, and functionality improvements. Get the store you want without starting from zero." },
@@ -67,7 +66,6 @@ export const shopifyDeveloper: ServicePageData = {
       heading: "Retainer & Hourly Pricing",
       subheading: "Most agencies charge $350–$500/hr for Shopify development. We offer dedicated retainer support from $499/month.",
       lookingForMore: true,
-      lookingForMoreCta: { label: "Book a call", href: "/schedule-strategy-call" },
       tiers: [
         {
           name: "Casual",
@@ -137,7 +135,6 @@ export const shopifyDeveloper: ServicePageData = {
       eyebrow: "Rankify®",
       anchorId: "how-it-works",
       heading: "How does it work? A simple process",
-      cta: { label: "Hourly Packages", href: "#hourly-pricing" },
       columns: 2,
       items: [
         { idx: "01", title: "Place your order or book a call", image: "/assets/images/Z6tHt1zj6Xzi4mqYcUDecqw9s.png", desc: "Choose a package or chat with us if you want to ask a few questions first." },
@@ -163,7 +160,6 @@ export const shopifyDeveloper: ServicePageData = {
       heading: "Starting from scratch, or moving to Shopify?",
       subheading:
         "Ongoing work is for stores that are already live. If you need a store designed and built from the ground up, that's a separate service with its own fixed-quote process.",
-      cta: { label: "See new store builds", href: "/shopify-development-services" },
       columns: 3,
       items: [
         { idx: "01", title: "Launching a new store", desc: "You need a custom Shopify store built properly from day one. Design, development, products, payments, shipping, and SEO — all handled.", cta: { label: "New store builds", href: "/shopify-development-services" } },

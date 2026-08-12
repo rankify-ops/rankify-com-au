@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
-import { Button } from "@/components/ui/Button";
 import { PlusIcon } from "@/components/ui/PlusIcon";
 
 /**
@@ -152,11 +151,6 @@ export function Services() {
           })}
         </div>
 
-        <Reveal className="flex justify-center pt-10 sm:pt-16">
-          <Button href="/schedule-strategy-call" variant="light">
-            Get started
-          </Button>
-        </Reveal>
       </div>
     </section>
   );
