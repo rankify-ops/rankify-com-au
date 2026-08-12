@@ -288,19 +288,40 @@ export function Header() {
                             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                             className="overflow-hidden"
                           >
-                            {item.mega.choices.map((c) => (
-                              <li key={c.label}>
+                            {/* The same choice cards the desktop mega menu
+                                uses, inverted for the dark drawer. They were
+                                one-line text rows with a 16px icon, which
+                                dropped the sub-copy that tells you which
+                                option you actually want. Taking more of the
+                                screen is the right trade here. */}
+                            <li className="grid gap-2.5 pb-4 pt-1">
+                              {item.mega.choices.map((c) => (
                                 <SmartLink
+                                  key={c.label}
                                   href={c.href}
                                   onClick={closeMenu}
-                                  className="flex items-center gap-3 py-2.5 pl-[13px] text-[15px] text-white/70 transition-colors hover:text-white"
+                                  className="group/c flex items-start gap-3.5 rounded-2xl border border-white/12 bg-white/[0.05] p-4 transition-all duration-300 active:border-[color:#07a889] active:bg-white/[0.09]"
                                 >
-                                  <span className="text-[color:#07a889] [&_svg]:h-4 [&_svg]:w-4">{c.icon}</span>
-                                  {c.label}
+                                  <span className="mt-0.5 flex h-10 w-10 flex-none items-center justify-center rounded-[11px] border border-white/12 bg-white/[0.07] text-[color:#07a889]">
+                                    {c.icon}
+                                  </span>
+                                  <span className="min-w-0">
+                                    <span className="flex items-center gap-1.5 text-[15.5px] font-semibold tracking-[-0.02em] text-white">
+                                      {c.label}
+                                      <span aria-hidden className="text-[color:#07a889]">
+                                        →
+                                      </span>
+                                    </span>
+                                    <span className="mt-1 block text-[13.5px] leading-snug text-white/55">
+                                      {c.sub}{" "}
+                                      <span className="font-semibold text-white underline underline-offset-2">
+                                        Learn more
+                                      </span>
+                                    </span>
+                                  </span>
                                 </SmartLink>
-                              </li>
-                            ))}
-                            <li className="h-2" />
+                              ))}
+                            </li>
                           </motion.ul>
                         )}
                       </AnimatePresence>

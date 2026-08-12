@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 import { Stars } from "@/components/ui/Stars";
-import { PlusIcon } from "@/components/ui/PlusIcon";
 import { Counter } from "@/components/ui/Counter";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/service-page/SectionHeading";
@@ -62,23 +61,15 @@ export function Testimonials({
   return (
     <section className="mx-2 mt-8 sm:mt-12 lg:mt-20 rounded-3xl bg-paper text-ink">
       <div className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
-        <div className="mb-10 grid gap-6 sm:mb-16 lg:mb-24">
-          <Reveal>
-            <span className="inline-flex items-center gap-2 text-[15px] font-medium">
-              <PlusIcon dark className="h-[18px] w-[18px]" />
-              Testimonials
-            </span>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <span className="block max-w-[380px] text-base text-grey">
-              We&rsquo;ve delivered 40+ projects that help companies generate real results.
-            </span>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <h2 className="text-[clamp(40px,3.55vw,68px)] font-medium leading-[0.92] tracking-[-0.06em]">
-              Experiences. <span className="text-grey">©2025</span>
-            </h2>
-          </Reveal>
+        {/* Same heading as the service pages carry — "Experiences. ©2025"
+            said nothing about the reviews underneath it, and dated the page. */}
+        <div className="mb-10 sm:mb-14">
+          <SectionHeading
+            label="Reviews"
+            heading="Every review is five stars."
+            headingDim="That's not an accident."
+            sub="We've delivered 40+ projects that help companies generate real results."
+          />
         </div>
 
         <div className="mb-10 flex flex-col gap-8 lg:mb-16 lg:flex-row lg:items-end lg:justify-between">

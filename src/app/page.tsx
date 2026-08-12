@@ -9,7 +9,7 @@ import { Services } from "@/components/sections/Services";
 import { Process } from "@/components/sections/Process";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { StatsManifesto } from "@/components/sections/StatsManifesto";
-import { Pricing } from "@/components/sections/Pricing";
+import { ServicesShowcase } from "@/components/sections/ServicesShowcase";
 import { FAQ } from "@/components/sections/FAQ";
 import { ContactFooter } from "@/components/sections/ContactFooter";
 
@@ -26,7 +26,7 @@ export default function Home() {
       <Process />
       <Testimonials />
       <StatsManifesto />
-      <Pricing />
+      <ServicesShowcase />
       <FAQ />
       <ContactFooter />
     </>
