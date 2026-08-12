@@ -2,6 +2,7 @@ import Image from "next/image";
 import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
+import { SmartLink } from "@/components/ui/SmartLink";
 import { PlusIcon } from "@/components/ui/PlusIcon";
 import { SectionHeading } from "@/components/service-page/SectionHeading";
 import type { PricingBlock } from "@/content/service-pages/types";
@@ -16,44 +17,101 @@ function FeatureBadgeIcon() {
   );
 }
 
-function TierCard({ tier }: { tier: PricingBlock["tiers"][number] }) {
+/** The circular arrow that sits on the end of a pricing CTA. */
+function ArrowBadge({ onGreen }: { onGreen?: boolean }) {
   return (
-    <div
-      className={`neu flex flex-col overflow-hidden rounded-[22px] ${
-        tier.highlighted ? "ring-2 ring-white" : ""
+    <span
+      className={`flex h-9 w-9 flex-none items-center justify-center rounded-full transition-transform duration-300 group-hover:translate-x-0.5 ${
+        onGreen ? "bg-white" : "bg-[var(--green-deep)]"
       }`}
     >
+      <svg
+        viewBox="0 0 24 24"
+        className={`h-3.5 w-3.5 ${onGreen ? "text-[var(--green-deep)]" : "text-white"}`}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M7 17L17 7M9 7h8v8" />
+      </svg>
+    </span>
+  );
+}
+
+/**
+ * Retainer/hourly pricing card.
+ *
+ * Measured against the Framer original rather than eyeballed: tier name 30px
+ * at weight 500, price 40px at 600, the MOST POPULAR band 18px white on
+ * #006B4B, 20px card radius, 30px padding. The old card had the name at
+ * 15.5px — smaller than its own feature list — so the plans read as a wall of
+ * prices with no names attached.
+ */
+function TierCard({ tier }: { tier: PricingBlock["tiers"][number] }) {
+  const hot = Boolean(tier.highlighted);
+
+  return (
+    // The band caps the card rather than sitting inside it, and the whole
+    // column lifts on desktop so the featured plan breaks the row's top line.
+    <div className={`flex h-full flex-col ${hot ? "lg:-mt-[52px]" : ""}`}>
       {tier.badge && (
-        <div className="bg-white py-2 text-center text-[12px] font-semibold tracking-[0.04em] text-[var(--green-deep)]">
+        <div className="rounded-t-[20px] bg-[var(--green-deep)] px-6 py-3 text-center text-[16px] font-normal leading-tight text-white sm:text-[18px]">
           {tier.badge}
         </div>
       )}
-      <div className="flex flex-1 flex-col bg-white p-7 text-ink">
-        <div className="mb-5">
-          {tier.name && <p className="mb-1 text-[15.5px] font-semibold">{tier.name}</p>}
-          {tier.spots && (
-            <span className="inline-flex items-center gap-1.5 text-[12.5px] text-grey">
-              <span className="h-1.5 w-1.5 rounded-full bg-[var(--green-deep)]" />
-              {tier.spots}
-            </span>
-          )}
-          <div className="mt-2 flex items-baseline gap-1.5">
-            <span className="text-[36px] font-semibold tracking-[-0.04em]">{tier.price}</span>
-            <span className="text-[13.5px] text-grey">{tier.period}</span>
-          </div>
-          {tier.note && <p className="mt-2 text-[13.5px] text-grey">{tier.note}</p>}
-          <p className="mt-2 flex items-center gap-1.5 text-[12px] text-grey">
-            <PlusIcon dark className="h-3.5 w-3.5" /> 100% Money back guarantee
+
+      <div
+        className={`neu flex flex-1 flex-col bg-white p-[26px] text-ink sm:p-[30px] ${
+          tier.badge ? "rounded-b-[20px]" : "rounded-[20px]"
+        }`}
+      >
+        {tier.name && (
+          <p className="text-[26px] font-medium leading-none tracking-[-0.03em] sm:text-[30px]">
+            {tier.name}
           </p>
+        )}
+
+        {tier.spots && (
+          <span className="mt-3.5 inline-flex items-center gap-2 self-start text-[13px] text-grey">
+            <span className="h-2 w-2 rounded-full bg-[#07a889]" />
+            {tier.spots}
+          </span>
+        )}
+
+        <div className="mt-3.5 flex items-baseline gap-2">
+          <span className="text-[40px] font-semibold leading-none tracking-[-0.04em]">
+            {tier.price}
+          </span>
+          <span className="text-[14px] text-grey">{tier.period}</span>
         </div>
-        <Button href={tier.ctaHref} className="mb-6 w-full justify-center bg-[var(--green-deep)] text-white">
+
+        {tier.note && <p className="mt-4 text-[14px] leading-snug text-grey">{tier.note}</p>}
+
+        <p className="mt-4 flex items-center gap-1.5 text-[12.5px] font-medium text-[var(--green-deep)]">
+          <PlusIcon dark className="h-3.5 w-3.5" /> 100% Money back guarantee
+        </p>
+
+        {/* Not the shared Button — this one carries the arrow badge and has to
+            invert on the featured card. */}
+        <SmartLink
+          href={tier.ctaHref}
+          className={`neu-btn group mt-5 flex items-center justify-between gap-3 rounded-full py-1.5 pl-6 pr-1.5 text-[15px] font-medium ${
+            hot
+              ? "neu-btn-dark bg-[var(--green-deep)] text-white"
+              : "neu-btn-light border border-line bg-white text-ink"
+          }`}
+        >
           {tier.ctaLabel}
-        </Button>
-        <ul className="grid gap-2.5 border-t border-line pt-5">
+          <ArrowBadge onGreen={hot} />
+        </SmartLink>
+
+        <ul className="mt-7 grid gap-3 border-t border-line pt-6">
           {tier.features.map((f) => (
-            <li key={f} className="flex items-start gap-2.5 text-[14px] text-ink">
-              <span className="mt-0.5 flex h-4 w-4 flex-none items-center justify-center rounded-full bg-[#e9f5f0]">
-                <svg viewBox="0 0 24 24" className="h-2.5 w-2.5" fill="none" stroke="var(--green-deep)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <li key={f} className="flex items-start gap-2.5 text-[14px] leading-snug text-ink">
+              <span className="mt-px flex h-[18px] w-[18px] flex-none items-center justify-center rounded-full bg-[var(--green-deep)]">
+                <svg viewBox="0 0 24 24" className="h-2.5 w-2.5" fill="none" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 13l4 4L19 7" />
                 </svg>
               </span>
@@ -173,7 +231,9 @@ export function PricingBlockSection({ block, index }: { block: PricingBlock; ind
             }
           >
             {block.tiers.map((t) => (
-              <Reveal key={t.name ?? t.price} scale>
+              // h-full so the cards in a row match height and the featured
+              // card's lift shows at the top rather than shortening it.
+              <Reveal key={t.name ?? t.price} scale className="h-full">
                 <TierCard tier={t} />
               </Reveal>
             ))}
