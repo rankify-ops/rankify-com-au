@@ -61,10 +61,10 @@ export function ComingSoonPage({
           </Reveal>
           <Reveal delay={0.25}>
             <div className="mt-12 flex flex-wrap gap-3">
-              <Button href="/schedule-strategy-call" variant="light">
+              <Button href="/schedule-strategy-call" variant="light" pulse>
                 Book a strategy call
               </Button>
-              <Button href="/contact">Get in touch</Button>
+              <Button href="/contact" pulse>Get in touch</Button>
             </div>
           </Reveal>
         </div>

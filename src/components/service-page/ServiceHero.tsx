@@ -39,7 +39,7 @@ function TrustRow() {
       <div className="contents sm:block">
         <Stars className="h-3.5 w-3.5" />
         <p className="w-full text-[13.5px] text-grey sm:mt-0.5 sm:w-auto">
-          <strong className="text-ink">40+</strong> Trusted by clients Australia wide
+          <strong className="text-ink">Trusted by 100+</strong> brands worldwide
         </p>
       </div>
     </div>
@@ -114,10 +114,10 @@ export function ServiceHero({ hero }: { hero: HeroData }) {
                 </Reveal>
               )}
               <Reveal id="hero-cta" delay={0.25} className="mt-8 flex flex-wrap gap-3.5">
-                <Button href={hero.ctaPrimary.href} className="bg-[var(--green-deep)]">
+                <Button href={hero.ctaPrimary.href} pulse className="bg-[var(--green-deep)]">
                   {hero.ctaPrimary.label}
                 </Button>
-                <Button href={hero.ctaSecondary.href} variant="light" className="border border-line">
+                <Button href={hero.ctaSecondary.href} variant="light" pulse className="border border-line">
                   {hero.ctaSecondary.label}
                 </Button>
               </Reveal>
@@ -189,8 +189,8 @@ export function ServiceHero({ hero }: { hero: HeroData }) {
               </p>
             </Reveal>
             <Reveal id="hero-cta" delay={0.2} className="mt-8 flex flex-wrap gap-3.5">
-              <Button href={hero.ctaPrimary.href}>{hero.ctaPrimary.label}</Button>
-              <Button href={hero.ctaSecondary.href}>{hero.ctaSecondary.label}</Button>
+              <Button href={hero.ctaPrimary.href} pulse>{hero.ctaPrimary.label}</Button>
+              <Button href={hero.ctaSecondary.href} pulse>{hero.ctaSecondary.label}</Button>
             </Reveal>
             <Reveal delay={0.25} className="mt-8">
               <TrustRow />

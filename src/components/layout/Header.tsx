@@ -169,7 +169,7 @@ export function Header() {
 
           <div className="flex items-center gap-3">
             <div className="hidden xl:block" onMouseEnter={hideNow}>
-              <Button href="/schedule-strategy-call">Schedule Call</Button>
+              <Button href="/schedule-strategy-call" pulse>Schedule Call</Button>
             </div>
             <button
               aria-label="Open menu"
