@@ -32,6 +32,12 @@ jobs:
           # Public by design: this key can only deliver to the address it's
           # registered to, and it ships in the client bundle either way.
           NEXT_PUBLIC_WEB3FORMS_KEY: 2e24e577-1645-43a6-98f7-cb7ea581df5b
+          # Also public by design. A Stripe *publishable* key is meant to be
+          # read by the browser; the secret key lives only in Vercel. Without
+          # both of these the configurator quietly drops to its no-payment
+          # fallback — the checkout button stops charging and nobody is told.
+          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: pk_live_51QNo1yGkhGJ4OA8NK9HofsL5Gi2yS7tuyYErUn9FTmqX4GQpncDjBPxPnQyXlvWTMLwgNK1Ryk3QnuinxdI5QTm100eYhqNJpX
+          NEXT_PUBLIC_CHECKOUT_API: https://rankify-com-au.vercel.app
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
