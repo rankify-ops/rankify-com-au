@@ -24,7 +24,7 @@ export function Process() {
           sub="See how our team combines creativity, technology, and strategy to build powerful digital solutions."
         />
 
-        <div className="mt-10 grid gap-4 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-0 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4">
           {STEPS.map((s, i) => (
             <Reveal key={s.idx} delay={i * 0.08}>
               {/* Same card shape as the service pages: index row, heading,

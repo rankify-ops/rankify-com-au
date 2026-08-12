@@ -10,7 +10,8 @@ import { Process } from "@/components/sections/Process";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { StatsManifesto } from "@/components/sections/StatsManifesto";
 import { ServicesShowcase } from "@/components/sections/ServicesShowcase";
-import { FAQ } from "@/components/sections/FAQ";
+import { ServiceFaq } from "@/components/service-page/ServiceFaq";
+import { HOME_FAQ } from "@/content/home-faq";
 import { ContactFooter } from "@/components/sections/ContactFooter";
 
 export default function Home() {
@@ -21,13 +22,18 @@ export default function Home() {
       <Marquee />
       <ComparisonSection block={HOME_COMPARISON} />
       <Projects />
+      <ServicesShowcase />
       <WhyChooseUs />
       <Services />
       <Process />
-      <Testimonials />
+      <Testimonials
+        bare
+        kicker="Reviews"
+        heading="Every review is five stars."
+        headingDim="That's not an accident."
+      />
       <StatsManifesto />
-      <ServicesShowcase />
-      <FAQ />
+      <ServiceFaq faq={HOME_FAQ} />
       <ContactFooter />
     </>
   );

@@ -13,12 +13,18 @@ export function ProjectCard({ project }: { project: Project }) {
           fill
           className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
         />
+        {/* Sized against the card, not the viewport. `clamp(120px,14vw,220px)`
+            measured the window, so on the projects grid — where cards are
+            262px wide — its 120px floor covered 46% of the card and half the
+            screenshot underneath it. A percentage tracks the card at every
+            breakpoint, and object-contain inside a bounded box means a logo
+            that isn't square can't stretch or spill. */}
         <Image
           src={asset(project.logo)}
           alt=""
           width={220}
           height={220}
-          className="absolute inset-0 z-[2] m-auto w-[clamp(120px,14vw,220px)] h-auto drop-shadow-[0_6px_24px_rgba(0,0,0,0.25)]"
+          className="absolute inset-0 z-[2] m-auto h-[30%] max-h-[130px] w-[32%] max-w-[160px] object-contain drop-shadow-[0_6px_24px_rgba(0,0,0,0.25)]"
         />
       </div>
       <div className="flex items-baseline gap-3.5 pt-4 text-sm text-grey">

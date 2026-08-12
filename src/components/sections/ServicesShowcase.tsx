@@ -52,7 +52,7 @@ export function ServicesShowcase() {
           centred
         />
 
-        <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-0 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3">
           {NAV_ITEMS.map((item, i) => {
             const b = BLURBS[item.label];
             if (!b) return null;
