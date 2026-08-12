@@ -65,28 +65,28 @@ export function CheckoutResult() {
           ✓
         </span>
         <h1 className="text-[clamp(28px,2.7vw,44px)] font-medium leading-[1.05] tracking-[-0.04em]">
-          You&rsquo;re booked in. Let&rsquo;s build it.
+          Order confirmed. Let&rsquo;s build it.
         </h1>
         <p className="mt-5 max-w-[560px] text-[16.5px] leading-relaxed text-grey">
-          {amount ? `${amount} paid in full` : "Payment received"}
+          {amount ? `${amount} paid` : "Payment received"}
           {data?.totalPages ? ` for a ${data.totalPages}-page build` : ""}. A receipt is on its way to{" "}
-          <strong className="text-ink">{data?.email ?? "your inbox"}</strong>. We&rsquo;ll be in touch within
-          one business day to book your discovery call and start the design — your site is live in 7&ndash;14
-          days from sign-off.
+          <strong className="text-ink">{data?.email ?? "your inbox"}</strong>. We start on your project
+          straight away — we&rsquo;ll be in touch if we need anything from you, and again when the first
+          round is ready for your review.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
-            href="/schedule-strategy-call"
-            className="neu-btn neu-btn-dark rounded-full bg-[var(--green-deep)] px-6 py-3 text-[14.5px] font-bold text-white"
-          >
-            Book the call now
-          </Link>
-          <Link
             href="/"
-            className="rounded-full border border-line px-6 py-3 text-[14.5px] font-semibold transition-colors hover:bg-white"
+            className="neu-btn neu-btn-dark rounded-full bg-[var(--green-deep)] px-6 py-3 text-[14.5px] font-bold text-white"
           >
             Back to site
           </Link>
+          <a
+            href="mailto:hello@rankify.com.au"
+            className="rounded-full border border-line px-6 py-3 text-[14.5px] font-semibold transition-colors hover:bg-white"
+          >
+            Email us
+          </a>
         </div>
       </>
     );

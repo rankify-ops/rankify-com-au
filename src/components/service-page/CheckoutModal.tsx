@@ -88,7 +88,7 @@ export function CheckoutModal({
               <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 flex-none" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 6 9 17l-5-5" />
               </svg>
-              Live in 7&ndash;14 days
+              Typically live in 7&ndash;14 days
             </span>
             <span className="inline-flex items-center gap-1.5">
               <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 flex-none" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
