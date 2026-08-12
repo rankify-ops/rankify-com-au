@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { stripe } from "./_lib.js";
-import { addLead, crmConfigured, markPaid } from "./_crm.js";
+import { addPaidClient, crmConfigured } from "./_crm.js";
 
 /**
  * Stripe's own callback. This — not the return page — is the source of truth
@@ -65,33 +65,31 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       ...m,
     });
 
-    // Flip the CRM record from lead to paying client. Wrapped because a CRM
-    // outage must never make us return non-200 — Stripe would retry the event
-    // and we'd double-handle a payment that already succeeded.
+    // A payment always creates a client in the pipeline. The pre-payment
+    // enquiry lives in the Rankify Website space, which is a different store —
+    // there's no lead record to promote.
+    //
+    // Wrapped because a CRM outage must never make us return non-200: Stripe
+    // would retry the event and we'd double-handle a payment that succeeded.
     try {
-      const clientId = m.crm_client_id;
-      if (clientId) {
-        await markPaid(
-          clientId,
-          s.amount_total ?? 0,
-          `PAID $${((s.amount_total ?? 0) / 100).toLocaleString("en-AU")} via Stripe (${s.id}). ${m.total_pages ?? "?"} pages. Build starts on discovery call.`,
+      if (crmConfigured) {
+        const amount = s.amount_total ?? 0;
+        await addPaidClient(
+          {
+            pages: (m.pages ?? "").split(", ").filter(Boolean),
+            servicePages: Number(m.service_pages ?? 0),
+            totalPages: Number(m.total_pages ?? 0),
+            price: Math.round(amount / 100),
+            business: m.business ?? "",
+            industry: m.industry ?? "",
+            existing: m.existing_site ?? "",
+            about: m.about ?? "",
+            name: m.contact_name ?? "",
+            email: s.customer_details?.email ?? "",
+            phone: m.contact_phone ?? "",
+          },
+          `PAID $${(amount / 100).toLocaleString("en-AU")} via Stripe (${s.id}). ${m.total_pages ?? "?"} pages.`,
         );
-      } else if (crmConfigured) {
-        // No lead was recorded (they moved faster than the capture) — create
-        // the record now so a paid order is never missing from the CRM.
-        await addLead({
-          pages: (m.pages ?? "").split(", ").filter(Boolean),
-          servicePages: Number(m.service_pages ?? 0),
-          totalPages: Number(m.total_pages ?? 0),
-          price: Math.round((s.amount_total ?? 0) / 100),
-          business: m.business ?? "",
-          industry: m.industry ?? "",
-          existing: m.existing_site ?? "",
-          about: m.about ?? "",
-          name: m.contact_name ?? "",
-          email: s.customer_details?.email ?? "",
-          phone: m.contact_phone ?? "",
-        });
       }
     } catch (err) {
       console.error("CRM update failed for", s.id, err);

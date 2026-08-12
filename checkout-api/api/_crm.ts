@@ -45,27 +45,57 @@ export function briefNotes(b: Brief, extra?: string): string {
   return lines.join("\n");
 }
 
-/** Returns the new CRM client id, or null if the CRM isn't wired up. */
-export async function addLead(b: Brief): Promise<string | null> {
+/**
+ * An enquiry that hasn't paid goes to the CRM's "Rankify Website" space, not
+ * the client pipeline. Someone who configured a site and wandered off isn't a
+ * lead you're working — they'd clog Leads and All with noise.
+ *
+ * Returns the item id, which rides along in the Stripe session so a later
+ * payment can be tied back to this enquiry.
+ */
+export async function addEnquiry(b: Brief): Promise<string | null> {
+  const out = await routine({
+    action: "add_website_item",
+    item: {
+      name: b.business || b.name || b.email,
+      status: "Didn't check out",
+      list: "Website configurator",
+      description: [
+        briefNotes(b),
+        `Contact: ${b.name || "—"} · ${b.email} · ${b.phone || "no phone"}`,
+        b.about ? `About: ${b.about}` : "",
+      ]
+        .filter(Boolean)
+        .join("\n"),
+    },
+  });
+  const item = out?.item as { id?: string } | undefined;
+  return item?.id ?? null;
+}
+
+/**
+ * A paid order becomes a real client. `add_lead` always writes status "lead",
+ * so it takes a second call to mark them active.
+ */
+export async function addPaidClient(b: Brief, note: string): Promise<string | null> {
   const out = await routine({
     action: "add_lead",
     lead: {
-      // `company` is required by the CRM; fall back to the person so a lead
-      // is never dropped for want of a business name.
       company: b.business || b.name || b.email,
       contact: b.name,
       email: b.email,
       phone: b.phone,
       website: b.existing,
       description: b.about,
-      notes: briefNotes(b, "Started checkout — not yet paid."),
+      notes: briefNotes(b, note),
       services: ["Web Development"],
       estimatedDealValue: b.price,
       leadSource: "Website configurator",
     },
   });
-  const client = out?.client as { id?: string } | undefined;
-  return client?.id ?? null;
+  const client = (out?.client as { id?: string } | undefined)?.id ?? null;
+  if (client) await markPaid(client, b.price * 100, note);
+  return client;
 }
 
 /** Marks a lead as a paying client once Stripe confirms the payment. */

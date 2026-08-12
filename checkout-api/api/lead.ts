@@ -1,11 +1,12 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { cors } from "./_lib.js";
-import { addLead, crmConfigured, type Brief } from "./_crm.js";
+import { addEnquiry, crmConfigured, type Brief } from "./_crm.js";
 
 /**
- * Records a configurator lead in the CRM the moment a usable email exists —
- * before the card form, so someone who configures a site and wanders off is
- * still someone we can call.
+ * Records a configurator enquiry the moment a usable email exists — before the
+ * card form, so someone who configures a site and wanders off is still someone
+ * we can call. It lands in the CRM's "Rankify Website" space, not the client
+ * pipeline; it only becomes a client if they pay.
  *
  * Prices the brief the same way the checkout does, so the deal value on the
  * CRM record matches what they'd have paid.
@@ -46,15 +47,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (!crmConfigured) {
       // Not an error the visitor should ever see — they're mid-form.
-      console.warn("lead received but CRM is not configured", { email: brief.email });
+      console.warn("enquiry received but CRM is not configured", { email: brief.email });
       return res.status(200).json({ clientId: null });
     }
 
-    const clientId = await addLead(brief);
+    const clientId = await addEnquiry(brief);
     return res.status(200).json({ clientId });
   } catch (err) {
     // Never block the purchase on a CRM hiccup.
-    console.error("lead capture failed", err);
+    console.error("enquiry capture failed", err);
     return res.status(200).json({ clientId: null });
   }
 }
