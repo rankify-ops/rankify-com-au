@@ -65,7 +65,7 @@ export function CheckoutResult() {
           ✓
         </span>
         <h1 className="text-[clamp(28px,2.7vw,44px)] font-medium leading-[1.05] tracking-[-0.04em]">
-          Order confirmed. Let&rsquo;s build it.
+          Order confirmed, your build is underway.
         </h1>
         <p className="mt-5 max-w-[560px] text-[16.5px] leading-relaxed text-grey">
           {amount ? `${amount} paid` : "Payment received"}
