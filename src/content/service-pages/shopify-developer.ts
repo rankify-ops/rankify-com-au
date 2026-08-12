@@ -83,6 +83,8 @@ export const shopifyDeveloper: ServicePageData = {
         },
         {
           name: "Growth",
+          badge: "MOST POPULAR",
+          highlighted: true,
           spots: "8 Spots Available",
           price: "$499",
           period: "/ monthly",
@@ -102,8 +104,6 @@ export const shopifyDeveloper: ServicePageData = {
         },
         {
           name: "Scale",
-          badge: "MOST POPULAR",
-          highlighted: true,
           spots: "8 Spots Available",
           price: "$999",
           period: "/ monthly",

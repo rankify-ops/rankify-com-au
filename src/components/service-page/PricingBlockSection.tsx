@@ -53,15 +53,17 @@ function TierCard({ tier }: { tier: PricingBlock["tiers"][number] }) {
   const hot = Boolean(tier.highlighted);
 
   return (
-    // The band caps the card rather than sitting inside it, and the whole
-    // column lifts on desktop so the featured plan breaks the row's top line.
-    // The lift is exactly the band's height (44px), so the band occupies the
-    // space above the row and all three tier names still sit on one line.
-    <div className={`flex h-full flex-col ${hot ? "lg:-mt-11" : ""}`}>
-      {tier.badge && (
+    // Every column is the same box; the plain ones just carry an empty slot
+    // where the featured card has its band. A margin can't do this — `mt` plus
+    // `h-full` makes the column overflow the row by the margin, which is what
+    // left the featured card's bottom edge 44px short of its neighbours.
+    <div className="flex h-full flex-col">
+      {tier.badge ? (
         <div className="flex h-11 items-center justify-center rounded-t-[20px] bg-[var(--green-mid)] px-6 text-center text-[16px] font-normal leading-none text-white sm:text-[18px]">
           {tier.badge}
         </div>
+      ) : (
+        <div className="hidden h-11 lg:block" aria-hidden />
       )}
 
       <div
@@ -140,7 +142,7 @@ export function PricingBlockSection({ block, index }: { block: PricingBlock; ind
       className="grain mx-2 mt-8 scroll-mt-24 rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white sm:mt-12 lg:mt-20"
     >
       <div className="relative z-[2] mx-auto max-w-[1400px] px-5 py-12 sm:px-10 sm:py-16 lg:py-20">
-        <div className="mb-8 sm:mb-12">
+        <div className={`mb-8 sm:mb-12 ${!usePanel && tierCount > 1 ? "text-center" : ""}`}>
           {/* Same heading treatment as every other section — this one was still
               on the old 32-58px scale with a plus-icon kicker. */}
           <SectionHeading
@@ -148,6 +150,7 @@ export function PricingBlockSection({ block, index }: { block: PricingBlock; ind
             heading={block.heading}
             sub={block.subheading}
             dark
+            centred={!usePanel && tierCount > 1}
           />
           {block.tag && (
             <Reveal delay={0.15} className="mt-8">
@@ -229,7 +232,7 @@ export function PricingBlockSection({ block, index }: { block: PricingBlock; ind
             className={
               block.tiers.length === 1
                 ? "mx-auto max-w-[400px]"
-                : "grid gap-6 lg:grid-cols-3"
+                : "mx-auto grid max-w-[1120px] items-stretch gap-6 lg:grid-cols-3"
             }
           >
             {block.tiers.map((t) => (
