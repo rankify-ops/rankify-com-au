@@ -17,26 +17,72 @@ function FeatureBadgeIcon() {
   );
 }
 
-/** The circular arrow that sits on the end of a pricing CTA. */
-function ArrowBadge({ onGreen }: { onGreen?: boolean }) {
+/**
+ * The pricing CTA.
+ *
+ * The circular badge on the end doubles as the hover fill: it scales up until
+ * it floods the whole pill, and the label inverts to sit on top of it. That's
+ * why the disc is a separate absolutely-positioned element behind the content
+ * rather than the badge itself — the badge has to stay its own size while the
+ * thing behind it grows.
+ */
+function PricingCta({
+  href,
+  label,
+  onGreen,
+}: {
+  href: string;
+  label: string;
+  onGreen?: boolean;
+}) {
   return (
-    <span
-      className={`flex h-9 w-9 flex-none items-center justify-center rounded-full transition-transform duration-300 group-hover:translate-x-0.5 ${
-        onGreen ? "bg-white" : "bg-[var(--green-mid)]"
+    <SmartLink
+      href={href}
+      className={`neu-btn group relative isolate mt-5 flex items-center justify-between gap-3 overflow-hidden rounded-full py-1.5 pl-6 pr-1.5 text-[15px] font-medium ${
+        onGreen
+          ? "neu-btn-dark bg-[var(--green-mid)] text-white"
+          : "neu-btn-light border border-line bg-white text-ink"
       }`}
     >
-      <svg
-        viewBox="0 0 24 24"
-        className={`h-3.5 w-3.5 ${onGreen ? "text-[var(--green-mid)]" : "text-white"}`}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+      {/* The flood. Scale 18 from a 36px disc clears the widest card. */}
+      <span
+        aria-hidden
+        className={`pointer-events-none absolute right-1.5 top-1/2 z-[-1] h-9 w-9 -translate-y-1/2 rounded-full transition-transform duration-500 ease-out group-hover:scale-[18] motion-reduce:transition-none motion-reduce:group-hover:scale-100 ${
+          onGreen ? "bg-white" : "bg-[var(--green-mid)]"
+        }`}
+      />
+      <span
+        className={`relative transition-colors duration-300 ${
+          onGreen ? "group-hover:text-[var(--green-mid)]" : "group-hover:text-white"
+        }`}
       >
-        <path d="M7 17L17 7M9 7h8v8" />
-      </svg>
-    </span>
+        {label}
+      </span>
+      {/* Inverts with the fill so the arrow stays legible once it lands. */}
+      <span
+        className={`relative flex h-9 w-9 flex-none items-center justify-center rounded-full transition-colors duration-300 ${
+          onGreen
+            ? "bg-white group-hover:bg-[var(--green-mid)]"
+            : "bg-[var(--green-mid)] group-hover:bg-white"
+        }`}
+      >
+        <svg
+          viewBox="0 0 24 24"
+          className={`h-3.5 w-3.5 transition-colors duration-300 ${
+            onGreen
+              ? "text-[var(--green-mid)] group-hover:text-white"
+              : "text-white group-hover:text-[var(--green-mid)]"
+          }`}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M7 17L17 7M9 7h8v8" />
+        </svg>
+      </span>
+    </SmartLink>
   );
 }
 
@@ -78,8 +124,14 @@ function TierCard({ tier }: { tier: PricingBlock["tiers"][number] }) {
         )}
 
         {tier.spots && (
-          <span className="mt-3.5 inline-flex items-center gap-2 self-start text-[13px] text-grey">
-            <span className="h-2 w-2 rounded-full bg-[#07a889]" />
+          <span className="mt-3.5 inline-flex items-center gap-2.5 self-start text-[13px] text-grey">
+            {/* Same live-dot as the floating CTA bar: a solid dot with a ring
+                pinging out of it. Scarcity that sits still doesn't read as
+                scarcity. `cta-ping` is already no-op under reduced motion. */}
+            <span className="relative flex h-2 w-2 flex-none items-center justify-center">
+              <span className="cta-ping absolute inline-flex h-full w-full rounded-full bg-[#07a889]" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#07a889]" />
+            </span>
             {tier.spots}
           </span>
         )}
@@ -97,19 +149,7 @@ function TierCard({ tier }: { tier: PricingBlock["tiers"][number] }) {
           <PlusIcon dark className="h-3.5 w-3.5" /> 100% Money back guarantee
         </p>
 
-        {/* Not the shared Button — this one carries the arrow badge and has to
-            invert on the featured card. */}
-        <SmartLink
-          href={tier.ctaHref}
-          className={`neu-btn group mt-5 flex items-center justify-between gap-3 rounded-full py-1.5 pl-6 pr-1.5 text-[15px] font-medium ${
-            hot
-              ? "neu-btn-dark bg-[var(--green-mid)] text-white"
-              : "neu-btn-light border border-line bg-white text-ink"
-          }`}
-        >
-          {tier.ctaLabel}
-          <ArrowBadge onGreen={hot} />
-        </SmartLink>
+        <PricingCta href={tier.ctaHref} label={tier.ctaLabel} onGreen={hot} />
 
         <ul className="mt-7 grid gap-3 border-t border-line pt-6">
           {tier.features.map((f) => (
