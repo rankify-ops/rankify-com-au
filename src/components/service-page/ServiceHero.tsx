@@ -17,7 +17,7 @@ const TRUST_AVATARS = [
 
 function TrustRow() {
   return (
-    <div className="flex flex-wrap items-center gap-3">
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
       <div className="flex">
         {TRUST_AVATARS.map((a, i) => (
           <Image
@@ -31,9 +31,14 @@ function TrustRow() {
           />
         ))}
       </div>
-      <div>
+      {/* `contents` dissolves this wrapper on mobile so the stars become a
+          flex sibling of the avatars and the line below can take w-full and
+          wrap under them. From sm up the wrapper comes back and the stars sit
+          above the text beside the avatars, as before. One copy of the text
+          either way — no duplicated markup to keep in sync. */}
+      <div className="contents sm:block">
         <Stars className="h-3.5 w-3.5" />
-        <p className="mt-0.5 text-[13.5px] text-grey">
+        <p className="w-full text-[13.5px] text-grey sm:mt-0.5 sm:w-auto">
           <strong className="text-ink">40+</strong> Trusted by clients Australia wide
         </p>
       </div>
