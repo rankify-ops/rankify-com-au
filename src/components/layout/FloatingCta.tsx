@@ -44,15 +44,23 @@ export function FloatingCta() {
   if (pathname === "/schedule-strategy-call" || pathname === "/contact") return null;
 
   return (
+    // `pointer-events-none` on the full-width track, re-enabled on the pill
+    // itself: the track is invisible but spans the viewport, and it was eating
+    // clicks on anything that scrolled underneath it — the configurator's
+    // Continue button sits well to the left of the pill and was still dead.
     <div
-      className={`fixed inset-x-0 bottom-0 z-[80] flex justify-center px-3 pb-3 transition-all duration-500 sm:pb-5 ${
-        show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"
+      className={`pointer-events-none fixed inset-x-0 bottom-0 z-[80] flex justify-center px-3 pb-3 transition-all duration-500 sm:pb-5 ${
+        show ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
       }`}
     >
       {/* Frosted glass rather than a solid slab: it sits over both the dark
           hero and the paper sections, so it borrows whatever is behind it.
           No `grain` here — that noise layer is tuned for dark surfaces. */}
-      <div className="flex w-full max-w-[680px] items-center gap-2.5 overflow-hidden rounded-full border border-white/70 bg-white/55 p-2.5 text-ink shadow-[0_16px_44px_rgba(0,0,0,0.18)] backdrop-blur-2xl backdrop-saturate-150 sm:gap-4 sm:pl-6">
+      <div
+        className={`flex w-full max-w-[680px] items-center gap-2.5 overflow-hidden rounded-full border border-white/70 bg-white/55 p-2.5 text-ink shadow-[0_16px_44px_rgba(0,0,0,0.18)] backdrop-blur-2xl backdrop-saturate-150 sm:gap-4 sm:pl-6 ${
+          show ? "pointer-events-auto" : ""
+        }`}
+      >
         {/* The dot belongs with the copy — left in on a phone it ate the space
             on one side and threw the two buttons off centre. */}
         <span className="relative z-[2] hidden h-2.5 w-2.5 flex-none items-center justify-center sm:flex">

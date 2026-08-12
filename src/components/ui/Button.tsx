@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
+import { SmartLink } from "@/components/ui/SmartLink";
 
 export function Button({
   href,
@@ -44,9 +44,12 @@ export function Button({
     );
   }
 
+  // SmartLink, not next/link: the hero CTAs point at on-page anchors like
+  // `#website-configurator`, and next/link treats a same-route hash as a
+  // navigation that sets the hash and never scrolls.
   return (
-    <Link href={href ?? "#"} className={cls}>
+    <SmartLink href={href ?? "#"} className={cls}>
       {inner}
-    </Link>
+    </SmartLink>
   );
 }
