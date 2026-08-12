@@ -8,11 +8,13 @@ const nextPost = getNextPost("how-important-is-branding-for-seo");
 export const metadata: Metadata = {
   title: `${post.title} | Rankify`,
   description: post.excerpt,
+  alternates: { canonical: "/blog/how-important-is-branding-for-seo" },
 };
 
 export default function Page() {
   return (
     <BlogPostTemplate
+      slug="how-important-is-branding-for-seo"
       title={post.title}
       date={post.date}
       heroImage={post.heroImage}

@@ -11,11 +11,13 @@ const nextPost = getNextPost("why-your-seo-is-not-working");
 export const metadata: Metadata = {
   title: `${post.title} | Rankify`,
   description: post.excerpt,
+  alternates: { canonical: "/blog/why-your-seo-is-not-working" },
 };
 
 export default function Page() {
   return (
     <BlogPostTemplate
+      slug="why-your-seo-is-not-working"
       title={post.title}
       date={post.date}
       heroImage={post.heroImage}

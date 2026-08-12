@@ -8,11 +8,13 @@ const nextPost = getNextPost("why-modern-websites-perform-better");
 export const metadata: Metadata = {
   title: `${post.title} | Rankify`,
   description: post.excerpt,
+  alternates: { canonical: "/blog/why-modern-websites-perform-better" },
 };
 
 export default function Page() {
   return (
     <BlogPostTemplate
+      slug="why-modern-websites-perform-better"
       title={post.title}
       date={post.date}
       heroImage={post.heroImage}

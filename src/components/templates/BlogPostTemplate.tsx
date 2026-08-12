@@ -6,10 +6,12 @@ import { ContactFooter } from "@/components/sections/ContactFooter";
 import { Reveal } from "@/components/ui/Reveal";
 import type { BlogPostMeta } from "@/content/blog-posts";
 import type { ReactNode } from "react";
+import { JsonLd, articleSchema } from "@/lib/schema";
 
 const AUTHOR_IMAGE = "/assets/images/nK7vZP41akJ7EzYYCVQPQGuVRQg.png";
 
 export function BlogPostTemplate({
+  slug,
   title,
   date,
   heroImage,
@@ -17,6 +19,8 @@ export function BlogPostTemplate({
   children,
   nextPost,
 }: {
+  /** Needed for the article's canonical URL in structured data. */
+  slug: string;
   title: string;
   date: string;
   heroImage: string;
@@ -26,6 +30,7 @@ export function BlogPostTemplate({
 }) {
   return (
     <>
+      <JsonLd data={articleSchema({ title, description: excerpt, slug, date, image: heroImage })} />
       <Header />
 
       <section className="mx-2 rounded-3xl bg-paper text-ink">

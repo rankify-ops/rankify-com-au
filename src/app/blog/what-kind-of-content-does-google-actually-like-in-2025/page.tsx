@@ -8,11 +8,13 @@ const nextPost = getNextPost("what-kind-of-content-does-google-actually-like-in-
 export const metadata: Metadata = {
   title: `${post.title} | Rankify`,
   description: post.excerpt,
+  alternates: { canonical: "/blog/what-kind-of-content-does-google-actually-like-in-2025" },
 };
 
 export default function Page() {
   return (
     <BlogPostTemplate
+      slug="what-kind-of-content-does-google-actually-like-in-2025"
       title={post.title}
       date={post.date}
       heroImage={post.heroImage}

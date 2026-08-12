@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { JsonLd, faqSchema, serviceSchema } from "@/lib/schema";
 import { ServicePageTemplate } from "@/components/templates/ServicePageTemplate";
 import { seo } from "@/content/service-pages/seo";
 
@@ -17,5 +18,11 @@ export const metadata: Metadata = {
 };
 
 export default function SeoPage() {
-  return <ServicePageTemplate data={seo} />;
+  return (
+    <>
+      <JsonLd data={serviceSchema({ name: "SEO Services", description: "SEO priced per page rather than as an open-ended retainer.", path: "/seo", price: 499, unit: "$499 per page per month, 3 month minimum" })} />
+      <JsonLd data={faqSchema(seo.faq.items)} />
+      <ServicePageTemplate data={seo} />
+    </>
+  );
 }

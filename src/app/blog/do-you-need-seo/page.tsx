@@ -8,11 +8,13 @@ const nextPost = getNextPost("do-you-need-seo");
 export const metadata: Metadata = {
   title: `${post.title} | Rankify`,
   description: post.excerpt,
+  alternates: { canonical: "/blog/do-you-need-seo" },
 };
 
 export default function Page() {
   return (
     <BlogPostTemplate
+      slug="do-you-need-seo"
       title={post.title}
       date={post.date}
       heroImage={post.heroImage}

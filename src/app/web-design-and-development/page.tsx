@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { JsonLd, faqSchema, serviceSchema } from "@/lib/schema";
 import { ServicePageTemplate } from "@/components/templates/ServicePageTemplate";
 import { webDesignAndDevelopment } from "@/content/service-pages/web-design-and-development";
 
@@ -17,5 +18,11 @@ export const metadata: Metadata = {
 };
 
 export default function WebDesignAndDevelopmentPage() {
-  return <ServicePageTemplate data={webDesignAndDevelopment} />;
+  return (
+    <>
+      <JsonLd data={serviceSchema({ name: "Web Design & Development", description: "Custom-built websites that convert, from $2,999 with 10 pages included.", path: "/web-design-and-development", price: 2999, unit: "From $2,999, 10 pages included" })} />
+      <JsonLd data={faqSchema(webDesignAndDevelopment.faq.items)} />
+      <ServicePageTemplate data={webDesignAndDevelopment} />
+    </>
+  );
 }

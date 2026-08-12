@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { FloatingCta } from "@/components/layout/FloatingCta";
+import { JsonLd, organisationSchema, websiteSchema } from "@/lib/schema";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -29,6 +30,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-AU" className={inter.variable}>
       <body>
+        <JsonLd data={organisationSchema} />
+        <JsonLd data={websiteSchema} />
         <SmoothScroll />
         {children}
         <FloatingCta />

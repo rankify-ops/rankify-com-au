@@ -8,11 +8,13 @@ const nextPost = getNextPost("is-tiktok-shop-in-australia");
 export const metadata: Metadata = {
   title: `${post.title} | Rankify`,
   description: post.excerpt,
+  alternates: { canonical: "/blog/is-tiktok-shop-in-australia" },
 };
 
 export default function Page() {
   return (
     <BlogPostTemplate
+      slug="is-tiktok-shop-in-australia"
       title={post.title}
       date={post.date}
       heroImage={post.heroImage}

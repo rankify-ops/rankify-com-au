@@ -8,11 +8,13 @@ const nextPost = getNextPost("why-logo-design-is-important");
 export const metadata: Metadata = {
   title: `${post.title} | Rankify`,
   description: post.excerpt,
+  alternates: { canonical: "/blog/why-logo-design-is-important" },
 };
 
 export default function Page() {
   return (
     <BlogPostTemplate
+      slug="why-logo-design-is-important"
       title={post.title}
       date={post.date}
       heroImage={post.heroImage}
