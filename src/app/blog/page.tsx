@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Blog | Rankify",
   description:
     "Practical breakdowns of what works in web design, branding, and digital performance today. From design principles to technical optimisations—everything you need for digital success.",
+  alternates: { canonical: "/blog" },
 };
 
 export default function BlogIndex() {

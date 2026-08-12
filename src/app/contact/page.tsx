@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Contact | Rankify",
   description:
     "Have a project in mind? Reach out to Rankify and we'll discuss the best way to move your website, SEO or branding forward.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {

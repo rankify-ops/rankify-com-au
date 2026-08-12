@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "AI & Automation | Rankify",
   description:
     "Automations, custom business dashboards, internal tools and AI consulting — software built around how your business actually runs.",
+  alternates: { canonical: "/ai-and-automation" },
 };
 
 export default function AiAndAutomationPage() {

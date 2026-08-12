@@ -6,6 +6,7 @@ import { LegalPageTemplate, type LegalSection } from "@/components/templates/Leg
 export const metadata: Metadata = {
   title: "Terms of Service | Rankify",
   description: "The terms that govern your access to and use of rankify.com.au.",
+  alternates: { canonical: "/legal/terms-of-service" },
 };
 
 const SECTIONS: LegalSection[] = [

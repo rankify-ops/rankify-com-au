@@ -34,7 +34,14 @@ export const shopifyDeveloper: ServicePageData = {
   },
   blocks: [
     SHOPIFY_CLIENT_LOGOS,
-    { type: "testimonials" },
+    {
+      type: "testimonials",
+      bare: true,
+      kicker: "Reviews",
+      eyebrow: "Rankify®",
+      heading: "Every review is five stars.",
+      headingDim: "That's not an accident.",
+    },
     {
       type: "cardgrid",
       theme: "paper",
@@ -139,7 +146,14 @@ export const shopifyDeveloper: ServicePageData = {
         { idx: "04", title: "Review & approve", image: "/assets/images/8TLWcrZrVHY4Nwhm6KhqsAbL9A.webp", desc: "We walk you through the changes on your live or staging site. Not happy? We adjust until it's right." },
       ],
     },
-    SHOPIFY_WHY_US,
+    {
+      ...SHOPIFY_WHY_US,
+      anchorId: "why-us",
+      kicker: "Why Rankify",
+      eyebrow: "Rankify®",
+      heading: "Agency-level work.",
+      headingDim: "Without the agency.",
+    },
     {
       type: "cardgrid",
       theme: "paper",

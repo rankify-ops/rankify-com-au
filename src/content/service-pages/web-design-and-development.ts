@@ -85,8 +85,8 @@ export const webDesignAndDevelopment: ServicePageData = {
     // Three reasons, then reviews, then how the build runs, then the
     // configurator — the visitor gets the pitch, proof, process and price in
     // that order before the detail sections.
-    // Local copy of the shared three-reason grid so the heading only lands on
-    // this page — the Shopify pages still run it headerless.
+    // The shared three-reason grid, headed. Every service page heads it the
+    // same way so the cards never appear without context.
     {
       ...SHOPIFY_WHY_US,
       anchorId: "why-us",

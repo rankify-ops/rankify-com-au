@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "Latest Projects | Rankify",
   description:
     "We've helped businesses across industries achieve their goals. Here are some of our recent projects.",
+  alternates: { canonical: "/projects" },
 };
 
 function ProjectGrid({ category }: { category?: ProjectCategory }) {

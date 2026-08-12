@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Google Ads Management | Rankify",
   description:
     "Google Ads management for e-commerce, lead generation and SaaS — built around tracking, landing pages and profitable spend.",
+  alternates: { canonical: "/google-ads" },
 };
 
 export default function GoogleAdsPage() {

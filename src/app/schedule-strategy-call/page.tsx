@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Schedule Strategy Call | Rankify",
   description:
     "Book a free discovery call with Rankify and we'll discuss the best way to move your website, SEO or branding forward.",
+  alternates: { canonical: "/schedule-strategy-call" },
 };
 
 export default function ScheduleStrategyCallPage() {

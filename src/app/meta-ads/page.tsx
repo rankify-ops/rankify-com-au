@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Meta Ads Management | Rankify",
   description:
     "Meta Ads management for e-commerce and lead generation — creative testing, pixel and CAPI tracking, and campaigns built to scale profitably.",
+  alternates: { canonical: "/meta-ads" },
 };
 
 export default function MetaAdsPage() {

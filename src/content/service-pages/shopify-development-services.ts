@@ -102,8 +102,8 @@ export const shopifyDevelopmentServices: ServicePageData = {
         { idx: "03", anchorId: "scaling-shopify-plus", title: "Scaling & Shopify Plus", desc: "You've outgrown standard Shopify and need custom checkout, B2B functionality, or advanced integrations. We work with Shopify Plus for stores that need enterprise-level features." },
       ],
     },
-    // Local copy of the shared grid so the heading lands only here — the
-    // shopify-developer page still runs it headerless.
+    // The shared three-card grid, headed. Every service page heads it the
+    // same way so the cards never appear without context.
     {
       ...SHOPIFY_WHY_US,
       anchorId: "why-us",

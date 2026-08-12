@@ -6,6 +6,7 @@ import { LegalPageTemplate, type LegalSection } from "@/components/templates/Leg
 export const metadata: Metadata = {
   title: "Privacy Policy | Rankify",
   description: "How Rankify collects, uses, and shares information about visitors to rankify.com.au.",
+  alternates: { canonical: "/legal/privacy-policy" },
 };
 
 const SECTIONS: LegalSection[] = [
