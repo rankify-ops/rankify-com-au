@@ -109,7 +109,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       // once it expires, and the abandoned session stays in the dashboard
       // either way.
       after_expiration: { recovery: { enabled: true, allow_promotion_codes: false } },
-      consent_collection: { promotions: "auto" },
+      // No consent_collection.promotions — Stripe doesn't offer it on AU
+      // accounts, and asking for it fails the whole session.
     });
 
     return res.status(200).json({ clientSecret: session.client_secret });
