@@ -6,6 +6,10 @@
 
 :root {
   --green-deep: #002117;
+  /* The mid green from the Framer pricing cards. --green-deep is nearly black
+     and vanishes against the dark pricing section, so anything that has to
+     read as green *on* that section uses this instead. */
+  --green-mid: #006b4b;
   --ink: #0a0a0a;
   --body-dark: #121212;
   --paper: #f5f5f5;
@@ -55,6 +59,7 @@
 
 @theme inline {
   --color-green-deep: var(--green-deep);
+  --color-green-mid: var(--green-mid);
   --color-ink: var(--ink);
   --color-body-dark: var(--body-dark);
   --color-paper: var(--paper);

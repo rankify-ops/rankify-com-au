@@ -22,12 +22,12 @@ function ArrowBadge({ onGreen }: { onGreen?: boolean }) {
   return (
     <span
       className={`flex h-9 w-9 flex-none items-center justify-center rounded-full transition-transform duration-300 group-hover:translate-x-0.5 ${
-        onGreen ? "bg-white" : "bg-[var(--green-deep)]"
+        onGreen ? "bg-white" : "bg-[var(--green-mid)]"
       }`}
     >
       <svg
         viewBox="0 0 24 24"
-        className={`h-3.5 w-3.5 ${onGreen ? "text-[var(--green-deep)]" : "text-white"}`}
+        className={`h-3.5 w-3.5 ${onGreen ? "text-[var(--green-mid)]" : "text-white"}`}
         fill="none"
         stroke="currentColor"
         strokeWidth="2.6"
@@ -55,9 +55,11 @@ function TierCard({ tier }: { tier: PricingBlock["tiers"][number] }) {
   return (
     // The band caps the card rather than sitting inside it, and the whole
     // column lifts on desktop so the featured plan breaks the row's top line.
-    <div className={`flex h-full flex-col ${hot ? "lg:-mt-[52px]" : ""}`}>
+    // The lift is exactly the band's height (44px), so the band occupies the
+    // space above the row and all three tier names still sit on one line.
+    <div className={`flex h-full flex-col ${hot ? "lg:-mt-11" : ""}`}>
       {tier.badge && (
-        <div className="rounded-t-[20px] bg-[var(--green-deep)] px-6 py-3 text-center text-[16px] font-normal leading-tight text-white sm:text-[18px]">
+        <div className="flex h-11 items-center justify-center rounded-t-[20px] bg-[var(--green-mid)] px-6 text-center text-[16px] font-normal leading-none text-white sm:text-[18px]">
           {tier.badge}
         </div>
       )}
@@ -89,7 +91,7 @@ function TierCard({ tier }: { tier: PricingBlock["tiers"][number] }) {
 
         {tier.note && <p className="mt-4 text-[14px] leading-snug text-grey">{tier.note}</p>}
 
-        <p className="mt-4 flex items-center gap-1.5 text-[12.5px] font-medium text-[var(--green-deep)]">
+        <p className="mt-4 flex items-center gap-1.5 text-[12.5px] font-medium text-[var(--green-mid)]">
           <PlusIcon dark className="h-3.5 w-3.5" /> 100% Money back guarantee
         </p>
 
@@ -99,7 +101,7 @@ function TierCard({ tier }: { tier: PricingBlock["tiers"][number] }) {
           href={tier.ctaHref}
           className={`neu-btn group mt-5 flex items-center justify-between gap-3 rounded-full py-1.5 pl-6 pr-1.5 text-[15px] font-medium ${
             hot
-              ? "neu-btn-dark bg-[var(--green-deep)] text-white"
+              ? "neu-btn-dark bg-[var(--green-mid)] text-white"
               : "neu-btn-light border border-line bg-white text-ink"
           }`}
         >
@@ -110,7 +112,7 @@ function TierCard({ tier }: { tier: PricingBlock["tiers"][number] }) {
         <ul className="mt-7 grid gap-3 border-t border-line pt-6">
           {tier.features.map((f) => (
             <li key={f} className="flex items-start gap-2.5 text-[14px] leading-snug text-ink">
-              <span className="mt-px flex h-[18px] w-[18px] flex-none items-center justify-center rounded-full bg-[var(--green-deep)]">
+              <span className="mt-px flex h-[18px] w-[18px] flex-none items-center justify-center rounded-full bg-[var(--green-mid)]">
                 <svg viewBox="0 0 24 24" className="h-2.5 w-2.5" fill="none" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 13l4 4L19 7" />
                 </svg>
