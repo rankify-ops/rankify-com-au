@@ -115,6 +115,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json({ clientSecret: session.client_secret });
   } catch (err) {
     console.error("create-checkout-session failed", err);
-    return res.status(500).json({ error: "Could not start checkout." });
+    // Surface Stripe's own validation message. It's a description of what we
+    // sent wrong, not account data, and a bare "Could not start checkout" left
+    // us blind when a parameter combination became invalid.
+    const message = err instanceof Error ? err.message : "";
+    return res.status(500).json({ error: "Could not start checkout.", detail: message });
   }
 }
