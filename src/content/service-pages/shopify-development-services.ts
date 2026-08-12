@@ -42,7 +42,7 @@ export const shopifyDevelopmentServices: ServicePageData = {
       usLabel: "Rankify",
       rows: [
         { icon: "person", label: "Who you talk to", agency: "Account managers, juniors, whoever", us: "Just the developer" },
-        { icon: "clock", label: "Timeline", agency: "2–4 months", us: "3–5 weeks" },
+        { icon: "clock", label: "Timeline", agency: "2–4 months", us: "4–8 weeks" },
         { icon: "dollar", label: "Build cost", agency: "$20k–$40k+", us: "From $5,999" },
         { icon: "trending", label: "The theme", agency: "A premium theme reskinned", us: "Custom Liquid, built around your products" },
         { icon: "repeat", label: "Apps", agency: "Bolted on — $50–200/mo forever", us: "Built into the theme wherever we can" },
@@ -151,7 +151,7 @@ export const shopifyDevelopmentServices: ServicePageData = {
         {
           price: "$5,999",
           period: "/project",
-          note: "Delivery time 4-8 weeks",
+          note: "Delivery time 4–8 weeks",
           features: ["Homepage + up to 4 inner pages", "Design and Development", "Mobile-Optimised Design"],
           ctaLabel: "Get in touch",
           ctaHref: "/contact",
@@ -230,7 +230,7 @@ export const shopifyDevelopmentServices: ServicePageData = {
     subheading: "Got questions? We've got answers. Here's everything you need to know about working with us.",
     closingNote: SHOPIFY_CLOSING_NOTE,
     items: [
-      { q: "How long does it take to build a custom Shopify store?", a: "Most custom Shopify stores take 3–5 weeks from kickoff to launch. That includes design, development, product setup, SEO configuration, and testing. More complex builds with large catalogues or platform migrations can take 6–8 weeks. You'll get a clear timeline before any work starts." },
+      { q: "How long does it take to build a custom Shopify store?", a: "Most custom Shopify stores take 4–8 weeks from kickoff to launch. That includes design, development, product setup, SEO configuration, and testing. Smaller catalogues land at the shorter end; large catalogues and platform migrations sit at the longer end. You'll get a clear timeline before any work starts." },
       { q: "Do you build custom Shopify themes or use pre-made templates?", a: "Both. We own a library of base themes and assets, and we also work with premium third-party themes when they provide a strong foundation. From there we customise with custom Liquid code, bespoke sections, and layouts built around your brand and products. Sometimes we build from scratch, sometimes a theme gives us 70% of what's needed and we build the rest on top." },
       { q: "Can you migrate my store to Shopify from WooCommerce or another platform?", a: "Yes. We handle full migrations from WooCommerce, WordPress, Squarespace, BigCommerce, and Magento. That includes products, customer data, order history, URL redirects, and SEO preservation. The goal is to move you to Shopify without losing rankings, customers, or data." },
       { q: "Do you work with Shopify Plus?", a: "Yes. We build on Shopify Plus for businesses that need advanced features — custom checkout, B2B wholesale portals, multi-currency, and advanced API integrations. We'll advise whether standard Shopify or Shopify Plus is the right fit based on your requirements and sales volume." },

@@ -264,7 +264,7 @@ export const seo: ServicePageData = {
       { q: "What is SEO?", a: "Search Engine Optimisation (SEO) helps your site show up when people search for what you offer. Better rankings mean more traffic, leads, and sales — without paying for ads." },
       { q: "How does SEO work?", a: "We optimise your website behind the scenes, write smart content, and build links to help you rank higher on Google. It's about improving your site and building authority over time." },
       { q: "Is SEO right for my business?", a: "If your customers are searching online, yes. SEO is ideal for local services, B2B, and eCommerce — but it's a long game, not a quick fix." },
-      { q: "How much does SEO cost?", a: "Rankify SEO starts at $1,500/month. Pricing varies depending on your goals and how competitive your niche is." },
+      { q: "How much does SEO cost?", a: "$499 per page, per month, with a three month minimum. You pick the pages worth ranking and the price is simply that many pages — so a three page campaign is $1,497 a month and you know exactly what's covered. No open-ended retainer, no lock-in past the first three months." },
       { q: "How fast will I see results?", a: "Most clients see traction in 3–6 months. SEO builds over time — real growth doesn't happen overnight." },
       { q: "Do I need to keep doing SEO once I rank?", a: "Yes. Rankings shift, algorithms update, and your competitors don't stop. Staying on top requires consistent work." },
       { q: "What's a backlink?", a: "A backlink is when another website links to yours. Good backlinks build trust with Google and help you rank." },
