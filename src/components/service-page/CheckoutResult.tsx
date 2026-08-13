@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CHECKOUT_API } from "@/lib/checkout";
+import { pixelTrack } from "@/lib/pixel";
 
 type Status = {
   status: string | null;
@@ -23,6 +24,7 @@ type Status = {
 export function CheckoutResult() {
   const [state, setState] = useState<"loading" | "paid" | "open" | "error">("loading");
   const [data, setData] = useState<Status | null>(null);
+  const purchaseSentRef = useRef(false);
 
   useEffect(() => {
     let live = true;
@@ -40,6 +42,29 @@ export function CheckoutResult() {
           if (!live) return;
           setData(d);
           setState(d.paymentStatus === "paid" ? "paid" : "open");
+
+          /**
+           * Purchase, with the amount Stripe actually charged rather than the
+           * price the configurator showed — promo codes and page changes make
+           * those differ, and a wrong value teaches Meta the wrong ROAS.
+           *
+           * Only on a paid session. The session id alone proves nothing (this
+           * page opens for abandoned sessions too), so paymentStatus is the
+           * gate. Guarded against a double fire from React's dev remount.
+           */
+          if (d.paymentStatus === "paid" && !purchaseSentRef.current) {
+            purchaseSentRef.current = true;
+            pixelTrack("Purchase", {
+              value: (d.amountTotal ?? 0) / 100,
+              currency: (d.currency ?? "aud").toUpperCase(),
+              content_name: "Website build",
+              content_type: "product",
+              num_items: Number(d.totalPages) || 1,
+              // Stripe's id, so Meta can de-duplicate if a server-side
+              // Conversions API event is ever added for the same order.
+              event_id: id,
+            });
+          }
         })
         .catch(() => {
           if (live) setState("error");

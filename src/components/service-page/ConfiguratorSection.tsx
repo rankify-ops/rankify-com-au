@@ -574,6 +574,15 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                         if (step < 3) return setStep((s) => s + 1);
                         // Falls back to the email brief until the Stripe keys
                         // are set — better than a dead button.
+                        // The moment the card form opens — the gap between
+                        // this and Purchase is your checkout drop-off.
+                        pixelTrack("InitiateCheckout", {
+                          content_name: "Website configurator",
+                          content_type: "product",
+                          value: price,
+                          currency: "AUD",
+                          num_items: totalPages,
+                        });
                         return canCheckout ? setPaying(true) : setSent(true);
                       }}
                       className="neu-btn neu-btn-light whitespace-nowrap rounded-full bg-white px-6 py-2.5 text-[14px] font-bold text-ink disabled:cursor-not-allowed disabled:opacity-40"
