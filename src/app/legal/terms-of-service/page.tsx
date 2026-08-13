@@ -38,7 +38,28 @@ const SECTIONS: LegalSection[] = [
     ],
   },
   {
-    heading: "3. Service Availability",
+    heading: "3. 30-Day Money-Back Guarantee",
+    blocks: [
+      {
+        type: "p",
+        text: "Website builds carry a 30-day money-back guarantee. If you are not satisfied with the website we deliver, email us within 30 days of your purchase and we will refund the project fee in full. You do not need to give a reason.",
+      },
+      {
+        type: "p",
+        text: "A refund ends the engagement. The website, its source code, and any assets we produced remain the property of Rankify: the site is taken offline, and hosting, deployment and any access we provided are withdrawn. You keep any content, images or copy you supplied to us.",
+      },
+      {
+        type: "p",
+        text: "The guarantee covers the project fee for the build itself. It does not cover third-party costs paid on your behalf — domain registration, paid apps, stock imagery or advertising spend — which are non-refundable once incurred.",
+      },
+      {
+        type: "p",
+        text: "Nothing in this clause limits your rights under the Australian Consumer Law. Where those rights apply, they operate in addition to this guarantee.",
+      },
+    ],
+  },
+  {
+    heading: "4. Service Availability",
     blocks: [
       {
         type: "p",
@@ -47,7 +68,7 @@ const SECTIONS: LegalSection[] = [
     ],
   },
   {
-    heading: "4. Limitation of Liability",
+    heading: "5. Limitation of Liability",
     blocks: [
       {
         type: "p",
@@ -64,7 +85,7 @@ const SECTIONS: LegalSection[] = [
     ],
   },
   {
-    heading: "5. Third-Party Services",
+    heading: "6. Third-Party Services",
     blocks: [
       {
         type: "p",
@@ -73,7 +94,7 @@ const SECTIONS: LegalSection[] = [
     ],
   },
   {
-    heading: "6. Indemnification",
+    heading: "7. Indemnification",
     blocks: [
       {
         type: "p",
@@ -82,7 +103,7 @@ const SECTIONS: LegalSection[] = [
     ],
   },
   {
-    heading: "7. Governing Law",
+    heading: "8. Governing Law",
     blocks: [
       {
         type: "p",
@@ -91,7 +112,7 @@ const SECTIONS: LegalSection[] = [
     ],
   },
   {
-    heading: "8. Changes to These Terms",
+    heading: "9. Changes to These Terms",
     blocks: [
       {
         type: "p",
@@ -100,7 +121,7 @@ const SECTIONS: LegalSection[] = [
     ],
   },
   {
-    heading: "9. Contact Us",
+    heading: "10. Contact Us",
     blocks: [
       { type: "p", text: "If you have any questions about these Terms, contact us at:" },
       { type: "contact" },
