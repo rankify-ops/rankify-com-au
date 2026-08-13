@@ -5,6 +5,7 @@ import { CardGridSection } from "@/components/service-page/CardGridSection";
 import { MarqueeSection } from "@/components/service-page/MarqueeSection";
 import { PortfolioSection } from "@/components/service-page/PortfolioSection";
 import { ComparisonSection } from "@/components/service-page/ComparisonSection";
+import { ServiceProjects } from "@/components/service-page/ServiceProjects";
 import { ConfiguratorSection } from "@/components/service-page/ConfiguratorSection";
 import { IndustriesSection } from "@/components/service-page/IndustriesSection";
 import { PricingBlockSection } from "@/components/service-page/PricingBlockSection";
@@ -37,6 +38,8 @@ export function ServicePageTemplate({ data }: { data: ServicePageData }) {
             return <ConfiguratorSection key={i} block={block} />;
           case "comparison":
             return <ComparisonSection key={i} block={block} />;
+          case "projects":
+            return <ServiceProjects key={i} block={block} />;
           case "testimonials":
             return (
               <Testimonials

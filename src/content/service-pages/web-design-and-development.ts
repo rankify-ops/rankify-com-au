@@ -123,6 +123,17 @@ export const webDesignAndDevelopment: ServicePageData = {
       heading: "Every review is five stars.",
       headingDim: "That's not an accident.",
     },
+    // Proof cluster: the reviews, then the work itself. Ads land on this page,
+    // so the case studies sit above the process rather than buried at the end.
+    {
+      type: "projects",
+      anchorId: "recent-work",
+      kicker: "Recent work",
+      heading: "Sites we've built,",
+      headingDim: "and what they were built to do.",
+      subheading: "Every build gets the same treatment. Here's the detail on two of them.",
+      cta: { label: "See all projects", href: "/projects" },
+    },
     {
       type: "cardgrid",
       theme: "paper",

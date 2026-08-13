@@ -210,7 +210,24 @@ export type IndustriesBlock = {
   items: { label: string; icon: IndustryIcon }[];
 };
 
+/**
+ * The real case studies, rendered with the same card the homepage uses.
+ * Content comes from src/content/projects.ts rather than the page file — a
+ * service page shouldn't carry its own copy of the portfolio.
+ */
+export type ProjectsBlock = {
+  type: "projects";
+  anchorId?: string;
+  kicker?: string;
+  heading: string;
+  headingDim?: string;
+  subheading?: string;
+  /** Link through to the full index under the grid. */
+  cta?: { label: string; href: string };
+};
+
 export type Block =
+  | ProjectsBlock
   | CardGridBlock
   | MarqueeBlock
   | PortfolioBlock
