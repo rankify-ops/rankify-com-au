@@ -75,14 +75,24 @@ function PageChip({
 
 function Field({
   label,
+  required,
   children,
 }: {
   label: string;
+  /** Marks the field with an asterisk instead of explaining it below the button. */
+  required?: boolean;
   children: React.ReactNode;
 }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-[12.5px] font-medium text-white/60">{label}</span>
+      <span className="mb-1.5 block text-[12.5px] font-medium text-white/60">
+        {label}
+        {required && (
+          <span className="ml-0.5 text-[color:#07a889]" aria-hidden>
+            *
+          </span>
+        )}
+      </span>
       {children}
     </label>
   );
@@ -94,6 +104,7 @@ const inputCls =
 export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
   const [step, setStep] = useState(1);
   const [selected, setSelected] = useState<string[]>(block.corePages);
+  const [showMore, setShowMore] = useState(false);
   const [servicePages, setServicePages] = useState(0);
   const [custom, setCustom] = useState<string[]>([]);
   const [draft, setDraft] = useState("");
@@ -133,7 +144,13 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
   const addCustom = () => {
     const v = draft.trim();
     if (!v) return;
-    const taken = [...selected, ...custom, ...block.corePages, ...block.optionalPages].some(
+    const taken = [
+      ...selected,
+      ...custom,
+      ...block.corePages,
+      ...block.optionalPages,
+      ...(block.morePages ?? []),
+    ].some(
       (p) => p.toLowerCase() === v.toLowerCase(),
     );
     if (taken) {
@@ -259,6 +276,10 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                   )}
                 </p>
               </div>
+              <p className="mt-3 flex items-center gap-1.5 text-[12px] font-medium text-white/70">
+                <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 flex-none text-[color:#07a889]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3.2 19 5.7v5.6c0 4.4-3 7.4-7 9.1-4-1.7-7-4.7-7-9.1V5.7z" /><path d="m9.2 11.9 2 2 3.6-3.8" /></svg>
+                100% money-back guarantee, 30 days
+              </p>
               <p
                 className={`mt-3 rounded-xl px-3 py-2 text-[12.5px] font-medium leading-snug ${
                   remaining > 0
@@ -320,6 +341,20 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                         {[...block.corePages, ...block.optionalPages].map((p) => (
                           <PageChip key={p} label={p} on={selected.includes(p)} onToggle={() => toggle(p)} />
                         ))}
+                        {/* Hidden suggestions stay mounted once opened so a
+                            selection isn't lost by collapsing the list. */}
+                        {showMore &&
+                          (block.morePages ?? []).map((p) => (
+                            <PageChip key={p} label={p} on={selected.includes(p)} onToggle={() => toggle(p)} />
+                          ))}
+                        {/* A selected suggestion stays visible when collapsed —
+                            otherwise you'd be paying for a page you can't see. */}
+                        {!showMore &&
+                          (block.morePages ?? [])
+                            .filter((p) => selected.includes(p))
+                            .map((p) => (
+                              <PageChip key={p} label={p} on onToggle={() => toggle(p)} />
+                            ))}
                         {custom.map((c) => (
                           <PageChip
                             key={c}
@@ -329,6 +364,28 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                           />
                         ))}
                       </div>
+
+                      {(block.morePages?.length ?? 0) > 0 && (
+                        <button
+                          type="button"
+                          onClick={() => setShowMore((v) => !v)}
+                          aria-expanded={showMore}
+                          className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-white/70 transition-colors hover:text-white"
+                        >
+                          {showMore ? "Fewer options" : "More page suggestions"}
+                          <svg
+                            viewBox="0 0 24 24"
+                            className={`h-3.5 w-3.5 transition-transform duration-300 ${showMore ? "rotate-180" : ""}`}
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.4"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="m6 9 6 6 6-6" />
+                          </svg>
+                        </button>
+                      )}
 
                       <div className="mt-6 rounded-2xl border border-[color:#07a889]/25 bg-[color:#07a889]/10 p-4">
                         <p className="text-[13.5px] leading-snug text-white/80">
@@ -436,15 +493,15 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                           a few lines here shouldn't feel like the whole brief. */}
                       <p className="-mt-1 flex items-start gap-2 rounded-xl bg-white/[0.06] px-3.5 py-3 text-[13px] leading-snug text-white/60">
                         <span className="mt-[3px] text-[color:#07a889]">✓</span>
-                        A sentence or two is plenty here. Once you order, we take you through a proper
-                        onboarding to collect your logo, services, photos and everything else we need.
+                        A sentence or two is plenty here. Once you order, we&rsquo;ll take you through a
+                        proper onboarding to get the additional information we need.
                       </p>
                     </div>
                   )}
 
                   {step === 3 && (
                     <div className="grid gap-4">
-                      <Field label="Your name">
+                      <Field label="Your name" required>
                         <input
                           className={inputCls}
                           value={details.name}
@@ -453,7 +510,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                         />
                       </Field>
                       <div className="grid gap-4 sm:grid-cols-2">
-                        <Field label="Email">
+                        <Field label="Email" required>
                           <input
                             type="email"
                             className={inputCls}
@@ -494,7 +551,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                         // are set — better than a dead button.
                         return canCheckout ? setPaying(true) : setSent(true);
                       }}
-                      className="neu-btn neu-btn-light rounded-full bg-white px-6 py-2.5 text-[14px] font-bold text-ink disabled:cursor-not-allowed disabled:opacity-40"
+                      className="neu-btn neu-btn-light whitespace-nowrap rounded-full bg-white px-6 py-2.5 text-[14px] font-bold text-ink disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       {step === 3
                         ? perPage
@@ -502,9 +559,6 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                           : `Checkout — ${money(price)}`
                         : "Continue"}
                     </button>
-                    {step === 3 && !canSubmit && (
-                      <p className="text-[12.5px] text-white/45">Name and email first.</p>
-                    )}
                   </div>
                 </>
               )}
@@ -542,6 +596,13 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                       )}
                     </>
                   )}
+                </p>
+                {/* The guarantee belongs with the number it applies to — the
+                    objection it answers happens at the price, not in a section
+                    further down the page. */}
+                <p className="mt-2.5 flex items-center gap-1.5 text-[12.5px] font-medium text-white/70">
+                  <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 flex-none text-[color:#07a889]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3.2 19 5.7v5.6c0 4.4-3 7.4-7 9.1-4-1.7-7-4.7-7-9.1V5.7z" /><path d="m9.2 11.9 2 2 3.6-3.8" /></svg>
+                  100% money-back guarantee, 30 days
                 </p>
 
                 {/* Tells them how much room is left in the base price, which is

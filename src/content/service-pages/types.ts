@@ -165,6 +165,11 @@ export type ConfiguratorBlock = {
   corePages: string[];
   /** Offered but unticked. */
   optionalPages: string[];
+  /**
+   * Suggestions kept behind a toggle. Most buyers want the first four pages;
+   * showing thirteen chips up front is a wall of vertical space on a phone.
+   */
+  morePages?: string[];
   tip: string;
   ctaLabel: string;
   ctaHref: string;
@@ -226,7 +231,98 @@ export type ProjectsBlock = {
   cta?: { label: string; href: string };
 };
 
+/** Risk reversal, given its own section rather than a line of fine print. */
+export type GuaranteeBlock = {
+  type: "guarantee";
+  anchorId?: string;
+  kicker?: string;
+  heading: string;
+  headingDim?: string;
+  /** The promise itself, in plain words. */
+  promise: string;
+  points?: string[];
+  link?: { label: string; href: string };
+};
+
+/**
+ * A single quote dropped between two sections, so proof keeps arriving as the
+ * page scrolls instead of pooling in one carousel a skimmer passes once.
+ */
+export type QuoteBlock = {
+  type: "quote";
+  /** Small line above the quote, for credentials the quote can't carry itself. */
+  context?: string;
+  quote: string;
+  name: string;
+  role?: string;
+  /** Headshot. Adds a face to the claim, which is most of why it lands. */
+  avatar?: string;
+  /** Set while the real quote is still to come. */
+  placeholder?: boolean;
+};
+
+/** Client logos that each link to that client's case study. */
+export type CaseStudyRowBlock = {
+  type: "casestudyrow";
+  anchorId?: string;
+  kicker?: string;
+  heading: string;
+  headingDim?: string;
+  subheading?: string;
+  items: {
+    name: string;
+    /** Omit while the logo is still to come — the name renders instead. */
+    logo?: string;
+    /** One line of context above the results. */
+    summary?: string;
+    /** What the build actually did. Shown in the popup. */
+    results?: string[];
+    industry?: string;
+    /** Draws a mark beside the industry line. */
+    industryIcon?: "google-ads";
+    timeline?: string;
+    /** Live site, if there's one worth linking. */
+    liveUrl?: string;
+    /** Overrides the "Visit the site" label under the CTA. */
+    liveLabel?: string;
+    /** Client's own words, shown under the results. */
+    quote?: string;
+    quoteName?: string;
+    quoteRole?: string;
+    quoteAvatar?: string;
+    label?: string;
+    /** No results written yet — the card stays flat and doesn't open. */
+    placeholder?: boolean;
+  }[];
+};
+
+/**
+ * A partner endorsement, shown open on the page rather than behind a click.
+ * Same shape as a case study card — it was too strong to hide in a popup.
+ */
+export type PartnerBlock = {
+  type: "partner";
+  anchorId?: string;
+  kicker?: string;
+  /** Leads the section, so the subject is the work rather than the partner. */
+  heading?: string;
+  headingDim?: string;
+  logo?: string;
+  name: string;
+  chips?: { label: string; icon?: "google-ads"; accent?: boolean }[];
+  body: string;
+  quote: string;
+  /** One or more people behind the quote — both founders, in this case. */
+  people: { name: string; avatar?: string }[];
+  /** Shared title under the names. */
+  peopleRole?: string;
+};
+
 export type Block =
+  | PartnerBlock
+  | GuaranteeBlock
+  | QuoteBlock
+  | CaseStudyRowBlock
   | ProjectsBlock
   | CardGridBlock
   | MarqueeBlock

@@ -6,6 +6,10 @@ import { MarqueeSection } from "@/components/service-page/MarqueeSection";
 import { PortfolioSection } from "@/components/service-page/PortfolioSection";
 import { ComparisonSection } from "@/components/service-page/ComparisonSection";
 import { ServiceProjects } from "@/components/service-page/ServiceProjects";
+import { GuaranteeSection } from "@/components/service-page/GuaranteeSection";
+import { QuoteBand } from "@/components/service-page/QuoteBand";
+import { CaseStudyRow } from "@/components/service-page/CaseStudyRow";
+import { PartnerCard } from "@/components/service-page/PartnerCard";
 import { ConfiguratorSection } from "@/components/service-page/ConfiguratorSection";
 import { IndustriesSection } from "@/components/service-page/IndustriesSection";
 import { PricingBlockSection } from "@/components/service-page/PricingBlockSection";
@@ -40,6 +44,14 @@ export function ServicePageTemplate({ data }: { data: ServicePageData }) {
             return <ComparisonSection key={i} block={block} />;
           case "projects":
             return <ServiceProjects key={i} block={block} />;
+          case "guarantee":
+            return <GuaranteeSection key={i} block={block} />;
+          case "quote":
+            return <QuoteBand key={i} block={block} />;
+          case "casestudyrow":
+            return <CaseStudyRow key={i} block={block} />;
+          case "partner":
+            return <PartnerCard key={i} block={block} />;
           case "testimonials":
             return (
               <Testimonials

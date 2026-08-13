@@ -27,7 +27,7 @@ export const webDesignAndDevelopment: ServicePageData = {
       // Leads with the promise; the two-round mechanic is spelled out in the
       // process section rather than hedged here.
       "Unlimited revisions",
-      "No contracts, you own your site",
+      "30-day money-back guarantee",
     ],
     ctaPrimary: { label: "Get Started", href: "#website-configurator" },
     ctaSecondary: { label: "Schedule free strategy Call", href: "/schedule-strategy-call" },
@@ -35,6 +35,102 @@ export const webDesignAndDevelopment: ServicePageData = {
   },
   blocks: [
     WEB_CLIENT_LOGOS,
+    // Real clients. Five have logos in /assets/logos-web; Geelong Heat Pumps
+    // has none yet and renders its name in the same box. Only Hawker Studios
+    // has a case study page — the rest point at /projects until theirs exist.
+    {
+      type: "casestudyrow",
+      anchorId: "case-studies",
+      kicker: "Proof",
+      heading: "Built, launched,",
+      headingDim: "and still bringing in work.",
+      subheading: "Real builds for real businesses. Click one to see what it did.",
+      items: [
+        {
+          name: "Prime Group",
+          logo: "/assets/logos-web/prime-group.webp",
+          industry: "Building & Construction",
+          // The chip is the headline number. "Live in 7 days" was a delivery
+          // stat; this one is the outcome he actually cares about.
+          timeline: "Paid for itself in 2 weeks",
+          liveUrl: "https://primegroupbuild.com.au/",
+          summary:
+            "Prime Group didn't want a design project. He wanted the phone ringing. Seven days after we started, the site was live — and inside a fortnight a single booked job had paid for the website, the month's ad spend, and still left him in profit.",
+          results: [
+            "One booked job paid for the entire build — and the month's ads on top",
+            "10 leads in the first two weeks, from a site that was live in 7 days",
+            "Profitable before most agencies deliver a first draft",
+            "Everything after that job was margin, not recovery",
+          ],
+          // Nick's wording, trimmed at Tom's request.
+          quote:
+            "Rankify had my website live in 7 days, which I didn't think was possible. I had about 10 enquiries in the first fortnight. One of those turned into a job that covered the website with plenty of money left over.",
+          quoteName: "Nick",
+          quoteRole: "Owner, Prime Group",
+          quoteAvatar: "/assets/images/nick-prime-group.webp",
+        },
+        // Results still to come — these cards stay flat and unclickable rather
+        // than opening an empty popup.
+        {
+          name: "Hawker Studios",
+          logo: "/assets/logos-web/hawker-studio.webp",
+          industry: "Photo & Content Studio",
+          // Hard number leads the chip; "built in 4 weeks" is delivery, this is
+          // the outcome they actually got.
+          timeline: "Bookings up 22%",
+          liveUrl: "https://www.hawker-studios.com/",
+          summary:
+            "A Gold Coast natural light studio with two Currumbin Waters locations. They needed creators to see the spaces, check availability and lock in a session in minutes — instead of a chain of back-and-forth emails.",
+          results: [
+            "Bookings up 22% once the new booking system went live",
+            "Booking handled on the site, not over email",
+            "Both studio locations bookable in minutes",
+            "Built and launched in 4 weeks, SEO in from the first page",
+          ],
+          // Gabriella's approved wording, verbatim. Do not trim or reword.
+          quote:
+            "The Rankify team was incredibly fast and delivered a top-quality website for us. We're really impressed and would highly recommend them to anyone looking for web development or marketing.",
+          quoteName: "Gabriella Smith",
+          quoteRole: "Hawker Studios",
+          quoteAvatar: "/assets/images/gabriella-hawker-studios.webp",
+        },
+        {
+          name: "Tintek Roofing & Cladding",
+          logo: "/assets/logos-web/tintek.webp",
+          industry: "Roofing & Cladding",
+          timeline: "$100k to multi-million",
+          liveUrl: "https://tintek.com.au/",
+          results: [
+            "Scaled from $100k turnover into the multi-millions",
+            "A site built to carry that growth, not be rebuilt through it",
+          ],
+          quote:
+            "Rankify's website laid the foundation for us to scale our business from 100k into the multi millions.",
+          quoteName: "Jacob Gregory",
+          quoteRole: "Founder, Tintek",
+        },
+        {
+          name: "Adalytical",
+          logo: "/assets/logos-web/adalytical.webp",
+          industry: "Google Ads Partner",
+          industryIcon: "google-ads",
+          timeline: "Fastest growing Google Ads business in Australia",
+          // Their site isn't finished yet, so this points at the call rather
+          // than showing unfinished work.
+          liveUrl: "/schedule-strategy-call",
+          liveLabel: "Book a call",
+          // A referral partner rather than a client — the proof here is that an
+          // ads agency sends us the builds their own campaigns depend on.
+          summary:
+            "Adalytical rely on Rankify for the builds behind their campaigns — entire websites, landing pages, and every conversion element on them. Their ads get the click; the page has to book the job or get the sale.",
+          quote:
+            "We partner with Rankify when our clients are in need of a new website, Shopify store or landing pages — high-performance builds we know will convert.",
+          quoteName: "Jackson Wallace",
+          quoteRole: "Founder, Adalytical · Ex-Google growth team",
+          quoteAvatar: "/assets/images/jackson-adalytical.webp",
+        },
+      ],
+    },
     {
       type: "comparison",
       anchorId: "vs-agency",
@@ -59,6 +155,15 @@ export const webDesignAndDevelopment: ServicePageData = {
         "Here's the part agencies won't tell you: the work got faster for everyone. **They just keep the savings. I pass them straight on to you.** Same high-end result, a fraction of the price — because I'm not paying for overhead, and I'm not here to rip you off.",
         "I'm genuinely passionate about building **high-performance sites that look as good as they convert**.",
       ],
+    },
+    {
+      type: "quote",
+      // Nick's wording, trimmed at Tom's request.
+      quote:
+        "Rankify had my website live in 7 days, which I didn't think was possible. I had about 10 enquiries in the first fortnight. One of those turned into a job that covered the website with plenty of money left over.",
+      name: "Nick",
+      role: "Owner, Prime Group",
+      avatar: "/assets/images/nick-prime-group.webp",
     },
     {
       type: "industries",
@@ -123,16 +228,14 @@ export const webDesignAndDevelopment: ServicePageData = {
       heading: "Every review is five stars.",
       headingDim: "That's not an accident.",
     },
-    // Proof cluster: the reviews, then the work itself. Ads land on this page,
-    // so the case studies sit above the process rather than buried at the end.
     {
-      type: "projects",
-      anchorId: "recent-work",
-      kicker: "Recent work",
-      heading: "Sites we've built,",
-      headingDim: "and what they were built to do.",
-      subheading: "Every build gets the same treatment. Here's the detail on two of them.",
-      cta: { label: "See all projects", href: "/projects" },
+      type: "quote",
+      // Gabriella's approved wording, verbatim. Do not trim or reword.
+      quote:
+        "The Rankify team was incredibly fast and delivered a top-quality website for us. We're really impressed and would highly recommend them to anyone looking for web development or marketing.",
+      name: "Gabriella Smith",
+      role: "Hawker Studios",
+      avatar: "/assets/images/gabriella-hawker-studios.webp",
     },
     {
       type: "cardgrid",
@@ -150,7 +253,7 @@ export const webDesignAndDevelopment: ServicePageData = {
         { idx: "02", title: "Fill in the onboarding form", image: "/assets/images/DPStQ1OLWHQEotlRG324OWMdXgA.png", desc: "The moment you order, we send you one form. Your logo, your business details, the services you offer, and anything else you think we should know. That's the only homework — and if you don't have a logo or copy, tell us and we'll sort it." },
         { idx: "03", title: "We design and build it", image: "/assets/images/OcCBB2O75VsaHiIw8nfSpLAtJjo.webp", desc: "You get a custom site — modern, fast, and on brand. Not a template. Every page is laid out around the way your customers actually decide, with the conversion elements that make them call or buy in the right places. Content, forms, tracking and SEO all handled." },
         { idx: "04", title: "Unlimited revisions", image: "/assets/images/BRmVb3sj222Zc8G43z2kcUcKHy8.webp", desc: "Change as much as you like. A colour, a headline, every page, the whole design if it isn't right — there's no cap on what you can ask for, and nothing gets called out of scope or billed per change. Changes come back to us in two rounds, so send everything you want in one hit and we'll work through the lot." },
-        { idx: "05", title: "Launch", image: "/assets/images/jeJzliriilgkAa6aYwiNxC60o.webp", desc: "We handle the domain, the DNS and going live, then walk you through managing your own content. Live in 7–14 days from sign-off, and we host and secure it for $0." },
+        { idx: "05", title: "Launch", image: "/assets/images/jeJzliriilgkAa6aYwiNxC60o.webp", desc: "We handle the domain, the DNS and going live. Your site is custom coded, so there's no page builder for you to wrestle with — send us changes any time and we make them, twice a month, at no charge. Live in 7–14 days from sign-off, hosted and secured for $0." },
         { idx: "06", title: "Getting traffic to it", image: "/assets/images/htpsqYBKyKw4QhDxfxQWLbtZXE.webp", desc: "A website only earns once people find it. When you're ready, the same team handles the SEO and the ads that bring in the traffic — and we keep improving the site as you grow. Optional, and only when it makes sense for you.", cta: { label: "Talk about growing traffic", href: "/schedule-strategy-call" } },
       ],
     },
@@ -164,19 +267,69 @@ export const webDesignAndDevelopment: ServicePageData = {
       basePrice: 2999,
       includedPages: 10,
       extraPagePrice: 200,
-      corePages: ["Home", "About", "Services", "Contact", "FAQ", "Testimonials", "Location Pages"],
-      optionalPages: [
+      // Only the four almost every site needs start ticked.
+      corePages: ["Home", "About", "Services", "Contact"],
+      // A few unticked chips stay visible so it's obvious the list is
+      // something you choose from — with only ticked ones showing, nothing
+      // signals you can add pages at all.
+      optionalPages: ["FAQ", "Testimonials", "Gallery / Portfolio"],
+      // Behind "More page suggestions".
+      morePages: [
         "Pricing",
-        "Gallery / Portfolio",
         "Blog",
         "Case Studies",
         "Team",
         "Booking",
         "Careers",
+        "Location Pages",
       ],
       tip: "For each main service you offer we recommend a dedicated page — they rank on their own terms and convert far better than one combined services page.",
       ctaLabel: "Book a call",
       ctaHref: "/schedule-strategy-call",
+    },
+    // Straight after the configurator: the last thing read before the price
+    // is an ads agency saying these pages convert.
+    // v2 leads with the builds, credential second. The ads-led version that
+    // sat under the logo marquee is kept in
+    // _reference/adalytical-partner-block-v1.md.
+    {
+      type: "partner",
+      anchorId: "partner",
+      kicker: "Who trusts the work",
+      heading: "The people who buy websites for a living",
+      headingDim: "choose Rankify to build them.",
+      logo: "/assets/logos-web/adalytical.webp",
+      name: "Adalytical",
+      chips: [
+        { label: "Google Ads Partner", icon: "google-ads" },
+        { label: "Australia's fastest growing Google Ads business", accent: true },
+      ],
+      body:
+        "Adalytical's campaigns only work if the page converts, so when their clients need a new website, landing pages or the conversion elements around them, they bring us in. Their founders led growth teams at Google before starting Australia's fastest growing Google Ads business — they know exactly what a page has to do, and they don't build it themselves.",
+      quote:
+        "We partner with Rankify when our clients are in need of a new website, Shopify store or landing pages — high-performance builds we know will convert.",
+      people: [
+        { name: "Jackson Wallace", avatar: "/assets/images/jackson-adalytical.webp" },
+        { name: "Jackson Sharp", avatar: "/assets/images/jackson-sharp-adalytical.webp" },
+      ],
+      peopleRole: "Founders, Adalytical · Ex-Google growth team",
+    },
+    // Sits on the price deliberately: the objection it answers is "what if I
+    // pay and hate it", so it belongs where that thought happens.
+    {
+      type: "guarantee",
+      anchorId: "guarantee",
+      kicker: "Risk reversal",
+      heading: "30-day money-back guarantee.",
+      headingDim: "The risk is ours, not yours.",
+      promise:
+        "Take 30 days with the finished site. If you're not satisfied with what we built, ask for a refund and you'll get one — no argument and no exit interview.",
+      points: [
+        "Unlimited revisions, submitted in two rounds",
+        "Fixed price agreed before a line is written",
+        "No lock-in contract, cancel any time",
+      ],
+      link: { label: "terms of service", href: "/legal/terms-of-service" },
     },
     {
       type: "cardgrid",
