@@ -35,6 +35,18 @@ export const webDesignAndDevelopment: ServicePageData = {
   },
   blocks: [
     WEB_CLIENT_LOGOS,
+    // Straight under the logos, before the proof: the visitor meets the person
+    // who'll actually build it before they meet the evidence.
+    {
+      type: "devcard",
+      anchorId: "your-developer",
+      heading: "Hey — I'm your developer.",
+      body:
+        "You'll work with me directly, as your only point of contact. No outsourcing, no juniors, no account managers — just me. I build websites that actually drive revenue and profit, and I'm genuinely good at it. Have a look through the page, and when you're ready we'll launch a high-performance website for your business at a fraction of what an agency would charge you — live faster, and performing better.",
+      photo: "/assets/images/fZdV1icYbXIkqfVAekWtJEAifo.png",
+      name: "Thomas Flood",
+      role: "Director of Digital Strategy",
+    },
     // Real clients. Five have logos in /assets/logos-web; Geelong Heat Pumps
     // has none yet and renders its name in the same box. Only Hawker Studios
     // has a case study page — the rest point at /projects until theirs exist.

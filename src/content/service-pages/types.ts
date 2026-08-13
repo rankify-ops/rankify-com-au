@@ -318,7 +318,22 @@ export type PartnerBlock = {
   peopleRole?: string;
 };
 
+/** The frosted "here's who's building it" card from the homepage hero. */
+export type DevCardBlock = {
+  type: "devcard";
+  anchorId?: string;
+  heading: string;
+  body: string;
+  photo: string;
+  name: string;
+  role?: string;
+  /** Optional — the card can be pure introduction with no ask. */
+  cta?: { label: string; href: string };
+  ctaSecondary?: { label: string; href: string };
+};
+
 export type Block =
+  | DevCardBlock
   | PartnerBlock
   | GuaranteeBlock
   | QuoteBlock
