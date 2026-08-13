@@ -6,6 +6,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/service-page/SectionHeading";
 import { CheckoutModal } from "@/components/service-page/CheckoutModal";
 import { captureLead, checkoutConfigured, type OrderPayload } from "@/lib/checkout";
+import { pixelTrack } from "@/lib/pixel";
 import type { ConfiguratorBlock } from "@/content/service-pages/types";
 
 const INDUSTRIES = [
@@ -215,6 +216,30 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
     // needs the latest brief, not the one from the render that scheduled it.
     orderRef.current = order;
   });
+
+  /**
+   * Reaching step 2 means they've picked their pages and seen the price — the
+   * closest thing this page has to an add-to-cart. Fired as the standard
+   * AddToCart so Meta builds the audience itself and the event can be
+   * optimised for later; a custom event name would do neither.
+   *
+   * Once per visit: stepping back and forward again is the same intent, not a
+   * second one.
+   */
+  const addToCartSentRef = useRef(false);
+
+  useEffect(() => {
+    if (step < 2 || addToCartSentRef.current) return;
+    addToCartSentRef.current = true;
+    pixelTrack("AddToCart", {
+      content_name: "Website configurator",
+      content_category: "Web development",
+      content_type: "product",
+      value: price,
+      currency: "AUD",
+      num_items: totalPages,
+    });
+  }, [step, price, totalPages]);
 
   useEffect(() => {
     if (!canSubmit || leadSentRef.current) return;
