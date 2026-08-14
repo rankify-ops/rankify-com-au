@@ -21,6 +21,11 @@ export const metadata: Metadata = {
     "High-performance websites, Shopify stores and SEO for Australian businesses. Custom built, conversion focused, and priced up front — you work directly with the developer.",
   metadataBase: new URL("https://www.rankify.com.au"),
   alternates: { canonical: "/" },
+  // Rendered into <head> at build time. Meta's crawler rejects a tag injected
+  // by JavaScript, so this can't be a Script.
+  verification: {
+    other: { "facebook-domain-verification": "uh3hhus94ih2116ti54tqymyha9e3p" },
+  },
   openGraph: {
     title: "Rankify | Performance Marketing & Web Development",
     description:
