@@ -41,7 +41,14 @@ export function CheckoutResult() {
         .then((d: Status) => {
           if (!live) return;
           setData(d);
-          setState(d.paymentStatus === "paid" ? "paid" : "open");
+          /**
+           * Stripe reports a fully-discounted session as "no_payment_required"
+           * rather than "paid" — a 100% comp is still a completed order, and
+           * the buyer should see the confirmation.
+           */
+          const complete =
+            d.paymentStatus === "paid" || d.paymentStatus === "no_payment_required";
+          setState(complete ? "paid" : "open");
 
           /**
            * Purchase, with the amount Stripe actually charged rather than the
@@ -52,7 +59,10 @@ export function CheckoutResult() {
            * page opens for abandoned sessions too), so paymentStatus is the
            * gate. Guarded against a double fire from React's dev remount.
            */
-          if (d.paymentStatus === "paid" && !purchaseSentRef.current) {
+          // Report revenue only when there is revenue. A comped order is a real
+          // order, but a $0 Purchase teaches Meta nothing and drags the average
+          // order value it optimises toward.
+          if (complete && (d.amountTotal ?? 0) > 0 && !purchaseSentRef.current) {
             purchaseSentRef.current = true;
             pixelTrack("Purchase", {
               value: (d.amountTotal ?? 0) / 100,
