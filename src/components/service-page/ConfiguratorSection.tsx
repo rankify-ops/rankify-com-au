@@ -424,17 +424,19 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                       {byUs ? (
                         <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-5">
                           <p className="text-[15px] font-medium">
-                            We&rsquo;ll scope the pages for you.
+                            We&rsquo;ll design it around your business.
                           </p>
                           <p className="mt-2 text-[14px] leading-relaxed text-white/65">
-                            After you order you&rsquo;ll get a short onboarding form. We take what
-                            you tell us about your business and build the page structure that
-                            converts best for it &mdash; up to {includedPages} pages included, at
-                            the same price.
+                            In the onboarding you tell us about your business, the services you
+                            offer and what you want the site to achieve. From there we design a
+                            high-performance, conversion-focused website built on what actually
+                            works in your industry &mdash; drawn from thousands of high-performing
+                            sites and real performance data, not a template. Up to{" "}
+                            {includedPages} pages included, at the same price.
                           </p>
                           <ul className="mt-4 grid gap-2">
                             {[
-                              "The pages your competitors rank for, not a template",
+                              "Structure based on what converts in your industry, not a guess",
                               "A dedicated page per service where it earns one",
                               "Same 30-day money-back guarantee either way",
                             ].map((t) => (
