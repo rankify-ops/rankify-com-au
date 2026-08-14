@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Cal, { getCalApi } from "@calcom/embed-react";
+import { pixelTrack } from "@/lib/pixel";
 
 /** The 15-minute discovery call. */
 export const CAL_LINK = "rankify/15min";
@@ -13,6 +14,8 @@ export const CAL_LINK = "rankify/15min";
  * JavaScript and has no business loading on the other twenty pages.
  */
 export function BookingCalendar() {
+  const bookedRef = useRef(false);
+
   useEffect(() => {
     (async () => {
       const cal = await getCalApi({ namespace: "15min" });
@@ -25,6 +28,27 @@ export function BookingCalendar() {
         },
         hideEventTypeDetails: false,
         layout: "month_view",
+      });
+
+      /**
+       * Cal fires this from inside the embed when a booking completes, so the
+       * conversion is trackable without their paid redirect-after-booking —
+       * there's no thank-you URL of ours to land on.
+       *
+       * Guarded: the embed can emit more than once if someone books again in
+       * the same visit, and a second Lead for the same person is noise.
+       */
+      cal("on", {
+        action: "bookingSuccessful",
+        callback: () => {
+          if (bookedRef.current) return;
+          bookedRef.current = true;
+          pixelTrack("Lead", {
+            content_name: "Strategy call",
+            content_category: "Booking",
+            currency: "AUD",
+          });
+        },
       });
     })();
   }, []);
