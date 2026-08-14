@@ -299,17 +299,26 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                   </span>
                 </div>
                 <p className="text-right text-[13px] leading-snug text-white/60">
-                  {byUs ? <>Up to {includedPages} pages</> : <>{totalPages} page{totalPages === 1 ? "" : "s"}</>}
-                  <br />
-                  {perPage ? (
-                    <>× {money(block.pricePerPage ?? 0)} / mo</>
+                  {/* One line in "we scope it" mode — the second half was still
+                      printing "10 included" underneath, giving
+                      "Up to 10 pages / 10 included". */}
+                  {byUs ? (
+                    <>Up to {includedPages} pages included</>
                   ) : (
                     <>
-                      {includedPages} included
-                      {extra > 0 && (
+                      {totalPages} page{totalPages === 1 ? "" : "s"}
+                      <br />
+                      {perPage ? (
+                        <>× {money(block.pricePerPage ?? 0)} / mo</>
+                      ) : (
                         <>
-                          <br />
-                          {extra} extra × {money(extraPagePrice)}
+                          {includedPages} included
+                          {extra > 0 && (
+                            <>
+                              <br />
+                              {extra} extra × {money(extraPagePrice)}
+                            </>
+                          )}
                         </>
                       )}
                     </>
