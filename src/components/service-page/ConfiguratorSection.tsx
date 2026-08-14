@@ -1,11 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/service-page/SectionHeading";
 import { CheckoutModal } from "@/components/service-page/CheckoutModal";
 import { captureLead, checkoutConfigured, type OrderPayload } from "@/lib/checkout";
+import { asset } from "@/lib/basePath";
 import { pixelTrack } from "@/lib/pixel";
 import type { ConfiguratorBlock } from "@/content/service-pages/types";
 
@@ -647,6 +649,60 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                           />
                         </Field>
                       </div>
+
+                      {/* The drop-off point. Three fields and a Checkout button
+                          is where a $2,999 decision goes cold, so this is the
+                          reassurance a payment step is expected to carry. */}
+                      <div className="mt-1 rounded-2xl border border-white/12 bg-white/[0.04] p-5">
+                        <div className="flex items-center gap-3.5">
+                          <Image
+                            src={asset("/assets/images/fZdV1icYbXIkqfVAekWtJEAifo.png")}
+                            alt="Thomas Flood"
+                            width={104}
+                            height={118}
+                            className="h-12 w-12 flex-none rounded-full object-cover grayscale"
+                          />
+                          <p className="text-[14px] leading-snug">
+                            <strong className="font-semibold">
+                              I&rsquo;ll start on your build as soon as this goes through.
+                            </strong>
+                            <span className="block text-[13px] text-white/60">
+                              Thomas Flood &middot; you deal with me directly, start to finish
+                            </span>
+                          </p>
+                        </div>
+
+                        <ul className="mt-4 grid gap-2.5 border-t border-white/10 pt-4 sm:grid-cols-2">
+                          {[
+                            ["M12 3.2 19 5.7v5.6c0 4.4-3 7.4-7 9.1-4-1.7-7-4.7-7-9.1V5.7zM9.2 11.9l2 2 3.6-3.8", "Not one refund requested to date"],
+                            ["M6.5 10.5V7.5a5.5 5.5 0 0 1 11 0v3M5 10.5h14v9H5z", "Secure checkout, card details never stored"],
+                            ["M12 12.4a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4.8 20.2a7.4 7.4 0 0 1 14.4 0", "100+ brands trust us with their website"],
+                            ["M12 7.5V12l3 1.8", "Replies from a person, usually same day"],
+                          ].map(([d, label]) => (
+                            <li key={label} className="flex items-start gap-2.5 text-[13px] leading-snug text-white/75">
+                              <svg viewBox="0 0 24 24" className="mt-px h-4 w-4 flex-none text-[color:#07a889]" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+                                {label === "Replies from a person, usually same day" && <circle cx="12" cy="12" r="8.5" />}
+                                <path d={d} />
+                              </svg>
+                              {label}
+                            </li>
+                          ))}
+                        </ul>
+
+                        <div className="mt-4 flex items-center gap-2.5 border-t border-white/10 pt-4">
+                          <span className="flex items-center gap-0.5">
+                            {Array.from({ length: 5 }).map((_, i) => (
+                              <svg key={i} viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="rgb(251,152,38)">
+                                <path d="M12 2.5l2.9 6.3 6.9.7-5.2 4.7 1.5 6.8L12 17.6l-6.1 3.4 1.5-6.8L2.2 9.5l6.9-.7Z" />
+                              </svg>
+                            ))}
+                          </span>
+                          <span className="text-[13px] text-white/70">
+                            <strong className="font-semibold text-white">5.0 on Google</strong> &mdash;
+                            every review, no exceptions
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   )}
 
@@ -683,7 +739,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                       {step === 3
                         ? perPage
                           ? `Get started — ${money(price)}/mo`
-                          : `Checkout — ${money(price)}`
+                          : `Secure checkout — ${money(price)}`
                         : "Continue"}
                     </button>
                   </div>
