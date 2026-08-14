@@ -46,12 +46,39 @@ function TrustRow() {
   );
 }
 
+/**
+ * Icons for the hero badges, matched on a keyword in the label.
+ *
+ * Four identical ticks read as one block and get skimmed. A shield next to the
+ * guarantee and a loop next to the revisions makes each claim register on its
+ * own — the guarantee especially, since it's the one doing the risk-removal.
+ */
+const BADGE_ICONS: { match: RegExp; path: string }[] = [
+  // money-back guarantee — shield with a tick
+  { match: /guarantee|money-back|refund/i, path: "M12 3.2 19 5.7v5.6c0 4.4-3 7.4-7 9.1-4-1.7-7-4.7-7-9.1V5.7zM9.2 11.9l2 2 3.6-3.8" },
+  // unlimited revisions — a loop
+  { match: /revision/i, path: "M20 11.5a8 8 0 1 1-2.6-5.9M20 4v5h-5" },
+  // direct access, no middlemen — a person
+  { match: /developer access|middlemen|direct/i, path: "M12 12.4a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4.8 20.2a7.4 7.4 0 0 1 14.4 0" },
+  // built to convert — a rising chart
+  { match: /convert|conversion|custom-built|performance/i, path: "M4 19.5V13M9.5 19.5v-9M15 19.5v-5M20.5 19.5V6" },
+];
+
 function CheckItem({ label }: { label: string }) {
+  const icon = BADGE_ICONS.find((i) => i.match.test(label));
   return (
-    <li className="flex items-center gap-2 text-[14px] font-medium text-ink">
-      <span className="flex h-5 w-5 flex-none items-center justify-center rounded-full bg-[#e9f5f0]">
-        <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="var(--green-deep)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M5 13l4 4L19 7" />
+    <li className="flex items-center gap-2.5 text-[14px] font-medium text-ink">
+      <span className="flex h-6 w-6 flex-none items-center justify-center rounded-full bg-[#e9f5f0]">
+        <svg
+          viewBox="0 0 24 24"
+          className="h-3.5 w-3.5"
+          fill="none"
+          stroke="var(--green-deep)"
+          strokeWidth={icon ? "1.9" : "3"}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d={icon ? icon.path : "M5 13l4 4L19 7"} />
         </svg>
       </span>
       {label}

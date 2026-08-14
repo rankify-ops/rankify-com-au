@@ -71,6 +71,24 @@ export function CheckoutModal({
 
         <div className="p-4 sm:p-6">
           <CheckoutPanel order={order} />
+
+          {/* The last thing read before the card details go in. Stripe's iframe
+              can't carry it, and it's the objection that stops the click. */}
+          <div className="mt-4 flex items-start gap-3 rounded-2xl bg-[#e9f5f0] p-4">
+            <span className="mt-px flex h-7 w-7 flex-none items-center justify-center rounded-full bg-[var(--green-mid)]">
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 3.2 19 5.7v5.6c0 4.4-3 7.4-7 9.1-4-1.7-7-4.7-7-9.1V5.7z" />
+                <path d="m9.2 11.9 2 2 3.6-3.8" />
+              </svg>
+            </span>
+            <p className="text-[13.5px] leading-snug text-ink">
+              <strong className="font-semibold">100% money-back guarantee.</strong>{" "}
+              <span className="text-grey">
+                Not satisfied with your website within 30 days? Email us and we refund the project
+                fee in full.
+              </span>
+            </p>
+          </div>
         </div>
 
         {/* The reassurance a payment form is expected to carry. Stripe's iframe
@@ -85,14 +103,17 @@ export function CheckoutModal({
               Secure, encrypted payment via Stripe
             </span>
             <span className="inline-flex items-center gap-1.5">
+              {/* clock, not a tick — it's a timeline claim */}
               <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 flex-none" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 6 9 17l-5-5" />
+                <circle cx="12" cy="12" r="8.5" />
+                <path d="M12 7.5V12l3 1.8" />
               </svg>
               Typically live in 7&ndash;14 days
             </span>
             <span className="inline-flex items-center gap-1.5">
+              {/* loop, not a tick */}
               <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 flex-none" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 6 9 17l-5-5" />
+                <path d="M20 11.5a8 8 0 1 1-2.6-5.9M20 4v5h-5" />
               </svg>
               Unlimited revisions
             </span>
