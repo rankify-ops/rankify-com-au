@@ -384,7 +384,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                         {(
                           [
                             ["rankify", "Let us handle it", "We'll recommend the pages your business needs"],
-                            ["custom", "I'll pick my pages", "Choose exactly what you want built"],
+                            ["custom", "I'll pick my pages", "Choose which pages and we'll build them"],
                           ] as const
                         ).map(([mode, title, sub]) => (
                           <button
