@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { CheckoutPanel } from "@/components/service-page/CheckoutPanel";
+import { asset } from "@/lib/basePath";
 import type { OrderPayload } from "@/lib/checkout";
 
 /**
@@ -50,18 +52,27 @@ export function CheckoutModal({
           rather than stacking it — the stacked version reads as a form on a
           coloured slab, which is what made it feel less like a real checkout. */}
       <div className="my-auto w-full max-w-[940px] overflow-hidden rounded-3xl bg-white shadow-[0_30px_80px_rgba(0,0,0,0.4)]">
-        <div className="flex items-center justify-between gap-4 border-b border-line px-6 py-4">
-          <div className="min-w-0">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:#07a889]">
-              Complete your order
-            </p>
-            <p className="truncate text-[15px] font-semibold text-ink">{summary}</p>
-          </div>
+        {/* Centred in the empty band above the form, which works the same on a
+            phone as on desktop. Stripe's iframe carries Stripe's brand, not
+            ours — an unbranded payment box is what makes people stop and check
+            the URL bar before typing a card number. */}
+        <div className="relative border-b border-line px-6 py-6 text-center">
+          <Image
+            src={asset("/assets/images/rankify-icon.webp")}
+            alt="Rankify"
+            width={160}
+            height={160}
+            className="mx-auto h-14 w-14 rounded-full"
+          />
+          <p className="mt-3.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:#07a889]">
+            Complete your order
+          </p>
+          <p className="mt-1 text-[17px] font-semibold text-ink">{summary}</p>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close checkout"
-            className="flex h-10 w-10 flex-none items-center justify-center rounded-full border border-line text-grey transition-colors hover:bg-paper hover:text-ink"
+            className="absolute right-4 top-4 flex h-10 w-10 flex-none items-center justify-center rounded-full border border-line text-grey transition-colors hover:bg-paper hover:text-ink"
           >
             <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
               <path d="M18 6 6 18M6 6l12 12" />
@@ -89,6 +100,39 @@ export function CheckoutModal({
               </span>
             </p>
           </div>
+        </div>
+
+        {/* One review, at the bottom. Nick's is the strongest one we have and
+            it answers the exact fear at this moment: does paying up front
+            actually get me a site that works. */}
+        <div className="border-t border-line px-6 py-5">
+          <figure className="mx-auto max-w-[560px] text-center">
+            <div className="flex items-center justify-center gap-0.5">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <svg key={i} viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="rgb(251,152,38)">
+                  <path d="M12 2.5l2.9 6.3 6.9.7-5.2 4.7 1.5 6.8L12 17.6l-6.1 3.4 1.5-6.8L2.2 9.5l6.9-.7Z" />
+                </svg>
+              ))}
+            </div>
+            <blockquote className="mt-3 text-[14px] italic leading-snug text-grey">
+              &ldquo;Rankify had my website live in 7 days, which I didn&rsquo;t think was possible.
+              I had about 10 enquiries in the first fortnight. One of those turned into a job that
+              covered the website with plenty of money left over.&rdquo;
+            </blockquote>
+            <figcaption className="mt-3 flex items-center justify-center gap-2.5">
+              <Image
+                src={asset("/assets/images/nick-prime-group.webp")}
+                alt="Nick"
+                width={96}
+                height={96}
+                className="h-9 w-9 flex-none rounded-full object-cover"
+              />
+              <span className="text-left text-[12.5px] text-grey">
+                <strong className="block font-semibold text-ink">Nick</strong>
+                Owner, Prime Group
+              </span>
+            </figcaption>
+          </figure>
         </div>
 
         {/* The reassurance a payment form is expected to carry. Stripe's iframe
