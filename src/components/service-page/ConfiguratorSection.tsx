@@ -297,7 +297,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                   </span>
                 </div>
                 <p className="text-right text-[13px] leading-snug text-white/60">
-                  {totalPages} page{totalPages === 1 ? "" : "s"}
+                  {byUs ? <>Up to {includedPages} pages</> : <>{totalPages} page{totalPages === 1 ? "" : "s"}</>}
                   <br />
                   {perPage ? (
                     <>× {money(block.pricePerPage ?? 0)} / mo</>
@@ -325,7 +325,9 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                     : "bg-white/[0.06] text-white/70"
                 }`}
               >
-                {perPage
+                {byUs
+                  ? "We'll recommend the right pages after your onboarding form."
+                  : perPage
                   ? `${money(price * (block.minMonths ?? 1))} over the ${block.minMonths ?? 1} month minimum.`
                   : remaining > 0
                     ? `You can select ${remaining} more page${remaining === 1 ? "" : "s"} before the price increases!`
@@ -703,7 +705,9 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                   {perPage && <span className="text-[18px] font-medium text-white/50">/mo</span>}
                 </div>
                 <p className="mt-2 text-[13.5px] text-white/60">
-                  {perPage ? (
+                  {byUs ? (
+                    <>Up to {includedPages} pages included</>
+                  ) : perPage ? (
                     <>
                       {totalPages} page{totalPages === 1 ? "" : "s"} × {money(block.pricePerPage ?? 0)}
                       {block.minMonths ? ` · ${block.minMonths} month minimum` : ""}
@@ -732,27 +736,35 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                     the number they're actually deciding against. */}
                 <p
                   className={`mt-3 rounded-xl px-3 py-2.5 text-[13px] font-medium leading-snug ${
-                    perPage || remaining > 0
+                    byUs || perPage || remaining > 0
                       ? "bg-[color:#07a889]/15 text-[color:#3fd8bb]"
                       : "bg-white/[0.06] text-white/70"
                   }`}
                 >
-                  {perPage
-                    ? `${money(price * (block.minMonths ?? 1))} over the ${block.minMonths ?? 1} month minimum, then month to month.`
-                    : remaining > 0
-                      ? `You can select ${remaining} more page${remaining === 1 ? "" : "s"} before the price increases!`
-                      : `All ${includedPages} included pages used — every page after this adds ${money(extraPagePrice)}.`}
+                  {byUs
+                    ? "We'll recommend the right pages after your onboarding form."
+                    : perPage
+                      ? `${money(price * (block.minMonths ?? 1))} over the ${block.minMonths ?? 1} month minimum, then month to month.`
+                      : remaining > 0
+                        ? `You can select ${remaining} more page${remaining === 1 ? "" : "s"} before the price increases!`
+                        : `All ${includedPages} included pages used — every page after this adds ${money(extraPagePrice)}.`}
                 </p>
               </div>
 
               <ul className="mt-4 grid gap-2 border-t border-white/10 pt-5 lg:mt-6">
-                {[...selected, ...custom].map((p) => (
+                {byUs && (
+                  <li className="flex items-start gap-2 text-[13.5px] text-white/75">
+                    <span className="text-[color:#07a889]">✓</span>
+                    Page structure scoped by us, built around your business
+                  </li>
+                )}
+                {!byUs && [...selected, ...custom].map((p) => (
                   <li key={p} className="flex items-center gap-2 text-[13.5px] text-white/75">
                     <span className="text-[color:#07a889]">✓</span>
                     {p}
                   </li>
                 ))}
-                {servicePages > 0 && (
+                {!byUs && servicePages > 0 && (
                   <li className="flex items-center gap-2 text-[13.5px] text-white/75">
                     <span className="text-[color:#07a889]">✓</span>
                     {servicePages} dedicated service page{servicePages === 1 ? "" : "s"}

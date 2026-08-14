@@ -273,9 +273,11 @@ export const webDesignAndDevelopment: ServicePageData = {
       type: "configurator",
       anchorId: "website-configurator",
       eyebrow: "Website Configurator",
-      heading: "You tell us what pages you want.",
+      // The section offers two routes now, so the heading can't describe only
+      // the one where they do the work.
+      heading: "Your website, priced before you commit.",
       blurb:
-        "We build the website, handle the content, and deliver a high-performance site for your business. Pick your pages and see the price as you go.",
+        "Hand us the whole thing and we'll scope the pages, or pick them yourself — either way you see the price up front and we build a site that converts.",
       basePrice: 2999,
       includedPages: 10,
       extraPagePrice: 200,
