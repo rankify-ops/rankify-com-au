@@ -44,6 +44,12 @@ const TESTIMONIALS: { img?: string; name: string; role: string; quote: string }[
       "I recently had my website built by Rankify and I couldn’t be happier with the outcome. From start to finish, the process was seamless, professional, and efficient. Tom took the time to really understand my business and brand, and turned that vision into a clean and user-friendly site. Highly recommend Rankify for anyone needing a standout website that reflects their business perfectly.",
   },
   {
+    name: "Veith Smith",
+    role: "Google Review",
+    quote:
+      "Had a quick call and Tom helped me and set all up for my homepage! It has increased my views and engagement on my page as well! Thank you so much again!",
+  },
+  {
     img: "/assets/images/sTM4xoEwNsccI4dCp2aB3iY87w.jpg",
     name: "Natalina Hoffman",
     role: "The Sculpted Look",
@@ -62,12 +68,6 @@ const TESTIMONIALS: { img?: string; name: string; role: string; quote: string }[
     role: "Roofing",
     quote:
       "Was great dealing with Tom for our roofing companies website development and SEO. Tom was upfront with costs, and provided updates along each step, wrapped with the outcome. Highly recommend!",
-  },
-  {
-    name: "Veith Nurtsch",
-    role: "Google Review",
-    quote:
-      "Had a quick call and Tom helped me and set all up for my homepage! It has increased my views and engagement on my page as well! Thank you so much again!",
   },
 ];
 
