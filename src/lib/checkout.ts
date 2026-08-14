@@ -25,6 +25,8 @@ export function returnUrl(): string {
 }
 
 export type OrderPayload = {
+  /** "rankify" when they asked us to scope the pages instead of picking. */
+  pagesMode?: "rankify" | "custom";
   pages: string[];
   servicePages: number;
   business: string;

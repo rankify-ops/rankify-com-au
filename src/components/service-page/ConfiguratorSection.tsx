@@ -106,6 +106,11 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
   const [step, setStep] = useState(1);
   const [selected, setSelected] = useState<string[]>(block.corePages);
   const [showMore, setShowMore] = useState(false);
+  /**
+   * Most people don't want to make ten decisions before they can pay. Default
+   * to us scoping it; picking pages is the opt-in, not the toll gate.
+   */
+  const [pagesMode, setPagesMode] = useState<"rankify" | "custom">("rankify");
   const [servicePages, setServicePages] = useState(0);
   const [custom, setCustom] = useState<string[]>([]);
   const [draft, setDraft] = useState("");
@@ -129,12 +134,17 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
   const includedPages = block.includedPages ?? 0;
   const extraPagePrice = block.extraPagePrice ?? 0;
 
-  const totalPages = selected.length + servicePages + custom.length;
+  const byUs = pagesMode === "rankify";
+  // In "we'll handle it" mode the picker isn't driving anything: the price is
+  // the base build and the page list is scoped on the brief.
+  const totalPages = byUs ? includedPages : selected.length + servicePages + custom.length;
   const extra = Math.max(0, totalPages - includedPages);
   const remaining = perPage ? 0 : Math.max(0, includedPages - totalPages);
-  const price = perPage
-    ? totalPages * (block.pricePerPage ?? 0)
-    : basePrice + extra * extraPagePrice;
+  const price = byUs
+    ? basePrice
+    : perPage
+      ? totalPages * (block.pricePerPage ?? 0)
+      : basePrice + extra * extraPagePrice;
   const canCheckout = (block.checkout ?? true) && checkoutConfigured;
 
   const toggle = (p: string) =>
@@ -171,7 +181,9 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
   const summary = useMemo(
     () =>
       [
-        `Pages (${totalPages}): ${[...selected, ...custom].join(", ")}` +
+        (byUs
+          ? "Pages: Rankify to recommend (up to " + includedPages + " included)"
+          : `Pages (${totalPages}): ${[...selected, ...custom].join(", ")}`) +
           (servicePages ? `, ${servicePages} dedicated service page(s)` : ""),
         `Total: ${money(price)}`,
         `Business: ${details.business || "—"} (${details.industry || "—"})`,
@@ -179,7 +191,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
         `About: ${details.about || "—"}`,
         `Contact: ${details.name || "—"} · ${details.email || "—"} · ${details.phone || "—"}`,
       ].join("\n"),
-    [totalPages, selected, custom, servicePages, price, details]
+    [byUs, includedPages, totalPages, selected, custom, servicePages, price, details]
   );
 
   const mailto = `mailto:hello@rankify.com.au?subject=${encodeURIComponent(
@@ -189,7 +201,8 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
   // Selections only — the API prices the order itself, so a tampered payload
   // can't buy a website for a dollar.
   const order: OrderPayload = {
-    pages: [...selected, ...custom],
+    pagesMode,
+    pages: byUs ? [] : [...selected, ...custom],
     servicePages,
     business: details.business,
     industry: details.industry,
@@ -362,6 +375,80 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
 
                   {step === 1 && (
                     <>
+                      {/* Two ways in, stated plainly. Default is us deciding —
+                          picking pages is for people who want to, not a gate
+                          everyone has to pass to reach the price. */}
+                      <div className="mb-5 grid gap-2 sm:grid-cols-2">
+                        {(
+                          [
+                            ["rankify", "Let us handle it", "We'll recommend the pages your business needs"],
+                            ["custom", "I'll pick my pages", "Choose exactly what you want built"],
+                          ] as const
+                        ).map(([mode, title, sub]) => (
+                          <button
+                            key={mode}
+                            type="button"
+                            onClick={() => setPagesMode(mode)}
+                            aria-pressed={pagesMode === mode}
+                            className={`rounded-2xl border p-4 text-left transition-colors ${
+                              pagesMode === mode
+                                ? "border-[color:#07a889] bg-[color:#07a889]/12"
+                                : "border-white/15 bg-white/[0.04] hover:bg-white/[0.07]"
+                            }`}
+                          >
+                            <span className="flex items-center gap-2">
+                              <span
+                                className={`flex h-4 w-4 flex-none items-center justify-center rounded-full border ${
+                                  pagesMode === mode
+                                    ? "border-[color:#07a889] bg-[color:#07a889]"
+                                    : "border-white/35"
+                                }`}
+                              >
+                                {pagesMode === mode && (
+                                  <svg viewBox="0 0 24 24" className="h-2.5 w-2.5" fill="none" stroke="#04231a" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M5 13l4 4L19 7" />
+                                  </svg>
+                                )}
+                              </span>
+                              <span className="text-[14.5px] font-semibold">{title}</span>
+                            </span>
+                            <span className="mt-1.5 block pl-6 text-[13px] leading-snug text-white/60">
+                              {sub}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+
+                      {byUs ? (
+                        <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-5">
+                          <p className="text-[15px] font-medium">
+                            We&rsquo;ll scope the pages for you.
+                          </p>
+                          <p className="mt-2 text-[14px] leading-relaxed text-white/65">
+                            After you order you&rsquo;ll get a short onboarding form. We take what
+                            you tell us about your business and build the page structure that
+                            converts best for it &mdash; up to {includedPages} pages included, at
+                            the same price.
+                          </p>
+                          <ul className="mt-4 grid gap-2">
+                            {[
+                              "The pages your competitors rank for, not a template",
+                              "A dedicated page per service where it earns one",
+                              "Same 30-day money-back guarantee either way",
+                            ].map((t) => (
+                              <li key={t} className="flex items-start gap-2.5 text-[13.5px] leading-snug text-white/80">
+                                <span className="mt-[3px] flex h-[15px] w-[15px] flex-none items-center justify-center rounded-full bg-[color:#07a889]">
+                                  <svg viewBox="0 0 24 24" className="h-2 w-2" fill="none" stroke="#04231a" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M5 13l4 4L19 7" />
+                                  </svg>
+                                </span>
+                                {t}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : (
+                      <>
                       <div className="flex flex-wrap gap-2">
                         {[...block.corePages, ...block.optionalPages].map((p) => (
                           <PageChip key={p} label={p} on={selected.includes(p)} onToggle={() => toggle(p)} />
@@ -468,6 +555,8 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                           </button>
                         </div>
                       </div>
+                      </>
+                      )}
                     </>
                   )}
 
