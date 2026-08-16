@@ -715,7 +715,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                     </div>
                   )}
 
-                  <div className="mt-7 flex items-center gap-3">
+                  <div className="mt-7 flex flex-wrap items-center gap-3">
                     {step > 1 && (
                       <button
                         type="button"
@@ -743,8 +743,14 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                         });
                         return canCheckout ? setPaying(true) : setSent(true);
                       }}
-                      className="neu-btn neu-btn-light whitespace-nowrap rounded-full bg-white px-6 py-2.5 text-[14px] font-bold text-ink disabled:cursor-not-allowed disabled:opacity-40"
+                      className="neu-btn neu-btn-light inline-flex min-w-0 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-white px-5 py-2.5 text-[14px] font-bold text-ink disabled:cursor-not-allowed disabled:opacity-40 sm:flex-none sm:px-6"
                     >
+                      {step === 3 && !perPage && (
+                        <svg viewBox="0 0 24 24" className="h-4 w-4 flex-none" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="5" y="10.5" width="14" height="9.5" rx="2" />
+                          <path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" />
+                        </svg>
+                      )}
                       {step === 3
                         ? perPage
                           ? `Get started — ${money(price)}/mo`
