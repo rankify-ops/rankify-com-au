@@ -147,7 +147,7 @@ export function SiteFooter() {
 
   return (
     <section className="mx-2 mt-2 rounded-3xl bg-paper text-ink">
-      <footer className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24">
+      <footer className="mx-auto max-w-[1400px] px-5 pt-16 sm:px-10 sm:pt-24">
           <div className="grid gap-10 pb-10 sm:pb-16 lg:grid-cols-2 lg:gap-20">
             <Reveal>
               <p className="max-w-[420px] text-[clamp(18px,1.6vw,24px)] font-medium leading-snug tracking-[-0.02em] text-grey">
@@ -269,31 +269,34 @@ export function SiteFooter() {
             </Reveal>
           </div>
 
-          {/* The logo is the window, not the artwork — the silk animates
-              behind it and the SVG's own alpha masks it into the letterforms.
-              Masking beats background-clip:text here because the mark isn't
-              text, and it keeps the R symbol in the effect too. */}
-          <Reveal scale>
-            <div
-              role="img"
-              aria-label="Rankify®"
-              // -mx matches the footer's px so the wordmark runs edge to edge
-              // at both padding steps rather than stopping inside the gutter.
-              className="silk relative -mx-5 w-[calc(100%+2.5rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]"
-              style={{
-                aspectRatio: "1300 / 281",
-                WebkitMaskImage: `url(${asset("/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg")})`,
-                maskImage: `url(${asset("/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg")})`,
-                WebkitMaskSize: "contain",
-                maskSize: "contain",
-                WebkitMaskRepeat: "no-repeat",
-                maskRepeat: "no-repeat",
-                WebkitMaskPosition: "center",
-                maskPosition: "center",
-              }}
-            />
-          </Reveal>
         </footer>
+
+        {/* Full-bleed, and deliberately outside the max-w-[1400px] column
+            above: the wordmark runs the entire width of the footer card on any
+            monitor rather than stopping at the content measure.
+
+            The logo is the window, not the artwork — the silk animates behind
+            it and the SVG's own alpha masks it into the letterforms. Masking
+            beats background-clip:text here because the mark isn't text, and it
+            keeps the R symbol in the effect too. */}
+        <Reveal scale className="block pb-16 sm:pb-24">
+          <div
+            role="img"
+            aria-label="Rankify®"
+            className="silk relative w-full"
+            style={{
+              aspectRatio: "1300 / 281",
+              WebkitMaskImage: `url(${asset("/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg")})`,
+              maskImage: `url(${asset("/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg")})`,
+              WebkitMaskSize: "contain",
+              maskSize: "contain",
+              WebkitMaskRepeat: "no-repeat",
+              maskRepeat: "no-repeat",
+              WebkitMaskPosition: "center",
+              maskPosition: "center",
+            }}
+          />
+        </Reveal>
 
         <div className="rounded-b-3xl bg-ink px-5 py-7 text-white sm:px-10">
           <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-4 text-[13px] text-white/60">
@@ -313,7 +316,7 @@ export function SiteFooter() {
                 alt=""
                 width={20}
                 height={20}
-                className="h-5 w-5 rounded-full object-cover"
+                className="h-5 w-5 object-contain"
               />
               <strong className="text-white">Rankify</strong>
             </span>
