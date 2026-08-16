@@ -463,22 +463,24 @@ body {
  */
 .silk {
   background-color: var(--green-deep);
+  /* Darker pass: the highlight bands were bright enough that the wordmark
+     read as mint rather than as the brand green. Same movement, less lift. */
   background-image:
     repeating-linear-gradient(
       112deg,
       rgba(63, 216, 187, 0) 0%,
-      rgba(63, 216, 187, 0.55) 4%,
-      rgba(7, 168, 137, 0.15) 9%,
+      rgba(63, 216, 187, 0.3) 4%,
+      rgba(7, 168, 137, 0.1) 9%,
       rgba(63, 216, 187, 0) 14%
     ),
     repeating-linear-gradient(
       68deg,
       rgba(7, 168, 137, 0) 0%,
-      rgba(7, 168, 137, 0.5) 5%,
-      rgba(1, 15, 10, 0.35) 11%,
+      rgba(7, 168, 137, 0.28) 5%,
+      rgba(1, 15, 10, 0.42) 11%,
       rgba(7, 168, 137, 0) 17%
     ),
-    radial-gradient(120% 180% at 15% 0%, #0b4a35 0%, var(--green-deep) 55%, #010f0a 100%);
+    radial-gradient(120% 180% at 15% 0%, #07301f 0%, var(--green-deep) 45%, #021b12 100%);
   background-size:
     260% 260%,
     320% 320%,

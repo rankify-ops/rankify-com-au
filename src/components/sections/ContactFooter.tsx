@@ -277,7 +277,9 @@ export function SiteFooter() {
             <div
               role="img"
               aria-label="Rankify®"
-              className="silk relative w-full"
+              // -mx matches the footer's px so the wordmark runs edge to edge
+              // at both padding steps rather than stopping inside the gutter.
+              className="silk relative -mx-5 w-[calc(100%+2.5rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]"
               style={{
                 aspectRatio: "1300 / 281",
                 WebkitMaskImage: `url(${asset("/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg")})`,
