@@ -16,6 +16,8 @@ const INCLUDED_PAGES = 10;
 const EXTRA_PAGE_CENTS = 20_000; // $200 per page beyond the included ten
 
 type Body = {
+  /** "rankify" when they asked us to choose the pages instead of picking. */
+  pagesMode?: "rankify" | "custom";
   pages?: string[];
   servicePages?: number;
   business?: string;
@@ -39,7 +41,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const pages = Array.isArray(b.pages) ? b.pages.filter((p) => typeof p === "string") : [];
     const servicePages = Math.max(0, Math.min(50, Number(b.servicePages) || 0));
-    const totalPages = pages.length + servicePages;
+    // Same reporting fix as /api/lead: a "let us handle it" order sends no
+    // page list, and recording that as 0 pages misstates the deal. Price is
+    // unchanged either way — both are inside the included allowance.
+    const pagesMode = b.pagesMode === "rankify" ? "rankify" : "custom";
+    const totalPages = pagesMode === "rankify" ? INCLUDED_PAGES : pages.length + servicePages;
     const extra = Math.max(0, totalPages - INCLUDED_PAGES);
 
     const email = typeof b.email === "string" ? b.email.trim() : "";
@@ -76,6 +82,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // the Stripe dashboard rather than in a separate email.
     const metadata: Record<string, string> = {
       total_pages: String(totalPages),
+      pages_mode: pagesMode,
       pages: clip(pages.join(", ")),
       service_pages: String(servicePages),
       business: clip(b.business, 200),

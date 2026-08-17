@@ -76,6 +76,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const amount = s.amount_total ?? 0;
         await addPaidClient(
           {
+            pagesMode: m.pages_mode === "rankify" ? "rankify" : "custom",
             pages: (m.pages ?? "").split(", ").filter(Boolean),
             servicePages: Number(m.service_pages ?? 0),
             totalPages: Number(m.total_pages ?? 0),

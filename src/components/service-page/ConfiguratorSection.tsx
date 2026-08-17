@@ -125,6 +125,8 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
     email: "",
     phone: "",
   });
+  /** Ticked when they have nothing to show us yet — see the field on step 2. */
+  const [noSite, setNoSite] = useState(false);
   const [sent, setSent] = useState(false);
   const [paying, setPaying] = useState(false);
 
@@ -177,6 +179,21 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
   const email = details.email.trim();
   // enough to be repliable — a lead with no name and no address is no lead
   const canSubmit = details.name.trim().length > 1 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  /**
+   * Step 2 is the whole brief, so all of it is required now. A lead that
+   * arrives as "Industry: Trades, About: Plumbing" and nothing else can't be
+   * researched before the follow-up call, which is the only reason we collect
+   * any of it.
+   *
+   * `about` carries a length floor rather than just non-empty: one word passes
+   * a truthy check and tells us nothing.
+   */
+  const canContinueFromBusiness =
+    details.business.trim().length > 1 &&
+    details.industry.trim().length > 0 &&
+    details.existing.trim().length > 0 &&
+    details.about.trim().length >= 20;
 
   const [crmClientId, setCrmClientId] = useState<string | null>(null);
 
@@ -578,7 +595,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                   {step === 2 && (
                     <div className="grid gap-4">
                       <div className="grid gap-4 sm:grid-cols-2">
-                        <Field label="Business name">
+                        <Field label="Business name" required>
                           <input
                             className={inputCls}
                             value={details.business}
@@ -586,7 +603,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                             placeholder="Acme Plumbing"
                           />
                         </Field>
-                        <Field label="Industry">
+                        <Field label="Industry" required>
                           <select
                             className={inputCls}
                             value={details.industry}
@@ -601,15 +618,32 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                           </select>
                         </Field>
                       </div>
-                      <Field label="Existing website (if you have one)">
+                      <Field label="Existing website" required>
                         <input
                           className={inputCls}
                           value={details.existing}
+                          disabled={noSite}
                           onChange={(e) => setDetails({ ...details, existing: e.target.value })}
                           placeholder="https://…"
                         />
+                        {/* The field is required, so plenty of people starting
+                            from nothing would otherwise be stuck here. Ticking
+                            it fills the answer rather than exempting it — the
+                            brief still reads as a complete sentence. */}
+                        <label className="mt-2 flex cursor-pointer items-center gap-2 text-[13px] text-white/60">
+                          <input
+                            type="checkbox"
+                            checked={noSite}
+                            onChange={(e) => {
+                              setNoSite(e.target.checked);
+                              setDetails((d) => ({ ...d, existing: e.target.checked ? "No site yet" : "" }));
+                            }}
+                            className="h-4 w-4 flex-none accent-[color:#07a889]"
+                          />
+                          I don&rsquo;t have a website yet
+                        </label>
                       </Field>
-                      <Field label="What does your business do?">
+                      <Field label="What does your business do?" required>
                         <textarea
                           rows={3}
                           className={inputCls}
@@ -625,6 +659,15 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                         A sentence or two is plenty here. Once you order, we&rsquo;ll take you through a
                         proper onboarding to get the additional information we need.
                       </p>
+                      {/* A disabled Continue with no explanation reads as a
+                          broken form, so say which part is still outstanding. */}
+                      {!canContinueFromBusiness && (
+                        <p className="text-[13px] text-white/45">
+                          {details.about.trim().length > 0 && details.about.trim().length < 20
+                            ? "Just a little more detail on what you do — one sentence is plenty."
+                            : "All four help us design something that actually fits your business."}
+                        </p>
+                      )}
                     </div>
                   )}
 
@@ -727,7 +770,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                     )}
                     <button
                       type="button"
-                      disabled={step === 3 && !canSubmit}
+                      disabled={(step === 2 && !canContinueFromBusiness) || (step === 3 && !canSubmit)}
                       onClick={() => {
                         if (step < 3) return setStep((s) => s + 1);
                         // Falls back to the email brief until the Stripe keys

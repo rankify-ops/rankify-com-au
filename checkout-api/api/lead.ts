@@ -29,9 +29,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const pages = Array.isArray(b.pages) ? b.pages.filter((p) => typeof p === "string") : [];
     const servicePages = Math.max(0, Math.min(50, Number(b.servicePages) || 0));
-    const totalPages = pages.length + servicePages;
+    // "Let us handle it" sends no page list. Counting that as 0 understated
+    // every such enquiry — it's the full included allowance, at base price.
+    const pagesMode = b.pagesMode === "rankify" ? "rankify" : "custom";
+    const totalPages = pagesMode === "rankify" ? INCLUDED_PAGES : pages.length + servicePages;
 
     const brief: Brief = {
+      pagesMode,
       pages,
       servicePages,
       totalPages,

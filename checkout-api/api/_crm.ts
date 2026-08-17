@@ -21,6 +21,8 @@ async function routine(body: Record<string, unknown>): Promise<Record<string, un
 }
 
 export type Brief = {
+  /** "rankify" when they asked us to choose the pages instead of picking. */
+  pagesMode?: "rankify" | "custom";
   pages: string[];
   servicePages: number;
   totalPages: number;
@@ -35,9 +37,16 @@ export type Brief = {
 };
 
 export function briefNotes(b: Brief, extra?: string): string {
+  // "Rankify to scope" briefs carry no page list, which used to print as
+  // "0 pages" with an empty Pages line — it read like a broken submission
+  // rather than the deliberate choice it is.
+  const byUs = b.pagesMode === "rankify";
   const lines = [
-    `Website configurator — ${b.totalPages} pages, $${b.price.toLocaleString("en-AU")}`,
-    `Pages: ${b.pages.join(", ")}${b.servicePages ? ` + ${b.servicePages} dedicated service page(s)` : ""}`,
+    `Website configurator — ${byUs ? `Rankify to scope, up to ${b.totalPages}` : b.totalPages} pages, $${b.price.toLocaleString("en-AU")}`,
+    byUs
+      ? "Pages: asked us to choose"
+      : `Pages: ${b.pages.join(", ")}${b.servicePages ? ` + ${b.servicePages} dedicated service page(s)` : ""}`,
+    b.business ? `Business: ${b.business}` : "",
     b.industry ? `Industry: ${b.industry}` : "",
     b.existing ? `Existing site: ${b.existing}` : "",
   ].filter(Boolean);
