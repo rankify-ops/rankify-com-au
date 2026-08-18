@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { Stars } from "@/components/ui/Stars";
+import { ScreenshotWall } from "@/components/service-page/ScreenshotWall";
 import { LandingFaq, LandingPixel, StickyCta } from "@/components/landing/LandingChrome";
 
 /**
@@ -127,7 +128,7 @@ export default function FreeHomepagePage() {
 
       {/* ---------- 1. Hero ---------- */}
       <section className="mx-auto max-w-[1200px] px-5 pb-4 pt-10 sm:px-10 sm:pt-14">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.85fr] lg:gap-16">
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div>
             <Reveal>
               <h1 className="text-[clamp(32px,4.2vw,52px)] font-medium leading-[1.03] tracking-[-0.04em]">
@@ -162,18 +163,13 @@ export default function FreeHomepagePage() {
             </Reveal>
           </div>
 
-          <Reveal scale delay={0.1} className="mx-auto w-full max-w-[340px] lg:max-w-none">
-            <div className="neu overflow-hidden rounded-3xl border border-line bg-white p-2">
-              <Image
-                src={asset("/assets/showcase-web/02.webp")}
-                alt="A recent Rankify homepage build"
-                width={420}
-                height={747}
-                priority
-                className="h-auto w-full rounded-2xl"
-              />
-            </div>
-          </Reveal>
+          {/* The same drifting wall the web dev page uses. A single static
+              screenshot read as one arbitrary phone; fifteen of them moving
+              says "I have built a lot of these" before a word is read, which
+              is the job this half of the hero is doing. */}
+          <div className="h-[380px] sm:h-[480px] lg:h-[min(64vh,620px)]">
+            <ScreenshotWall set="web" />
+          </div>
         </div>
       </section>
 
