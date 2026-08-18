@@ -148,6 +148,13 @@ export function ServiceHero({ hero }: { hero: HeroData }) {
                   {hero.ctaSecondary.label}
                 </Button>
               </Reveal>
+              {hero.ctaNote && (
+                <Reveal delay={0.3}>
+                  <p className="mt-3.5 max-w-[420px] text-[13.5px] leading-snug text-grey">
+                    {hero.ctaNote}
+                  </p>
+                </Reveal>
+              )}
               {hero.asSeenOn && (
                 <Reveal delay={0.3} className="mt-10">
                   <p className="mb-3 text-[13px] text-grey">As Seen on:</p>

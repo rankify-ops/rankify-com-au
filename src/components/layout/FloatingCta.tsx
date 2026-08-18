@@ -26,6 +26,10 @@ const PRIMARY = {
 };
 
 const BOOK_INSTEAD: Record<string, { label: string; href: string }> = {
+  "/web-design-and-development": {
+    label: "View pricing",
+    href: "/web-design-and-development#website-configurator",
+  },
   "/shopify-development-services": {
     label: "View pricing",
     href: "/shopify-development-services#website-pricing",
@@ -60,10 +64,20 @@ export function FloatingCta() {
     };
   }, [pathname]);
 
-  // no point nudging a call on the page that books the call
-  if (pathname === "/schedule-strategy-call" || pathname === "/contact") return null;
+  /**
+   * Trailing slash stripped before every comparison below.
+   *
+   * The export writes each route as `<route>/index.html`, so the path that
+   * reaches this component carries a trailing slash and never matched the
+   * keys — which is why both Shopify pages have been shipping the generic
+   * "Get Started" bar rather than their own "View pricing" one.
+   */
+  const route = pathname.replace(/\/+$/, "") || "/";
 
-  const secondary = BOOK_INSTEAD[pathname];
+  // no point nudging a call on the page that books the call
+  if (route === "/schedule-strategy-call" || route === "/contact") return null;
+
+  const secondary = BOOK_INSTEAD[route];
 
   return (
     // `pointer-events-none` on the full-width track, re-enabled on the pill
@@ -106,7 +120,16 @@ export function FloatingCta() {
             href={secondary ? "/schedule-strategy-call" : PRIMARY.href}
             className="neu-btn neu-btn-dark flex-1 whitespace-nowrap rounded-full border border-transparent bg-[var(--green-deep)] px-4 py-2.5 text-center text-[13.5px] font-bold text-white hover:-skew-x-3 sm:flex-none sm:px-5 sm:py-2 sm:text-[14px]"
           >
-            {secondary ? "Book a call" : PRIMARY.label}
+            {secondary ? (
+              <>
+                {/* Full label where it fits; the bar is already tight at 390px
+                    with a second button beside it. */}
+                <span className="sm:hidden">Book a call</span>
+                <span className="hidden sm:inline">Book Free Strategy Call</span>
+              </>
+            ) : (
+              PRIMARY.label
+            )}
           </SmartLink>
           <SmartLink
             href={secondary ? secondary.href : "/schedule-strategy-call"}

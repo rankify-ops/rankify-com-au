@@ -29,8 +29,11 @@ export const webDesignAndDevelopment: ServicePageData = {
       "Unlimited revisions",
       "30-day money-back guarantee",
     ],
-    ctaPrimary: { label: "Get Started", href: "#website-configurator" },
-    ctaSecondary: { label: "Schedule free strategy Call", href: "/schedule-strategy-call" },
+    // The call leads now. Someone who wants the price can still get to it in
+    // one click, but the page opens on a conversation rather than a checkout.
+    ctaPrimary: { label: "Book Free Strategy Call", href: "/schedule-strategy-call" },
+    ctaSecondary: { label: "View Pricing", href: "#website-configurator" },
+    ctaNote: "Let's have a chat about your website and performance, no obligation either way.",
     heroScreenshotWall: "web",
   },
   blocks: [

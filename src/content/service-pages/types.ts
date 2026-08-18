@@ -360,6 +360,8 @@ export type HeroData = {
   badges?: string[];
   ctaPrimary: { label: string; href: string };
   ctaSecondary: { label: string; href: string };
+  /** Reassurance under the hero buttons — showcase variant only. */
+  ctaNote?: string;
   trustLabel?: string;
   asSeenOn?: { src: string; alt: string }[];
   heroImage?: string;
