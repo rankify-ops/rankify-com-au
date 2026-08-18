@@ -43,11 +43,21 @@ export function BookingCalendar() {
         callback: () => {
           if (bookedRef.current) return;
           bookedRef.current = true;
-          pixelTrack("Lead", {
+          const booking = {
             content_name: "Strategy call",
             content_category: "Booking",
             currency: "AUD",
-          });
+          };
+          /**
+           * Two events for one booking, deliberately.
+           *
+           * `Schedule` is the conversion the free-homepage campaign optimises
+           * for — it says what actually happened. `Lead` stays because the
+           * audiences already built on it would go empty the day it stopped
+           * firing. Optimise for one of them, not both.
+           */
+          pixelTrack("Lead", booking);
+          pixelTrack("Schedule", booking);
         },
       });
     })();

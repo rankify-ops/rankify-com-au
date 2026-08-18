@@ -13,7 +13,13 @@ declare global {
 }
 
 /** Standard Meta events. Standard names build audiences and can be optimised for; custom ones can't. */
-type StandardEvent = "AddToCart" | "InitiateCheckout" | "Purchase" | "Lead";
+type StandardEvent =
+  | "AddToCart"
+  | "InitiateCheckout"
+  | "Purchase"
+  | "Lead"
+  | "Schedule"
+  | "ViewContent";
 
 export function pixelTrack(event: StandardEvent, params?: Record<string, unknown>) {
   if (typeof window === "undefined" || typeof window.fbq !== "function") return;

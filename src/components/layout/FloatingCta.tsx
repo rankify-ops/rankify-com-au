@@ -74,8 +74,11 @@ export function FloatingCta() {
    */
   const route = pathname.replace(/\/+$/, "") || "/";
 
-  // no point nudging a call on the page that books the call
+  // no point nudging a call on the page that books the call, and the paid
+  // landing page carries its own single CTA — a second one competing with it
+  // is exactly what that page is built to avoid
   if (route === "/schedule-strategy-call" || route === "/contact") return null;
+  if (route === "/free-homepage" || route.startsWith("/free-homepage/")) return null;
 
   const secondary = BOOK_INSTEAD[route];
 
