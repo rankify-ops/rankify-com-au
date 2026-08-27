@@ -25,6 +25,17 @@ const PRIMARY = {
   href: "/web-design-and-development#website-configurator",
 };
 
+/**
+ * Pages where the bar is the call and nothing else.
+ *
+ * The home page sells five services, so "Get Started" had to guess which one
+ * — and it guessed the web dev configurator, quietly walking a visitor who
+ * might have wanted Shopify or SEO into a $2,999 website checkout. One button
+ * asking for a conversation is the honest CTA for a page that hasn't
+ * established what the visitor wants yet.
+ */
+const CALL_ONLY = new Set(["/"]);
+
 const BOOK_INSTEAD: Record<string, { label: string; href: string }> = {
   "/web-design-and-development": {
     label: "View pricing",
@@ -80,6 +91,7 @@ export function FloatingCta() {
   if (route === "/schedule-strategy-call" || route === "/contact") return null;
   if (route === "/free-homepage" || route.startsWith("/free-homepage/")) return null;
 
+  const callOnly = CALL_ONLY.has(route);
   const secondary = BOOK_INSTEAD[route];
 
   return (
@@ -120,10 +132,14 @@ export function FloatingCta() {
               swap: booking becomes primary, pricing the fallback. They never
               both point at the call — two identical buttons is just one. */}
           <SmartLink
-            href={secondary ? "/schedule-strategy-call" : PRIMARY.href}
+            href={callOnly || secondary ? "/schedule-strategy-call" : PRIMARY.href}
             className="neu-btn neu-btn-dark flex-1 whitespace-nowrap rounded-full border border-transparent bg-[var(--green-deep)] px-4 py-2.5 text-center text-[13.5px] font-bold text-white hover:-skew-x-3 sm:flex-none sm:px-5 sm:py-2 sm:text-[14px]"
           >
-            {secondary ? (
+            {callOnly ? (
+              // Alone in the bar it has the whole width, so it keeps the full
+              // label at every size.
+              "Book Free Strategy Call"
+            ) : secondary ? (
               <>
                 {/* Full label where it fits; the bar is already tight at 390px
                     with a second button beside it. */}
@@ -134,12 +150,14 @@ export function FloatingCta() {
               PRIMARY.label
             )}
           </SmartLink>
-          <SmartLink
-            href={secondary ? secondary.href : "/schedule-strategy-call"}
-            className="flex-1 whitespace-nowrap rounded-full border border-ink/15 bg-white/50 px-4 py-2.5 text-center text-[13.5px] font-semibold transition-colors hover:bg-white sm:flex-none sm:px-5 sm:py-2 sm:text-[14px]"
-          >
-            {secondary ? secondary.label : "Book a call"}
-          </SmartLink>
+          {!callOnly && (
+            <SmartLink
+              href={secondary ? secondary.href : "/schedule-strategy-call"}
+              className="flex-1 whitespace-nowrap rounded-full border border-ink/15 bg-white/50 px-4 py-2.5 text-center text-[13.5px] font-semibold transition-colors hover:bg-white sm:flex-none sm:px-5 sm:py-2 sm:text-[14px]"
+            >
+              {secondary ? secondary.label : "Book a call"}
+            </SmartLink>
+          )}
         </div>
       </div>
     </div>
