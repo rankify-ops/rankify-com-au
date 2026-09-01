@@ -265,6 +265,14 @@ export type QuoteBlock = {
 export type CaseStudyRowBlock = {
   type: "casestudyrow";
   anchorId?: string;
+  /** Where the popup's CTA goes. Defaults to the configurator. */
+  ctaHref?: string;
+  ctaLabel?: string;
+  /**
+   * Drops the "Visit the site" links. The paid landing page is allowed exactly
+   * one destination, and an outbound link to a client's site isn't it.
+   */
+  hideLiveLinks?: boolean;
   kicker?: string;
   heading: string;
   headingDim?: string;

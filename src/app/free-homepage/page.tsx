@@ -6,6 +6,9 @@ import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { Stars } from "@/components/ui/Stars";
 import { ScreenshotWall } from "@/components/service-page/ScreenshotWall";
+import { CaseStudyRow } from "@/components/service-page/CaseStudyRow";
+import { webDesignAndDevelopment } from "@/content/service-pages/web-design-and-development";
+import type { CaseStudyRowBlock } from "@/content/service-pages/types";
 import { LandingFaq, LandingPixel, StickyCta } from "@/components/landing/LandingChrome";
 
 /**
@@ -33,12 +36,39 @@ const LOGO = "/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg";
 
 const TRUST = ["Built in 7–14 days", "Direct with the developer", "30-day money-back guarantee"];
 
-const LOGOS = [
-  { src: "/assets/logos-web/prime-group.webp", alt: "Prime Group Building" },
-  { src: "/assets/logos-web/hawker-studio.webp", alt: "Hawker Studios" },
-  { src: "/assets/logos-web/tintek.webp", alt: "Tintek Roofing & Cladding" },
-  { src: "/assets/logos-web/mjb-electrical.webp", alt: "MJB Electrical Group" },
-];
+/**
+ * The same case studies the web dev page uses, so there is one place to edit
+ * a client result rather than two that drift.
+ *
+ * A logo in a box with no name, no number and no click was proof of nothing —
+ * these open their results over the page. The popup is not an exit: closing it
+ * puts the visitor back exactly where they were, which is why it is allowed
+ * here at all. Its CTA is repointed at the booking page and the outbound
+ * "visit the site" links are dropped, so the one-destination rule holds.
+ *
+ * Adalytical is filtered out — it has its own section further down — and so is
+ * anything without results, because a "Coming soon" card on a page you are
+ * paying to send traffic to is worse than one card fewer.
+ */
+const CASE_STUDIES: CaseStudyRowBlock = (() => {
+  const source = webDesignAndDevelopment.blocks.find(
+    (b): b is CaseStudyRowBlock => b.type === "casestudyrow",
+  );
+  return {
+    type: "casestudyrow",
+    heading: "Built, launched,",
+    headingDim: "and still bringing in work.",
+    subheading: "Real builds for real businesses. Click one to see what it did.",
+    ctaHref: BOOK,
+    ctaLabel: CTA,
+    hideLiveLinks: true,
+    items: (source?.items ?? [])
+      .filter((i) => i.name !== "Adalytical" && !i.placeholder && (i.results?.length || i.quote))
+      // The chip is the headline result rather than "See results" — the number
+      // is what earns the click, and the subheading already says they open.
+      .map((i) => ({ ...i, label: i.timeline ?? i.label })),
+  };
+})();
 
 const STEPS = [
   {
@@ -174,7 +204,7 @@ export default function FreeHomepagePage() {
       </section>
 
       {/* ---------- 2. Thomas ---------- */}
-      <section className="mx-auto max-w-[1200px] px-5 py-14 sm:px-10 sm:py-20">
+      <section className="mx-auto max-w-[1200px] px-5 pb-2 pt-10 sm:px-10 sm:pt-14">
         <Reveal scale>
           <div className="neu mx-auto flex max-w-[900px] flex-col items-center gap-6 rounded-3xl border border-line bg-white p-6 text-center sm:flex-row sm:items-start sm:gap-8 sm:p-9 sm:text-left">
             <Image
@@ -207,11 +237,14 @@ export default function FreeHomepagePage() {
       </section>
 
       {/* ---------- 3. Proof ---------- */}
-      <section className="bg-paper py-14 sm:py-20">
-        <div className="mx-auto max-w-[1200px] px-5 sm:px-10">
-          <SectionHead>Built, launched, and still bringing in work.</SectionHead>
+      {/* Rendered as a sibling, not a child: CaseStudyRow is a full section
+          with its own margin and padding, and wrapping it in another padded
+          one stacked four lots of 80px into a dead band above it. */}
+      <CaseStudyRow block={CASE_STUDIES} />
 
-          <Reveal scale delay={0.05} className="mx-auto mt-10 max-w-[820px]">
+      <section className="pb-9 pt-6 sm:pb-14 sm:pt-8">
+        <div className="mx-auto max-w-[1200px] px-5 sm:px-10">
+          <Reveal scale delay={0.05} className="mx-auto max-w-[820px]">
             <figure className="neu rounded-3xl border border-line bg-white p-7 text-center sm:p-10">
               <Stars className="h-4 w-4" wrapperClassName="justify-center" />
               <blockquote className="mt-5 text-[clamp(18px,2vw,24px)] font-medium leading-snug tracking-[-0.02em]">
@@ -237,28 +270,11 @@ export default function FreeHomepagePage() {
             </figure>
           </Reveal>
 
-          {/* Logos only, and not linked — every outbound link is an exit. */}
-          <Reveal delay={0.1} className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {LOGOS.map((l) => (
-              <span
-                key={l.alt}
-                className="flex h-[74px] items-center justify-center rounded-2xl border border-line bg-white px-5"
-              >
-                <Image
-                  src={asset(l.src)}
-                  alt={l.alt}
-                  width={200}
-                  height={88}
-                  className="max-h-[42px] max-w-full object-contain"
-                />
-              </span>
-            ))}
-          </Reveal>
         </div>
       </section>
 
       {/* ---------- 4. The offer ---------- */}
-      <section className="mx-auto max-w-[1200px] px-5 py-14 sm:px-10 sm:py-20">
+      <section className="mx-auto max-w-[1200px] px-5 py-9 sm:px-10 sm:py-14">
         <SectionHead sub="Most people aren't unsure about the price. They're unsure what it'll look like. Fair enough — so I'll show you first.">
           How the free homepage works.
         </SectionHead>
@@ -292,7 +308,7 @@ export default function FreeHomepagePage() {
       </section>
 
       {/* ---------- 5. Authority ---------- */}
-      <section className="bg-paper py-14 sm:py-20">
+      <section className="bg-paper py-9 sm:py-14">
         <div className="mx-auto max-w-[1200px] px-5 sm:px-10">
           <SectionHead>
             The people who buy websites for a living choose Rankify to build them.
@@ -303,9 +319,9 @@ export default function FreeHomepagePage() {
               <Image
                 src={asset("/assets/logos-web/adalytical.webp")}
                 alt="Adalytical"
-                width={240}
-                height={106}
-                className="h-9 w-auto object-contain"
+                width={320}
+                height={141}
+                className="h-11 w-auto object-contain sm:h-12"
               />
               <p className="mt-5 text-[15.5px] leading-relaxed text-grey">
                 Adalytical&rsquo;s founders led growth teams at Google before starting Australia&rsquo;s
@@ -345,7 +361,7 @@ export default function FreeHomepagePage() {
       </section>
 
       {/* ---------- 6. Comparison ---------- */}
-      <section className="mx-auto max-w-[1200px] px-5 py-14 sm:px-10 sm:py-20">
+      <section className="mx-auto max-w-[1200px] px-5 py-9 sm:px-10 sm:py-14">
         <SectionHead>Seriously — look at the difference.</SectionHead>
 
         <Reveal scale delay={0.05} className="mx-auto mt-10 max-w-[860px]">
@@ -385,7 +401,7 @@ export default function FreeHomepagePage() {
       </section>
 
       {/* ---------- 7. Guarantee ---------- */}
-      <section className="bg-paper py-14 sm:py-20">
+      <section className="bg-paper py-9 sm:py-14">
         <div className="mx-auto max-w-[1200px] px-5 sm:px-10">
           <SectionHead sub="Take 30 days with the finished site. If you're not satisfied with what I built, ask for a refund and you'll get one — no argument and no exit interview.">
             30-day money-back guarantee. The risk is mine, not yours.
@@ -417,7 +433,7 @@ export default function FreeHomepagePage() {
       </section>
 
       {/* ---------- 8. FAQ ---------- */}
-      <section className="mx-auto max-w-[1200px] px-5 py-14 sm:px-10 sm:py-20">
+      <section className="mx-auto max-w-[1200px] px-5 py-9 sm:px-10 sm:py-14">
         <SectionHead>Questions, answered straight.</SectionHead>
         <div className="mt-10">
           <LandingFaq items={FAQ} />

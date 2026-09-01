@@ -58,11 +58,13 @@ export function CaseStudyRow({ block }: { block: CaseStudyRowBlock }) {
             six-column grid left a hole on the end. */}
         <div
           className={`mt-8 grid grid-cols-2 gap-3 sm:mt-12 sm:grid-cols-3 ${
-            block.items.length === 4
-              ? "lg:grid-cols-4"
-              : block.items.length === 5
-                ? "lg:grid-cols-5"
-                : "lg:grid-cols-6"
+            block.items.length === 3
+              ? "lg:grid-cols-3"
+              : block.items.length === 4
+                ? "lg:grid-cols-4"
+                : block.items.length === 5
+                  ? "lg:grid-cols-5"
+                  : "lg:grid-cols-6"
           }`}
         >
           {block.items.map((c, i) => {
@@ -81,7 +83,7 @@ export function CaseStudyRow({ block }: { block: CaseStudyRowBlock }) {
                       : "cursor-default opacity-70"
                   }`}
                 >
-                  <span className="flex h-12 w-full items-center justify-center">
+                  <span className="flex h-14 w-full items-center justify-center sm:h-16">
                     {c.logo ? (
                       <Image
                         src={asset(c.logo)}
@@ -112,7 +114,7 @@ export function CaseStudyRow({ block }: { block: CaseStudyRowBlock }) {
         </div>
       </div>
 
-      {open && <ResultsModal item={open} onClose={close} />}
+      {open && <ResultsModal item={open} block={block} onClose={close} />}
     </section>
   );
 }
@@ -128,7 +130,15 @@ function GoogleAdsIcon() {
   );
 }
 
-function ResultsModal({ item, onClose }: { item: Item; onClose: () => void }) {
+function ResultsModal({
+  item,
+  block,
+  onClose,
+}: {
+  item: Item;
+  block: CaseStudyRowBlock;
+  onClose: () => void;
+}) {
   // No mounted guard needed: this only ever renders from a click, so it never
   // runs during SSR and document is always there.
   // Portalled to body: the section is inside a transformed Reveal, which would
@@ -237,13 +247,13 @@ function ResultsModal({ item, onClose }: { item: Item; onClose: () => void }) {
         )}
 
         <a
-          href="#website-configurator"
+          href={block.ctaHref ?? "#website-configurator"}
           onClick={onClose}
           className="neu-btn neu-btn-dark mt-5 block whitespace-nowrap rounded-full bg-[var(--green-deep)] px-5 py-2.5 text-center text-[14px] font-bold text-white hover:-skew-x-3"
         >
-          Get results like these
+          {block.ctaLabel ?? "Get results like these"}
         </a>
-        {item.liveUrl && (
+        {item.liveUrl && !block.hideLiveLinks && (
           <a
             href={item.liveUrl}
             target={item.liveUrl.startsWith("http") ? "_blank" : undefined}
