@@ -15,7 +15,8 @@ const TRUST_AVATARS = [
   "/assets/images/siCFBzqpvx6sgWLXVPxMR5CbFc.jpg",
 ];
 
-function TrustRow() {
+/** Exported so the paid landing page shows the same social proof. */
+export function TrustRow() {
   return (
     <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
       <div className="flex">
