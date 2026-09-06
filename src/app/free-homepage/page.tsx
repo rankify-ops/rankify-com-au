@@ -5,38 +5,27 @@ import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { ScreenshotWall } from "@/components/service-page/ScreenshotWall";
 import { CheckItem, TrustRow } from "@/components/service-page/ServiceHero";
-import { CaseStudyRow } from "@/components/service-page/CaseStudyRow";
-import { ComparisonSection } from "@/components/service-page/ComparisonSection";
-import { IndustriesSection } from "@/components/service-page/IndustriesSection";
-import { CardGridSection } from "@/components/service-page/CardGridSection";
-import { GuaranteeSection } from "@/components/service-page/GuaranteeSection";
-import { QuoteBand } from "@/components/service-page/QuoteBand";
-import { PartnerCard } from "@/components/service-page/PartnerCard";
-import { DevCard } from "@/components/service-page/DevCard";
-import { webDesignAndDevelopment } from "@/content/service-pages/web-design-and-development";
-import type {
-  CardGridBlock,
-  CaseStudyRowBlock,
-  ComparisonBlock,
-  DevCardBlock,
-  GuaranteeBlock,
-  IndustriesBlock,
-  PartnerBlock,
-  QuoteBlock,
-} from "@/content/service-pages/types";
-import { LandingFaq, LandingPixel, StickyCta } from "@/components/landing/LandingChrome";
+import { ServiceBlocks } from "@/components/templates/ServicePageTemplate";
+import { ServiceFaq } from "@/components/service-page/ServiceFaq";
+import { webDesignAndDevelopment as WEB } from "@/content/service-pages/web-design-and-development";
+import type { Block, CaseStudyRowBlock } from "@/content/service-pages/types";
+import { LandingPixel, StickyCta } from "@/components/landing/LandingChrome";
 
 /**
  * Paid landing page for cold Meta traffic. Deliberately not part of the site.
  *
- * No header, no footer nav, no configurator, no forms. Every button goes to
- * one place — /free-homepage/book — because the only thing this page is
- * allowed to ask for is the call.
+ * Below the hero it renders the *same* block stack as
+ * /web-design-and-development, in the same order, through the same renderer —
+ * not a rebuilt approximation of it. Those sections are what that page earns
+ * its conversions with, and a landing page is the last place to be showing a
+ * thinner version of your best material.
  *
- * The sections are the real ones from /web-design-and-development rather than
- * cut-down rebuilds of them. Those sections are what the page had to earn its
- * conversions with in the first place, and a landing page is the last place to
- * be showing a thinner version of your best material.
+ * Three deliberate differences, all the same rule: this page gets exactly one
+ * destination.
+ *   - no header, and no nav in the footer
+ *   - the configurator is replaced by a CTA band, because a Stripe checkout is
+ *     a second conversion path and this offer is a conversation
+ *   - every button on the page is "Claim a free homepage" → /free-homepage/book
  *
  * `noindex`: it isn't built for search, and left indexable it would compete
  * with /web-design-and-development on the same terms while quoting a
@@ -57,7 +46,7 @@ const LOGO = "/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg";
 /**
  * The web dev hero's four badges plus the two this offer turns on: the
  * turnaround, and the free homepage itself. Each picks up its own icon from
- * BADGE_ICONS — four identical ticks read as one block and get skimmed.
+ * BADGE_ICONS — six identical ticks read as one block and get skimmed.
  */
 const BADGES = [
   "Try before you buy — free homepage build",
@@ -68,105 +57,71 @@ const BADGES = [
   "30-day money-back guarantee",
 ];
 
-/** Pulls a block straight off the web dev page so there's one copy to maintain. */
-function block<T extends { type: string }>(type: T["type"]): T | undefined {
-  return webDesignAndDevelopment.blocks.find((b) => b.type === type) as T | undefined;
+/**
+ * Strips or repoints anything in a block that would send the visitor somewhere
+ * other than the booking page.
+ *
+ * The case study popups still work — a popup isn't an exit, it opens over the
+ * page and closing it puts the visitor back where they were — but its CTA is
+ * repointed and the outbound "visit the site" links are dropped.
+ */
+function forLanding(b: Block): Block {
+  switch (b.type) {
+    case "casestudyrow": {
+      const row = b as CaseStudyRowBlock;
+      return {
+        ...row,
+        ctaHref: BOOK,
+        ctaLabel: CTA,
+        hideLiveLinks: true,
+        // The chip carries the headline result rather than "See results" — the
+        // number is what earns the click.
+        items: row.items
+          .filter((i) => !i.placeholder && (i.results?.length || i.quote))
+          .map((i) => ({ ...i, label: i.timeline ?? i.label })),
+      };
+    }
+    case "devcard":
+      return { ...b, cta: undefined, ctaSecondary: undefined };
+    case "cardgrid":
+      return { ...b, cta: undefined, items: b.items.map((i) => ({ ...i, cta: undefined })) };
+    default:
+      return b;
+  }
 }
 
-const DEV_CARD = block<DevCardBlock>("devcard");
-const COMPARISON = block<ComparisonBlock>("comparison");
-const INDUSTRIES = block<IndustriesBlock>("industries");
-const GUARANTEE = block<GuaranteeBlock>("guarantee");
-const PARTNER = block<PartnerBlock>("partner");
-const NICK = block<QuoteBlock>("quote");
-
 /**
- * The case studies, with the popup's CTA repointed at the booking page and the
- * outbound "visit the site" links dropped, so the one-destination rule holds.
- * The popup itself is not an exit — closing it returns the visitor to exactly
- * where they were, which is why it's allowed here at all.
+ * The web dev stack, split where the configurator sits so the CTA band can take
+ * its place. Everything either side keeps its original order.
  */
-const CASE_STUDIES: CaseStudyRowBlock | undefined = (() => {
-  const source = block<CaseStudyRowBlock>("casestudyrow");
-  if (!source) return undefined;
-  return {
-    ...source,
-    ctaHref: BOOK,
-    ctaLabel: CTA,
-    hideLiveLinks: true,
-    // The chip carries the headline result rather than "See results" — the
-    // number is what earns the click.
-    items: source.items
-      .filter((i) => !i.placeholder && (i.results?.length || i.quote))
-      .map((i) => ({ ...i, label: i.timeline ?? i.label })),
-  };
-})();
+const CONFIGURATOR_AT = WEB.blocks.findIndex((b) => b.type === "configurator");
+const BEFORE = WEB.blocks.slice(0, CONFIGURATOR_AT).map(forLanding);
+const AFTER = WEB.blocks.slice(CONFIGURATOR_AT + 1).map(forLanding);
 
-/**
- * The build process, with two edits for this page: step one points at the call
- * instead of the configurator, which doesn't exist here, and the last step's
- * button is dropped because it went to a second destination.
- */
-const PROCESS: CardGridBlock | undefined = (() => {
-  const source = webDesignAndDevelopment.blocks.find(
-    (b): b is CardGridBlock => b.type === "cardgrid" && b.anchorId === "build-process",
-  );
-  if (!source) return undefined;
-  return {
-    ...source,
-    cta: undefined,
-    items: source.items.map((item) =>
-      item.idx === "01"
-        ? {
-            ...item,
-            title: "Book the call",
-            desc: "Fifteen minutes to hear about your business, what you offer and who you're trying to reach. I'll tell you straight whether I can help. If it's a fit, I build your homepage from there — no pressure and no pitch.",
-            cta: undefined,
-          }
-        : { ...item, cta: undefined },
-    ),
-  };
-})();
+/** The offer's own questions first, then the full web dev set. */
+const FAQ = {
+  ...WEB.faq,
+  items: [
+    {
+      q: "What’s the catch with the free homepage?",
+      a: "There isn’t one, but I’ll be straight with you about why I do it. Most people stall on a website because they can’t picture it. If I show you the real thing first, that goes away — and if you like the work, you’ll probably want the rest of it built. If you don’t, I’ve spent a bit of time and learned something about your industry. I’m comfortable with that trade.",
+    },
+    {
+      q: "How many free homepages do you build?",
+      a: "Ten a month. That’s what I can build properly while still delivering for paying clients, so I’d rather give the slots to businesses that are genuinely ready — an established business with a site that isn’t pulling its weight, or a launch date already set.",
+    },
+    ...WEB.faq.items,
+  ],
+};
 
-const OFFER_STEPS = [
-  {
-    n: "01",
-    h: "Book a 15-minute call",
-    b: "Tell me about your business, what you do, and who you’re trying to reach. That’s it. I’m not going to pitch you.",
-  },
-  {
-    n: "02",
-    h: "I build your homepage",
-    b: "Your brand, your services, real design. Not a mockup and not a template with your logo dropped in. You’ll have it within a few days.",
-  },
-  {
-    n: "03",
-    h: "You decide",
-    b: "Like what you see? We talk about the full site — $2,999, up to 10 pages, live in 7–14 days. Not for you? No hard feelings, and you haven’t spent a cent to find out.",
-  },
-];
-
-const FAQ = [
-  {
-    q: "What’s the catch with the free homepage?",
-    a: "There isn’t one, but I’ll be straight with you about why I do it. Most people stall on a website because they can’t picture it. If I show you the real thing first, that goes away — and if you like the work, you’ll probably want the rest of it built. If you don’t, I’ve spent a bit of time and learned something about your industry. I’m comfortable with that trade.",
-  },
-  {
-    q: "What does the full website cost?",
-    a: "$2,999. That’s the price whether you need one page or ten — ten pages are included, and every page after that is $200. Build time is 7–14 days from the day the design is signed off. Larger projects with custom functionality are quoted separately, but you’ll always have the number before any work starts.",
-  },
-  {
-    q: "Do you work with businesses outside the Gold Coast?",
-    a: "Yes. I’m on the Gold Coast and I work with businesses right across Australia. Everything runs over calls and email, and it hasn’t been a problem yet.",
-  },
-];
-
-/** The one button on this page. */
-function Cta() {
+/** The one button on this page, in its two colourways. */
+function Cta({ light = false }: { light?: boolean }) {
   return (
     <Link
       href={BOOK}
-      className="neu-btn neu-btn-dark inline-flex items-center justify-center rounded-full bg-[var(--green-deep)] px-7 py-3.5 text-center text-[16px] font-bold text-white transition-transform hover:-skew-x-3"
+      className={`neu-btn inline-flex items-center justify-center rounded-full px-7 py-3.5 text-center text-[16px] font-bold transition-transform hover:-skew-x-3 ${
+        light ? "neu-btn-light bg-white text-ink" : "neu-btn-dark bg-[var(--green-deep)] text-white"
+      }`}
     >
       {CTA}
     </Link>
@@ -227,87 +182,45 @@ export default function FreeHomepagePage() {
         </div>
       </section>
 
-      {/* ---------- Your developer ---------- */}
-      {DEV_CARD && <DevCard block={{ ...DEV_CARD, cta: undefined, ctaSecondary: undefined }} />}
+      {/* Everything from the web dev page, up to where the configurator sits. */}
+      <ServiceBlocks blocks={BEFORE} />
 
-      {/* ---------- Proof ---------- */}
-      {CASE_STUDIES && <CaseStudyRow block={CASE_STUDIES} />}
-      {NICK && <QuoteBand block={NICK} />}
-
-      {/* ---------- The offer ---------- */}
-      <section className="mx-2 mt-8 rounded-3xl bg-paper text-ink sm:mt-12 lg:mt-20">
-        <div className="mx-auto max-w-[1400px] px-5 py-12 sm:px-10 sm:py-16 lg:py-20">
-          <Reveal className="mx-auto max-w-[760px] text-center">
+      {/* ---------- The offer, in the configurator's place ---------- */}
+      <section
+        id="the-offer"
+        className="grain mx-2 mt-8 scroll-mt-24 rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white sm:mt-12 lg:mt-20"
+      >
+        <div className="relative z-[2] mx-auto max-w-[1400px] px-5 py-12 text-center sm:px-10 sm:py-16 lg:py-20">
+          <Reveal className="mx-auto max-w-[760px]">
             <p className="mb-3 text-[12.5px] font-semibold uppercase tracking-[0.12em] text-[color:#07a889]">
               The offer
             </p>
-            <h2 className="text-[clamp(26px,3vw,40px)] font-medium leading-[1.1] tracking-[-0.035em]">
-              How the free homepage works.
+            <h2 className="text-[clamp(26px,3.2vw,42px)] font-medium leading-[1.08] tracking-[-0.035em]">
+              See your homepage before you spend a cent.
             </h2>
-            <p className="mt-4 text-[16px] leading-relaxed text-grey">
-              Most people aren&rsquo;t unsure about the price. They&rsquo;re unsure what it&rsquo;ll look
-              like. Fair enough — so I&rsquo;ll show you first.
+            <p className="mx-auto mt-4 max-w-[600px] text-[16px] leading-relaxed text-white/70">
+              Most people aren&rsquo;t unsure about the price. They&rsquo;re unsure what it&rsquo;ll
+              look like. So I build ten free homepage concepts a month — your brand, real design, no
+              template. Like it and we talk about the full site. Don&rsquo;t, and there&rsquo;s no
+              hard feelings and nothing spent.
             </p>
           </Reveal>
-
-          <div className="mt-10 grid gap-4 lg:grid-cols-3">
-            {OFFER_STEPS.map((s, i) => (
-              <Reveal key={s.n} delay={i * 0.06}>
-                <div className="neu h-full rounded-2xl border border-line bg-white p-6 sm:p-7">
-                  <span className="text-[13px] font-semibold tracking-[0.12em] text-[color:#07a889]">
-                    {s.n}
-                  </span>
-                  <h3 className="mt-3 text-[18px] font-medium tracking-[-0.02em]">{s.h}</h3>
-                  <p className="mt-2.5 text-[15px] leading-relaxed text-grey">{s.b}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal delay={0.1} className="mx-auto mt-6 max-w-[900px]">
-            <p className="rounded-2xl border border-line bg-white px-6 py-5 text-[14.5px] leading-relaxed text-grey">
-              <strong className="font-semibold text-ink">Who this is for:</strong> established Australian
-              businesses with a website that isn&rsquo;t pulling its weight, or a launch date already set.
-              Ten slots a month is what I can actually build properly, so I&rsquo;d rather give them to
-              people who are genuinely ready.
+          <Reveal delay={0.05} className="mt-8">
+            <Cta light />
+            <p className="mt-4 text-[13.5px] text-white/60">
+              15-minute call. No pressure, no pitch deck.
             </p>
-          </Reveal>
-
-          <Reveal delay={0.15} className="mt-9 text-center">
-            <Cta />
           </Reveal>
         </div>
       </section>
 
-      {/* ---------- Who it's for ---------- */}
-      {INDUSTRIES && <IndustriesSection block={INDUSTRIES} />}
+      {/* ...and everything after it. */}
+      <ServiceBlocks blocks={AFTER} />
 
-      {/* ---------- How the build works ---------- */}
-      {PROCESS && <CardGridSection block={PROCESS} />}
-
-      {/* ---------- Developer vs agency ---------- */}
-      {COMPARISON && <ComparisonSection block={COMPARISON} />}
-
-      {/* ---------- Who trusts the work ---------- */}
-      {PARTNER && <PartnerCard block={PARTNER} />}
-
-      {/* ---------- Guarantee ---------- */}
-      {GUARANTEE && <GuaranteeSection block={GUARANTEE} />}
-
-      {/* ---------- FAQ ---------- */}
-      <section className="mx-auto max-w-[1400px] px-5 py-12 sm:px-10 sm:py-16 lg:py-20">
-        <Reveal className="mx-auto max-w-[760px] text-center">
-          <h2 className="text-[clamp(26px,3vw,40px)] font-medium leading-[1.1] tracking-[-0.035em]">
-            Questions, answered straight.
-          </h2>
-        </Reveal>
-        <div className="mt-10">
-          <LandingFaq items={FAQ} />
-        </div>
-      </section>
+      <ServiceFaq faq={FAQ} />
 
       {/* ---------- Final CTA ---------- */}
-      <section className="mx-2 rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white">
+      <section className="mx-2 mt-8 rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white sm:mt-12 lg:mt-20">
         <div className="mx-auto max-w-[820px] px-5 py-16 text-center sm:px-10 sm:py-20">
           <Reveal>
             <h2 className="text-[clamp(26px,3.2vw,42px)] font-medium leading-[1.08] tracking-[-0.035em]">
@@ -320,12 +233,7 @@ export default function FreeHomepagePage() {
             </p>
           </Reveal>
           <Reveal delay={0.05} className="mt-8">
-            <Link
-              href={BOOK}
-              className="neu-btn neu-btn-light inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-[16px] font-bold text-ink transition-transform hover:-skew-x-3"
-            >
-              {CTA}
-            </Link>
+            <Cta light />
             <p className="mt-4 text-[13.5px] text-white/60">Or email me directly — hello@rankify.com.au</p>
           </Reveal>
         </div>

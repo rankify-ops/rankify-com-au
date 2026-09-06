@@ -18,14 +18,19 @@ import { ServiceFaq } from "@/components/service-page/ServiceFaq";
 import { Testimonials } from "@/components/sections/Testimonials";
 import type { ServicePageData } from "@/content/service-pages/types";
 
-export function ServicePageTemplate({ data }: { data: ServicePageData }) {
+/**
+ * Renders a service page's block stack.
+ *
+ * Split out of the template so the paid landing page can show the *same*
+ * sections rather than reimplementing thinner versions of them — a second copy
+ * of this switch would drift from this one within a week.
+ */
+export function ServiceBlocks({ blocks }: { blocks: ServicePageData["blocks"] }) {
   let pricingIndex = 0;
 
   return (
     <>
-      <Header />
-      <ServiceHero hero={data.hero} />
-      {data.blocks.map((block, i) => {
+      {blocks.map((block, i) => {
         switch (block.type) {
           case "cardgrid":
             return <CardGridSection key={i} block={block} />;
@@ -70,6 +75,16 @@ export function ServicePageTemplate({ data }: { data: ServicePageData }) {
             return null;
         }
       })}
+    </>
+  );
+}
+
+export function ServicePageTemplate({ data }: { data: ServicePageData }) {
+  return (
+    <>
+      <Header />
+      <ServiceHero hero={data.hero} />
+      <ServiceBlocks blocks={data.blocks} />
       <ServiceFaq faq={data.faq} />
       <ContactFooter />
     </>
