@@ -166,13 +166,9 @@ function Cta() {
   return (
     <Link
       href={BOOK}
-      className="neu-btn neu-btn-dark inline-flex items-center justify-center gap-2.5 rounded-full bg-[var(--green-deep)] px-7 py-3.5 text-center text-[16px] font-bold text-white transition-transform hover:-skew-x-3"
+      className="neu-btn neu-btn-dark inline-flex items-center justify-center rounded-full bg-[var(--green-deep)] px-7 py-3.5 text-center text-[16px] font-bold text-white transition-transform hover:-skew-x-3"
     >
       {CTA}
-      <span className="relative flex h-2 w-2 items-center justify-center">
-        <span className="cta-ping absolute inline-flex h-full w-full rounded-full bg-[#07a889]" />
-        <span className="relative inline-flex h-2 w-2 rounded-full bg-[#07a889]" />
-      </span>
     </Link>
   );
 }
