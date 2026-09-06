@@ -63,9 +63,14 @@ const BADGE_ICONS: { match: RegExp; path: string }[] = [
   { match: /developer access|middlemen|direct/i, path: "M12 12.4a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4.8 20.2a7.4 7.4 0 0 1 14.4 0" },
   // built to convert — a rising chart
   { match: /convert|conversion|custom-built|performance/i, path: "M4 19.5V13M9.5 19.5v-9M15 19.5v-5M20.5 19.5V6" },
+  // turnaround — a clock
+  { match: /days|weeks|turnaround|live in/i, path: "M12 20.5a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17ZM12 7.4V12l3.1 1.9" },
+  // see it first — an eye
+  { match: /try before|free homepage|see it first|preview/i, path: "M2.5 12S6 6.2 12 6.2 21.5 12 21.5 12 18 17.8 12 17.8 2.5 12 2.5 12Zm9.5 2.3a2.3 2.3 0 1 0 0-4.6 2.3 2.3 0 0 0 0 4.6Z" },
 ];
 
-function CheckItem({ label }: { label: string }) {
+/** A hero badge: label plus the icon matched from BADGE_ICONS. */
+export function CheckItem({ label }: { label: string }) {
   const icon = BADGE_ICONS.find((i) => i.match.test(label));
   return (
     <li className="flex items-center gap-2.5 text-[14px] font-medium text-ink">

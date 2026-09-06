@@ -4,7 +4,7 @@ import Link from "next/link";
 import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { ScreenshotWall } from "@/components/service-page/ScreenshotWall";
-import { TrustRow } from "@/components/service-page/ServiceHero";
+import { CheckItem, TrustRow } from "@/components/service-page/ServiceHero";
 import { CaseStudyRow } from "@/components/service-page/CaseStudyRow";
 import { ComparisonSection } from "@/components/service-page/ComparisonSection";
 import { IndustriesSection } from "@/components/service-page/IndustriesSection";
@@ -54,7 +54,19 @@ const BOOK = "/free-homepage/book";
 const CTA = "Claim a free homepage";
 const LOGO = "/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg";
 
-const TRUST = ["Built in 7–14 days", "Direct with the developer", "30-day money-back guarantee"];
+/**
+ * The web dev hero's four badges plus the two this offer turns on: the
+ * turnaround, and the free homepage itself. Each picks up its own icon from
+ * BADGE_ICONS — four identical ticks read as one block and get skimmed.
+ */
+const BADGES = [
+  "Try before you buy — free homepage build",
+  "Built in 7–14 days",
+  "Custom-built, conversion-focused",
+  "Direct developer access, no middlemen",
+  "Unlimited revisions",
+  "30-day money-back guarantee",
+];
 
 /** Pulls a block straight off the web dev page so there's one copy to maintain. */
 function block<T extends { type: string }>(type: T["type"]): T | undefined {
@@ -188,28 +200,22 @@ export default function FreeHomepagePage() {
             </Reveal>
             <Reveal delay={0.05}>
               <h1 className="text-[clamp(32px,4.2vw,52px)] font-medium leading-[1.03] tracking-[-0.04em]">
-                Want to see what your new website would look like before you pay for it?
+                High-performance websites that actually convert traffic to drive real profit and
+                growth to your business.
               </h1>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mt-5 max-w-[560px] text-[17px] leading-relaxed text-grey">
-                I build 10 free homepage concepts a month. Your brand, real design, no template. If you
-                like it, we talk about the full build. If you don&rsquo;t, no hard feelings — and you
-                haven&rsquo;t spent a cent to find out.
+                From all trades — plumbers, builders, solar — to tech and accounting firms.
+                I&rsquo;ve built the lot. I&rsquo;m a perfectionist, not a single pixel out of line,
+                and I build so your traffic actually calls you or buys your product. Check out my
+                work and results.
               </p>
             </Reveal>
             <Reveal delay={0.15}>
-              {/* The separator trails each item as an ::after rather than
-                  leading the next one — leading it puts a stray bar at the
-                  start of the wrapped line at 390px. */}
-              <ul className="mt-6 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[13.5px] font-medium text-ink">
-                {TRUST.map((t) => (
-                  <li
-                    key={t}
-                    className="after:ml-2.5 after:text-line after:content-['|'] last:after:content-none"
-                  >
-                    {t}
-                  </li>
+              <ul className="mt-6 grid gap-x-6 gap-y-2.5 sm:grid-cols-2">
+                {BADGES.map((b) => (
+                  <CheckItem key={b} label={b} />
                 ))}
               </ul>
             </Reveal>
