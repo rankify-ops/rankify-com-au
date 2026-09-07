@@ -93,7 +93,9 @@ export function FloatingCta() {
     route === "/free-homepage" ||
     route.startsWith("/free-homepage/") ||
     route === "/google-ads-offer" ||
-    route.startsWith("/google-ads-offer/")
+    route.startsWith("/google-ads-offer/") ||
+    route === "/homepage10-offer" ||
+    route.startsWith("/homepage10-offer/")
   ) {
     return null;
   }
