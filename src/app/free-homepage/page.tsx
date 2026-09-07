@@ -119,7 +119,10 @@ function Cta({ light = false }: { light?: boolean }) {
   return (
     <Link
       href={BOOK}
-      className={`neu-btn inline-flex items-center justify-center rounded-full px-7 py-3.5 text-center text-[16px] font-bold transition-transform hover:-skew-x-3 ${
+      // Full width on a phone, its own width from sm up. A shrink-wrapped
+      // button stranded mid-screen on mobile is a small target and reads as
+      // unfinished; a 600px one on a desktop hero column looks broken.
+      className={`neu-btn inline-flex w-full items-center justify-center rounded-full px-7 py-3.5 text-center text-[16px] font-bold transition-transform hover:-skew-x-3 sm:w-auto ${
         light ? "neu-btn-light bg-white text-ink" : "neu-btn-dark bg-[var(--green-deep)] text-white"
       }`}
     >

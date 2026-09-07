@@ -176,7 +176,10 @@ function Cta({ light = false }: { light?: boolean }) {
   return (
     <Link
       href={APPLY}
-      className={`neu-btn inline-flex items-center justify-center rounded-full px-7 py-3.5 text-center text-[16px] font-bold transition-transform hover:-skew-x-3 ${
+      // Full width on a phone, its own width from sm up: a 600px-wide button on
+      // a desktop hero column looks broken, but a shrink-wrapped one on a
+      // phone is a small target in the middle of a lot of space.
+      className={`neu-btn inline-flex w-full items-center justify-center rounded-full px-7 py-3.5 text-center text-[16px] font-bold transition-transform hover:-skew-x-3 sm:w-auto ${
         light ? "neu-btn-light bg-white text-ink" : "neu-btn-dark bg-[var(--green-deep)] text-white"
       }`}
     >
