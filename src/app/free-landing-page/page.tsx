@@ -4,7 +4,9 @@ import { DarkFunnelPage, type FunnelConfig } from "@/components/landing/DarkFunn
 /**
  * Funnel B — the landing page offer.
  *
- * Audience: businesses already spending on ads whose page isn't converting.
+ * Audience: businesses whose page isn't converting the traffic they get —
+ * paid, organic or referral. Deliberately not ads-specific: plenty of them
+ * aren't running ads yet, and that's the upsell after the build lands.
  * Free asset: a landing page in 48 hours. Paid outcome: the build plus the ad
  * setup with Adalytical.
  *
@@ -14,7 +16,7 @@ import { DarkFunnelPage, type FunnelConfig } from "@/components/landing/DarkFunn
 export const metadata: Metadata = {
   title: "Free Landing Page in 48 Hours | Rankify",
   description:
-    "Already spending on ads? We'll build you a landing page in 48 hours, free, so you can see what the traffic you're already paying for should be doing.",
+    "We'll build you a landing page in 48 hours, free, so you can see what the traffic you're already getting should actually be doing.",
   robots: { index: false, follow: true },
   alternates: { canonical: "/free-landing-page" },
 };
@@ -26,9 +28,9 @@ const CFG: FunnelConfig = {
   ctaMicro: "Landing page delivered in 48 hours",
   eyebrow: "10 builds a month",
 
-  headline: "Your ads aren't the problem. The page you're sending them to is.",
+  headline: "Your traffic isn't the problem. The page you're sending it to is.",
   subhead:
-    "We'll build you a landing page — free, properly, and in your hands in 48 hours — so you can see what the traffic you're already paying for should be doing.",
+    "We'll build you a landing page — free, properly, and in your hands in 48 hours — so you can see what the traffic you're already getting should actually be doing.",
 
   videoHeading: "This is what we'll build for you",
   videoCaption: "No tech knowledge needed — we handle the lot.*",
@@ -37,7 +39,7 @@ const CFG: FunnelConfig = {
     {
       n: "1",
       h: "Claim your free build",
-      b: "Hit the button and tell us about the business and what you're spending. Two minutes, and it tells us straight away whether we can help.",
+      b: "Hit the button and tell us about the business and where your traffic comes from. Two minutes, and it tells us straight away whether we can help.",
     },
     {
       n: "2",
@@ -47,7 +49,7 @@ const CFG: FunnelConfig = {
     {
       n: "3",
       h: "I build it, you have it in 48 hours",
-      b: "A real landing page, your brand, built to convert the traffic you're already paying for. Then you decide whether to point your ads at it.",
+      b: "A real landing page, your brand, built to convert the traffic you're already getting. Then you decide where to point it."
     },
   ],
 
