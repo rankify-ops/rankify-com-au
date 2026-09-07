@@ -8,6 +8,8 @@ import { JsonLd, organisationSchema, websiteSchema } from "@/lib/schema";
 
 /** Meta pixel, Rankify ad account. */
 const META_PIXEL_ID = "1757904242196710";
+/** Apollo website tracker — identifies visiting companies for outbound. */
+const APOLLO_APP_ID = "6a9d53e292ba99001c4e39c5";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -64,6 +66,17 @@ fbq('track', 'PageView');`}
             src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
           />
         </noscript>
+
+        {/* Apollo's visitor tracker. Their instructions say to put it before
+            </head>; `afterInteractive` is the same thing done later — the
+            snippet appends its own async script either way, and identifying a
+            visitor is worth nothing if it costs the page its LCP. */}
+        <Script id="apollo-tracker" strategy="afterInteractive">
+          {`function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");
+o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,
+o.onload=function(){window.trackingFunctions.onLoad({appId:"${APOLLO_APP_ID}"})},
+document.head.appendChild(o)}initApollo();`}
+        </Script>
 
         <JsonLd data={organisationSchema} />
         <JsonLd data={websiteSchema} />
