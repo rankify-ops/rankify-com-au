@@ -89,7 +89,14 @@ export function FloatingCta() {
   // landing page carries its own single CTA — a second one competing with it
   // is exactly what that page is built to avoid
   if (route === "/schedule-strategy-call" || route === "/contact") return null;
-  if (route === "/free-homepage" || route.startsWith("/free-homepage/")) return null;
+  if (
+    route === "/free-homepage" ||
+    route.startsWith("/free-homepage/") ||
+    route === "/google-ads-offer" ||
+    route.startsWith("/google-ads-offer/")
+  ) {
+    return null;
+  }
 
   const callOnly = CALL_ONLY.has(route);
   const secondary = BOOK_INSTEAD[route];

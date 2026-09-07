@@ -67,6 +67,12 @@ const BADGE_ICONS: { match: RegExp; path: string }[] = [
   { match: /days|weeks|turnaround|live in/i, path: "M12 20.5a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17ZM12 7.4V12l3.1 1.9" },
   // see it first — an eye
   { match: /try before|free homepage|see it first|preview/i, path: "M2.5 12S6 6.2 12 6.2 21.5 12 21.5 12 18 17.8 12 17.8 2.5 12 2.5 12Zm9.5 2.3a2.3 2.3 0 1 0 0-4.6 2.3 2.3 0 0 0 0 4.6Z" },
+  // nothing upfront — a wallet
+  { match: /upfront|nothing to pay|before you pay|pay nothing/i, path: "M3.5 8.2A2 2 0 0 1 5.5 6.2h13a2 2 0 0 1 2 2v9.6a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2zM16 12.5h4.5" },
+  // tracking — a target
+  { match: /tracking|measured|attribution/i, path: "M12 20.5a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Zm0-4.6a3.9 3.9 0 1 0 0-7.8 3.9 3.9 0 0 0 0 7.8Z" },
+  // the ads themselves — a megaphone
+  { match: /google ads|campaign|ad copy|written for you/i, path: "M4 10.2v3.6a1.6 1.6 0 0 0 1.6 1.6h1.6l8.8 4.4V4.2L7.2 8.6H5.6A1.6 1.6 0 0 0 4 10.2ZM19 9.4a3.4 3.4 0 0 1 0 5.2" },
 ];
 
 /** A hero badge: label plus the icon matched from BADGE_ICONS. */
