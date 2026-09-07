@@ -120,9 +120,6 @@ export function DarkFunnelPage({ cfg }: { cfg: FunnelConfig }) {
             {cfg.subhead}
           </p>
         </Reveal>
-        <Reveal id="hero-cta" delay={0.1} className="mt-9">
-          <Cta cfg={cfg} />
-        </Reveal>
       </section>
 
       {/* ---------- 2. Video ---------- */}
@@ -147,12 +144,14 @@ export function DarkFunnelPage({ cfg }: { cfg: FunnelConfig }) {
             </span>
           </div>
         </Reveal>
-        <Reveal delay={0.1} className="mt-6">
-          <p className="text-center text-[15px] italic text-white/50">{cfg.videoCaption}</p>
-        </Reveal>
-        <div className="mt-9">
+        <Reveal id="hero-cta" delay={0.1} className="mt-8">
           <Cta cfg={cfg} />
-        </div>
+        </Reveal>
+        <Reveal delay={0.15} className="mt-5">
+          <p className="text-center text-[15px] font-medium italic text-white/55">
+            {cfg.videoCaption}
+          </p>
+        </Reveal>
       </Section>
 
       {/* ---------- 3. How it works ---------- */}

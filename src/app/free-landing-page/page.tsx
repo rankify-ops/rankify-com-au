@@ -31,7 +31,7 @@ const CFG: FunnelConfig = {
     "We'll build you a landing page — free, properly, and in your hands in 48 hours — so you can see what the traffic you're already paying for should be doing.",
 
   videoHeading: "This is what we'll build for you",
-  videoCaption: "Two minutes on what you get, why it's free, and what happens next.",
+  videoCaption: "No tech knowledge needed — we handle the lot.*",
 
   steps: [
     {

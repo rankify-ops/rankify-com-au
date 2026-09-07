@@ -30,7 +30,7 @@ const CFG: FunnelConfig = {
     "If your website isn't bringing work in — or you haven't got one — this is the fastest way to see what a proper one looks like for your business. Built first, before you pay anything.",
 
   videoHeading: "This is what we'll build for you",
-  videoCaption: "Two minutes on what you get, why it's free, and what happens next.",
+  videoCaption: "No tech knowledge needed — we handle the lot.*",
 
   steps: [
     {
