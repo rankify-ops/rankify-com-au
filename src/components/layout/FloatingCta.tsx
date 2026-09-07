@@ -95,7 +95,9 @@ export function FloatingCta() {
     route === "/google-ads-offer" ||
     route.startsWith("/google-ads-offer/") ||
     route === "/homepage10-offer" ||
-    route.startsWith("/homepage10-offer/")
+    route.startsWith("/homepage10-offer/") ||
+    route === "/free-landing-page" ||
+    route.startsWith("/free-landing-page/")
   ) {
     return null;
   }

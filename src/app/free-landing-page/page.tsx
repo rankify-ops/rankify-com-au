@@ -2,32 +2,33 @@ import type { Metadata } from "next";
 import { DarkFunnelPage, type FunnelConfig } from "@/components/landing/DarkFunnel";
 
 /**
- * Funnel A — the website offer.
+ * Funnel B — the landing page offer.
  *
- * Audience: owners with no site, an outdated one, or one that isn't bringing
- * work in. Free asset: a homepage in 48 hours. Paid outcome: the full build.
+ * Audience: businesses already spending on ads whose page isn't converting.
+ * Free asset: a landing page in 48 hours. Paid outcome: the build plus the ad
+ * setup with Adalytical.
  *
- * Separate from Funnel B in every way except the shell — its own URL, its own
- * pixel audience, its own ad set.
+ * Deliberately separate from Funnel A in every way except the shell — its own
+ * URL, its own pixel audience, its own ad set.
  */
 export const metadata: Metadata = {
-  title: "Free Homepage in 48 Hours | Rankify",
+  title: "Free Landing Page in 48 Hours | Rankify",
   description:
-    "We'll build your new homepage free and have it in your hands in 48 hours. See it before you spend a cent on the full site.",
+    "Already spending on ads? We'll build you a landing page in 48 hours, free, so you can see what the traffic you're already paying for should be doing.",
   robots: { index: false, follow: true },
-  alternates: { canonical: "/free-homepage" },
+  alternates: { canonical: "/free-landing-page" },
 };
 
 const CFG: FunnelConfig = {
-  pixelName: "Free homepage offer",
-  ctaHref: "/free-homepage/book",
+  pixelName: "Free landing page offer",
+  ctaHref: "/free-landing-page/book",
   ctaLabel: "Get Started Now",
-  ctaMicro: "Homepage delivered in 48 hours",
+  ctaMicro: "Landing page delivered in 48 hours",
   eyebrow: "10 builds a month",
 
-  headline: "We'll build your new homepage free, and you'll have it in 48 hours.",
+  headline: "Your ads aren't the problem. The page you're sending them to is.",
   subhead:
-    "If your website isn't bringing work in — or you haven't got one — this is the fastest way to see what a proper one looks like for your business. Built first, before you pay anything.",
+    "We'll build you a landing page — free, properly, and in your hands in 48 hours — so you can see what the traffic you're already paying for should be doing.",
 
   videoHeading: "This is what we'll build for you",
   videoCaption: "Two minutes on what you get, why it's free, and what happens next.",
@@ -36,17 +37,17 @@ const CFG: FunnelConfig = {
     {
       n: "1",
       h: "Claim your free build",
-      b: "Hit the button and tell us a bit about your business. Two minutes, and it tells us straight away whether we can help.",
+      b: "Hit the button and tell us about the business and what you're spending. Two minutes, and it tells us straight away whether we can help.",
     },
     {
       n: "2",
       h: "A quick fifteen minute call",
-      b: "So I understand the business, your services, and the customer you're after. No pitch — I need it to build the thing properly.",
+      b: "So I understand the business, the offer, and who you're actually trying to reach. No pitch — I need this to build the thing properly.",
     },
     {
       n: "3",
       h: "I build it, you have it in 48 hours",
-      b: "A real homepage, your brand, built to convert. Then you decide whether you want the rest of the site.",
+      b: "A real landing page, your brand, built to convert the traffic you're already paying for. Then you decide whether to point your ads at it.",
     },
   ],
 
@@ -77,9 +78,9 @@ const CFG: FunnelConfig = {
 
   closeHeading: "Ten builds a month. Let's see if one's yours.",
   closeSub:
-    "Tell us about your business and we'll say straight away whether this is a fit. If it is, you'll have your homepage in 48 hours and you haven't spent a cent to find out.",
+    "Tell us about your business and we'll say straight away whether this is a fit. If it is, you'll have the page in 48 hours and you haven't spent a cent to find out.",
 };
 
-export default function FreeHomepageOfferPage() {
+export default function FreeLandingPageOfferPage() {
   return <DarkFunnelPage cfg={CFG} />;
 }

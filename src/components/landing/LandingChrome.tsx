@@ -21,16 +21,18 @@ import { pixelTrack } from "@/lib/pixel";
  * `/free-homepage` off `location` by itself. Verified in the network request
  * rather than assumed.
  */
-export function LandingPixel() {
+export function LandingPixel({ contentName = "Free homepage offer" }: { contentName?: string } = {}) {
   const sent = useRef(false);
   useEffect(() => {
     if (sent.current) return;
     sent.current = true;
+    // The name is what separates the two funnels' audiences in Events Manager,
+    // so each page passes its own rather than sharing one bucket.
     pixelTrack("ViewContent", {
-      content_name: "Free homepage offer",
+      content_name: contentName,
       content_category: "Landing page",
     });
-  }, []);
+  }, [contentName]);
   return null;
 }
 
