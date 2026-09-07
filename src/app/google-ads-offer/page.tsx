@@ -235,9 +235,9 @@ export default function GoogleAdsOfferPage() {
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mt-5 max-w-[560px] text-[17px] leading-relaxed text-grey">
-                We&rsquo;ve partnered with Tom from Rankify to build a small number of service
-                businesses a brand-new landing page, set up their Google Ads campaigns, write the ads
-                and install the conversion tracking. We build it first and show you exactly what
+                Rankify have partnered with Adalytical to build a small number of service businesses
+                a brand-new landing page, set up their Google Ads campaigns, write the ads and
+                install the conversion tracking. We build it first and show you exactly what
                 we&rsquo;ve made — and only if you&rsquo;re happy with it do you pay.
               </p>
             </Reveal>
