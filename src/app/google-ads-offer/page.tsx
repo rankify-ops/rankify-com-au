@@ -106,7 +106,7 @@ const PARTNER: PartnerBlock = {
   kicker: "Who does the work",
   heading: "An ex-Google ads team,",
   headingDim: "and the developer who builds the page they send traffic to.",
-  logo: "/assets/logos-web/adalytical.webp",
+  logo: "/assets/logos-web/adalytical-dark.svg",
   name: "Adalytical",
   chips: [
     { label: "Google Ads Partner", icon: "google-ads" },
@@ -212,12 +212,12 @@ export default function GoogleAdsOfferPage() {
         <Image src={asset(LOGO)} alt="Rankify®" width={186} height={40} priority className="h-[24px] w-auto" />
         <span aria-hidden className="h-5 w-px bg-line" />
         <Image
-          src={asset("/assets/logos-web/adalytical.webp")}
+          src={asset("/assets/logos-web/adalytical-dark.svg")}
           alt="Adalytical"
-          width={240}
-          height={106}
+          width={181}
+          height={30}
           priority
-          className="h-[27px] w-auto object-contain"
+          className="h-[22px] w-auto object-contain"
         />
       </div>
 
