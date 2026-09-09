@@ -99,10 +99,15 @@ export function CaseStudyRow({ block }: { block: CaseStudyRowBlock }) {
                     )}
                   </span>
                   <span
-                    className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] transition-colors ${
+                    // No pill on a phone. These labels carry a whole result —
+                    // "Fastest growing Google Ads business in Australia" — and
+                    // a pill wrapped to four uppercase lines reads as a broken
+                    // bubble rather than a badge. Plain centred text below sm,
+                    // the pill back from sm where it fits on a line or two.
+                    className={`block text-center text-[11px] font-semibold uppercase leading-[1.45] tracking-[0.08em] transition-colors sm:inline-block sm:rounded-full sm:px-2.5 sm:py-1 sm:text-[10px] sm:leading-normal sm:tracking-[0.1em] ${
                       ready
-                        ? "bg-[#f1f1f1] text-grey group-hover:bg-[#e9f5f0] group-hover:text-[var(--green-deep)]"
-                        : "bg-[#f1f1f1] text-grey"
+                        ? "text-grey sm:bg-[#f1f1f1] group-hover:text-[var(--green-deep)] sm:group-hover:bg-[#e9f5f0]"
+                        : "text-grey sm:bg-[#f1f1f1]"
                     }`}
                   >
                     {ready ? (c.label ?? "See results") : "Coming soon"}
