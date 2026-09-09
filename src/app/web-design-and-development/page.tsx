@@ -6,12 +6,12 @@ import { webDesignAndDevelopment } from "@/content/service-pages/web-design-and-
 export const metadata: Metadata = {
   title: "Web Design & Development | Websites from $2,999 | Rankify",
   description:
-    "Custom-built websites that convert, from $2,999 with 10 pages included. Built in 7–14 days, direct developer access, unlimited revisions, no ongoing costs.",
+    "Custom-built websites that convert, from $2,999 with 10 pages included. Built in 7–14 days, direct developer access, unlimited revisions, $250/yr hosting.",
   alternates: { canonical: "/web-design-and-development" },
   openGraph: {
     title: "Web Design & Development | Websites from $2,999 | Rankify",
     description:
-      "Custom-built websites that convert, from $2,999 with 10 pages included. Built in 7–14 days, direct developer access, no ongoing costs.",
+      "Custom-built websites that convert, from $2,999 with 10 pages included. Built in 7–14 days, direct developer access, $250/yr hosting.",
     url: "https://www.rankify.com.au/web-design-and-development",
     type: "website",
   },
