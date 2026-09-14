@@ -185,9 +185,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       ...(q.offer
         ? {
             discounts: [{ coupon: await firstYearCoupon(hosting.productId) }],
-            custom_text: { submit: { message: "First year of hosting $1, then $249 per year." } },
+            custom_text: { submit: { message: "First year of hosting $1, then $249 per year. 30-day money-back guarantee · Website live in 7–14 days." } },
           }
-        : { allow_promotion_codes: true }),
+        : {
+            allow_promotion_codes: true,
+            custom_text: { submit: { message: "30-day money-back guarantee · Website live in 7–14 days." } },
+          }),
     });
 
     return res.status(200).json({ url: session.url });
