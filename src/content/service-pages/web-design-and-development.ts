@@ -50,9 +50,8 @@ export const webDesignAndDevelopment: ServicePageData = {
       name: "Thomas Flood",
       role: "Director of Digital Strategy",
     },
-    // Real clients. Five have logos in /assets/logos-web; Geelong Heat Pumps
-    // has none yet and renders its name in the same box. Only Hawker Studios
-    // has a case study page — the rest point at /projects until theirs exist.
+    // Real clients, each opening its results in a popup. Shared with the
+    // /free-homepage landing page, so an edit here lands on both.
     {
       type: "casestudyrow",
       anchorId: "case-studies",
@@ -68,12 +67,13 @@ export const webDesignAndDevelopment: ServicePageData = {
           // The chip is the headline number. "Live in 7 days" was a delivery
           // stat; this one is the outcome he actually cares about.
           timeline: "Paid for itself in 2 weeks",
+          headline: "17 leads in the first month + $150K in revenue",
           liveUrl: "https://primegroupbuild.com.au/",
           summary:
             "Prime Group didn't want a design project. He wanted the phone ringing. Seven days after we started, the site was live — and inside a fortnight a single booked job had paid for the website, the month's ad spend, and still left him in profit.",
           results: [
             "One booked job paid for the entire build — and the month's ads on top",
-            "10 leads in the first two weeks, from a site that was live in 7 days",
+            "17 leads and $150K in revenue in the first month, from a site live in 7 days",
             "Profitable before most agencies deliver a first draft",
             "Everything after that job was margin, not recovery",
           ],
@@ -123,6 +123,22 @@ export const webDesignAndDevelopment: ServicePageData = {
             "Rankify's website laid the foundation for us to scale our business from 100k into the multi millions.",
           quoteName: "Jacob Gregory",
           quoteRole: "Founder, Tintek",
+        },
+        {
+          name: "Peninsula Heat Pumps",
+          logo: "/assets/logos-web/peninsula-heat-pumps.svg",
+          logoScale: 0.7,
+          industry: "Heat Pumps & Hot Water",
+          timeline: "Cost per lead down 60%",
+          headline: "Cost per lead down 60% — $87 to $35",
+          liveUrl: "https://peninsulaheatpumps.com.au/",
+          // Before = March, after = August, same ad account. The drop lands the
+          // week of 25 May, which is when the new site went live.
+          results: [
+            "Cost per lead down 60%, from $87.12 to $34.59",
+            "Conversion rate up from 5.6% to 14.6% — nearly three times as many visitors enquiring",
+            "The change lands the week of 25 May, the week the new site went live",
+          ],
         },
         {
           name: "Adalytical",

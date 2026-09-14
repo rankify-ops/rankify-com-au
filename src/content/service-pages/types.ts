@@ -289,6 +289,14 @@ export type CaseStudyRowBlock = {
     /** Draws a mark beside the industry line. */
     industryIcon?: "google-ads";
     timeline?: string;
+    /**
+     * Shrinks a logo that reads heavier than its neighbours. Tall, solid marks
+     * fill the box's full height while wide wordmarks are held back by its
+     * width, so an equal box doesn't mean an equal-looking logo.
+     */
+    logoScale?: number;
+    /** The result shown on the card itself. Falls back to `timeline`. */
+    headline?: string;
     /** Live site, if there's one worth linking. */
     liveUrl?: string;
     /** Overrides the "Visit the site" label under the CTA. */

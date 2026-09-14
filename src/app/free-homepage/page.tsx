@@ -77,7 +77,7 @@ function forLanding(b: Block): Block {
         // The chip carries the headline result rather than "See results" — the
         // number is what earns the click.
         items: row.items
-          .filter((i) => !i.placeholder && (i.results?.length || i.quote))
+          .filter((i) => !i.placeholder && (i.results?.length || i.quote || i.summary))
           .map((i) => ({ ...i, label: i.timeline ?? i.label })),
       };
     }

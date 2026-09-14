@@ -68,11 +68,19 @@ export function CaseStudyRow({ block }: { block: CaseStudyRowBlock }) {
           }`}
         >
           {block.items.map((c, i) => {
-            // Openable on a client quote alone — hard numbers are better, but
-            // a named quote with a face is still worth the click.
-            const ready = !c.placeholder && (!!c.results?.length || !!c.quote);
+            // Openable on results, a quote, or a written summary of the build —
+            // hard numbers are better, but any of the three is worth the click.
+            const ready = !c.placeholder && (!!c.results?.length || !!c.quote || !!c.summary);
+            const headline = c.headline ?? c.timeline;
             return (
-              <Reveal key={c.name} delay={i * 0.05}>
+              <Reveal
+                key={c.name}
+                delay={i * 0.05}
+                // With an odd count the last card sits alone in the phone's
+                // two-column grid beside an empty slot. Span it across instead.
+                // Only below sm — the wider grids have more columns to fill.
+                className="[&:last-child:nth-child(odd)]:col-span-2 sm:[&:last-child:nth-child(odd)]:col-span-1"
+              >
                 <button
                   type="button"
                   disabled={!ready}
@@ -91,6 +99,7 @@ export function CaseStudyRow({ block }: { block: CaseStudyRowBlock }) {
                         width={200}
                         height={60}
                         className="max-h-full max-w-full object-contain"
+                        style={c.logoScale ? { maxHeight: `${c.logoScale * 100}%` } : undefined}
                       />
                     ) : (
                       <span className="text-center text-[14px] font-semibold tracking-[-0.02em]">
@@ -98,19 +107,22 @@ export function CaseStudyRow({ block }: { block: CaseStudyRowBlock }) {
                       </span>
                     )}
                   </span>
+                  {/* The result, on the card — the number is the reason to open it. */}
+                  {headline && (
+                    <span className="block min-h-[2.8em] text-center text-[13.5px] font-semibold leading-snug tracking-[-0.01em] text-ink sm:text-[14px]">
+                      {headline}
+                    </span>
+                  )}
+                  {/* A span, not a button: the whole card is already the button,
+                      and a button nested in a button is invalid HTML. */}
                   <span
-                    // No pill on a phone. These labels carry a whole result —
-                    // "Fastest growing Google Ads business in Australia" — and
-                    // a pill wrapped to four uppercase lines reads as a broken
-                    // bubble rather than a badge. Plain centred text below sm,
-                    // the pill back from sm where it fits on a line or two.
-                    className={`block text-center text-[11px] font-semibold uppercase leading-[1.45] tracking-[0.08em] transition-colors sm:inline-block sm:rounded-full sm:px-2.5 sm:py-1 sm:text-[10px] sm:leading-normal sm:tracking-[0.1em] ${
+                    className={`inline-flex w-full items-center justify-center rounded-full px-3 py-2 text-[12.5px] font-semibold transition-colors sm:text-[13px] ${
                       ready
-                        ? "text-grey sm:bg-[#f1f1f1] group-hover:text-[var(--green-deep)] sm:group-hover:bg-[#e9f5f0]"
-                        : "text-grey sm:bg-[#f1f1f1]"
+                        ? "bg-[var(--green-deep)] text-white group-hover:bg-[color:#07a889]"
+                        : "bg-[#f1f1f1] text-grey"
                     }`}
                   >
-                    {ready ? (c.label ?? "See results") : "Coming soon"}
+                    {ready ? "Read Case Study" : "Coming soon"}
                   </span>
                 </button>
               </Reveal>
