@@ -92,12 +92,12 @@ export const webDesignAndDevelopment: ServicePageData = {
           industry: "Photo & Content Studio",
           // Hard number leads the chip; "built in 4 weeks" is delivery, this is
           // the outcome they actually got.
-          timeline: "Bookings up 22%",
+          timeline: "Bookings up 32%",
           liveUrl: "https://www.hawker-studios.com/",
           summary:
             "A Gold Coast natural light studio with two Currumbin Waters locations. They needed creators to see the spaces, check availability and lock in a session in minutes — instead of a chain of back-and-forth emails.",
           results: [
-            "Bookings up 22% once the new booking system went live",
+            "Bookings up 32% once the new booking system went live",
             "Booking handled on the site, not over email",
             "Both studio locations bookable in minutes",
             "Built and launched in 4 weeks, SEO in from the first page",
