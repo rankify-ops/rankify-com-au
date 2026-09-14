@@ -14,7 +14,7 @@ import { stripe, cors, clip } from "./_lib.js";
  * invoice, so the client pays the build today and Stripe renews hosting.
  *
  * Launch offer: buy within OFFER_HOURS of opening the preview and the build is
- * $151 off and the first year of hosting is $1 (a one-off $248 coupon on the
+ * $152 off and the first year of hosting is $1 (a one-off $248 coupon on the
  * hosting product, so Stripe shows it against hosting and renews at $249). The window is measured from the
  * preview's server-side startedAt, so it can't be extended from the browser.
  *
@@ -27,7 +27,7 @@ const BUILD_CENTS = 299_900; // $2,999 website build
 const HOSTING_CENTS = 24_900; // $249 per year hosting, on top of the build
 
 const OFFER_HOURS = 72;
-const OFFER_BUILD_DISCOUNT_CENTS = 15_100; // $2,999 → $2,848
+const OFFER_BUILD_DISCOUNT_CENTS = 15_200; // $2,999 → $2,847, so with $1 hosting they pay $2,848 and save $400
 const OFFER_HOSTING_FIRST_YEAR_CENTS = 100; // $1 first year, then $249/yr
 
 // Hosting is a real Stripe product/price (created once, found by lookup key) so
@@ -160,7 +160,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           product_data: {
             name: "Website build",
             description: q.offer
-              ? "Your new website, built from the home page you previewed. Includes $151 off."
+              ? "Your new website, built from the home page you previewed. Includes $152 off."
               : "Your new website, built from the home page you previewed.",
           },
         },
