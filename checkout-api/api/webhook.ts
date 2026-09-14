@@ -188,7 +188,7 @@ async function recordPreviewPayment(s: Stripe.Checkout.Session) {
     note:
       `PAID ${aud(total)} via Stripe (${s.id}) from the free home page preview (${m.preview_site ?? "?"}): ` +
       (offer
-        ? `website ${aud(build)} with the $400-off offer (first year hosting free, then ${aud(hostingYearly)}/yr).`
+        ? `website ${aud(build)} with the preview offer (first year hosting ${aud(hosting)}, then ${aud(hostingYearly)}/yr).`
         : `website ${aud(build)} + hosting ${aud(hosting)}/yr.`),
   });
   console.log("PREVIEW PAYMENT RECORDED", s.id, out);

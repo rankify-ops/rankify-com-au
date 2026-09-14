@@ -14,8 +14,8 @@ import { stripe, cors, clip } from "./_lib.js";
  * invoice, so the client pays the build today and Stripe renews hosting.
  *
  * Launch offer: buy within OFFER_HOURS of opening the preview and the build is
- * $151 off and the first year of hosting is free (a 365-day trial on the hosting
- * subscription) — $400 off in total. The window is measured from the
+ * $151 off and the first year of hosting is $1 (a one-off $248 coupon on the
+ * hosting product, so Stripe shows it against hosting and renews at $249). The window is measured from the
  * preview's server-side startedAt, so it can't be extended from the browser.
  *
  * Prices live here, never in the browser. The email comes from the preview
@@ -28,7 +28,50 @@ const HOSTING_CENTS = 24_900; // $249 per year hosting, on top of the build
 
 const OFFER_HOURS = 72;
 const OFFER_BUILD_DISCOUNT_CENTS = 15_100; // $2,999 → $2,848
-const OFFER_FREE_HOSTING_DAYS = 365;
+const OFFER_HOSTING_FIRST_YEAR_CENTS = 100; // $1 first year, then $249/yr
+
+// Hosting is a real Stripe product/price (created once, found by lookup key) so
+// the first-year coupon can be scoped to hosting alone.
+const HOSTING_LOOKUP_KEY = "preview_hosting_yearly_aud_249";
+const FIRST_YEAR_COUPON_ID = "preview-hosting-first-year-1";
+
+let hostingPriceId: string | null = null;
+let hostingProductId: string | null = null;
+
+async function hostingPrice(): Promise<{ priceId: string; productId: string }> {
+  if (hostingPriceId && hostingProductId) return { priceId: hostingPriceId, productId: hostingProductId };
+  const found = await stripe.prices.list({ lookup_keys: [HOSTING_LOOKUP_KEY], active: true, limit: 1 });
+  let price = found.data[0];
+  if (!price) {
+    const product = await stripe.products.create({ name: "Website hosting", description: "Renews yearly." });
+    price = await stripe.prices.create({
+      product: product.id,
+      currency: CURRENCY,
+      unit_amount: HOSTING_CENTS,
+      recurring: { interval: "year" },
+      lookup_key: HOSTING_LOOKUP_KEY,
+    });
+  }
+  hostingPriceId = price.id;
+  hostingProductId = typeof price.product === "string" ? price.product : price.product.id;
+  return { priceId: hostingPriceId, productId: hostingProductId };
+}
+
+async function firstYearCoupon(productId: string): Promise<string> {
+  try {
+    await stripe.coupons.retrieve(FIRST_YEAR_COUPON_ID);
+  } catch {
+    await stripe.coupons.create({
+      id: FIRST_YEAR_COUPON_ID,
+      name: "First year hosting $1",
+      currency: CURRENCY,
+      amount_off: HOSTING_CENTS - OFFER_HOSTING_FIRST_YEAR_CENTS,
+      duration: "once",
+      applies_to: { products: [productId] },
+    });
+  }
+  return FIRST_YEAR_COUPON_ID;
+}
 
 /** Per-client build price when Tom quotes something other than $2,999. */
 const BUILD_OVERRIDES: Record<string, number> = {};
@@ -64,8 +107,8 @@ function quote(site: string, record: PreviewRecord | null, now = Date.now()) {
       ? {
           endsAt: new Date(offerEnds).toISOString(),
           buildCents: offerBuildCents,
-          hostingFirstYearCents: 0,
-          savingCents: OFFER_BUILD_DISCOUNT_CENTS + HOSTING_CENTS,
+          hostingFirstYearCents: OFFER_HOSTING_FIRST_YEAR_CENTS,
+          savingCents: OFFER_BUILD_DISCOUNT_CENTS + HOSTING_CENTS - OFFER_HOSTING_FIRST_YEAR_CENTS,
         }
       : null,
     now: new Date(now).toISOString(),
@@ -107,6 +150,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       offer: q.offer ? "400-off" : "none",
     };
 
+    const hosting = await hostingPrice();
     const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [
       {
         quantity: 1,
@@ -121,18 +165,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           },
         },
       },
-      {
-        quantity: 1,
-        price_data: {
-          currency: CURRENCY,
-          unit_amount: HOSTING_CENTS,
-          recurring: { interval: "year" },
-          product_data: {
-            name: "Website hosting",
-            description: q.offer ? "First year free, then renews yearly." : "Renews yearly.",
-          },
-        },
-      },
+      { quantity: 1, price: hosting.priceId },
     ];
 
     const session = await stripe.checkout.sessions.create({
@@ -143,18 +176,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       subscription_data: {
         metadata,
         description: `Hosting — ${business || b.site}`,
-        // Free first year = a 365-day trial on hosting. (A billing_cycle_anchor
-        // would avoid Stripe's "start trial" wording, but Checkout rejects
-        // proration_behavior "none" alongside a one-time price.)
-        ...(q.offer ? { trial_period_days: OFFER_FREE_HOSTING_DAYS } : {}),
       },
       success_url: `${returnUrl}?checkout=success`,
       cancel_url: returnUrl,
-      allow_promotion_codes: true,
       automatic_tax: { enabled: false },
+      // Stripe won't take a coupon and the promo-code box together: offer
+      // sessions carry the $1-hosting coupon, full-price ones allow codes.
       ...(q.offer
-        ? { custom_text: { submit: { message: "Your first year of hosting is free — $249 per year from year two." } } }
-        : {}),
+        ? {
+            discounts: [{ coupon: await firstYearCoupon(hosting.productId) }],
+            custom_text: { submit: { message: "First year of hosting $1, then $249 per year." } },
+          }
+        : { allow_promotion_codes: true }),
     });
 
     return res.status(200).json({ url: session.url });
