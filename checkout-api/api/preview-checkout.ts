@@ -6,13 +6,17 @@ import { stripe, cors, clip } from "./_lib.js";
  * Checkout for the free home page preview offer (the PreviewGate lock screen
  * on each client's preview site, backed by rankify-previews).
  *
- *   GET  ?site=<slug>          → the price to show on the card
+ *   GET  ?site=<slug>          → the prices to show on the card, incl. any live offer
  *   POST { site, returnUrl }   → a hosted Checkout URL
  *
- * One Checkout, two items: the website build (one-off) and the first year of
- * hosting (recurring yearly). In subscription mode Stripe puts the one-off
- * item on the first invoice, so the client pays both today and Stripe renews
- * hosting every year after.
+ * One Checkout, two items: the website build (one-off) and hosting (recurring
+ * yearly). In subscription mode Stripe puts the one-off item on the first
+ * invoice, so the client pays the build today and Stripe renews hosting.
+ *
+ * Launch offer: buy within OFFER_HOURS of opening the preview and the build is
+ * $151 off and the first year of hosting is free (a 365-day trial on the
+ * hosting subscription) — $400 off in total. The window is measured from the
+ * preview's server-side startedAt, so it can't be extended from the browser.
  *
  * Prices live here, never in the browser. The email comes from the preview
  * record, not the request, so a session is always for the client the preview
@@ -22,12 +26,16 @@ const CURRENCY = "aud";
 const BUILD_CENTS = 299_900; // $2,999 website build
 const HOSTING_CENTS = 24_900; // $249 per year hosting, on top of the build
 
+const OFFER_HOURS = 72;
+const OFFER_BUILD_DISCOUNT_CENTS = 15_100; // $2,999 → $2,848
+const OFFER_FREE_HOSTING_DAYS = 365;
+
 /** Per-client build price when Tom quotes something other than $2,999. */
 const BUILD_OVERRIDES: Record<string, number> = {};
 
 const PREVIEWS_API = "https://rankify-previews.vercel.app/api/preview";
 
-type PreviewRecord = { email?: string; label?: string | null };
+type PreviewRecord = { email?: string; label?: string | null; startedAt?: string | null };
 
 async function previewRecord(site: string): Promise<PreviewRecord | null> {
   const r = await fetch(PREVIEWS_API, {
@@ -42,6 +50,28 @@ async function previewRecord(site: string): Promise<PreviewRecord | null> {
 
 const validSite = (s: unknown): s is string => typeof s === "string" && /^[a-z0-9-]{1,60}$/.test(s);
 
+function quote(site: string, record: PreviewRecord | null, now = Date.now()) {
+  const buildCents = BUILD_OVERRIDES[site] ?? BUILD_CENTS;
+  const started = record?.startedAt ? new Date(record.startedAt).getTime() : NaN;
+  const offerEnds = Number.isFinite(started) ? started + OFFER_HOURS * 3600 * 1000 : NaN;
+  const offerActive = Number.isFinite(offerEnds) && now < offerEnds;
+  const offerBuildCents = buildCents - OFFER_BUILD_DISCOUNT_CENTS;
+  return {
+    currency: CURRENCY,
+    buildCents,
+    hostingCents: HOSTING_CENTS,
+    offer: offerActive
+      ? {
+          endsAt: new Date(offerEnds).toISOString(),
+          buildCents: offerBuildCents,
+          hostingFirstYearCents: 0,
+          savingCents: OFFER_BUILD_DISCOUNT_CENTS + HOSTING_CENTS,
+        }
+      : null,
+    now: new Date(now).toISOString(),
+  };
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (cors(req, res)) return;
 
@@ -49,11 +79,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (req.method === "GET") {
       const site = req.query.site;
       if (!validSite(site)) return res.status(400).json({ error: "Bad site." });
-      return res.status(200).json({
-        currency: CURRENCY,
-        buildCents: BUILD_OVERRIDES[site] ?? BUILD_CENTS,
-        hostingCents: HOSTING_CENTS,
-      });
+      return res.status(200).json(quote(site, await previewRecord(site)));
     }
 
     if (req.method !== "POST") return res.status(405).json({ error: "GET or POST only" });
@@ -66,6 +92,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const record = await previewRecord(b.site);
     if (!record?.email) return res.status(404).json({ error: "Preview not set up." });
+    const q = quote(b.site, record);
 
     const returnUrl =
       typeof b.returnUrl === "string" && /^https?:\/\//.test(b.returnUrl)
@@ -77,6 +104,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       source: "preview-gate",
       preview_site: b.site,
       business: clip(business, 200),
+      offer: q.offer ? "400-off" : "none",
     };
 
     const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [
@@ -84,10 +112,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         quantity: 1,
         price_data: {
           currency: CURRENCY,
-          unit_amount: BUILD_OVERRIDES[b.site] ?? BUILD_CENTS,
+          unit_amount: q.offer ? q.offer.buildCents : q.buildCents,
           product_data: {
             name: "Website build",
-            description: "Your new website, built from the home page you previewed.",
+            description: q.offer
+              ? "Your new website, built from the home page you previewed. Includes $151 off."
+              : "Your new website, built from the home page you previewed.",
           },
         },
       },
@@ -99,7 +129,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           recurring: { interval: "year" },
           product_data: {
             name: "Website hosting",
-            description: "Renews yearly.",
+            description: q.offer ? "First year free, then renews yearly." : "Renews yearly.",
           },
         },
       },
@@ -110,7 +140,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       line_items: lineItems,
       customer_email: record.email,
       metadata,
-      subscription_data: { metadata, description: `Hosting — ${business || b.site}` },
+      subscription_data: {
+        metadata,
+        description: `Hosting — ${business || b.site}`,
+        ...(q.offer ? { trial_period_days: OFFER_FREE_HOSTING_DAYS } : {}),
+      },
       success_url: `${returnUrl}?checkout=success`,
       cancel_url: returnUrl,
       allow_promotion_codes: true,

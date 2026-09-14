@@ -134,7 +134,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             renewal: true,
             items: [{ name: "Hosting renewal", amount, category: "Hosting" }],
             hosting: { amount, renewalDate: oneYearFrom(new Date()) },
-            note: `Hosting renewed: PAID ${amount.toLocaleString("en-AU")} via Stripe (${inv.id}).`,
+            note: `Hosting renewed: PAID $${amount.toLocaleString("en-AU")} via Stripe (${inv.id}).`,
           });
           console.log("HOSTING RENEWED", inv.id, res2);
         }
@@ -168,6 +168,10 @@ async function recordPreviewPayment(s: Stripe.Checkout.Session) {
   const hosting = dollars(hostingLine?.amount_total);
   const total = dollars(s.amount_total);
 
+  const aud = (n: number) => "$" + n.toLocaleString("en-AU");
+  const offer = m.offer === "400-off";
+  const hostingYearly = dollars(hostingLine?.price?.unit_amount);
+
   const out = await recordPayment({
     stripeRef: s.id,
     email: s.customer_details?.email ?? s.customer_email ?? "",
@@ -175,12 +179,17 @@ async function recordPreviewPayment(s: Stripe.Checkout.Session) {
     source: "Free home page preview",
     dealValue: build,
     services: ["Web Development"],
+    // A free first year (offer) is a $0 line — leave it out of Revenue.
     items: [
       { name: "Website build", amount: build, category: "Web Development" },
       { name: "Hosting (year 1)", amount: hosting, category: "Hosting" },
-    ],
-    hosting: { amount: dollars(hostingLine?.price?.unit_amount), renewalDate: oneYearFrom(new Date()), type: "GitHub" },
-    note: `PAID ${total.toLocaleString("en-AU")} via Stripe (${s.id}) from the free home page preview (${m.preview_site ?? "?"}): website ${build.toLocaleString("en-AU")} + hosting ${hosting.toLocaleString("en-AU")}/yr.`,
+    ].filter((i) => i.amount > 0),
+    hosting: { amount: hostingYearly, renewalDate: oneYearFrom(new Date()), type: "GitHub" },
+    note:
+      `PAID ${aud(total)} via Stripe (${s.id}) from the free home page preview (${m.preview_site ?? "?"}): ` +
+      (offer
+        ? `website ${aud(build)} with the $400-off offer (first year hosting free, then ${aud(hostingYearly)}/yr).`
+        : `website ${aud(build)} + hosting ${aud(hosting)}/yr.`),
   });
   console.log("PREVIEW PAYMENT RECORDED", s.id, out);
 }
