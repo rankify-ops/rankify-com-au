@@ -24,6 +24,7 @@ const ALLOWED_ORIGINS = [
   "https://rankify-ops.github.io",
   "http://localhost:5193",
   "http://localhost:3000",
+  "http://localhost:3099", // preview-gate-test dev server
 ];
 
 /**

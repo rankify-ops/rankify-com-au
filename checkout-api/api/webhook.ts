@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { stripe } from "./_lib.js";
-import { addPaidClient, crmConfigured } from "./_crm.js";
+import { addPaidClient, addPreviewClient, crmConfigured } from "./_crm.js";
 
 /**
  * Stripe's own callback. This — not the return page — is the source of truth
@@ -72,7 +72,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Wrapped because a CRM outage must never make us return non-200: Stripe
     // would retry the event and we'd double-handle a payment that succeeded.
     try {
-      if (crmConfigured) {
+      if (crmConfigured && m.source === "preview-gate") {
+        // Build + first year of hosting in one payment (subscription mode).
+        const amount = s.amount_total ?? 0;
+        await addPreviewClient(
+          {
+            business: m.business ?? "",
+            email: s.customer_details?.email ?? "",
+            site: m.preview_site ?? "",
+            price: Math.round(amount / 100),
+          },
+          `PAID ${(amount / 100).toLocaleString("en-AU")} via Stripe (${s.id}) — website build + first year hosting. Hosting renews yearly (subscription ${s.subscription ?? "?"}).`,
+        );
+      } else if (crmConfigured) {
         const amount = s.amount_total ?? 0;
         await addPaidClient(
           {
