@@ -14,8 +14,8 @@ import { stripe, cors, clip } from "./_lib.js";
  * invoice, so the client pays the build today and Stripe renews hosting.
  *
  * Launch offer: buy within OFFER_HOURS of opening the preview and the build is
- * $151 off and the first year of hosting is free (a 365-day trial on the
- * hosting subscription) — $400 off in total. The window is measured from the
+ * $151 off and the first year of hosting is free (the
+ * hosting subscription's first charge is anchored a year out) — $400 off in total. The window is measured from the
  * preview's server-side startedAt, so it can't be extended from the browser.
  *
  * Prices live here, never in the browser. The email comes from the preview
@@ -143,7 +143,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       subscription_data: {
         metadata,
         description: `Hosting — ${business || b.site}`,
-        ...(q.offer ? { trial_period_days: OFFER_FREE_HOSTING_DAYS } : {}),
+        // Free first year: the first hosting charge is anchored a year out with
+        // no proration, rather than a trial — a trial makes Stripe's button read
+        // "Pay and start trial", which is wrong for a website purchase.
+        ...(q.offer
+          ? {
+              billing_cycle_anchor: Math.floor(Date.now() / 1000) + OFFER_FREE_HOSTING_DAYS * 86400,
+              proration_behavior: "none" as const,
+            }
+          : {}),
       },
       success_url: `${returnUrl}?checkout=success`,
       cancel_url: returnUrl,
