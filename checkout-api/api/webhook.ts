@@ -1,6 +1,7 @@
+import type Stripe from "stripe";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { stripe } from "./_lib.js";
-import { addPaidClient, addPreviewClient, crmConfigured } from "./_crm.js";
+import { addPaidClient, recordPayment, crmConfigured } from "./_crm.js";
 
 /**
  * Stripe's own callback. This — not the return page — is the source of truth
@@ -73,17 +74,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // would retry the event and we'd double-handle a payment that succeeded.
     try {
       if (crmConfigured && m.source === "preview-gate") {
-        // Build + first year of hosting in one payment (subscription mode).
-        const amount = s.amount_total ?? 0;
-        await addPreviewClient(
-          {
-            business: m.business ?? "",
-            email: s.customer_details?.email ?? "",
-            site: m.preview_site ?? "",
-            price: Math.round(amount / 100),
-          },
-          `PAID ${(amount / 100).toLocaleString("en-AU")} via Stripe (${s.id}) — website build + first year hosting. Hosting renews yearly (subscription ${s.subscription ?? "?"}).`,
-        );
+        await recordPreviewPayment(s);
       } else if (crmConfigured) {
         const amount = s.amount_total ?? 0;
         await addPaidClient(
@@ -109,5 +100,70 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
   }
 
+  // Yearly hosting renewals for preview-gate clients. Needs `invoice.paid`
+  // enabled on the webhook endpoint in the Stripe dashboard.
+  if (event.type === "invoice.paid") {
+    const inv = event.data.object;
+    const subMeta = inv.parent?.subscription_details?.metadata ?? {};
+    if (inv.billing_reason === "subscription_cycle" && subMeta.source === "preview-gate") {
+      try {
+        if (crmConfigured) {
+          const amount = Math.round((inv.amount_paid ?? 0) / 100);
+          const res2 = await recordPayment({
+            stripeRef: inv.id ?? "",
+            email: inv.customer_email ?? "",
+            company: subMeta.business ?? "",
+            source: "Free home page preview",
+            renewal: true,
+            items: [{ name: "Hosting renewal", amount, category: "Hosting" }],
+            hosting: { amount, renewalDate: oneYearFrom(new Date()) },
+            note: `Hosting renewed: PAID ${amount.toLocaleString("en-AU")} via Stripe (${inv.id}).`,
+          });
+          console.log("HOSTING RENEWED", inv.id, res2);
+        }
+      } catch (err) {
+        console.error("CRM renewal update failed for", inv.id, err);
+      }
+    }
+  }
+
   return res.status(200).json({ received: true });
+}
+
+const oneYearFrom = (d: Date) => {
+  const n = new Date(d);
+  n.setFullYear(n.getFullYear() + 1);
+  return n.toISOString().split("T")[0];
+};
+
+/**
+ * Free home page preview checkout: build (one-off) + hosting (yearly) in one
+ * subscription-mode session. Amounts come from Stripe's line items, so a promo
+ * code is reflected in the CRM as what was actually paid.
+ */
+async function recordPreviewPayment(s: Stripe.Checkout.Session) {
+  const m = s.metadata ?? {};
+  const lines = await stripe.checkout.sessions.listLineItems(s.id, { limit: 10 });
+  const dollars = (c: number | null | undefined) => Math.round((c ?? 0) / 100);
+  const hostingLine = lines.data.find((l) => l.price?.recurring);
+  const buildLines = lines.data.filter((l) => !l.price?.recurring);
+  const build = buildLines.reduce((t, l) => t + dollars(l.amount_total), 0);
+  const hosting = dollars(hostingLine?.amount_total);
+  const total = dollars(s.amount_total);
+
+  const out = await recordPayment({
+    stripeRef: s.id,
+    email: s.customer_details?.email ?? s.customer_email ?? "",
+    company: m.business ?? "",
+    source: "Free home page preview",
+    dealValue: build,
+    services: ["Web Development"],
+    items: [
+      { name: "Website build", amount: build, category: "Web Development" },
+      { name: "Hosting (year 1)", amount: hosting, category: "Hosting" },
+    ],
+    hosting: { amount: dollars(hostingLine?.price?.unit_amount), renewalDate: oneYearFrom(new Date()), type: "GitHub" },
+    note: `PAID ${total.toLocaleString("en-AU")} via Stripe (${s.id}) from the free home page preview (${m.preview_site ?? "?"}): website ${build.toLocaleString("en-AU")} + hosting ${hosting.toLocaleString("en-AU")}/yr.`,
+  });
+  console.log("PREVIEW PAYMENT RECORDED", s.id, out);
 }

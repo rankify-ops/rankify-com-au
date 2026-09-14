@@ -107,26 +107,25 @@ export async function addPaidClient(b: Brief, note: string): Promise<string | nu
   return client;
 }
 
-/** A client who paid from the free home page preview's lock screen. */
-export async function addPreviewClient(
-  p: { business: string; email: string; site: string; price: number },
-  note: string,
-): Promise<string | null> {
-  const out = await routine({
-    action: "add_lead",
-    lead: {
-      company: p.business || p.email,
-      email: p.email,
-      notes: `Free home page preview (${p.site}) — went ahead from the lock screen.
-${note}`,
-      services: ["Web Development"],
-      estimatedDealValue: p.price,
-      leadSource: "Free home page preview",
-    },
-  });
-  const client = (out?.client as { id?: string } | undefined)?.id ?? null;
-  if (client) await markPaid(client, p.price * 100, note);
-  return client;
+/**
+ * Applies a Stripe payment to the client's existing CRM card (matched by email,
+ * then company): moves it to active, records revenue + hosting, marks their
+ * campaign lead won. The CRM does it in one call and ignores repeats of the
+ * same stripeRef, so a retried webhook can't double-count.
+ */
+export async function recordPayment(payment: {
+  stripeRef: string;
+  email: string;
+  company: string;
+  source: string;
+  dealValue?: number;
+  services?: string[];
+  items: { name: string; amount: number; category: string }[];
+  hosting?: { amount: number; renewalDate: string; type?: string };
+  renewal?: boolean;
+  note: string;
+}): Promise<Record<string, unknown> | null> {
+  return routine({ action: "record_payment", payment });
 }
 
 /** Marks a lead as a paying client once Stripe confirms the payment. */
