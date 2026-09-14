@@ -31,6 +31,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         STRIPE_WEBHOOK_SECRET: Boolean(process.env.STRIPE_WEBHOOK_SECRET),
         CRM_API_URL: Boolean(process.env.CRM_API_URL),
         CRM_ROUTINE_SECRET: Boolean(process.env.CRM_ROUTINE_SECRET),
+        PREVIEW_WEBHOOK_SECRET: Boolean(process.env.PREVIEW_WEBHOOK_SECRET),
       },
     });
   }
@@ -65,6 +66,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       email: s.customer_details?.email,
       ...m,
     });
+
+    // Preview checkout: unlock the client's home page for everyone on the
+    // link. Separate from the CRM so a CRM outage can't keep a paying client
+    // locked out.
+    if (m.source === "preview-gate" && m.preview_site) {
+      try {
+        const r = await fetch("https://rankify-previews.vercel.app/api/preview", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-webhook-secret": process.env.PREVIEW_WEBHOOK_SECRET ?? "" },
+          body: JSON.stringify({ site: m.preview_site, action: "mark_paid", stripeRef: s.id }),
+        });
+        console.log("PREVIEW UNLOCKED", m.preview_site, r.status);
+      } catch (err) {
+        console.error("Preview unlock failed for", s.id, err);
+      }
+    }
 
     // A payment always creates a client in the pipeline. The pre-payment
     // enquiry lives in the Rankify Website space, which is a different store —
