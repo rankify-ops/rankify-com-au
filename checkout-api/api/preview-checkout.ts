@@ -73,6 +73,9 @@ async function firstYearCoupon(productId: string): Promise<string> {
   return FIRST_YEAR_COUPON_ID;
 }
 
+/** Clients who get no launch offer: full price, no countdown. */
+const NO_OFFER = new Set(["star-dentistry"]);
+
 /** Per-client build price when Tom quotes something other than $2,999. */
 const BUILD_OVERRIDES: Record<string, number> = {};
 
@@ -97,7 +100,7 @@ function quote(site: string, record: PreviewRecord | null, now = Date.now()) {
   const buildCents = BUILD_OVERRIDES[site] ?? BUILD_CENTS;
   const started = record?.startedAt ? new Date(record.startedAt).getTime() : NaN;
   const offerEnds = Number.isFinite(started) ? started + OFFER_HOURS * 3600 * 1000 : NaN;
-  const offerActive = Number.isFinite(offerEnds) && now < offerEnds;
+  const offerActive = Number.isFinite(offerEnds) && now < offerEnds && !NO_OFFER.has(site);
   const offerBuildCents = buildCents - OFFER_BUILD_DISCOUNT_CENTS;
   return {
     currency: CURRENCY,
