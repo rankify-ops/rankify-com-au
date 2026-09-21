@@ -107,6 +107,17 @@ export async function addPaidClient(b: Brief, note: string): Promise<string | nu
   return client;
 }
 
+/** Adds one event to a client's CRM Timeline. Never creates a client. */
+export async function routineEvent(event: {
+  type: string;
+  email: string;
+  company: string;
+  note?: string;
+  date?: string;
+}): Promise<Record<string, unknown> | null> {
+  return routine({ action: "log_timeline", event });
+}
+
 /**
  * Applies a Stripe payment to the client's existing CRM card (matched by email,
  * then company): moves it to active, records revenue + hosting, marks their
