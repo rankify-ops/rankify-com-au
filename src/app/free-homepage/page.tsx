@@ -50,7 +50,7 @@ const LOGO = "/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg";
  */
 const BADGES = [
   "Try before you buy — free homepage build",
-  "Built in 7–14 days",
+  "Built in 7–15 days",
   "Custom-built, conversion-focused",
   "Direct developer access, no middlemen",
   "Unlimited revisions",

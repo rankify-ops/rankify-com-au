@@ -18,7 +18,7 @@ const SERVICES = [
   {
     title: "Web Development",
     href: "/web-design-and-development",
-    desc: "Custom websites built around how your customers actually decide — not a template with your logo on it. From $2,999, live in 7–14 days.",
+    desc: "Custom websites built around how your customers actually decide — not a template with your logo on it. From $2,999, live in 7–15 days.",
     cat: "What's included",
     tags: ["Custom build", "Conversion-focused", "Mobile-first", "Speed optimised", "SEO-ready", "Unlimited revisions"],
   },

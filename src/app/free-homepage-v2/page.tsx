@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 const CFG: FunnelConfig = {
   pixelName: "Free homepage offer",
   ctaHref: "/free-homepage/book",
-  ctaLabel: "Get Started Now",
+  ctaLabel: "Get Started",
   ctaMicro: "Homepage delivered in 48 hours",
   eyebrow: "10 builds a month",
 

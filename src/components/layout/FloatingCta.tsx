@@ -91,6 +91,8 @@ export function FloatingCta() {
   if (route === "/schedule-strategy-call" || route === "/contact") return null;
   if (
     route === "/free-homepage" ||
+    route === "/free-homepage-v2" ||
+    route.startsWith("/free-homepage-v2/") ||
     route.startsWith("/free-homepage/") ||
     route === "/google-ads-offer" ||
     route.startsWith("/google-ads-offer/") ||

@@ -170,7 +170,7 @@ export const webDesignAndDevelopment: ServicePageData = {
       usLabel: "Rankify",
       rows: [
         { icon: "person", label: "Who you talk to", agency: "Account managers, juniors, whoever", us: "Just the developer" },
-        { icon: "clock", label: "Timeline", agency: "2–4 months", us: "7–14 days" },
+        { icon: "clock", label: "Timeline", agency: "2–4 months", us: "7–15 days" },
         { icon: "dollar", label: "Build Cost", agency: "$20k–$40k+", us: "A fraction of that" },
         { icon: "repeat", label: "Retainer", agency: "Mandatory, up to $500/mo", us: "Optional, only if you want ongoing work" },
         { icon: "trending", label: "Built to convert", agency: "Looks nice, maybe", us: "Engineered to sell, and looks better" },
@@ -284,7 +284,7 @@ export const webDesignAndDevelopment: ServicePageData = {
         { idx: "02", title: "Fill in the onboarding form", image: "/assets/images/DPStQ1OLWHQEotlRG324OWMdXgA.png", desc: "The moment you order, we send you one form. Your logo, your business details, the services you offer, and anything else you think we should know. That's the only homework — and if you don't have a logo or copy, tell us and we'll sort it." },
         { idx: "03", title: "We design and build it", image: "/assets/images/OcCBB2O75VsaHiIw8nfSpLAtJjo.webp", desc: "You get a custom site — modern, fast, and on brand. Not a template. Every page is laid out around the way your customers actually decide, with the conversion elements that make them call or buy in the right places. Content, forms, tracking and SEO all handled." },
         { idx: "04", title: "Unlimited revisions", image: "/assets/images/BRmVb3sj222Zc8G43z2kcUcKHy8.webp", desc: "Change as much as you like. A colour, a headline, every page, the whole design if it isn't right — there's no cap on what you can ask for, and nothing gets called out of scope or billed per change. Changes come back to us in two rounds, so send everything you want in one hit and we'll work through the lot." },
-        { idx: "05", title: "Launch", image: "/assets/images/jeJzliriilgkAa6aYwiNxC60o.webp", desc: "We handle the domain, the DNS and going live. Your site is custom coded, so there's no page builder for you to wrestle with — send us changes any time and we make them, twice a month, at no charge. Live in 7–14 days from sign-off, hosted and secured for $250 a year." },
+        { idx: "05", title: "Launch", image: "/assets/images/jeJzliriilgkAa6aYwiNxC60o.webp", desc: "We handle the domain, the DNS and going live. Your site is custom coded, so there's no page builder for you to wrestle with — send us changes any time and we make them, twice a month, at no charge. Live in 7–15 days from sign-off, hosted and secured for $250 a year." },
         { idx: "06", title: "Getting traffic to it", image: "/assets/images/htpsqYBKyKw4QhDxfxQWLbtZXE.webp", desc: "A website only earns once people find it. When you're ready, the same team handles the SEO and the ads that bring in the traffic — and we keep improving the site as you grow. Optional, and only when it makes sense for you.", cta: { label: "Talk about growing traffic", href: "/schedule-strategy-call" } },
       ],
     },
@@ -438,7 +438,7 @@ export const webDesignAndDevelopment: ServicePageData = {
     items: [
       {
         q: "How much does web design cost, and how long does it take?",
-        a: "A website is $2,999. That's the base price whether you need one page or ten — ten pages are included, and every page after that is $200. Build time is 7–14 days from the day the design is signed off. Pick your pages in the configurator above and you'll see the exact price before you commit. Larger projects with custom functionality are quoted separately, but you'll always have the number before any work starts.",
+        a: "A website is $2,999. That's the base price whether you need one page or ten — ten pages are included, and every page after that is $200. Build time is 7–15 days from the day the design is signed off. Pick your pages in the configurator above and you'll see the exact price before you commit. Larger projects with custom functionality are quoted separately, but you'll always have the number before any work starts.",
       },
       {
         q: "Why is web design important for my business?",

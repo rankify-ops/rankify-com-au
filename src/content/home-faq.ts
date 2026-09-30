@@ -4,7 +4,7 @@ import type { ServicePageData } from "./service-pages/types";
  * Homepage FAQ, in the shape ServiceFaq takes so the homepage renders the same
  * flush-stacked accordion as every service page instead of its own copy.
  *
- * Answers corrected against what the site now sells: the build is 7–14 days
+ * Answers corrected against what the site now sells: the build is 7–15 days
  * (not "2-5 weeks"), and SEO is $499 per page with a three month minimum —
  * "a fixed monthly fee" covering "design, updates, and ongoing support" was
  * describing a retainer we don't offer.
@@ -16,7 +16,7 @@ export const HOME_FAQ: ServicePageData["faq"] = {
   items: [
     {
       q: "How long does it take to build a website?",
-      a: "Most sites are live in 7–14 days from the point we have your content. Larger builds with a lot of pages take longer, and you'll get a clear timeline before any work starts.",
+      a: "Most sites are live in 7–15 days from the point we have your content. Larger builds with a lot of pages take longer, and you'll get a clear timeline before any work starts.",
     },
     {
       q: "Do you offer custom websites or use templates?",
