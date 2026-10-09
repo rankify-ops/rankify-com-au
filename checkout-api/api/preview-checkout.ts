@@ -14,9 +14,8 @@ import { stripe, cors, clip } from "./_lib.js";
  * invoice, so the client pays the build today and Stripe renews hosting.
  *
  * Launch offer: buy within OFFER_HOURS of opening the preview and the build is
- * $152 off, the first year of hosting is $1 and the first month of the AI web
- * dev assistant is $1 (one scoped coupon covering both first periods; they renew
- * at $249/yr and $100/mo). The window is measured from the
+ * $152 off and the first year of hosting is $1 (a one-off $248 coupon on the
+ * hosting product, so Stripe shows it against hosting and renews at $249). The window is measured from the
  * preview's server-side startedAt, so it can't be extended from the browser.
  *
  * Prices live here, never in the browser. The email comes from the preview
@@ -27,77 +26,51 @@ const CURRENCY = "aud";
 const BUILD_CENTS = 299_900; // $2,999 website build
 const HOSTING_CENTS = 24_900; // $249 per year hosting, on top of the build
 
-const AI_CENTS = 10_000; // $100 per month, AI web dev assistant
-
 const OFFER_HOURS = 72;
-const OFFER_BUILD_DISCOUNT_CENTS = 15_200; // $2,999 → $2,847
+const OFFER_BUILD_DISCOUNT_CENTS = 15_200; // $2,999 → $2,847, so with $1 hosting they pay $2,848 and save $400
 const OFFER_HOSTING_FIRST_YEAR_CENTS = 100; // $1 first year, then $249/yr
-const OFFER_AI_FIRST_MONTH_CENTS = 100; // $1 first month, then $100/mo
 
-// Hosting and the AI assistant are real Stripe products/prices (created once,
-// found by lookup key) so the launch coupon can be scoped to them alone and
-// shown against those lines rather than the whole invoice.
+// Hosting is a real Stripe product/price (created once, found by lookup key) so
+// the first-year coupon can be scoped to hosting alone.
 const HOSTING_LOOKUP_KEY = "preview_hosting_yearly_aud_249";
-const AI_LOOKUP_KEY = "preview_ai_assistant_monthly_aud_100";
-const LAUNCH_COUPON_ID = "preview-launch-first-period-1";
+const FIRST_YEAR_COUPON_ID = "preview-hosting-first-year-1";
 
-const priceCache: Record<string, { priceId: string; productId: string }> = {};
+let hostingPriceId: string | null = null;
+let hostingProductId: string | null = null;
 
-async function findOrCreatePrice(
-  lookupKey: string,
-  productName: string,
-  productDescription: string,
-  unitAmount: number,
-  interval: "year" | "month",
-): Promise<{ priceId: string; productId: string }> {
-  if (priceCache[lookupKey]) return priceCache[lookupKey];
-  const found = await stripe.prices.list({ lookup_keys: [lookupKey], active: true, limit: 1 });
+async function hostingPrice(): Promise<{ priceId: string; productId: string }> {
+  if (hostingPriceId && hostingProductId) return { priceId: hostingPriceId, productId: hostingProductId };
+  const found = await stripe.prices.list({ lookup_keys: [HOSTING_LOOKUP_KEY], active: true, limit: 1 });
   let price = found.data[0];
   if (!price) {
-    const product = await stripe.products.create({ name: productName, description: productDescription });
+    const product = await stripe.products.create({ name: "Website hosting", description: "Renews yearly." });
     price = await stripe.prices.create({
       product: product.id,
       currency: CURRENCY,
-      unit_amount: unitAmount,
-      recurring: { interval },
-      lookup_key: lookupKey,
+      unit_amount: HOSTING_CENTS,
+      recurring: { interval: "year" },
+      lookup_key: HOSTING_LOOKUP_KEY,
     });
   }
-  priceCache[lookupKey] = {
-    priceId: price.id,
-    productId: typeof price.product === "string" ? price.product : price.product.id,
-  };
-  return priceCache[lookupKey];
+  hostingPriceId = price.id;
+  hostingProductId = typeof price.product === "string" ? price.product : price.product.id;
+  return { priceId: hostingPriceId, productId: hostingProductId };
 }
 
-const hostingPrice = () =>
-  findOrCreatePrice(HOSTING_LOOKUP_KEY, "Website hosting", "Renews yearly.", HOSTING_CENTS, "year");
-
-const aiPrice = () =>
-  findOrCreatePrice(
-    AI_LOOKUP_KEY,
-    "AI web dev assistant",
-    "Edit and update your website by chat. Monthly, cancel any time.",
-    AI_CENTS,
-    "month",
-  );
-
-/** One coupon covering both first periods: hosting $1 for a year, AI $1 for a month. */
-async function launchCoupon(productIds: string[]): Promise<string> {
+async function firstYearCoupon(productId: string): Promise<string> {
   try {
-    await stripe.coupons.retrieve(LAUNCH_COUPON_ID);
+    await stripe.coupons.retrieve(FIRST_YEAR_COUPON_ID);
   } catch {
     await stripe.coupons.create({
-      id: LAUNCH_COUPON_ID,
-      name: "First year hosting $1 + first month AI $1",
+      id: FIRST_YEAR_COUPON_ID,
+      name: "First year hosting $1",
       currency: CURRENCY,
-      amount_off:
-        HOSTING_CENTS - OFFER_HOSTING_FIRST_YEAR_CENTS + (AI_CENTS - OFFER_AI_FIRST_MONTH_CENTS),
+      amount_off: HOSTING_CENTS - OFFER_HOSTING_FIRST_YEAR_CENTS,
       duration: "once",
-      applies_to: { products: productIds },
+      applies_to: { products: [productId] },
     });
   }
-  return LAUNCH_COUPON_ID;
+  return FIRST_YEAR_COUPON_ID;
 }
 
 /** Clients who get no launch offer: full price, no countdown. */
@@ -133,17 +106,12 @@ function quote(site: string, record: PreviewRecord | null, now = Date.now()) {
     currency: CURRENCY,
     buildCents,
     hostingCents: HOSTING_CENTS,
-    aiCents: AI_CENTS,
     offer: offerActive
       ? {
           endsAt: new Date(offerEnds).toISOString(),
           buildCents: offerBuildCents,
           hostingFirstYearCents: OFFER_HOSTING_FIRST_YEAR_CENTS,
-          aiFirstMonthCents: OFFER_AI_FIRST_MONTH_CENTS,
-          savingCents:
-            OFFER_BUILD_DISCOUNT_CENTS +
-            (HOSTING_CENTS - OFFER_HOSTING_FIRST_YEAR_CENTS) +
-            (AI_CENTS - OFFER_AI_FIRST_MONTH_CENTS),
+          savingCents: OFFER_BUILD_DISCOUNT_CENTS + HOSTING_CENTS - OFFER_HOSTING_FIRST_YEAR_CENTS,
         }
       : null,
     now: new Date(now).toISOString(),
@@ -186,8 +154,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     };
 
     const hosting = await hostingPrice();
-    // The AI assistant is part of the launch offer only.
-    const ai = q.offer ? await aiPrice() : null;
     const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [
       {
         quantity: 1,
@@ -203,7 +169,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         },
       },
       { quantity: 1, price: hosting.priceId },
-      ...(ai ? [{ quantity: 1, price: ai.priceId }] : []),
     ];
 
     const session = await stripe.checkout.sessions.create({
@@ -222,8 +187,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       // sessions carry the $1-hosting coupon, full-price ones allow codes.
       ...(q.offer
         ? {
-            discounts: [{ coupon: await launchCoupon([hosting.productId, ...(ai ? [ai.productId] : [])]) }],
-            custom_text: { submit: { message: "First year of hosting $1 and first month of the AI assistant $1, then $249 per year and $100 per month. 30-day money-back guarantee · Website live in 7–14 days." } },
+            discounts: [{ coupon: await firstYearCoupon(hosting.productId) }],
+            custom_text: { submit: { message: "First year of hosting $1, then $249 per year. 30-day money-back guarantee · Website live in 7–14 days." } },
           }
         : {
             allow_promotion_codes: true,
