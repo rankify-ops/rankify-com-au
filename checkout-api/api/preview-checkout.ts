@@ -89,7 +89,7 @@ async function launchCoupon(productIds: string[]): Promise<string> {
   } catch {
     await stripe.coupons.create({
       id: LAUNCH_COUPON_ID,
-      name: "First year hosting $1 + first month AI $1",
+      name: "Launch offer: first periods $1",
       currency: CURRENCY,
       amount_off:
         HOSTING_CENTS - OFFER_HOSTING_FIRST_YEAR_CENTS + (AI_CENTS - OFFER_AI_FIRST_MONTH_CENTS),
