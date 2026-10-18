@@ -99,15 +99,15 @@ function Proof({ cfg }: { cfg: FunnelConfig }) {
           alt="Rated five stars"
           width={435}
           height={83}
-          className="h-[21px] w-auto sm:h-[26px]"
+          className="h-[36px] w-auto sm:h-[40px]"
         />
         {/* The number carries it, so it is set large with the wording small
             beneath — the same lockup the stars come from. */}
         <span className="text-left leading-none">
-          <strong className="block whitespace-nowrap text-[19px] font-bold tracking-[-0.02em] text-white sm:text-[21px]">
+          <strong className="block whitespace-nowrap text-[21px] font-bold tracking-[-0.02em] text-white sm:text-[23px]">
             {cfg.proof.count}
           </strong>
-          <span className="mt-1 block whitespace-nowrap text-[11.5px] font-medium text-white/55">
+          <span className="mt-1 block whitespace-nowrap text-[12px] font-medium text-white/55">
             {cfg.proof.label}
           </span>
         </span>
