@@ -85,6 +85,28 @@ function Cta({ cfg, light = false }: { cfg: FunnelConfig; light?: boolean }) {
 }
 
 /**
+ * Five green tiles with a white star in each, the review-site lockup everyone
+ * already reads as a rating. Loose yellow stars on a dark ground look like
+ * decoration; the filled tiles look like a score.
+ */
+function GreenStars() {
+  return (
+    <div className="flex items-center gap-[3px]">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <span
+          key={i}
+          className="flex h-[26px] w-[26px] items-center justify-center rounded-[3px] bg-[color:#07a889]"
+        >
+          <svg viewBox="0 0 24 24" className="h-[17px] w-[17px]" fill="#fff">
+            <path d="M12 2.5l2.9 6.3 6.9.7-5.2 4.7 1.5 6.8L12 17.6l-6.1 3.4 1.5-6.8L2.2 9.5l6.9-.7Z" />
+          </svg>
+        </span>
+      ))}
+    </div>
+  );
+}
+
+/**
  * The reassurance block, directly under the button where the doubt is: who
  * else has done this, then the four things they're actually agreeing to.
  */
@@ -92,11 +114,8 @@ function Proof({ cfg }: { cfg: FunnelConfig }) {
   return (
     <div className="mt-7">
       <div className="flex items-center justify-center gap-3">
-        <Stars className="h-[18px] w-[18px]" />
-        <span className="text-left text-[13px] leading-tight text-white/50">
-          <strong className="block text-[15px] font-bold text-white">{cfg.proof}</strong>
-          Rated five stars by the businesses we build for
-        </span>
+        <GreenStars />
+        <span className="text-[16px] font-bold tracking-[-0.01em] text-white">{cfg.proof}</span>
       </div>
       {/* `justify-center` centres the columns as a block while each row keeps a
           straight left edge. Centring the rows themselves leaves them ragged. */}

@@ -57,7 +57,7 @@ const CFG: FunnelConfig = {
     { t: 351, label: "Next step" },
   ],
 
-  proof: "100+ businesses built for",
+  proof: "100+ Businesses Served",
   bullets: [
     "Built in 48 hours",
     "Your brand, not a template",

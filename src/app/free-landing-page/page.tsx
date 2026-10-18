@@ -35,7 +35,7 @@ const CFG: FunnelConfig = {
 
   videoHeading: "This is what we'll build for you",
 
-  proof: "100+ businesses built for",
+  proof: "100+ Businesses Served",
   bullets: [
     "Built in 48 hours",
     "Your brand, not a template",
