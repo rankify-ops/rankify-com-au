@@ -47,18 +47,23 @@ type Stage = "details" | "budget" | "qualified" | "declined";
  * Sends a capture to the CRM. Fire and forget, with `keepalive` so it survives
  * the redirect that follows a qualifying answer — a form must never wait on,
  * or fail because of, a CRM call.
+ *
+ * Resolves to the card id the server made, when there is one.
  */
-function capture(body: Record<string, unknown>) {
-  if (!CHECKOUT_API) return;
+async function capture(body: Record<string, unknown>): Promise<string | null> {
+  if (!CHECKOUT_API) return null;
   try {
-    void fetch(`${CHECKOUT_API}/api/qualify`, {
+    const res = await fetch(`${CHECKOUT_API}/api/qualify`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
       keepalive: true,
-    }).catch(() => {});
+    });
+    const out = (await res.json().catch(() => null)) as { id?: string } | null;
+    return out?.id ?? null;
   } catch {
     // Never surfaced: they are mid-form.
+    return null;
   }
 }
 
@@ -68,6 +73,8 @@ export function QualifyModal() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [left, setLeft] = useState(REDIRECT_SECONDS);
+  /** The CRM card step one created, so the budget answer updates it. */
+  const cardId = useRef<string | null>(null);
   const firstField = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -116,8 +123,10 @@ export function QualifyModal() {
   const submitDetails = (e: React.FormEvent) => {
     e.preventDefault();
     // Before the qualifying question, deliberately: someone who answers this
-    // screen and leaves is still a lead we hold.
-    capture({ stage: "details", name: name.trim(), email: email.trim() });
+    // screen and leaves is still a record we hold.
+    void capture({ stage: "details", name: name.trim(), email: email.trim() }).then((id) => {
+      cardId.current = id;
+    });
     setStage("budget");
   };
 
@@ -130,8 +139,11 @@ export function QualifyModal() {
       { content_name: "Free homepage qualifier", budget: b.label, qualified: b.qualifies },
       { email: email.trim(), first_name: first, last_name: rest.join(" ") || undefined },
     );
-    capture({
+    void capture({
       stage: "budget",
+      // Absent only if step one hasn't come back yet, in which case the server
+      // writes a complete card rather than losing the answer.
+      id: cardId.current ?? undefined,
       name: name.trim(),
       email: email.trim(),
       budget: b.label,

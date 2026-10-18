@@ -153,28 +153,64 @@ export async function markPaid(clientId: string, amountCents: number, note: stri
 }
 
 /**
- * A VSL funnel capture.
+ * VSL funnel captures.
  *
- * Written the moment the name and email exist, before the budget question is
- * answered, so someone who fills in step one and leaves is still someone we
- * can call. The budget arrives later as a timeline event on the same record
- * rather than a second card.
+ * These land in the CRM's "Rankify Website" space, not the Leads pipeline.
+ * Someone who filled in a name and a budget hasn't booked anything yet, and
+ * the same rule the configurator enquiries follow applies here: Leads is for
+ * people you're actually working. They become a lead when they book the call.
+ *
+ * Written at step one, before the budget question, then updated in place when
+ * the answer arrives — so one person is one card, not two.
  */
-export async function addFunnelLead(l: {
+const WEBSITE_SPACE = "rankify-website";
+
+export const VSL_LIST = "VSL qualifying";
+
+function captureItem(c: { name: string; email: string; budget?: string; qualified?: boolean }) {
+  return {
+    name: c.name || c.email,
+    list: VSL_LIST,
+    status: c.budget ? (c.qualified ? "Qualified" : "Not qualified") : "No budget yet",
+    description: [
+      `Contact: ${c.name || "—"} · ${c.email}`,
+      c.budget
+        ? `Budget: ${c.budget}${c.qualified ? " — sent to the calendar" : " — did not qualify"}`
+        : "Completed step one of the VSL qualifying form. Budget not answered yet.",
+    ].join("\n"),
+  };
+}
+
+/** Creates the card. Returns its id so the budget answer can update it. */
+export async function addWebsiteCapture(c: {
   name: string;
   email: string;
-  source: string;
 }): Promise<string | null> {
-  const out = await routine({
-    action: "add_lead",
-    lead: {
-      company: l.name || l.email,
-      contact: l.name,
-      email: l.email,
-      notes: "Captured at step one of the VSL qualifying form. Budget not answered yet.",
-      services: ["Web Development"],
-      leadSource: l.source,
-    },
+  const out = await routine({ action: "add_website_item", item: captureItem(c) });
+  return (out?.item as { id?: string } | undefined)?.id ?? null;
+}
+
+/**
+ * Applies the budget answer to the card step one created. With no id — the
+ * first request hadn't come back yet — it writes a complete card instead, so
+ * the answer is never simply lost.
+ */
+export async function recordWebsiteBudget(c: {
+  id?: string;
+  name: string;
+  email: string;
+  budget: string;
+  qualified: boolean;
+}): Promise<void> {
+  const item = captureItem(c);
+  if (!c.id) {
+    await routine({ action: "add_website_item", item });
+    return;
+  }
+  await routine({
+    action: "update_space_item",
+    space: WEBSITE_SPACE,
+    id: c.id,
+    updates: { status: item.status, description: item.description },
   });
-  return (out?.client as { id?: string } | undefined)?.id ?? null;
 }

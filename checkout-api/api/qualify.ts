@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { cors } from "./_lib.js";
-import { addFunnelLead, crmConfigured, routineEvent } from "./_crm.js";
+import { addWebsiteCapture, crmConfigured, recordWebsiteBudget } from "./_crm.js";
 
 /**
  * The VSL funnel's qualifying form.
@@ -8,13 +8,15 @@ import { addFunnelLead, crmConfigured, routineEvent } from "./_crm.js";
  * Called twice for one visitor. `details` is the name and email, sent the
  * moment step one is submitted — before the budget question, so a visitor who
  * answers the first screen and leaves is still recorded. `budget` is their
- * answer, which lands as a timeline event on the record the first call made
- * rather than creating a second card for the same person.
+ * answer, which updates the card the first call created rather than making a
+ * second one for the same person.
+ *
+ * Everything lands in the CRM's "Rankify Website" space, not Leads. They
+ * become a lead when they book the call.
  *
  * Always 200. The visitor is mid-form and a CRM outage is not their problem;
  * failures are logged for us instead.
  */
-const SOURCE = "VSL qualifying";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (cors(req, res)) return;
@@ -27,6 +29,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       email?: string;
       budget?: string;
       qualified?: boolean;
+      /** The card id step one returned, so the answer updates it in place. */
+      id?: string;
     };
 
     const email = (b.email ?? "").trim().toLowerCase();
@@ -41,20 +45,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     if (b.stage === "budget") {
-      const budget = (b.budget ?? "").slice(0, 40);
-      await routineEvent({
-        type: "note",
+      await recordWebsiteBudget({
+        id: typeof b.id === "string" ? b.id.slice(0, 40) : undefined,
+        name,
         email,
-        company: name || email,
-        note: `VSL qualifying form: budget ${budget}. ${
-          b.qualified ? "Qualified, sent to the calendar." : "Did not qualify."
-        }`,
+        budget: (b.budget ?? "").slice(0, 40),
+        qualified: Boolean(b.qualified),
       });
       return res.status(200).json({ ok: true });
     }
 
-    const clientId = await addFunnelLead({ name, email, source: SOURCE });
-    return res.status(200).json({ ok: true, clientId });
+    const id = await addWebsiteCapture({ name, email });
+    return res.status(200).json({ ok: true, id });
   } catch (err) {
     console.error("VSL qualifying capture failed", err);
     return res.status(200).json({ ok: false });
