@@ -107,13 +107,12 @@ function Proof({ cfg }: { cfg: FunnelConfig }) {
           {cfg.proof}
         </span>
       </div>
-      {/* `w-fit` + `mx-auto` is what makes this a bullet list rather than four
-          centred sentences: the list shrinks to its longest item and is then
-          centred as one block, so every tick sits on the same left edge. A
-          full-width list stretches its tracks and the ticks drift apart. */}
-      <ul className="mx-auto mt-6 grid w-fit gap-y-2.5 text-left">
+      {/* Each row centres on its own, so the left edge is deliberately ragged.
+          Locking the ticks to one column reads as a form field list under a
+          centred hero; this reads as a run of claims. */}
+      <ul className="mx-auto mt-6 grid gap-y-2.5">
         {cfg.bullets.map((b) => (
-          <li key={b} className="flex items-center gap-2.5">
+          <li key={b} className="flex items-center justify-center gap-2.5">
             <svg
               viewBox="0 0 24 24"
               className="h-[18px] w-[18px] flex-none text-[color:#3fd8bb]"
@@ -121,7 +120,7 @@ function Proof({ cfg }: { cfg: FunnelConfig }) {
             >
               <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.8 7.7-5.6 5.6a1 1 0 0 1-1.4 0l-2.6-2.6a1 1 0 1 1 1.4-1.4l1.9 1.9 4.9-4.9a1 1 0 0 1 1.4 1.4Z" />
             </svg>
-            <span className="text-[15px] font-medium text-white/85">{b}</span>
+            <span className="text-[15.5px] font-semibold text-white">{b}</span>
           </li>
         ))}
       </ul>
