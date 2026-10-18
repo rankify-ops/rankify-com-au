@@ -20,6 +20,7 @@ import { FunnelVideo, type Chapter } from "@/components/landing/FunnelVideo";
  */
 
 const LOGO = "/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg";
+const STARS = "/assets/images/stars-green.webp";
 /** The lockup ships black. Inverting it is cheaper than a second asset to keep in sync. */
 const WHITE = "[filter:brightness(0)_invert(1)]";
 
@@ -38,7 +39,6 @@ export type FunnelConfig = {
    * the thing their eye lands on.
    */
   headlineAccent?: string;
-  subhead: string;
   videoHeading: string;
   /**
    * The 1080p master on Vercel Blob, too large for the repo. Left unset on a
@@ -85,28 +85,6 @@ function Cta({ cfg, light = false }: { cfg: FunnelConfig; light?: boolean }) {
 }
 
 /**
- * Five green tiles with a white star in each, the review-site lockup everyone
- * already reads as a rating. Loose yellow stars on a dark ground look like
- * decoration; the filled tiles look like a score.
- */
-function GreenStars() {
-  return (
-    <div className="flex items-center gap-[3px]">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <span
-          key={i}
-          className="flex h-[26px] w-[26px] items-center justify-center rounded-[3px] bg-[color:#07a889]"
-        >
-          <svg viewBox="0 0 24 24" className="h-[17px] w-[17px]" fill="#fff">
-            <path d="M12 2.5l2.9 6.3 6.9.7-5.2 4.7 1.5 6.8L12 17.6l-6.1 3.4 1.5-6.8L2.2 9.5l6.9-.7Z" />
-          </svg>
-        </span>
-      ))}
-    </div>
-  );
-}
-
-/**
  * The reassurance block, directly under the button where the doubt is: who
  * else has done this, then the four things they're actually agreeing to.
  */
@@ -114,8 +92,20 @@ function Proof({ cfg }: { cfg: FunnelConfig }) {
   return (
     <div className="mt-7">
       <div className="flex items-center justify-center gap-3">
-        <GreenStars />
-        <span className="text-[16px] font-bold tracking-[-0.01em] text-white">{cfg.proof}</span>
+        {/* The supplied rating lockup, used as the image it is rather than
+            redrawn: the proportions and the green are the familiar ones. */}
+        <Image
+          src={asset(STARS)}
+          alt="Rated five stars"
+          width={435}
+          height={83}
+          className="h-[21px] w-auto sm:h-[26px]"
+        />
+        {/* One row or it isn't a rating lockup any more: broken over two lines
+            the stars and the number stop reading as one claim. */}
+        <span className="whitespace-nowrap text-[14.5px] font-bold tracking-[-0.01em] text-white sm:text-[16px]">
+          {cfg.proof}
+        </span>
       </div>
       {/* `justify-center` centres the columns as a block while each row keeps a
           straight left edge. Centring the rows themselves leaves them ragged. */}
@@ -191,11 +181,6 @@ export function DarkFunnelPage({ cfg }: { cfg: FunnelConfig }) {
               </>
             )}
           </h1>
-        </Reveal>
-        <Reveal delay={0.05}>
-          <p className="mx-auto mt-4 max-w-[620px] text-[16.5px] leading-relaxed text-white/60">
-            {cfg.subhead}
-          </p>
         </Reveal>
       </section>
 

@@ -25,7 +25,7 @@ import { asset } from "@/lib/basePath";
 
 export type Chapter = { t: number; label: string };
 
-const POSTER = "/assets/images/vsl-poster.jpg";
+const POSTER = "/assets/images/vsl-poster.webp";
 
 const mmss = (s: number) =>
   `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
@@ -113,7 +113,7 @@ export function FunnelVideo({
             type="button"
             onClick={() => seek()}
             aria-label="Play the video"
-            className="absolute inset-0 flex items-center justify-center bg-black/35 transition-colors hover:bg-black/25"
+            className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors hover:bg-black/10"
           >
             <Image
               src={asset(POSTER)}
@@ -123,8 +123,11 @@ export function FunnelVideo({
               priority
               className="absolute inset-0 h-full w-full object-cover"
             />
-            <span className="relative flex h-[72px] w-[72px] items-center justify-center rounded-full bg-[color:#07a889] shadow-[0_10px_34px_rgba(7,168,137,0.5)] transition-transform duration-300 hover:scale-105">
-              <svg viewBox="0 0 24 24" className="ml-1 h-8 w-8" fill="#fff">
+            {/* Deliberately large and part-transparent: the frame behind it is
+                the sell, so the button sits over the picture rather than
+                punching a hole in it. */}
+            <span className="relative flex h-[96px] w-[96px] items-center justify-center rounded-full bg-[color:#07a889]/80 shadow-[0_12px_40px_rgba(7,168,137,0.45)] transition-transform duration-300 hover:scale-105 sm:h-[124px] sm:w-[124px]">
+              <svg viewBox="0 0 24 24" className="ml-1.5 h-10 w-10 sm:h-[52px] sm:w-[52px]" fill="#fff">
                 <path d="M8 5.5v13l11-6.5z" />
               </svg>
             </span>

@@ -34,8 +34,6 @@ const CFG: FunnelConfig = {
 
   headline: "We'll build your new homepage free,",
   headlineAccent: "and you'll have it in 48 hours.",
-  subhead:
-    "If your website isn't bringing work in, or you haven't got one yet, this is the fastest way to see what a proper one looks like for your business. Built first, before you pay anything.",
 
   videoHeading: "This is what we'll build for you",
   videoSrc: VSL,

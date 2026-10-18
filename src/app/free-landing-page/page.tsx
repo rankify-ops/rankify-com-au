@@ -30,8 +30,6 @@ const CFG: FunnelConfig = {
 
   headline: "Your traffic isn't the problem.",
   headlineAccent: "The page you're sending it to is.",
-  subhead:
-    "We'll build you a landing page, free and properly, and put it in your hands in 48 hours. Then you can see what the traffic you're already getting should actually be doing.",
 
   videoHeading: "This is what we'll build for you",
 
