@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { asset } from "@/lib/basePath";
 
 /**
@@ -45,10 +45,63 @@ export function FunnelVideo({
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [full, setFull] = useState(false);
   const [started, setStarted] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [now, setNow] = useState(0);
   const [dur, setDur] = useState(0);
+  /** Controls fade out while playing, the way every other player behaves. */
+  const [ui, setUi] = useState(true);
+  const hide = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  /**
+   * Shows the controls and restarts the idle countdown. Called on play and on
+   * any pointer or touch activity over the player.
+   *
+   * It only ever hides while the video is playing: a paused player with no
+   * visible controls looks broken, and there is nothing to get out of the way
+   * of.
+   */
+  const nudge = useCallback(() => {
+    setUi(true);
+    if (hide.current) clearTimeout(hide.current);
+    hide.current = setTimeout(() => {
+      if (ref.current && !ref.current.paused) setUi(false);
+    }, 3000);
+  }, []);
+
+  /**
+   * Full screen, on the player rather than the <video>.
+   *
+   * Fullscreening the video element itself puts a `controls={false}` video on
+   * screen with nothing to drive it and no visible way back. Taking the
+   * wrapper full screen carries our own controls up with it.
+   *
+   * iOS Safari supports neither on a div, so it falls back to the video's own
+   * `webkitEnterFullscreen`, which hands over to the native player.
+   */
+  const toggleFull = useCallback(() => {
+    const el = wrapRef.current;
+    const v = ref.current as (HTMLVideoElement & { webkitEnterFullscreen?: () => void }) | null;
+    if (document.fullscreenElement) {
+      void document.exitFullscreen().catch(() => {});
+      return;
+    }
+    if (el?.requestFullscreen) void el.requestFullscreen().catch(() => {});
+    else v?.webkitEnterFullscreen?.();
+  }, []);
+
+  useEffect(() => {
+    const sync = () => setFull(Boolean(document.fullscreenElement));
+    document.addEventListener("fullscreenchange", sync);
+    return () => document.removeEventListener("fullscreenchange", sync);
+  }, []);
+
+  // A pending timer must not fire into an unmounted component.
+  useEffect(() => () => {
+    if (hide.current) clearTimeout(hide.current);
+  }, []);
 
   /** Seeks and plays. Doubles as the play button: `start` has no timestamp. */
   const seek = useCallback((t?: number) => {
@@ -87,7 +140,16 @@ export function FunnelVideo({
 
   return (
     <div className="mx-auto w-full max-w-[880px]">
-      <div className="group/player relative overflow-hidden rounded-3xl border border-white/10 bg-black">
+      <div
+        ref={wrapRef}
+        onPointerMove={nudge}
+        onTouchStart={nudge}
+        className={`group/player relative overflow-hidden bg-black ${
+          full
+            ? "flex h-screen w-screen items-center justify-center"
+            : "rounded-3xl border border-white/10"
+        }`}
+      >
         <video
           ref={ref}
           src={src}
@@ -98,11 +160,17 @@ export function FunnelVideo({
           onPlay={() => {
             setStarted(true);
             setPlaying(true);
+            nudge();
           }}
-          onPause={() => setPlaying(false)}
+          onPause={() => {
+            setPlaying(false);
+            // Straight back on, and no countdown while paused.
+            if (hide.current) clearTimeout(hide.current);
+            setUi(true);
+          }}
           onLoadedMetadata={(e) => setDur(e.currentTarget.duration || 0)}
           onTimeUpdate={(e) => setNow(e.currentTarget.currentTime)}
-          className="aspect-video w-full cursor-pointer"
+          className={`cursor-pointer ${full ? "max-h-full w-full object-contain" : "aspect-video w-full"}`}
         />
 
         {/* The poster is a frame of the video, so before first play the <video>
@@ -136,13 +204,17 @@ export function FunnelVideo({
 
         {/* ---------- Controls ---------- */}
         {started && (
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent px-4 pb-3 pt-10 sm:px-5">
+          <div
+            className={`pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent px-4 pb-3 pt-10 transition-opacity duration-300 sm:px-5 ${
+              ui ? "opacity-100" : "opacity-0"
+            }`}
+          >
             {/* The track sits above the buttons so the chapter dots get the
                 full width to spread across. */}
             <div
               ref={trackRef}
               onClick={scrub}
-              className="pointer-events-auto relative h-1.5 cursor-pointer rounded-full bg-white/25"
+              className={`relative h-1.5 cursor-pointer rounded-full bg-white/25 ${ui ? "pointer-events-auto" : "pointer-events-none"}`}
             >
               <div
                 className="absolute inset-y-0 left-0 rounded-full bg-[color:#07a889]"
@@ -196,7 +268,7 @@ export function FunnelVideo({
                 })}
             </div>
 
-            <div className="pointer-events-auto mt-2.5 flex items-center gap-3">
+            <div className={`mt-2.5 flex items-center gap-3 ${ui ? "pointer-events-auto" : "pointer-events-none"}`}>
               <button
                 type="button"
                 onClick={toggle}
@@ -219,8 +291,8 @@ export function FunnelVideo({
               <span className="flex-1" />
               <button
                 type="button"
-                onClick={() => void ref.current?.requestFullscreen?.().catch(() => {})}
-                aria-label="Full screen"
+                onClick={toggleFull}
+                aria-label={full ? "Exit full screen" : "Full screen"}
                 className="flex h-8 w-8 flex-none items-center justify-center rounded-full text-white transition-colors hover:bg-white/15"
               >
                 <svg
@@ -232,7 +304,7 @@ export function FunnelVideo({
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
-                  <path d="M8 4H4v4M16 4h4v4M8 20H4v-4M16 20h4v-4" />
+                  <path d={full ? "M4 8h4V4M20 8h-4V4M4 16h4v4M20 16h-4v4" : "M8 4H4v4M16 4h4v4M8 20H4v-4M16 20h4v-4"} />
                 </svg>
               </button>
             </div>
