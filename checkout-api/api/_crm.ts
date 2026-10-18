@@ -151,3 +151,30 @@ export async function markPaid(clientId: string, amountCents: number, note: stri
     },
   });
 }
+
+/**
+ * A VSL funnel capture.
+ *
+ * Written the moment the name and email exist, before the budget question is
+ * answered, so someone who fills in step one and leaves is still someone we
+ * can call. The budget arrives later as a timeline event on the same record
+ * rather than a second card.
+ */
+export async function addFunnelLead(l: {
+  name: string;
+  email: string;
+  source: string;
+}): Promise<string | null> {
+  const out = await routine({
+    action: "add_lead",
+    lead: {
+      company: l.name || l.email,
+      contact: l.name,
+      email: l.email,
+      notes: "Captured at step one of the VSL qualifying form. Budget not answered yet.",
+      services: ["Web Development"],
+      leadSource: l.source,
+    },
+  });
+  return (out?.client as { id?: string } | undefined)?.id ?? null;
+}

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BASE_PATH } from "@/lib/basePath";
 import { pixelTrack } from "@/lib/pixel";
+import { CHECKOUT_API } from "@/lib/checkout";
 
 /**
  * The qualifying form that sits between the landing page and the calendar.
@@ -41,6 +42,25 @@ export function openQualify() {
 }
 
 type Stage = "details" | "budget" | "qualified" | "declined";
+
+/**
+ * Sends a capture to the CRM. Fire and forget, with `keepalive` so it survives
+ * the redirect that follows a qualifying answer — a form must never wait on,
+ * or fail because of, a CRM call.
+ */
+function capture(body: Record<string, unknown>) {
+  if (!CHECKOUT_API) return;
+  try {
+    void fetch(`${CHECKOUT_API}/api/qualify`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+      keepalive: true,
+    }).catch(() => {});
+  } catch {
+    // Never surfaced: they are mid-form.
+  }
+}
 
 export function QualifyModal() {
   const [open, setOpen] = useState(false);
@@ -95,6 +115,9 @@ export function QualifyModal() {
 
   const submitDetails = (e: React.FormEvent) => {
     e.preventDefault();
+    // Before the qualifying question, deliberately: someone who answers this
+    // screen and leaves is still a lead we hold.
+    capture({ stage: "details", name: name.trim(), email: email.trim() });
     setStage("budget");
   };
 
@@ -107,6 +130,13 @@ export function QualifyModal() {
       { content_name: "Free homepage qualifier", budget: b.label, qualified: b.qualifies },
       { email: email.trim(), first_name: first, last_name: rest.join(" ") || undefined },
     );
+    capture({
+      stage: "budget",
+      name: name.trim(),
+      email: email.trim(),
+      budget: b.label,
+      qualified: b.qualifies,
+    });
     setStage(b.qualifies ? "qualified" : "declined");
   };
 
