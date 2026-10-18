@@ -90,7 +90,7 @@ function Cta({ cfg, light = false }: { cfg: FunnelConfig; light?: boolean }) {
  */
 function Proof({ cfg }: { cfg: FunnelConfig }) {
   return (
-    <div className="mt-7">
+    <div className="mt-6">
       <div className="flex items-center justify-center gap-3">
         {/* The supplied rating lockup, used as the image it is rather than
             redrawn: the proportions and the green are the familiar ones. */}
@@ -110,7 +110,7 @@ function Proof({ cfg }: { cfg: FunnelConfig }) {
       {/* Each row centres on its own, so the left edge is deliberately ragged.
           Locking the ticks to one column reads as a form field list under a
           centred hero; this reads as a run of claims. */}
-      <ul className="mx-auto mt-6 grid gap-y-2.5">
+      <ul className="mx-auto mt-5 grid gap-y-2.5">
         {cfg.bullets.map((b) => (
           <li key={b} className="flex items-center justify-center gap-2.5">
             <svg
@@ -141,9 +141,17 @@ function Head({ children, sub }: { children: ReactNode; sub?: string }) {
   );
 }
 
-function Section({ children, id }: { children: ReactNode; id?: string }) {
+function Section({
+  children,
+  id,
+  className = "py-11 sm:py-16",
+}: {
+  children: ReactNode;
+  id?: string;
+  className?: string;
+}) {
   return (
-    <section id={id} className="mx-auto max-w-[1100px] scroll-mt-20 px-5 py-14 sm:px-8 sm:py-20">
+    <section id={id} className={`mx-auto max-w-[1100px] scroll-mt-20 px-5 sm:px-8 ${className}`}>
       {children}
     </section>
   );
@@ -155,7 +163,7 @@ export function DarkFunnelPage({ cfg }: { cfg: FunnelConfig }) {
       <LandingPixel contentName={cfg.pixelName} />
 
       {/* Centred logo, deliberately not a link. */}
-      <div className="flex flex-col items-center gap-3 px-5 pt-8">
+      <div className="flex flex-col items-center gap-2.5 px-5 pt-6">
         <Image
           src={asset(LOGO)}
           alt="Rankify®"
@@ -171,7 +179,7 @@ export function DarkFunnelPage({ cfg }: { cfg: FunnelConfig }) {
       </div>
 
       {/* ---------- 1. Hero ---------- */}
-      <section className="mx-auto max-w-[1100px] px-5 pt-7 text-center sm:px-8 sm:pt-9">
+      <section className="mx-auto max-w-[1100px] px-5 pt-5 text-center sm:px-8 sm:pt-6">
         <Reveal>
           <h1 className="mx-auto max-w-[900px] text-[clamp(31px,4.8vw,54px)] font-bold leading-[1.06] tracking-[-0.035em]">
             {cfg.headline}
@@ -186,7 +194,7 @@ export function DarkFunnelPage({ cfg }: { cfg: FunnelConfig }) {
       </section>
 
       {/* ---------- 2. Video ---------- */}
-      <Section>
+      <Section className="pb-12 pt-7 sm:pb-16 sm:pt-9">
         <Reveal className="text-center">
           <p className="inline-flex items-center gap-2 text-[clamp(18px,2vw,24px)] font-bold tracking-[-0.02em] text-white">
             <svg viewBox="0 0 24 24" className="h-5 w-5 flex-none text-[color:#3fd8bb]" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
@@ -195,10 +203,10 @@ export function DarkFunnelPage({ cfg }: { cfg: FunnelConfig }) {
             {cfg.videoHeading}
           </p>
         </Reveal>
-        <Reveal scale delay={0.05} className="mt-6">
+        <Reveal scale delay={0.05} className="mt-5">
           {cfg.videoSrc ? (
             <FunnelVideo src={cfg.videoSrc} chapters={cfg.chapters ?? []}>
-              <div id="hero-cta" className="mt-9">
+              <div id="hero-cta" className="mt-6">
                 <Cta cfg={cfg} />
               </div>
               <Proof cfg={cfg} />
@@ -217,7 +225,7 @@ export function DarkFunnelPage({ cfg }: { cfg: FunnelConfig }) {
             the proof block live inside the player, above the chapter list. */}
         {!cfg.videoSrc && (
           <>
-            <Reveal id="hero-cta" delay={0.1} className="mt-9">
+            <Reveal id="hero-cta" delay={0.1} className="mt-6">
               <Cta cfg={cfg} />
             </Reveal>
             <Proof cfg={cfg} />
@@ -228,7 +236,7 @@ export function DarkFunnelPage({ cfg }: { cfg: FunnelConfig }) {
       {/* ---------- 3. How it works ---------- */}
       <Section>
         <Head>How it works</Head>
-        <div className="mt-10 grid gap-4 lg:grid-cols-3">
+        <div className="mt-8 grid gap-4 lg:grid-cols-3">
           {cfg.steps.map((s, i) => (
             <Reveal key={s.n} delay={i * 0.06}>
               <div className="h-full rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-7">
@@ -241,7 +249,7 @@ export function DarkFunnelPage({ cfg }: { cfg: FunnelConfig }) {
             </Reveal>
           ))}
         </div>
-        <div className="mt-10">
+        <div className="mt-8">
           <Cta cfg={cfg} />
         </div>
       </Section>
@@ -249,7 +257,7 @@ export function DarkFunnelPage({ cfg }: { cfg: FunnelConfig }) {
       {/* ---------- 4. Reviews ---------- */}
       <Section id="reviews">
         <Head sub={cfg.reviewsSub}>{cfg.reviewsHeading}</Head>
-        <div className="mt-10 grid gap-4 lg:grid-cols-3">
+        <div className="mt-8 grid gap-4 lg:grid-cols-3">
           {cfg.reviews.map((r, i) => (
             <Reveal key={r.name} delay={i * 0.05}>
               <figure className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-6">

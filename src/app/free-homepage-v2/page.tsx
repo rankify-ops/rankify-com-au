@@ -28,8 +28,8 @@ const VSL =
 const CFG: FunnelConfig = {
   pixelName: "Free homepage offer",
   ctaHref: "/free-homepage/book",
-  ctaLabel: "Get Started",
-  ctaMicro: "Homepage delivered in 48 hours",
+  ctaLabel: "Get Started Now",
+  ctaMicro: "Delivered in 48 Hours",
   eyebrow: "10 builds a month",
 
   headline: "We'll build your new homepage free,",
