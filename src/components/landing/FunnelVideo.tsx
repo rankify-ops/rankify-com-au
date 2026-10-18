@@ -113,7 +113,7 @@ export function FunnelVideo({
             type="button"
             onClick={() => seek()}
             aria-label="Play the video"
-            className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors hover:bg-black/10"
+            className="absolute inset-0 flex items-center justify-center bg-black/10 transition-colors hover:bg-black/[0.04]"
           >
             <Image
               src={asset(POSTER)}
