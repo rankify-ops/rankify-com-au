@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import { DarkFunnelPage, type FunnelConfig } from "@/components/landing/DarkFunnel";
 
 /**
- * Funnel B — the landing page offer.
+ * Funnel B, the landing page offer.
  *
- * Audience: businesses whose page isn't converting the traffic they get —
- * paid, organic or referral. Deliberately not ads-specific: plenty of them
- * aren't running ads yet, and that's the upsell after the build lands.
- * Free asset: a landing page in 48 hours. Paid outcome: the build plus the ad
- * setup with Adalytical.
+ * Audience: businesses whose page isn't converting the traffic they get,
+ * whether that's paid, organic or referral. Deliberately not ads-specific:
+ * plenty of them aren't running ads yet, and that's the upsell after the build
+ * lands. Free asset: a landing page in 48 hours. Paid outcome: the build plus
+ * the ad setup with Adalytical.
  *
- * Deliberately separate from Funnel A in every way except the shell — its own
+ * Deliberately separate from Funnel A in every way except the shell. Its own
  * URL, its own pixel audience, its own ad set.
  */
 export const metadata: Metadata = {
@@ -28,12 +28,20 @@ const CFG: FunnelConfig = {
   ctaMicro: "Landing page delivered in 48 hours",
   eyebrow: "10 builds a month",
 
-  headline: "Your traffic isn't the problem. The page you're sending it to is.",
+  headline: "Your traffic isn't the problem.",
+  headlineAccent: "The page you're sending it to is.",
   subhead:
-    "We'll build you a landing page — free, properly, and in your hands in 48 hours — so you can see what the traffic you're already getting should actually be doing.",
+    "We'll build you a landing page, free and properly, and put it in your hands in 48 hours. Then you can see what the traffic you're already getting should actually be doing.",
 
   videoHeading: "This is what we'll build for you",
-  videoCaption: "No tech knowledge needed — we handle the lot.*",
+
+  proof: "100+ businesses built for",
+  bullets: [
+    "Built in 48 hours",
+    "Your brand, not a template",
+    "Yours to see before you pay",
+    "No lock-in contract",
+  ],
 
   steps: [
     {
@@ -44,7 +52,7 @@ const CFG: FunnelConfig = {
     {
       n: "2",
       h: "A quick fifteen minute call",
-      b: "So I understand the business, the offer, and who you're actually trying to reach. No pitch — I need this to build the thing properly.",
+      b: "So I understand the business, the offer, and who you're actually trying to reach. No pitch. I need this to build the thing properly.",
     },
     {
       n: "3",

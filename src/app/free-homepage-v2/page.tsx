@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { DarkFunnelPage, type FunnelConfig } from "@/components/landing/DarkFunnel";
 
 /**
- * Funnel A — the website offer.
+ * Funnel A, the website offer.
  *
  * Audience: owners with no site, an outdated one, or one that isn't bringing
  * work in. Free asset: a homepage in 48 hours. Paid outcome: the full build.
  *
- * Separate from Funnel B in every way except the shell — its own URL, its own
+ * Separate from Funnel B in every way except the shell. Its own URL, its own
  * pixel audience, its own ad set.
  */
 export const metadata: Metadata = {
@@ -18,6 +18,13 @@ export const metadata: Metadata = {
   alternates: { canonical: "/free-homepage-v2" },
 };
 
+/**
+ * The 1080p master, untouched, on Vercel Blob. It cannot live in the repo:
+ * GitHub Pages hard-refuses files over 100MB and this one is 109MB.
+ */
+const VSL =
+  "https://b6oms8njhzb6et8o.public.blob.vercel-storage.com/vsl/free-homepage-vsl-dOolRH0hSieHhVaF7uRTWCbetJRDSL.mp4";
+
 const CFG: FunnelConfig = {
   pixelName: "Free homepage offer",
   ctaHref: "/free-homepage/book",
@@ -25,12 +32,38 @@ const CFG: FunnelConfig = {
   ctaMicro: "Homepage delivered in 48 hours",
   eyebrow: "10 builds a month",
 
-  headline: "We'll build your new homepage free, and you'll have it in 48 hours.",
+  headline: "We'll build your new homepage free,",
+  headlineAccent: "and you'll have it in 48 hours.",
   subhead:
-    "If your website isn't bringing work in — or you haven't got one — this is the fastest way to see what a proper one looks like for your business. Built first, before you pay anything.",
+    "If your website isn't bringing work in, or you haven't got one yet, this is the fastest way to see what a proper one looks like for your business. Built first, before you pay anything.",
 
   videoHeading: "This is what we'll build for you",
-  videoCaption: "Two minutes on what you get, why it's free, and what happens next.",
+  videoSrc: VSL,
+  chapters: [
+    { t: 0, label: "Who this is for" },
+    { t: 29, label: "The free home page offer" },
+    { t: 44, label: "Five client results" },
+    { t: 102, label: "Same traffic, only the page changed" },
+    { t: 133, label: "What most websites miss" },
+    { t: 167, label: "Who I am" },
+    { t: 178, label: "Platforms and agencies I've worked with" },
+    { t: 204, label: "What most web developers don't know" },
+    { t: 224, label: "What I'll do for you" },
+    { t: 239, label: "How it works, the three steps" },
+    { t: 266, label: "Your own AI web developer" },
+    { t: 285, label: "Making a change by text, email or the app" },
+    { t: 304, label: "No lock-in" },
+    { t: 324, label: "What you're risking" },
+    { t: 351, label: "Next step" },
+  ],
+
+  proof: "100+ businesses built for",
+  bullets: [
+    "Built in 48 hours",
+    "Your brand, not a template",
+    "Yours to see before you pay",
+    "No lock-in contract",
+  ],
 
   steps: [
     {
@@ -41,7 +74,7 @@ const CFG: FunnelConfig = {
     {
       n: "2",
       h: "A quick fifteen minute call",
-      b: "So I understand the business, your services, and the customer you're after. No pitch — I need it to build the thing properly.",
+      b: "So I understand the business, your services, and the customer you're after. No pitch. I need it to build the thing properly.",
     },
     {
       n: "3",

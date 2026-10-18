@@ -5,6 +5,7 @@ import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { Stars } from "@/components/ui/Stars";
 import { LandingPixel, StickyCta } from "@/components/landing/LandingChrome";
+import { FunnelVideo, type Chapter } from "@/components/landing/FunnelVideo";
 
 /**
  * The shared shell for the two funnel landing pages.
@@ -27,13 +28,29 @@ export type FunnelConfig = {
   pixelName: string;
   ctaHref: string;
   ctaLabel: string;
-  /** Sits inside every button — the 48 hour promise, worded per funnel. */
+  /** Sits inside every button: the 48 hour promise, worded per funnel. */
   ctaMicro: string;
   eyebrow: string;
   headline: string;
+  /**
+   * The back half of the headline, set in green. The offer itself goes here:
+   * on a page a cold visitor reads in about a second, the free part has to be
+   * the thing their eye lands on.
+   */
+  headlineAccent?: string;
   subhead: string;
   videoHeading: string;
-  videoCaption: string;
+  /**
+   * The 1080p master on Vercel Blob, too large for the repo. Left unset on a
+   * funnel whose own VSL hasn't been recorded yet: the two offers are
+   * different, and running one funnel's video on the other contradicts the
+   * page it's sitting on.
+   */
+  videoSrc?: string;
+  chapters?: Chapter[];
+  /** Under the button: the star row and the four things they get. */
+  proof: string;
+  bullets: string[];
   steps: { n: string; h: string; b: string }[];
   reviewsHeading: string;
   reviewsSub: string;
@@ -64,6 +81,40 @@ function Cta({ cfg, light = false }: { cfg: FunnelConfig; light?: boolean }) {
         {cfg.ctaMicro}
       </span>
     </Link>
+  );
+}
+
+/**
+ * The reassurance block, directly under the button where the doubt is: who
+ * else has done this, then the four things they're actually agreeing to.
+ */
+function Proof({ cfg }: { cfg: FunnelConfig }) {
+  return (
+    <div className="mt-7">
+      <div className="flex items-center justify-center gap-3">
+        <Stars className="h-[18px] w-[18px]" />
+        <span className="text-left text-[13px] leading-tight text-white/50">
+          <strong className="block text-[15px] font-bold text-white">{cfg.proof}</strong>
+          Rated five stars by the businesses we build for
+        </span>
+      </div>
+      {/* `justify-center` centres the columns as a block while each row keeps a
+          straight left edge. Centring the rows themselves leaves them ragged. */}
+      <ul className="mt-6 grid justify-center gap-x-10 gap-y-2.5 text-left sm:grid-cols-2">
+        {cfg.bullets.map((b) => (
+          <li key={b} className="flex items-center gap-2.5">
+            <svg
+              viewBox="0 0 24 24"
+              className="h-[18px] w-[18px] flex-none text-[color:#3fd8bb]"
+              fill="currentColor"
+            >
+              <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.8 7.7-5.6 5.6a1 1 0 0 1-1.4 0l-2.6-2.6a1 1 0 1 1 1.4-1.4l1.9 1.9 4.9-4.9a1 1 0 0 1 1.4 1.4Z" />
+            </svg>
+            <span className="text-[15px] font-medium text-white/85">{b}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
@@ -103,20 +154,27 @@ export function DarkFunnelPage({ cfg }: { cfg: FunnelConfig }) {
           priority
           className={`h-[26px] w-auto ${WHITE}`}
         />
-        <span className="rounded-full bg-[color:#07a889]/15 px-3 py-1 text-[11.5px] font-semibold uppercase tracking-[0.14em] text-[color:#3fd8bb]">
+        <span className="inline-flex items-center gap-2 rounded-full border border-[color:#07a889]/35 bg-[color:#07a889]/15 px-3.5 py-1.5 text-[11.5px] font-bold uppercase tracking-[0.14em] text-[color:#3fd8bb]">
+          <span className="h-1.5 w-1.5 rounded-full bg-[color:#3fd8bb]" />
           {cfg.eyebrow}
         </span>
       </div>
 
       {/* ---------- 1. Hero ---------- */}
-      <section className="mx-auto max-w-[1100px] px-5 pt-8 text-center sm:px-8 sm:pt-10">
+      <section className="mx-auto max-w-[1100px] px-5 pt-7 text-center sm:px-8 sm:pt-9">
         <Reveal>
-          <h1 className="mx-auto max-w-[940px] text-[clamp(31px,5vw,58px)] font-semibold leading-[1.04] tracking-[-0.04em]">
+          <h1 className="mx-auto max-w-[900px] text-[clamp(31px,4.8vw,54px)] font-bold leading-[1.06] tracking-[-0.035em]">
             {cfg.headline}
+            {cfg.headlineAccent && (
+              <>
+                {" "}
+                <span className="text-[color:#3fd8bb]">{cfg.headlineAccent}</span>
+              </>
+            )}
           </h1>
         </Reveal>
         <Reveal delay={0.05}>
-          <p className="mx-auto mt-5 max-w-[680px] text-[17px] leading-relaxed text-white/65 sm:text-[18px]">
+          <p className="mx-auto mt-4 max-w-[620px] text-[16.5px] leading-relaxed text-white/60">
             {cfg.subhead}
           </p>
         </Reveal>
@@ -125,33 +183,41 @@ export function DarkFunnelPage({ cfg }: { cfg: FunnelConfig }) {
       {/* ---------- 2. Video ---------- */}
       <Section>
         <Reveal className="text-center">
-          <p className="inline-flex items-center gap-2 text-[clamp(19px,2.2vw,26px)] font-semibold tracking-[-0.02em] text-white">
-            <svg viewBox="0 0 24 24" className="h-5 w-5 flex-none text-[color:#3fd8bb]" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+          <p className="inline-flex items-center gap-2 text-[clamp(18px,2vw,24px)] font-bold tracking-[-0.02em] text-white">
+            <svg viewBox="0 0 24 24" className="h-5 w-5 flex-none text-[color:#3fd8bb]" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 4.5v15M6 13.5l6 6 6-6" />
             </svg>
             {cfg.videoHeading}
           </p>
         </Reveal>
-        <Reveal scale delay={0.05} className="mx-auto mt-7 w-full max-w-[880px]">
-          <div className="relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-3xl border border-white/10 bg-black/50">
-            <span className="flex h-[68px] w-[68px] items-center justify-center rounded-full bg-[color:#07a889] shadow-[0_10px_34px_rgba(7,168,137,0.45)]">
-              <svg viewBox="0 0 24 24" className="ml-1 h-7 w-7" fill="#fff">
-                <path d="M8 5.5v13l11-6.5z" />
-              </svg>
-            </span>
-            <span className="absolute bottom-5 text-[12.5px] font-medium uppercase tracking-[0.14em] text-white/40">
-              Thomas explains the offer — 2 to 3 min
-            </span>
-          </div>
+        <Reveal scale delay={0.05} className="mt-6">
+          {cfg.videoSrc ? (
+            <FunnelVideo src={cfg.videoSrc} chapters={cfg.chapters ?? []}>
+              <div id="hero-cta" className="mt-9">
+                <Cta cfg={cfg} />
+              </div>
+              <Proof cfg={cfg} />
+            </FunnelVideo>
+          ) : (
+            <div className="mx-auto flex aspect-video w-full max-w-[880px] items-center justify-center rounded-3xl border border-white/10 bg-black/50">
+              <span className="flex h-[68px] w-[68px] items-center justify-center rounded-full bg-[color:#07a889] shadow-[0_10px_34px_rgba(7,168,137,0.45)]">
+                <svg viewBox="0 0 24 24" className="ml-1 h-7 w-7" fill="#fff">
+                  <path d="M8 5.5v13l11-6.5z" />
+                </svg>
+              </span>
+            </div>
+          )}
         </Reveal>
-        <Reveal id="hero-cta" delay={0.1} className="mt-8">
-          <Cta cfg={cfg} />
-        </Reveal>
-        <Reveal delay={0.15} className="mt-5">
-          <p className="text-center text-[15px] font-medium italic text-white/55">
-            {cfg.videoCaption}
-          </p>
-        </Reveal>
+        {/* Only for a funnel with no video of its own: with one, the button and
+            the proof block live inside the player, above the chapter list. */}
+        {!cfg.videoSrc && (
+          <>
+            <Reveal id="hero-cta" delay={0.1} className="mt-9">
+              <Cta cfg={cfg} />
+            </Reveal>
+            <Proof cfg={cfg} />
+          </>
+        )}
       </Section>
 
       {/* ---------- 3. How it works ---------- */}
