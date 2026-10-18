@@ -104,6 +104,47 @@ const CFG: FunnelConfig = {
       name: "Jacob Gregory",
       role: "Founder, Tintek Roofing & Cladding",
     },
+    {
+      quote:
+        "Absolutely stoked with our website overhaul by Rankify. We just got it live and Tom was there for every question and every little fix that I desired, without hesitation. Great job, Highly recommend and will definitely use again!",
+      name: "James Fabre",
+      role: "Myoko Embodied",
+    },
+    {
+      quote:
+        "Highly recommend Rankify! They recently built our Shopify store, and the entire experience was amazing. The team delivered an awesome, fast, modern, and fully responsive site that looks great on both desktop and mobile. Working with them was incredibly smooth from start to finish. If you need a professional web design business to elevate your online shop, Rankify is the way to go!",
+      name: "Grant Shannon",
+      role: "The Enricher",
+    },
+    {
+      quote:
+        "Rankify did an awesome job on my website. The design looks professional, and the process was super smooth from start to finish. Great communication and attention to detail — highly recommend their services.",
+      name: "Ben Cavallo",
+      role: "",
+    },
+    {
+      quote:
+        "I recently had my website built by Rankify and I couldn’t be happier with the outcome. From start to finish, the process was seamless, professional, and efficient. Tom took the time to really understand my business and brand, and turned that vision into a clean and user-friendly site. Highly recommend Rankify for anyone needing a standout website that reflects their business perfectly.",
+      name: "Maggie Belford",
+      role: "Australia Care Agency",
+    },
+    {
+      quote:
+        "Great experience working with Thomas. He instantly understood what I was after, even with some custom Shopify tweaks, and executed everything with precision and speed. Professional, responsive, and super skilled — I couldn’t be happier with the result. I’ll keep working with him in future projects, highly recommend.",
+      name: "Marlen Wolff",
+      role: "Wolff Studios",
+    },
+    {
+      quote:
+        "Really happy with the website Rankify built for my electrical business. They made the whole process easy, quick, and professional. The site looks great and already helps bring in new leads. Highly recommend!",
+      name: "MJB Electrical Contractors",
+      role: "",
+    },
+    {
+      quote: "Really happy with the service, easy to deal with and did a great job.",
+      name: "Aidan Butler",
+      role: "",
+    },
   ],
 
   closeHeading: "Ten builds a month. Let's see if one's yours.",

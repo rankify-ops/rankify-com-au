@@ -262,10 +262,12 @@ export function DarkFunnelPage({ cfg }: { cfg: FunnelConfig }) {
       {/* ---------- 4. Reviews ---------- */}
       <Section id="reviews">
         <Head sub={cfg.reviewsSub}>{cfg.reviewsHeading}</Head>
-        <div className="mt-8 grid gap-4 lg:grid-cols-3">
+        {/* Columns, not a grid: the quotes are wildly different lengths and ten
+            of them in a 3-up grid leaves a stranded card on the last row. */}
+        <div className="mt-8 gap-4 [column-count:1] sm:[column-count:2] lg:[column-count:3]">
           {cfg.reviews.map((r, i) => (
-            <Reveal key={r.name} delay={i * 0.05}>
-              <figure className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-6">
+            <Reveal key={r.name} delay={Math.min(i, 5) * 0.05} className="mb-4 break-inside-avoid">
+              <figure className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-6">
                 <Stars className="h-4 w-4" />
                 <blockquote className="mt-4 flex-1 text-[15.5px] leading-relaxed text-white/85">
                   &ldquo;{r.quote}&rdquo;
