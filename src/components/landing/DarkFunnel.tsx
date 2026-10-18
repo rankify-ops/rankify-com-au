@@ -107,9 +107,11 @@ function Proof({ cfg }: { cfg: FunnelConfig }) {
           {cfg.proof}
         </span>
       </div>
-      {/* `justify-center` centres the columns as a block while each row keeps a
-          straight left edge. Centring the rows themselves leaves them ragged. */}
-      <ul className="mt-6 grid justify-center gap-x-10 gap-y-2.5 text-left sm:grid-cols-2">
+      {/* `w-fit` + `mx-auto` is what makes this a bullet list rather than four
+          centred sentences: the list shrinks to its longest item and is then
+          centred as one block, so every tick sits on the same left edge. A
+          full-width list stretches its tracks and the ticks drift apart. */}
+      <ul className="mx-auto mt-6 grid w-fit gap-y-2.5 text-left">
         {cfg.bullets.map((b) => (
           <li key={b} className="flex items-center gap-2.5">
             <svg
