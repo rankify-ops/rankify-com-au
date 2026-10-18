@@ -6,6 +6,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Stars } from "@/components/ui/Stars";
 import { LandingPixel, StickyCta } from "@/components/landing/LandingChrome";
 import { FunnelVideo, type Chapter } from "@/components/landing/FunnelVideo";
+import { QualifyModal } from "@/components/landing/Qualify";
+import { CtaButton } from "@/components/landing/CtaButton";
 
 /**
  * The shared shell for the two funnel landing pages.
@@ -66,8 +68,7 @@ export type FunnelConfig = {
  */
 function Cta({ cfg, light = false }: { cfg: FunnelConfig; light?: boolean }) {
   return (
-    <Link
-      href={cfg.ctaHref}
+    <CtaButton
       className={`mx-auto flex w-full max-w-[520px] flex-col items-center rounded-2xl px-8 py-4 text-center transition-transform duration-300 hover:-translate-y-0.5 ${
         light
           ? "bg-white text-ink shadow-[0_14px_40px_rgba(0,0,0,0.28)]"
@@ -80,7 +81,7 @@ function Cta({ cfg, light = false }: { cfg: FunnelConfig; light?: boolean }) {
       <span className={`mt-1 text-[16px] font-medium ${light ? "text-ink/60" : "text-white/80"}`}>
         {cfg.ctaMicro}
       </span>
-    </Link>
+    </CtaButton>
   );
 }
 
@@ -333,7 +334,8 @@ export function DarkFunnelPage({ cfg }: { cfg: FunnelConfig }) {
       </footer>
 
       <div className="h-24 lg:hidden" />
-      <StickyCta href={cfg.ctaHref} label={cfg.ctaLabel} />
+      <StickyCta label={cfg.ctaLabel} />
+      <QualifyModal />
     </div>
   );
 }

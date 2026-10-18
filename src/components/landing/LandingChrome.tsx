@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { pixelTrack } from "@/lib/pixel";
+import { openQualify } from "@/components/landing/Qualify";
 
 /**
  * Client-side pieces of the paid landing page.
@@ -41,7 +42,7 @@ export function LandingPixel({ contentName = "Free homepage offer" }: { contentN
  * past. Desktop keeps the in-page buttons — a phone is the only place where
  * you can be a long way from one.
  */
-export function StickyCta({ href, label }: { href: string; label: string }) {
+export function StickyCta({ href, label }: { href?: string; label: string }) {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -65,14 +66,28 @@ export function StickyCta({ href, label }: { href: string; label: string }) {
         show ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
       }`}
     >
-      <Link
-        href={href}
-        className={`neu-btn neu-btn-dark block w-full max-w-[520px] rounded-full bg-[color:#07a889] px-5 py-3.5 text-center text-[15px] font-bold text-white shadow-[0_12px_36px_rgba(7,168,137,0.35)] ${
-          show ? "pointer-events-auto" : ""
-        }`}
-      >
-        {label}
-      </Link>
+      {/* With no href it opens the qualifying form instead of navigating:
+          every CTA on a funnel page has to go through the same gate. */}
+      {href ? (
+        <Link
+          href={href}
+          className={`neu-btn neu-btn-dark block w-full max-w-[520px] rounded-full bg-[color:#07a889] px-5 py-3.5 text-center text-[15px] font-bold text-white shadow-[0_12px_36px_rgba(7,168,137,0.35)] ${
+            show ? "pointer-events-auto" : ""
+          }`}
+        >
+          {label}
+        </Link>
+      ) : (
+        <button
+          type="button"
+          onClick={openQualify}
+          className={`neu-btn neu-btn-dark block w-full max-w-[520px] rounded-full bg-[color:#07a889] px-5 py-3.5 text-center text-[15px] font-bold text-white shadow-[0_12px_36px_rgba(7,168,137,0.35)] ${
+            show ? "pointer-events-auto" : ""
+          }`}
+        >
+          {label}
+        </button>
+      )}
     </div>
   );
 }
