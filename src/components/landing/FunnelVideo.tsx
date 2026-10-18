@@ -154,10 +154,11 @@ export function FunnelVideo({
                 style={{ left: `${pct}%` }}
               />
 
-              {/* Chapter dots. Only once the duration is known, which is the
-                  moment metadata lands — there is nowhere to place them before
-                  that. The hit area is deliberately much larger than the dot;
-                  a 9px target is unusable on a phone. */}
+              {/* Chapter dots. Hidden until the player is hovered, and never
+                  shown below sm: on a phone fifteen markers across a 330px bar
+                  are clutter you cannot hit accurately anyway. `opacity-0`
+                  alone would leave them clickable, so pointer events come back
+                  only with the hover. */}
               {dur > 0 &&
                 chapters.map((c) => {
                   const at = c.t / dur;
@@ -178,10 +179,10 @@ export function FunnelVideo({
                         seek(c.t);
                       }}
                       aria-label={`${mmss(c.t)} ${c.label}`}
-                      className="group/dot absolute top-1/2 flex h-5 w-5 -translate-x-1/2 -translate-y-1/2 items-center justify-center sm:h-7 sm:w-7"
+                      className="group/dot pointer-events-none absolute top-1/2 hidden h-6 w-6 -translate-x-1/2 -translate-y-1/2 items-center justify-center opacity-0 transition-opacity duration-200 group-hover/player:pointer-events-auto group-hover/player:opacity-100 sm:flex"
                       style={{ left: `${at * 100}%` }}
                     >
-                      <span className="h-[9px] w-[9px] rounded-full bg-white/80 ring-2 ring-black/45 transition-transform duration-200 group-hover/dot:scale-[1.45] group-hover/dot:bg-white" />
+                      <span className="h-[6px] w-[6px] rounded-full bg-white/70 ring-1 ring-black/40 transition-transform duration-200 group-hover/dot:scale-[1.6] group-hover/dot:bg-white" />
                       <span
                         className={`pointer-events-none absolute bottom-6 hidden whitespace-nowrap rounded-lg bg-black/90 px-2.5 py-1.5 text-[12.5px] font-medium text-white shadow-lg group-hover/dot:block sm:bottom-7 ${tip}`}
                       >
