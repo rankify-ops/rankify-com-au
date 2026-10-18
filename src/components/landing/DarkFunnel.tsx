@@ -74,10 +74,10 @@ function Cta({ cfg, light = false }: { cfg: FunnelConfig; light?: boolean }) {
           : "bg-[color:#07a889] text-white shadow-[0_14px_40px_rgba(7,168,137,0.32)]"
       }`}
     >
-      <span className="text-[clamp(19px,2.4vw,25px)] font-bold tracking-[-0.02em]">
+      <span className="text-[clamp(26px,3.4vw,33px)] font-bold tracking-[-0.025em]">
         {cfg.ctaLabel}
       </span>
-      <span className={`mt-0.5 text-[15px] font-medium ${light ? "text-ink/60" : "text-white/80"}`}>
+      <span className={`mt-1 text-[16px] font-medium ${light ? "text-ink/60" : "text-white/80"}`}>
         {cfg.ctaMicro}
       </span>
     </Link>
