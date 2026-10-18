@@ -49,7 +49,7 @@ export type FunnelConfig = {
   videoSrc?: string;
   chapters?: Chapter[];
   /** Under the button: the star row and the four things they get. */
-  proof: string;
+  proof: { count: string; label: string };
   bullets: string[];
   steps: { n: string; h: string; b: string }[];
   reviewsHeading: string;
@@ -101,10 +101,15 @@ function Proof({ cfg }: { cfg: FunnelConfig }) {
           height={83}
           className="h-[21px] w-auto sm:h-[26px]"
         />
-        {/* One row or it isn't a rating lockup any more: broken over two lines
-            the stars and the number stop reading as one claim. */}
-        <span className="whitespace-nowrap text-[14.5px] font-bold tracking-[-0.01em] text-white sm:text-[16px]">
-          {cfg.proof}
+        {/* The number carries it, so it is set large with the wording small
+            beneath — the same lockup the stars come from. */}
+        <span className="text-left leading-none">
+          <strong className="block whitespace-nowrap text-[19px] font-bold tracking-[-0.02em] text-white sm:text-[21px]">
+            {cfg.proof.count}
+          </strong>
+          <span className="mt-1 block whitespace-nowrap text-[11.5px] font-medium text-white/55">
+            {cfg.proof.label}
+          </span>
         </span>
       </div>
       {/* Each row centres on its own, so the left edge is deliberately ragged.
