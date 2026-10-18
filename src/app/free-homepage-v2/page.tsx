@@ -29,7 +29,7 @@ const CFG: FunnelConfig = {
   pixelName: "Free homepage offer",
   ctaHref: "/free-homepage/book",
   ctaLabel: "Get Started Now",
-  ctaMicro: "Delivered in 48 Hours",
+  ctaMicro: "Delivered in Under 48 Hours",
   eyebrow: "10 builds a month",
 
   headline: "We'll build your new homepage free,",
