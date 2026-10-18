@@ -123,11 +123,11 @@ export function FunnelVideo({
               priority
               className="absolute inset-0 h-full w-full object-cover"
             />
-            {/* Deliberately large and part-transparent: the frame behind it is
+            {/* A rounded rectangle, part-transparent: the frame behind it is
                 the sell, so the button sits over the picture rather than
                 punching a hole in it. */}
-            <span className="relative flex h-[96px] w-[96px] items-center justify-center rounded-full bg-[color:#07a889]/80 shadow-[0_12px_40px_rgba(7,168,137,0.45)] transition-transform duration-300 hover:scale-105 sm:h-[124px] sm:w-[124px]">
-              <svg viewBox="0 0 24 24" className="ml-1.5 h-10 w-10 sm:h-[52px] sm:w-[52px]" fill="#fff">
+            <span className="relative flex h-[42px] w-[62px] items-center justify-center rounded-xl bg-[color:#07a889]/85 shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-transform duration-300 hover:scale-105 sm:h-[52px] sm:w-[76px]">
+              <svg viewBox="0 0 24 24" className="ml-0.5 h-[22px] w-[22px] sm:h-7 sm:w-7" fill="#fff">
                 <path d="M8 5.5v13l11-6.5z" />
               </svg>
             </span>
