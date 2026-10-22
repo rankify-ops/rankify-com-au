@@ -263,7 +263,8 @@ export default function FreeHomepagePage() {
       </footer>
 
       {/* Clearance so the sticky bar never sits over the footer's last line. */}
-      <div className="h-20 lg:hidden" />
+      {/* Clearance at every width: the sticky bar is not mobile-only. */}
+      <div className="h-24" />
       <StickyCta href={BOOK} label={CTA} />
     </>
   );
