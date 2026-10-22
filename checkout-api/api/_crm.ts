@@ -194,6 +194,9 @@ export async function addWebsiteCapture(c: {
  * Applies the budget answer to the card step one created. With no id — the
  * first request hadn't come back yet — it writes a complete card instead, so
  * the answer is never simply lost.
+ *
+ * When the visitor qualifies, also upserts a CRM lead so the Cal.com booking
+ * webhook can merge by email instead of creating a duplicate.
  */
 export async function recordWebsiteBudget(c: {
   id?: string;
@@ -205,12 +208,19 @@ export async function recordWebsiteBudget(c: {
   const item = captureItem(c);
   if (!c.id) {
     await routine({ action: "add_website_item", item });
-    return;
+  } else {
+    await routine({
+      action: "update_space_item",
+      space: WEBSITE_SPACE,
+      id: c.id,
+      updates: { status: item.status, description: item.description },
+    });
   }
-  await routine({
-    action: "update_space_item",
-    space: WEBSITE_SPACE,
-    id: c.id,
-    updates: { status: item.status, description: item.description },
-  });
+
+  if (c.qualified) {
+    await routine({
+      action: "qualify_lead",
+      lead: { name: c.name, email: c.email, budget: c.budget, source: "Free Homepage" },
+    }).catch((err: unknown) => console.error("qualify_lead failed", err));
+  }
 }
