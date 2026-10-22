@@ -23,7 +23,7 @@ export function RankGraphic() {
   return (
     <div className="neu rounded-3xl border border-line bg-white p-6 text-ink sm:p-8">
       <div className="mb-5 flex items-center justify-between gap-4">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:#07a889]">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--green-text)]">
           Positions won
         </p>
         <span className="rounded-full border border-line bg-paper px-3 py-1 text-[11.5px] font-medium text-grey">
@@ -38,8 +38,8 @@ export function RankGraphic() {
             className="flex items-center gap-3 rounded-xl border border-line bg-paper px-3.5 py-3"
           >
             <span className="min-w-0 flex-1 truncate text-[13.5px] text-grey">{k.term}</span>
-            <span className="text-[12.5px] tabular-nums text-grey/60 line-through">#{k.from}</span>
-            <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 flex-none text-[color:#07a889]" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+            <span className="text-[12.5px] tabular-nums text-grey line-through">#{k.from}</span>
+            <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 flex-none text-[color:var(--green-text)]" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h13M13 7l5 5-5 5" />
             </svg>
             {/* The badge pulses on a stagger so the list reads as live

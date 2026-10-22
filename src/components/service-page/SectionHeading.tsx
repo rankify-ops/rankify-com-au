@@ -33,7 +33,7 @@ export function SectionHeading({
     <div className={`${centred ? "text-center" : ""} ${className}`}>
       {label && (
         <Reveal>
-          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:#07a889]">
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--green-text)]">
             {label}
           </p>
         </Reveal>

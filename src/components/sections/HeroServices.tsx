@@ -80,7 +80,7 @@ export function HeroServices() {
             >
               <div className="mb-5 flex items-start justify-between gap-4">
                 <div>
-                  <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:#07a889]">
+                  <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--green-text)]">
                     {active.label}
                   </p>
                   <p className="text-[20px] font-medium tracking-[-0.03em]">

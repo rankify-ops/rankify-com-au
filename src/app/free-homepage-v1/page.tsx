@@ -201,7 +201,7 @@ export default function FreeHomepagePage() {
       >
         <div className="relative z-[2] mx-auto max-w-[1400px] px-5 py-12 text-center sm:px-10 sm:py-16 lg:py-20">
           <Reveal className="mx-auto max-w-[760px]">
-            <p className="mb-3 text-[12.5px] font-semibold uppercase tracking-[0.12em] text-[color:#07a889]">
+            <p className="mb-3 text-[12.5px] font-semibold uppercase tracking-[0.12em] text-[color:var(--green-text)]">
               The offer
             </p>
             <h2 className="text-[clamp(26px,3.2vw,42px)] font-medium leading-[1.08] tracking-[-0.035em]">

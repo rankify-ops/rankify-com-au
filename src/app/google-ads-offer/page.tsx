@@ -192,7 +192,7 @@ function SectionHead({ kicker, heading, dim, sub }: { kicker?: string; heading: 
   return (
     <Reveal className="mx-auto max-w-[820px] text-center">
       {kicker && (
-        <p className="mb-3 text-[12.5px] font-semibold uppercase tracking-[0.12em] text-[color:#07a889]">
+        <p className="mb-3 text-[12.5px] font-semibold uppercase tracking-[0.12em] text-[color:var(--green-text)]">
           {kicker}
         </p>
       )}
@@ -277,7 +277,7 @@ export default function GoogleAdsOfferPage() {
             {DELIVERABLES.map((d, i) => (
               <Reveal key={d.n} delay={i * 0.05}>
                 <div className="neu h-full rounded-2xl border border-line bg-white p-6 sm:p-7">
-                  <span className="text-[13px] font-semibold tracking-[0.12em] text-[color:#07a889]">
+                  <span className="text-[13px] font-semibold tracking-[0.12em] text-[color:var(--green-text)]">
                     {d.n}
                   </span>
                   <h3 className="mt-3 text-[19px] font-medium tracking-[-0.02em]">{d.h}</h3>
@@ -293,7 +293,7 @@ export default function GoogleAdsOfferPage() {
       <section className="grain mx-2 mt-8 rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white sm:mt-12 lg:mt-20">
         <div className="relative z-[2] mx-auto max-w-[900px] px-5 py-14 text-center sm:px-10 sm:py-20">
           <Reveal>
-            <p className="mb-3 text-[12.5px] font-semibold uppercase tracking-[0.12em] text-[color:#07a889]">
+            <p className="mb-3 text-[12.5px] font-semibold uppercase tracking-[0.12em] text-[color:var(--green-text)]">
               The difference
             </p>
             <h2 className="text-[clamp(28px,3.4vw,44px)] font-medium leading-[1.06] tracking-[-0.035em]">
@@ -319,7 +319,7 @@ export default function GoogleAdsOfferPage() {
           {STEPS.map((s, i) => (
             <Reveal key={s.n} delay={i * 0.06}>
               <div className="neu h-full rounded-2xl border border-line bg-white p-6 sm:p-7">
-                <span className="text-[13px] font-semibold tracking-[0.12em] text-[color:#07a889]">
+                <span className="text-[13px] font-semibold tracking-[0.12em] text-[color:var(--green-text)]">
                   {s.n}
                 </span>
                 <h3 className="mt-3 text-[19px] font-medium tracking-[-0.02em]">{s.h}</h3>

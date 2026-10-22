@@ -71,7 +71,7 @@ export function StickyCta({ href, label }: { href?: string; label: string }) {
       {href ? (
         <Link
           href={href}
-          className={`neu-btn neu-btn-dark block w-full max-w-[520px] rounded-full bg-[color:#07a889] px-5 py-3.5 text-center text-[15px] font-bold text-white shadow-[0_12px_36px_rgba(7,168,137,0.35)] ${
+          className={`neu-btn neu-btn-dark block w-full max-w-[520px] rounded-full bg-[color:var(--green-text)] px-5 py-3.5 text-center text-[15px] font-bold text-white shadow-[0_12px_36px_rgba(7,168,137,0.35)] ${
             show ? "pointer-events-auto" : ""
           }`}
         >
@@ -81,7 +81,7 @@ export function StickyCta({ href, label }: { href?: string; label: string }) {
         <button
           type="button"
           onClick={openQualify}
-          className={`neu-btn neu-btn-dark block w-full max-w-[520px] rounded-full bg-[color:#07a889] px-5 py-3.5 text-center text-[15px] font-bold text-white shadow-[0_12px_36px_rgba(7,168,137,0.35)] ${
+          className={`neu-btn neu-btn-dark block w-full max-w-[520px] rounded-full bg-[color:var(--green-text)] px-5 py-3.5 text-center text-[15px] font-bold text-white shadow-[0_12px_36px_rgba(7,168,137,0.35)] ${
             show ? "pointer-events-auto" : ""
           }`}
         >

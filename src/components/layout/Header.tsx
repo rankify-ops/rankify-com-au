@@ -55,7 +55,7 @@ function MegaPromo({ promo, onNavigate }: { promo: MegaMenu["promo"]; onNavigate
       className="grain group/p relative flex flex-col justify-between overflow-hidden rounded-2xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] p-6 text-white transition-transform duration-300 hover:-skew-x-1"
     >
       <div className="relative z-[2]">
-        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:#07a889]">
+        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--green-text)]">
           {promo.kicker}
         </p>
         <p className="text-[17px] font-semibold leading-snug tracking-[-0.02em]">{promo.heading}</p>

@@ -72,13 +72,13 @@ function Cta({ cfg, light = false }: { cfg: FunnelConfig; light?: boolean }) {
       className={`mx-auto flex w-full max-w-[520px] flex-col items-center rounded-2xl px-8 py-4 text-center transition-transform duration-300 hover:-translate-y-0.5 ${
         light
           ? "bg-white text-ink shadow-[0_14px_40px_rgba(0,0,0,0.28)]"
-          : "bg-[color:#07a889] text-white shadow-[0_14px_40px_rgba(7,168,137,0.32)]"
+          : "bg-[color:var(--green-text)] text-white shadow-[0_14px_40px_rgba(7,168,137,0.32)]"
       }`}
     >
       <span className="text-[clamp(26px,3.4vw,33px)] font-bold tracking-[-0.025em]">
         {cfg.ctaLabel}
       </span>
-      <span className={`mt-1 text-[16px] font-medium ${light ? "text-ink/60" : "text-white/80"}`}>
+      <span className={`mt-1 text-[16px] font-medium ${light ? "text-ink/70" : "text-white"}`}>
         {cfg.ctaMicro}
       </span>
     </CtaButton>
@@ -246,7 +246,7 @@ export function DarkFunnelPage({ cfg }: { cfg: FunnelConfig }) {
           {cfg.steps.map((s, i) => (
             <Reveal key={s.n} delay={i * 0.06}>
               <div className="h-full rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-7">
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[color:#07a889] text-[15px] font-bold text-white">
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[color:var(--green-text)] text-[15px] font-bold text-white">
                   {s.n}
                 </span>
                 <h3 className="mt-4 text-[19px] font-medium tracking-[-0.02em]">{s.h}</h3>

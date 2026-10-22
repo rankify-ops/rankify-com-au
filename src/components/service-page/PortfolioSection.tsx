@@ -10,7 +10,7 @@ export function PortfolioSection({ block }: { block: PortfolioBlock }) {
         <div className="mb-8 grid gap-6 sm:mb-12 lg:mb-16">
           {block.eyebrow && (
             <Reveal>
-              <span className="block text-[clamp(24px,2vw,38px)] font-medium tracking-[-0.04em] text-[#b5b5b5]">
+              <span className="block text-[clamp(24px,2vw,38px)] font-medium tracking-[-0.04em] text-grey">
                 {block.eyebrow}
               </span>
             </Reveal>

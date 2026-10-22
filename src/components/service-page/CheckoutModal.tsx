@@ -64,7 +64,7 @@ export function CheckoutModal({
             height={160}
             className="mx-auto h-14 w-14 rounded-full"
           />
-          <p className="mt-3.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:#07a889]">
+          <p className="mt-3.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--green-text)]">
             Complete your order
           </p>
           <p className="mt-1 text-[17px] font-semibold text-ink">{summary}</p>

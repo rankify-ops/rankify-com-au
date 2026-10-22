@@ -10,12 +10,19 @@
      and vanishes against the dark pricing section, so anything that has to
      read as green *on* that section uses this instead. */
   --green-mid: #006b4b;
+  /* The brand green reads at 2.76:1 on --paper, so it fails AA wherever it
+     is used as text rather than a fill. This is the same hue darkened to
+     4.85:1 on --paper and 5.29:1 on white, and 5.29:1 behind white text. */
+  --green-text: #057a63;
   --ink: #0a0a0a;
   --body-dark: #121212;
   --paper: #f5f5f5;
   --line: #e7e7e7;
   --line-dark: rgba(255, 255, 255, 0.12);
-  --grey: #999999;
+  /* 4.68:1 on --paper and 5.10:1 on white. #999999 measured 2.61:1, which
+     fails WCAG AA for body text and is what most of the site's secondary
+     copy is set in. */
+  --grey: #6e6e6e;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -66,6 +73,7 @@
   --color-line: var(--line);
   --color-line-dark: var(--line-dark);
   --color-grey: var(--grey);
+  --color-green-text: var(--green-text);
   --font-sans: var(--font-inter);
   --font-heading: var(--font-inter);
   --color-sidebar-ring: var(--sidebar-ring);

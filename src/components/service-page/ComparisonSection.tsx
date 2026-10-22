@@ -194,7 +194,7 @@ export function ComparisonSection({ block }: { block: ComparisonBlock }) {
           </Reveal>
 
           <Reveal delay={0.1} className="order-1 lg:order-2">
-            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:#07a889]">
+            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--green-text)]">
               {block.eyebrow}
             </p>
             <h2 className="text-[clamp(28px,2.7vw,44px)] font-medium leading-[1.05] tracking-[-0.04em]">

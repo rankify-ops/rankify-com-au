@@ -125,7 +125,15 @@ export function BookingCalendar() {
     // Capped and scrolled on a phone: Cal stacks the month grid above the full
     // slot list there and reports ~3,400px, which buries the rest of the page.
     // From lg the month view fits in ~570px and the cap is lifted.
-    <div className="max-h-[78vh] w-full overflow-y-auto overscroll-contain rounded-2xl border border-line bg-white lg:max-h-none lg:overflow-visible">
+    // tabIndex so the scroll area can be reached and scrolled by keyboard: the
+    // calendar inside is a cross-origin iframe, so without it there is nothing
+    // focusable in here and a keyboard user cannot scroll to the later times.
+    <div
+      tabIndex={0}
+      role="group"
+      aria-label="Booking calendar"
+      className="max-h-[78vh] w-full overflow-y-auto overscroll-contain rounded-2xl border border-line bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--green-text)] lg:max-h-none lg:overflow-visible"
+    >
       <Cal
         namespace="15min"
         calLink={CAL_LINK}

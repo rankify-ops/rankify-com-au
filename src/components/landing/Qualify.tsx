@@ -190,7 +190,7 @@ export function QualifyModal() {
                     key={s}
                     className={`border-b-[3px] pb-2.5 ${
                       active
-                        ? "border-[color:#07a889] text-[color:#07a889]"
+                        ? "border-[color:var(--green-text)] text-[color:var(--green-text)]"
                         : "border-black/10 text-ink/35"
                     }`}
                   >
@@ -225,7 +225,7 @@ export function QualifyModal() {
             />
             <button
               type="submit"
-              className="mt-4 w-full rounded-xl bg-[color:#07a889] px-6 py-4 text-[clamp(24px,3.4vw,30px)] font-bold tracking-[-0.02em] text-white transition-transform duration-300 hover:-translate-y-0.5"
+              className="mt-4 w-full rounded-xl bg-[color:var(--green-text)] px-6 py-4 text-[clamp(24px,3.4vw,30px)] font-bold tracking-[-0.02em] text-white transition-transform duration-300 hover:-translate-y-0.5"
             >
               NEXT STEP
             </button>
@@ -263,7 +263,7 @@ export function QualifyModal() {
         {/* ---------- Qualified ---------- */}
         {stage === "qualified" && (
           <div className="py-2 text-center">
-            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[color:#07a889]">
+            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[color:var(--green-text)]">
               <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12.5l4.5 4.5L19 7.5" />
               </svg>
@@ -276,7 +276,7 @@ export function QualifyModal() {
             </p>
             <a
               href={BOOK}
-              className="mt-5 inline-block text-[15px] font-semibold text-[color:#07a889] underline underline-offset-4"
+              className="mt-5 inline-block text-[15px] font-semibold text-[color:var(--green-text)] underline underline-offset-4"
             >
               If it doesn&rsquo;t redirect, click here
             </a>

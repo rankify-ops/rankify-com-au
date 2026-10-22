@@ -8,7 +8,7 @@ export function Projects() {
       <div className="mx-auto max-w-[1400px] px-5 py-16 sm:px-10 sm:py-24 lg:py-32">
         <div className="mb-10 grid gap-6 sm:mb-16 lg:mb-24">
           <Reveal>
-            <span className="text-[clamp(24px,2vw,38px)] font-medium tracking-[-0.04em] text-[#b5b5b5]">
+            <span className="text-[clamp(24px,2vw,38px)] font-medium tracking-[-0.04em] text-grey">
               (27)
             </span>
           </Reveal>

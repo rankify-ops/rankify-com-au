@@ -90,7 +90,7 @@ export function ContactHero() {
                   required
                   autoComplete="name"
                   placeholder="John Doe"
-                  className="w-full bg-transparent text-[15px] text-ink outline-none placeholder:text-grey/70"
+                  className="w-full bg-transparent text-[15px] text-ink outline-none placeholder:text-grey"
                 />
               </div>
               <div className="border-b border-line pb-3">
@@ -104,7 +104,7 @@ export function ContactHero() {
                   required
                   autoComplete="email"
                   placeholder="hello@site.com"
-                  className="w-full bg-transparent text-[15px] text-ink outline-none placeholder:text-grey/70"
+                  className="w-full bg-transparent text-[15px] text-ink outline-none placeholder:text-grey"
                 />
               </div>
               <div className="border-b border-line pb-3">
@@ -131,7 +131,7 @@ export function ContactHero() {
                   pattern="[0-9\s\(\)\+\-]{8,20}"
                   title="Enter a phone number we can reach you on — digits, spaces, + and () are fine."
                   placeholder="0400 000 000"
-                  className="w-full bg-transparent text-[15px] text-ink outline-none placeholder:text-grey/70"
+                  className="w-full bg-transparent text-[15px] text-ink outline-none placeholder:text-grey"
                 />
               </div>
               <div className="border-b border-line pb-3">
@@ -143,7 +143,7 @@ export function ContactHero() {
                   name="message"
                   required
                   placeholder="Tell us about your project"
-                  className="min-h-[90px] w-full resize-y bg-transparent text-[15px] text-ink outline-none placeholder:text-grey/70"
+                  className="min-h-[90px] w-full resize-y bg-transparent text-[15px] text-ink outline-none placeholder:text-grey"
                 />
               </div>
               {/* The one optional field on the form. No asterisk, and it says
@@ -151,7 +151,7 @@ export function ContactHero() {
                   oversight rather than a choice. */}
               <div className="border-b border-line pb-3">
                 <label htmlFor="c-heard" className="mb-1 block text-[13px] text-grey">
-                  Where did you hear about us? <span className="text-grey/70">(optional)</span>
+                  Where did you hear about us? <span className="text-grey">(optional)</span>
                 </label>
                 <select
                   id="c-heard"
