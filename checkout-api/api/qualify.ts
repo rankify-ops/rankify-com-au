@@ -27,6 +27,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       stage?: string;
       name?: string;
       email?: string;
+      phone?: string;
       budget?: string;
       qualified?: boolean;
       /** The card id step one returned, so the answer updates it in place. */
@@ -38,6 +39,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: "A valid email is required." });
     }
     const name = (b.name ?? "").slice(0, 100).trim();
+    const phone = (b.phone ?? "").slice(0, 40).trim();
 
     if (!crmConfigured) {
       console.warn("VSL capture received but CRM is not configured", { email });
@@ -49,13 +51,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         id: typeof b.id === "string" ? b.id.slice(0, 40) : undefined,
         name,
         email,
+        phone,
         budget: (b.budget ?? "").slice(0, 40),
         qualified: Boolean(b.qualified),
       });
       return res.status(200).json({ ok: true });
     }
 
-    const id = await addWebsiteCapture({ name, email });
+    const id = await addWebsiteCapture({ name, email, phone });
     return res.status(200).json({ ok: true, id });
   } catch (err) {
     console.error("VSL qualifying capture failed", err);

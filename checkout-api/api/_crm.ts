@@ -167,13 +167,19 @@ const WEBSITE_SPACE = "rankify-website";
 
 export const VSL_LIST = "VSL qualifying";
 
-function captureItem(c: { name: string; email: string; budget?: string; qualified?: boolean }) {
+function captureItem(c: {
+  name: string;
+  email: string;
+  phone?: string;
+  budget?: string;
+  qualified?: boolean;
+}) {
   return {
     name: c.name || c.email,
     list: VSL_LIST,
     status: c.budget ? (c.qualified ? "Qualified" : "Not qualified") : "No budget yet",
     description: [
-      `Contact: ${c.name || "—"} · ${c.email}`,
+      `Contact: ${c.name || "—"} · ${c.email} · ${c.phone || "no mobile"}`,
       c.budget
         ? `Budget: ${c.budget}${c.qualified ? " — sent to the calendar" : " — did not qualify"}`
         : "Completed step one of the VSL qualifying form. Budget not answered yet.",
@@ -185,6 +191,7 @@ function captureItem(c: { name: string; email: string; budget?: string; qualifie
 export async function addWebsiteCapture(c: {
   name: string;
   email: string;
+  phone?: string;
 }): Promise<string | null> {
   const out = await routine({ action: "add_website_item", item: captureItem(c) });
   return (out?.item as { id?: string } | undefined)?.id ?? null;
@@ -202,6 +209,7 @@ export async function recordWebsiteBudget(c: {
   id?: string;
   name: string;
   email: string;
+  phone?: string;
   budget: string;
   qualified: boolean;
 }): Promise<void> {

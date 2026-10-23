@@ -72,6 +72,7 @@ export function QualifyModal() {
   const [stage, setStage] = useState<Stage>("details");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [left, setLeft] = useState(REDIRECT_SECONDS);
   /** The CRM card step one created, so the budget answer updates it. */
   const cardId = useRef<string | null>(null);
@@ -124,7 +125,12 @@ export function QualifyModal() {
     e.preventDefault();
     // Before the qualifying question, deliberately: someone who answers this
     // screen and leaves is still a record we hold.
-    void capture({ stage: "details", name: name.trim(), email: email.trim() }).then((id) => {
+    void capture({
+      stage: "details",
+      name: name.trim(),
+      email: email.trim(),
+      phone: phone.trim(),
+    }).then((id) => {
       cardId.current = id;
     });
     setStage("budget");
@@ -137,7 +143,12 @@ export function QualifyModal() {
     pixelTrack(
       "Lead",
       { content_name: "Free homepage qualifier", budget: b.label, qualified: b.qualifies },
-      { email: email.trim(), first_name: first, last_name: rest.join(" ") || undefined },
+      {
+        email: email.trim(),
+        phone: phone.trim(),
+        first_name: first,
+        last_name: rest.join(" ") || undefined,
+      },
     );
     void capture({
       stage: "budget",
@@ -146,6 +157,7 @@ export function QualifyModal() {
       id: cardId.current ?? undefined,
       name: name.trim(),
       email: email.trim(),
+      phone: phone.trim(),
       budget: b.label,
       qualified: b.qualifies,
     });
@@ -222,6 +234,23 @@ export function QualifyModal() {
               autoComplete="email"
               placeholder="Email Address..."
               className="mt-3 w-full rounded-xl border border-black/15 px-4 py-3.5 text-[16px] outline-none placeholder:text-ink/40 focus:border-[color:#07a889]"
+            />
+            {/* The pattern is compiled with the regex `v` flag, under which an
+                unescaped (, ) or a trailing - fails to compile — and a pattern
+                that fails to compile is silently ignored, so the field would
+                accept anything at all. Every metacharacter here is escaped on
+                purpose. */}
+            <input
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              pattern="[0-9\s\(\)\+\-]{8,20}"
+              title="Enter a mobile number, digits only or with spaces, + and brackets."
+              placeholder="Mobile Number..."
+              className="mt-3 w-full rounded-xl border border-black/15 px-4 py-3.5 text-[16px] outline-none placeholder:text-ink/40 focus:border-[color:var(--green-text)]"
             />
             <button
               type="submit"
