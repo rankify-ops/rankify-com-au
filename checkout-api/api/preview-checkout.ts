@@ -74,7 +74,7 @@ async function firstYearCoupon(productId: string): Promise<string> {
 }
 
 /** Clients who get no launch offer: full price, no countdown. */
-const NO_OFFER = new Set(["star-dentistry"]);
+const NO_OFFER = new Set<string>([]);
 
 /** Per-client build price when Tom quotes something other than $2,999. */
 const BUILD_OVERRIDES: Record<string, number> = {};
