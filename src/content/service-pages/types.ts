@@ -86,6 +86,11 @@ export type PricingBlock = {
   tiers: PricingTier[];
   lookingForMore?: boolean;
   lookingForMoreCta?: { label: string; href: string };
+  /**
+   * Replaces the "money back guarantee" line on the price. Unset keeps that
+   * line, which logo packages and Shopify retainers still use.
+   */
+  assurance?: string;
 };
 
 /**
@@ -171,6 +176,11 @@ export type ConfiguratorBlock = {
    */
   morePages?: string[];
   tip: string;
+  /**
+   * Replaces the short guarantee line beside the price. The SEO configurator
+   * leaves this unset and keeps the default line.
+   */
+  guaranteeLabel?: string;
   ctaLabel: string;
   ctaHref: string;
 };

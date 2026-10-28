@@ -344,7 +344,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
               </div>
               <p className="mt-3 flex items-center gap-1.5 text-[12px] font-medium text-white/70">
                 <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 flex-none text-[color:#07a889]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3.2 19 5.7v5.6c0 4.4-3 7.4-7 9.1-4-1.7-7-4.7-7-9.1V5.7z" /><path d="m9.2 11.9 2 2 3.6-3.8" /></svg>
-                100% money-back guarantee, 30 days
+                {block.guaranteeLabel ?? "100% money-back guarantee, 30 days"}
               </p>
               <p
                 className={`mt-3 rounded-xl px-3 py-2 text-[12.5px] font-medium leading-snug ${
@@ -466,7 +466,9 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                             {[
                               "Structure based on what converts in your industry, not a guess",
                               "A dedicated page per service where it earns one",
-                              "Same 30-day money-back guarantee either way",
+                              block.guaranteeLabel
+                                ? "Same 30-day guarantee either way. Not for Shopify builds."
+                                : "Same 30-day money-back guarantee either way",
                             ].map((t) => (
                               <li key={t} className="flex items-start gap-2.5 text-[13.5px] leading-snug text-white/80">
                                 <span className="mt-[3px] flex h-[15px] w-[15px] flex-none items-center justify-center rounded-full bg-[color:#07a889]">
@@ -845,7 +847,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                     further down the page. */}
                 <p className="mt-2.5 flex items-center gap-1.5 text-[12.5px] font-medium text-white/70">
                   <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 flex-none text-[color:#07a889]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3.2 19 5.7v5.6c0 4.4-3 7.4-7 9.1-4-1.7-7-4.7-7-9.1V5.7z" /><path d="m9.2 11.9 2 2 3.6-3.8" /></svg>
-                  100% money-back guarantee, 30 days
+                  {block.guaranteeLabel ?? "100% money-back guarantee, 30 days"}
                 </p>
 
                 {/* Tells them how much room is left in the base price, which is

@@ -96,7 +96,7 @@ export function CheckoutModal({
               <strong className="font-semibold">100% money-back guarantee.</strong>{" "}
               <span className="text-grey">
                 Not satisfied with your website within 30 days? Email us and we refund the project
-                fee in full.
+                fee in full. This doesn&rsquo;t apply to Shopify builds.
               </span>
             </p>
           </div>

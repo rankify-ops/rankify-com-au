@@ -42,15 +42,27 @@ const SECTIONS: LegalSection[] = [
     blocks: [
       {
         type: "p",
-        text: "Website builds carry a 30-day money-back guarantee. If you are not satisfied with the website we deliver, email us within 30 days of your purchase and we will refund the project fee in full. You do not need to give a reason.",
+        text: "Website builds other than Shopify carry a 30-day money-back guarantee. If you are not satisfied with the website we deliver, email us within 30 days of your purchase and we will refund the project fee in full. You do not need to give a reason. This 30-day money-back guarantee does not apply to Shopify builds.",
       },
       {
         type: "p",
-        text: "A refund ends the engagement. The website, its source code, and any assets we produced remain the property of Rankify: the site is taken offline, and hosting, deployment and any access we provided are withdrawn. You keep any content, images or copy you supplied to us.",
+        text: "Where this guarantee applies, a refund ends the engagement. The website, its source code, and any assets we produced remain the property of Rankify: the site is taken offline, and hosting, deployment and any access we provided are withdrawn. You keep any content, images or copy you supplied to us.",
       },
       {
         type: "p",
         text: "The guarantee covers the project fee for the build itself. It does not cover third-party costs paid on your behalf — domain registration, paid apps, stock imagery or advertising spend — which are non-refundable once incurred.",
+      },
+      {
+        type: "h3",
+        text: "Shopify builds",
+      },
+      {
+        type: "p",
+        text: "Shopify website builds are not covered by the 30-day money-back guarantee. There is no refund on a Shopify website once the final payment is made. You pay that final amount only after you have reviewed the build and you are happy with it.",
+      },
+      {
+        type: "p",
+        text: "When the Shopify store is transferred to you on final payment, the store, its theme, the custom code, and any assets we produce — including Klaviyo assets — become your property.",
       },
       {
         type: "p",
@@ -135,7 +147,7 @@ export default function TermsOfServicePage() {
       <Header />
       <LegalPageTemplate
         title="Terms of service."
-        lastUpdated="Mar 4, 2025"
+        lastUpdated="28 October 2026"
         intro='These Terms of Service ("Terms") govern your access to and use of rankify.com.au (the "Site"). By accessing or using our Site, you agree to these Terms.'
         sections={SECTIONS}
       />

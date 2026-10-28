@@ -60,7 +60,7 @@ const BADGES = [
   "Custom-built, conversion-focused",
   "Direct developer access, no middlemen",
   "Unlimited revisions",
-  "30-day money-back guarantee",
+  "30-day money-back guarantee (not Shopify builds)",
 ];
 
 /**
