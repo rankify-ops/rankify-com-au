@@ -95,7 +95,13 @@ function PricingCta({
  * 15.5px — smaller than its own feature list — so the plans read as a wall of
  * prices with no names attached.
  */
-function TierCard({ tier }: { tier: PricingBlock["tiers"][number] }) {
+function TierCard({
+  tier,
+  assurance,
+}: {
+  tier: PricingBlock["tiers"][number];
+  assurance?: string;
+}) {
   const hot = Boolean(tier.highlighted);
 
   return (
@@ -146,7 +152,7 @@ function TierCard({ tier }: { tier: PricingBlock["tiers"][number] }) {
         {tier.note && <p className="mt-4 text-[14px] leading-snug text-grey">{tier.note}</p>}
 
         <p className="mt-4 flex items-center gap-1.5 text-[12.5px] font-medium text-[var(--green-mid)]">
-          <PlusIcon dark className="h-3.5 w-3.5" /> 100% Money back guarantee
+          <PlusIcon dark className="h-3.5 w-3.5" /> {assurance ?? "100% Money back guarantee"}
         </p>
 
         <PricingCta href={tier.ctaHref} label={tier.ctaLabel} onGreen={hot} />
@@ -235,7 +241,7 @@ export function PricingBlockSection({ block, index }: { block: PricingBlock; ind
                         </p>
                       </div>
                       <p className="inline-flex items-center gap-2 text-[14px] text-white/70">
-                        <PlusIcon className="h-4 w-4" /> 100% money back guarantee
+                        <PlusIcon className="h-4 w-4" /> {block.assurance ?? "100% money back guarantee"}
                       </p>
                     </>
                   )}
@@ -279,7 +285,7 @@ export function PricingBlockSection({ block, index }: { block: PricingBlock; ind
               // h-full so the cards in a row match height and the featured
               // card's lift shows at the top rather than shortening it.
               <Reveal key={t.name ?? t.price} scale className="h-full">
-                <TierCard tier={t} />
+                <TierCard tier={t} assurance={block.assurance} />
               </Reveal>
             ))}
           </div>

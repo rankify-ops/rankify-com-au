@@ -23,7 +23,7 @@ export const shopifyDevelopmentServices: ServicePageData = {
     },
     badges: [
       "Registered Shopify Partner",
-      "100% money-back guarantee",
+      "Yours on final payment",
       "Fixed quote before any work starts",
       "Expert custom developer",
       "Deal direct, no managers",
@@ -145,6 +145,7 @@ export const shopifyDevelopmentServices: ServicePageData = {
       heading: "Websites Starting From",
       tag: "Per project",
       lookingForMore: true,
+      assurance: "No refund after final payment",
       tiers: [
         {
           price: "$5,999",
@@ -233,6 +234,7 @@ export const shopifyDevelopmentServices: ServicePageData = {
       { q: "What Shopify plan do I need?", a: "For most small to medium eCommerce businesses, the standard Shopify plan works well. If you're just starting out, Basic Shopify is fine. For larger catalogues, higher volume, or advanced reporting, Advanced Shopify or Shopify Plus may be needed. We'll recommend the right plan during the discovery call." },
       { q: "Do you offer Shopify SEO services?", a: "Every store we build includes SEO foundations — title tags, meta descriptions, heading structure, image optimisation, site speed, schema markup, and clean URL structure. For ongoing SEO beyond the initial build — content strategy, link building, keyword targeting — we offer that separately through our SEO packages." },
       { q: "What happens after launch?", a: "Your store is live but the work doesn't have to stop. You can move onto a monthly retainer for bug fixes, design updates, new features, and performance monitoring. Your developer already knows your store — no re-onboarding, no handovers." },
+      { q: "Do I own the Shopify store, and is there a refund?", a: "When the store is transferred to you on final payment, the store, theme, custom code and any assets we produce — including Klaviyo assets — are yours. Shopify website builds aren't covered by the 30-day money-back guarantee. You pay the final amount only after you've reviewed the build and you're happy with it, and there's no refund once that payment is made." },
       ...SHOPIFY_COMMON_FAQ,
     ],
   },

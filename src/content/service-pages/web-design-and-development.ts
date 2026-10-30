@@ -3,8 +3,10 @@
  *
  * Structure was carried over wholesale from the Shopify builds page at Tom's
  * request so the two layouts match, then the copy was rewritten for websites.
- * Nothing on this page should read as Shopify — an online store is a separate
- * build on a separate page.
+ * Nothing on this page should read as a Shopify sales page — an online store
+ * is a separate build on a separate page. The 30-day guarantee is the
+ * exception: it says outright that it does not cover Shopify builds, so the
+ * page matches the terms.
  */
 import type { ServicePageData } from "./types";
 import { SHOPIFY_WHY_US } from "./shopify-shared";
@@ -27,7 +29,7 @@ export const webDesignAndDevelopment: ServicePageData = {
       // Leads with the promise; the two-round mechanic is spelled out in the
       // process section rather than hedged here.
       "Unlimited revisions",
-      "30-day money-back guarantee",
+      "30-day money-back guarantee (not Shopify builds)",
     ],
     // The call leads now. Someone who wants the price can still get to it in
     // one click, but the page opens on a conversation rather than a checkout.
@@ -317,6 +319,7 @@ export const webDesignAndDevelopment: ServicePageData = {
         "Location Pages",
       ],
       tip: "For each main service you offer we recommend a dedicated page — they rank on their own terms and convert far better than one combined services page.",
+      guaranteeLabel: "30-day money-back guarantee. Not for Shopify builds.",
       ctaLabel: "Book a call",
       ctaHref: "/schedule-strategy-call",
     },
@@ -356,7 +359,7 @@ export const webDesignAndDevelopment: ServicePageData = {
       heading: "30-day money-back guarantee.",
       headingDim: "The risk is ours, not yours.",
       promise:
-        "Take 30 days with the finished site. If you're not satisfied with what we built, ask for a refund and you'll get one — no argument and no exit interview.",
+        "Take 30 days with the finished site. If you're not satisfied with what we built, ask for a refund and you'll get one — no argument and no exit interview. This doesn't apply to Shopify builds.",
       points: [
         "Unlimited revisions, submitted in two rounds",
         "Fixed price agreed before a line is written",
