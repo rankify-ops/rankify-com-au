@@ -104,10 +104,14 @@ export function QualifyModal() {
     };
   }, [open, close]);
 
-  // The countdown on the qualified screen. Cleared on unmount so closing the
-  // form mid-count can't navigate the page out from under them.
+  // The countdown on the qualified screen.
+  //
+  // `open` is in the dependencies on purpose. Closing the form only sets
+  // `open` to false — the component stays mounted and renders null — so an
+  // effect keyed on `stage` alone kept counting behind a dismissed dialog and
+  // then navigated the visitor to the booking page anyway.
   useEffect(() => {
-    if (stage !== "qualified") return;
+    if (!open || stage !== "qualified") return;
     const id = setInterval(() => {
       setLeft((n) => {
         if (n <= 1) {
@@ -119,7 +123,7 @@ export function QualifyModal() {
       });
     }, 1000);
     return () => clearInterval(id);
-  }, [stage]);
+  }, [open, stage]);
 
   const submitDetails = (e: React.FormEvent) => {
     e.preventDefault();
