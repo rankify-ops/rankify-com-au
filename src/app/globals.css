@@ -236,6 +236,21 @@ body {
 /* Buttons get the same soft-UI depth. A dark button needs a brighter top
    highlight and a heavier ambient shadow than a light one to read the same
    way, so the two variants carry different values rather than sharing --neu-*. */
+/* The wash the glass cards sit on.
+   GlassSurface refracts what is behind it, so on a flat background it has
+   nothing to work with and reads as a grey box. This gives it something.
+
+   Nothing here may animate opacity or transform: `backdrop-filter` — which is
+   how the glass is drawn — is cancelled by either on the element or any
+   ancestor. That is also why the cards are not wrapped in <Reveal>. */
+.glass-field {
+  background:
+    radial-gradient(55% 75% at 10% 6%, rgba(7, 168, 137, 0.42) 0%, rgba(7, 168, 137, 0) 62%),
+    radial-gradient(50% 70% at 86% 14%, rgba(0, 107, 75, 0.34) 0%, rgba(0, 107, 75, 0) 66%),
+    radial-gradient(60% 60% at 70% 88%, rgba(63, 216, 187, 0.3) 0%, rgba(63, 216, 187, 0) 70%),
+    radial-gradient(90% 70% at 30% 100%, rgba(0, 33, 23, 0.16) 0%, rgba(0, 33, 23, 0) 72%);
+}
+
 .neu-btn {
   transition:
     box-shadow 0.3s ease,

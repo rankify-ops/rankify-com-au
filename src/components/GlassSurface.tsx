@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef, useState, useId } from 'react';
 
 export interface GlassSurfaceProps {
@@ -86,6 +88,20 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
   const blueGradId = `blue-grad-${uniqueId}`;
 
   const [svgSupported, setSvgSupported] = useState<boolean>(false);
+
+  /**
+   * False until the component has mounted in a browser.
+   *
+   * Every style below is chosen from a browser-only check — CSS.supports,
+   * the user agent, prefers-color-scheme. On the server those all answer
+   * "no", so without this flag the server renders the opaque fallback, the
+   * client's first render picks the real glass, and React reports a hydration
+   * mismatch it explicitly will not patch up. Holding the first client render
+   * to the server's answer and upgrading on the next tick makes the two
+   * agree.
+   */
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const feImageRef = useRef<SVGFEImageElement>(null);
@@ -230,9 +246,9 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
       '--glass-saturation': saturation
     } as React.CSSProperties;
 
-    const backdropFilterSupported = supportsBackdropFilter();
+    const backdropFilterSupported = mounted && supportsBackdropFilter();
 
-    if (svgSupported) {
+    if (mounted && svgSupported) {
       return {
         ...baseStyles,
         background: isDarkMode ? `hsl(0 0% 0% / ${backgroundOpacity})` : `hsl(0 0% 100% / ${backgroundOpacity})`,
@@ -256,7 +272,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
              0px 16px 56px rgba(17, 17, 26, 0.05) inset`
       };
     } else {
-      if (isDarkMode) {
+      if (mounted && isDarkMode) {
         if (!backdropFilterSupported) {
           return {
             ...baseStyles,
