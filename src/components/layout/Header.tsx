@@ -8,9 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { SmartLink } from "@/components/ui/SmartLink";
 import { NAV_ITEMS, SIMPLE_LINKS, type MegaMenu } from "@/content/nav";
-
-/** Where a website client signs in to change their site. */
-const CLIENT_LOGIN = "https://app.rankify.com.au/login";
+import { LoginMenu } from "@/components/layout/LoginMenu";
 
 /** Big "what do you actually want" cards — every menu routes by intent. */
 function MegaPanel({ mega, onNavigate }: { mega: MegaMenu; onNavigate: () => void }) {
@@ -171,21 +169,12 @@ export function Header() {
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Client login. A paying client had nowhere to sign in from the
-                marketing site at all, which is why it sits in the bar rather
-                than inside a menu. The icon alone on a phone, where there is
-                no room for a word. */}
-            <a
-              href={CLIENT_LOGIN}
-              onMouseEnter={hideNow}
-              className="flex h-10 items-center gap-2 rounded-full border border-line px-3 text-[14px] font-medium transition-colors hover:border-ink/30 hover:bg-white xl:px-4"
-            >
-              <svg viewBox="0 0 24 24" className="h-[18px] w-[18px] flex-none" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="8.5" r="3.5" />
-                <path d="M5 19.5a7 7 0 0 1 14 0" />
-              </svg>
-              <span className="hidden xl:inline">Login</span>
-            </a>
+            {/* Two apps, two different customers. The chooser is in the bar
+                because a paying client had nowhere to sign in from the
+                marketing site at all. */}
+            <div onMouseEnter={hideNow}>
+              <LoginMenu />
+            </div>
             <div className="hidden xl:block" onMouseEnter={hideNow}>
               <Button href="/schedule-strategy-call" pulse>Schedule Call</Button>
             </div>
