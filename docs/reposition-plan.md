@@ -418,3 +418,112 @@ website. Public, or "ongoing care from $199/mo" with the detail on the call?
 The page can describe the back end now, but should not promise a turnaround
 until a green end-to-end run exists. Confirm you want it written and held
 rather than written and shipped.
+
+---
+
+## 9. Expanded scope, 14 Nov — Sidekick gets a section, not a page
+
+Tom: *"we need entire pages and content dedicated to Sidekick, with
+screenshots etc, and way more content around what you get with a Rankify
+website, AI builder etc, screenshots as well. Need to sell it on the page what
+it is."*
+
+This replaces the single-page treatment in §2 and §5. The plan numbers in §5
+were re-checked against `sidekick-plans.ts` today and are unchanged.
+
+### 9a. The Ad Sidekick section
+
+| URL | Job |
+|---|---|
+| `/meta-ads` | The main page. What it is, who it is for, the agency arithmetic, the proof shots, the plans in summary, Get started. |
+| `/meta-ads/how-it-works` | **One ad, start to finish.** Upload → named and reviewed → tested → three days → a verdict → kept as a winner and built from. This is the page that makes the product legible, and it is mostly screenshots. |
+| `/meta-ads/pricing` | The full plan table from `SIDEKICK_FEATURES`, rendered as the source file defines it. |
+| `/meta-ads/what-you-learn` | *Optional, earns its place only if we use it.* The five Learning Notes are the clearest evidence it teaches rather than just runs. Could equally be a section on the main page — see Q9. |
+
+**The feature table is a source file, not prose.** `SIDEKICK_FEATURES` in
+`rankify-editor/src/lib/sidekick-plans.ts` already lists every row in the app's
+own menu order, and `planMenu.ts` enforces it with a test. The pricing page
+should be generated from that shape so a capability moving between plans
+cannot leave a different promise on the website. Rows, verbatim:
+
+- Brands included — 1 / 3 / 10, each extra $49 / $39 / $29 a month
+- **Everyone in your team** — people are never charged for, on every plan
+- Upload, Review, Library, Testing, Winners and History — every plan
+- Guided setup, Performance and the daily P&L, the Scale checks and budget
+  planner, Meta + Shopify + Drive connected — every plan
+- AI creatives a month — 30 / 150 / 600
+- Create, Review insights, Sale planner and stock, own naming and targets — Pro
+- Autopilot, Claude and agent access — Max
+
+"Everyone in your team" is a genuinely good line that is currently buried in a
+TypeScript file. It belongs on the page.
+
+**The playbook is not a row and never appears.** Staff-only course material, on
+no plan, and not to be shown or named.
+
+### 9b. The website offer, expanded
+
+`/web-design-and-development` has to sell the back end as part of the build,
+with pictures: the request in plain words, the preview, the approve step, the
+undo, and the site-health screen with its "Fix this" buttons. That last one is
+the strongest single screenshot we have — it is the product noticing a problem
+and offering to fix it.
+
+### 9c. Screenshots — how, and the rules
+
+Both apps run locally and can be captured without exposing anybody.
+
+- **Editor:** `npm run dev:demo` in `rankify-editor`, port 3200. Made-up data,
+  no real clients. Safe to publish as-is.
+- **Sidekick:** `npm run dev -- -p 3300` in `ecomsidekick-app`, demo workspace
+  "Ad Sidekick Demo", brand "Northbound Supply Co.", on Basic. **Local dev
+  reads the live database** — look, change nothing. See Q10.
+
+**Never capture:** Hiatus Collection, ITM Tools, Work Sharp, Teng Tools,
+Rankify, Speedy Needle. Real revenue and real ad accounts are on those screens.
+Never the Playbook, never the classic `/v1` view.
+
+**Never invent data.** If a demo screen is empty, it gets reported as empty,
+not mocked up. A drawn illustration is fine only where it is obviously an
+illustration.
+
+**Basic is what a new customer sees**, so Create, Autopilot and the Sale
+planner cannot be reached from the demo login. Those get listed as "needs a
+Pro or Max demo" rather than worked around.
+
+**Captures live in `public/assets/product/`** — one new folder, easy to review
+and replace — and every one is compressed. The home page is already 6.3 MB and
+this could double it carelessly.
+
+### Shot list
+
+*Sidekick (Basic demo):* Home/overview · Upload · Review with a named ad ·
+Library · Testing · Winners · History · Scale check · Budget planner ·
+Performance key metrics · daily P&L · Connections.
+*Needs Pro/Max:* Create, Review insights, Sale planner, Stock, Autopilot,
+Connectors & AI.
+
+*Editor (demo mode):* the ask box · a change in progress · the preview ·
+approve · version history and undo · site health with "Fix this".
+
+---
+
+## Further questions
+
+**Q9. Is "what you learn" its own page, or a section?**
+The five Learning Notes are the best evidence Sidekick teaches rather than
+just runs. My assumption: a section on the main page first, promoted to its own
+page only if it grows.
+
+**Q10. May I sign into Ad Sidekick locally to take the screenshots?**
+The demo workspace is made for this, but local dev reads the **live
+database** — the same one holding real client revenue and ad accounts. I would
+be read-only and stay inside "Ad Sidekick Demo" / Northbound Supply Co. I am
+not doing it until you say yes, because the cost of a mistake is publishing a
+real client's numbers on your website. The editor's demo mode has no such
+problem and I can start there whenever you like.
+
+**Q11. Do you want a Pro/Max demo workspace set up?**
+Without one, roughly a third of what the pricing table promises cannot be
+shown — Create, Autopilot, the Sale planner. Those are exactly the rows that
+justify the step up from $99 to $299.
