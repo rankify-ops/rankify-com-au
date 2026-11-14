@@ -5,6 +5,7 @@
   "description": "Stripe endpoints for the rankify.com.au website configurator. Deployed to Vercel separately from the static site.",
   "type": "module",
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.8.0",
     "stripe": "^19.2.0"
   },
   "devDependencies": {

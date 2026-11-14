@@ -1,5 +1,5 @@
 import { Header } from "@/components/layout/Header";
-import { HomeDoors } from "@/components/sections/HomeDoors";
+import { HomeHero, HomeCtaCards } from "@/components/sections/HomeDoors";
 import { Marquee } from "@/components/sections/Marquee";
 import { ComparisonSection } from "@/components/service-page/ComparisonSection";
 import { HOME_COMPARISON } from "@/content/home-comparison";
@@ -18,10 +18,11 @@ export default function Home() {
   return (
     <>
       <Header />
-      {/* The doors replace the old hero: Rankify is no longer one thing, so
-          the first screen routes rather than pitches. */}
-      <HomeDoors />
+      <HomeHero />
       <Marquee />
+      {/* The two offers sit under the logo carousel: proof first, then the
+          two things we want pressed. */}
+      <HomeCtaCards />
       <ComparisonSection block={HOME_COMPARISON} />
       <Projects />
       <ServicesShowcase />
