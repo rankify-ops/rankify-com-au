@@ -18,9 +18,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Rankify | Performance Marketing & Web Development",
+  title: "Rankify | Marketing, Websites, Apps & AI Automation",
   description:
-    "High-performance websites, Shopify stores and SEO for Australian businesses. Custom built, conversion focused, and priced up front — you work directly with the developer.",
+    "High-performance marketing, websites, apps and AI automation for Australian businesses. Custom built, conversion focused, and priced up front — you work directly with the developer.",
   metadataBase: new URL("https://www.rankify.com.au"),
   alternates: { canonical: "/" },
   // Rendered into <head> at build time. Meta's crawler rejects a tag injected
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     other: { "facebook-domain-verification": "uh3hhus94ih2116ti54tqymyha9e3p" },
   },
   openGraph: {
-    title: "Rankify | Performance Marketing & Web Development",
+    title: "Rankify | Marketing, Websites, Apps & AI Automation",
     description:
       "No generic websites. No empty marketing promises. Just work that shows up in your sales, revenue and profit.",
     url: "https://www.rankify.com.au/",

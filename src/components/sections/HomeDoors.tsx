@@ -1,7 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { asset } from "@/lib/basePath";
+import { Reveal } from "@/components/ui/Reveal";
+import { Button } from "@/components/ui/Button";
+import { HeroServices } from "@/components/sections/HeroServices";
 import type { ReactNode } from "react";
 import GlassSurface from "@/components/GlassSurface";
 
@@ -54,32 +58,26 @@ const I = ({ d }: { d: string }) => (
 
 const DOORS: Door[] = [
   {
-    kicker: "Already with us",
-    title: "Log in to your website",
-    line: "Ask for a change in plain words. See it before it goes live.",
-    href: "https://app.rankify.com.au/login",
-    external: true,
-    icon: <I d="M15 3.5h3.5a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H15M10 16l4-4-4-4M14 12H3.5" />,
-  },
-  {
-    kicker: "Our product",
-    title: "Ad Sidekick",
-    line: "The ads system an agency runs, in your hands. From $99/mo.",
-    href: "/meta-ads",
-    accent: true,
-    icon: <I d="M4 10v4h3l6 4V6L7 10H4ZM17.5 9.2a4.2 4.2 0 0 1 0 5.6" />,
-  },
-  {
-    kicker: "Start something",
-    title: "Get a website built",
-    line: "Built around how your customers actually buy. From $2,999.",
+    kicker: "Websites",
+    title: "Get a high performance website built",
+    line:
+      "Shopify ecommerce or a custom build, made around how your customers buy. Then edit it yourself with AI after it is built.",
     href: "/web-design-and-development",
+    accent: true,
     icon: <I d="m9 8-4.5 4L9 16M15 8l4.5 4L15 16" />,
+  },
+  {
+    kicker: "Meta ads",
+    title: "Ad Sidekick",
+    line:
+      "Run your Meta ad account without ever logging into Meta. Get told when to upload new ads, when to raise spend to scale, which ads are performing, and learn from your winners.",
+    href: "/meta-ads",
+    icon: <I d="M4 10v4h3l6 4V6L7 10H4ZM17.5 9.2a4.2 4.2 0 0 1 0 5.6" />,
   },
   {
     kicker: "Not sure yet",
     title: "Book a call",
-    line: "Fifteen minutes with me, not a salesperson.",
+    line: "Fifteen minutes with me, not a salesperson. We work out what you actually need.",
     href: "/schedule-strategy-call",
     icon: <I d="M6.5 3.8h3l1.4 3.5-2 1.4a11.5 11.5 0 0 0 5.4 5.4l1.4-2 3.5 1.4v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 6a2 2 0 0 1 2-2.2Z" />,
   },
@@ -120,7 +118,7 @@ function DoorCard({ door }: { door: Door }) {
           <span className="block text-[20px] font-semibold leading-tight tracking-[-0.03em] text-white sm:text-[22px]">
             {door.title}
           </span>
-          <span className="mt-2 block max-w-[300px] text-[14px] leading-snug text-white/75">
+          <span className="mt-2 block max-w-[360px] text-[14px] leading-snug text-white/75">
             {door.line}
           </span>
         </span>
@@ -137,7 +135,7 @@ function DoorCard({ door }: { door: Door }) {
 
   // Shadow only on hover. See rule 2 at the top of this file.
   const shell =
-    "group relative block h-[250px] rounded-[28px] ring-1 ring-white/20 transition-shadow duration-300 hover:ring-white/35 hover:shadow-[0_26px_60px_-24px_rgba(0,0,0,0.7)] sm:h-[270px] lg:h-[300px] before:pointer-events-none before:absolute before:inset-0 before:z-[3] before:rounded-[28px] before:bg-[linear-gradient(135deg,rgba(255,255,255,0.45)_0%,rgba(255,255,255,0.06)_26%,rgba(255,255,255,0)_52%)] after:pointer-events-none after:absolute after:inset-x-6 after:top-0 after:z-[3] after:h-px after:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.75),transparent)]";
+    "group relative block h-[280px] rounded-[28px] ring-1 ring-white/20 transition-shadow duration-300 hover:ring-white/35 hover:shadow-[0_26px_60px_-24px_rgba(0,0,0,0.7)] sm:h-[280px] lg:h-[320px] before:pointer-events-none before:absolute before:inset-0 before:z-[3] before:rounded-[28px] before:bg-[linear-gradient(135deg,rgba(255,255,255,0.45)_0%,rgba(255,255,255,0.06)_26%,rgba(255,255,255,0)_52%)] after:pointer-events-none after:absolute after:inset-x-6 after:top-0 after:z-[3] after:h-px after:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.75),transparent)]";
 
   return door.external ? (
     <a href={door.href} className={shell} target="_blank" rel="noopener noreferrer">
@@ -163,34 +161,90 @@ export function HomeDoors() {
         loop
         playsInline
       />
+      {/* Light for the cards to refract. Siblings, never ancestors: a filter
+          on an ancestor would create a containing block and cancel the glass.
+          Sat low, where the card row is. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-[1]">
-        <span className="absolute left-[4%] top-[52%] h-[360px] w-[360px] rounded-full bg-[radial-gradient(circle,rgba(63,216,187,0.55)_0%,rgba(63,216,187,0)_70%)] blur-[30px]" />
-        <span className="absolute left-[38%] top-[44%] h-[300px] w-[300px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.3)_0%,rgba(255,255,255,0)_70%)] blur-[36px]" />
-        <span className="absolute right-[6%] top-[58%] h-[340px] w-[340px] rounded-full bg-[radial-gradient(circle,rgba(7,168,137,0.6)_0%,rgba(7,168,137,0)_70%)] blur-[34px]" />
-        <span className="absolute right-[30%] top-[20%] h-[260px] w-[260px] rounded-full bg-[radial-gradient(circle,rgba(63,216,187,0.35)_0%,rgba(63,216,187,0)_72%)] blur-[40px]" />
+        <span className="absolute left-[4%] top-[58%] h-[360px] w-[360px] rounded-full bg-[radial-gradient(circle,rgba(63,216,187,0.55)_0%,rgba(63,216,187,0)_70%)] blur-[30px]" />
+        <span className="absolute left-[38%] top-[52%] h-[300px] w-[300px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.3)_0%,rgba(255,255,255,0)_70%)] blur-[36px]" />
+        <span className="absolute right-[6%] top-[62%] h-[340px] w-[340px] rounded-full bg-[radial-gradient(circle,rgba(7,168,137,0.6)_0%,rgba(7,168,137,0)_70%)] blur-[34px]" />
+        <span className="absolute right-[28%] top-[26%] h-[280px] w-[280px] rounded-full bg-[radial-gradient(circle,rgba(63,216,187,0.3)_0%,rgba(63,216,187,0)_72%)] blur-[40px]" />
       </div>
 
-      <div className="relative z-[2] mx-auto max-w-[1400px] px-5 pb-14 pt-14 sm:px-10 sm:pb-20 sm:pt-20">
-        <div className="max-w-[760px]">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-[color:#3fd8bb]">
-            Rankify®
-          </p>
-          <h1 className="mt-4 text-[clamp(32px,5vw,58px)] font-semibold leading-[1.02] tracking-[-0.045em] text-white">
-            We build the website.{" "}
-            <span className="text-[color:#3fd8bb]">
-              Then we hand you the controls.
-            </span>
-          </h1>
-          <p className="mt-5 max-w-[560px] text-[17px] leading-relaxed text-white/70">
-            A site built around how your customers buy, a back end where you change it
-            by asking, and the ads system behind it. Pick where you want to go.
-          </p>
+      <div className="relative z-[2] flex flex-col px-5 pb-10 pt-8 sm:px-10 lg:min-h-[calc(100svh-60px)]">
+        {/* The wordmark across the top and the line in the corner: the old
+            hero's composition, which the first pass threw away. Text may use
+            Reveal; the cards below may not, because it animates opacity and
+            transform and either one cancels backdrop-filter. */}
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-14">
+          <Reveal className="lg:min-w-0 lg:flex-1">
+            <Image
+              src={asset("/assets/images/n92JU5BqmoxMotdcH6fGsTpi7e4.svg")}
+              alt="Rankify®"
+              width={974}
+              height={210}
+              priority
+              className="h-auto w-full lg:max-w-[1100px]"
+            />
+          </Reveal>
+
+          <Reveal delay={0.15} className="lg:w-[420px] lg:flex-none">
+            <h1 className="max-w-[430px] text-[clamp(25px,2.5vw,36px)] font-medium leading-[0.94] tracking-[-0.05em] text-white">
+              High-performance marketing, websites, apps and AI automation.
+            </h1>
+            <p className="mt-3 max-w-[430px] text-[15px] leading-snug text-white/60">
+              Custom built for your business, not assembled from a template.
+            </p>
+            <HeroServices />
+          </Reveal>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:mt-12 sm:grid-cols-2 lg:grid-cols-4">
-          {DOORS.map((d) => (
-            <DoorCard key={d.title} door={d} />
-          ))}
+        <div className="mt-auto flex flex-col items-start justify-between gap-8 pt-10 lg:flex-row lg:items-end lg:pt-14">
+          <Reveal delay={0.25}>
+            <p className="max-w-[480px] text-[clamp(19px,1.6vw,26px)] font-medium leading-[0.98] tracking-[-0.05em] text-white">
+              You work directly with us, and the goal is profit.{" "}
+              <span className="text-white/65">
+                Not clicks, not views, the business performance that actually matters.
+              </span>
+            </p>
+          </Reveal>
+          <span className="order-3 text-[13px] text-white/55 lg:order-none">© 2026 Rankify®</span>
+          <Reveal delay={0.35}>
+            <div className="flex max-w-[400px] gap-4 rounded-2xl border border-white/15 bg-white/5 p-3 backdrop-blur-md">
+              <Image
+                src={asset("/assets/images/fZdV1icYbXIkqfVAekWtJEAifo.png")}
+                alt="Thomas Flood"
+                width={104}
+                height={118}
+                className="h-[118px] w-[104px] flex-none rounded-lg object-cover grayscale"
+              />
+              <div className="flex flex-col gap-1 text-white">
+                <strong className="text-base font-semibold">Have a project in mind?</strong>
+                <span className="text-[12.5px] text-white/60">
+                  Thomas Flood – Director of Digital Strategy
+                </span>
+                <div id="hero-cta" className="mt-auto self-start">
+                  <Button href="/schedule-strategy-call" variant="light" pulse className="px-5 py-2.5 text-[13.5px]">
+                    Let&rsquo;s talk
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+
+        {/* The doors sit below the hero proper: the hero says who Rankify is,
+            these say where to go. Still outside <Reveal> — it animates
+            opacity and transform, and either cancels the glass. */}
+        <div className="pt-12 sm:pt-14">
+          <p className="mb-4 text-[12px] font-semibold uppercase tracking-[0.16em] text-white/45">
+            Start here
+          </p>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {DOORS.map((d) => (
+              <DoorCard key={d.title} door={d} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
