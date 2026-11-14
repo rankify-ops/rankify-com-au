@@ -55,14 +55,19 @@ plus one product sold to the world.**
 
 **Ad Sidekick is public** — own page, own prices, public call to action.
 
-**But public sign-up and self-serve payment are not live yet**, and **Meta has
-not approved the app**, which is what lets a new customer connect their own
-Facebook account. So:
+**Public sign-up is built and deployed, switched off until Tom turns it on.**
+When it is on, `https://sidekick.rankify.com.au/signup` is pick a plan, pay,
+the account is created automatically, then sign in with a texted code. Until
+then that page says invite-only. **Meta has also not approved the app**, which
+is what lets a new customer connect their own Facebook account. So:
 
 - The Sidekick page gets a real, public **"Get started"** button.
 - Its destination is **one constant in one file**, so flipping it on launch day
   is a one-line change and not a hunt through the page.
-- Until sign-up is live it points at a request-access / booking step.
+- Its eventual destination is known: `https://sidekick.rankify.com.au/signup`.
+- Until Tom switches sign-up on, it points at a request-access / booking step,
+  because that page currently says invite-only.
+- Login is `https://sidekick.rankify.com.au/login`.
 - Nothing on the page may promise connecting a Facebook account in minutes.
 
 See Q1 — what that button should do on launch day is Tom's call.
@@ -372,11 +377,14 @@ Steps 2 and 3 are worth shipping on their own, before the rest is written.
 
 ## Questions for Tom
 
-**Q1. What does the Sidekick "Get started" button do on launch day?**
-Self-serve sign-up is not live and Meta has not approved the app. Options:
-(a) `/request-access` form, (b) straight to `/schedule-strategy-call`,
-(c) `sidekick.rankify.com.au/signup` the moment it exists. My assumption is
-(a), with the destination as one constant so it is a one-line change later.
+**Q1. When do we point "Get started" at the real sign-up?**
+Mostly answered: sign-up is built and deployed at
+`https://sidekick.rankify.com.au/signup`, switched off until you turn it on,
+and the page says invite-only until then. So the button ships pointing at
+`/request-access`, and flipping it to `/signup` is the one-line change on the
+day you switch it on. **What remains yours:** whether to launch the page
+before or after that switch, given Meta has still not approved the app — a
+customer who signs up and pays today cannot connect their own Facebook.
 
 **Q2. Sidekick page — `/meta-ads`, or a new `/ad-sidekick`?**
 Recommendation: reuse `/meta-ads`. It already ranks, and the search intent is
