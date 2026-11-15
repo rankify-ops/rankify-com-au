@@ -3,7 +3,6 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { cors } from "./_lib.js";
 import { crmConfigured, logAsk, updateAsk } from "./_crm.js";
 import { allow, limitsConfigured } from "./_limits.js";
-import { humanVerified, turnstileConfigured } from "./_turnstile.js";
 
 /**
  * The ask box on the home page.
@@ -263,11 +262,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // avoid, and the easiest way to end up there is adding the key to Vercel
   // and forgetting the rest. So a half-configured deployment answers like an
   // unconfigured one instead of quietly spending money.
-  if (!limitsConfigured || !turnstileConfigured) {
-    console.error("ask refused: limits or turnstile not configured", {
-      limitsConfigured,
-      turnstileConfigured,
-    });
+  if (!limitsConfigured) {
+    console.error("ask refused: the rate limit store is not configured");
     return deflect(
       res,
       "The assistant is not switched on yet. Book a fifteen minute call with Tom and he will answer it himself.",
@@ -282,8 +278,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       messages?: Turn[];
       /** The CRM card for this conversation, returned by the first answer. */
       logId?: string;
-      /** A fresh Turnstile solve. One per message: the tokens are single use. */
-      turnstile?: string;
     };
 
     logId = typeof b.logId === "string" ? b.logId.slice(0, 40) : undefined;
@@ -319,14 +313,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         allowance.reason === "global_day"
           ? "The assistant has answered all it can for today. Book a fifteen minute call with Tom and he will answer it himself."
           : "That is a lot of questions in a short time. Book a fifteen minute call with Tom and he will go through it properly.",
-        logId,
-      );
-    }
-
-    if (!(await humanVerified(req, b.turnstile))) {
-      return deflect(
-        res,
-        "We could not check that this came from a browser. Reload the page and try again, or book a fifteen minute call with Tom.",
         logId,
       );
     }

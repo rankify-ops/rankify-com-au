@@ -6,7 +6,6 @@ import { createPortal } from "react-dom";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { asset } from "@/lib/basePath";
 import { CHECKOUT_API } from "@/lib/checkout";
-import { freshToken } from "@/lib/turnstile";
 
 /**
  * Where a question asked in the hero actually gets answered.
@@ -53,19 +52,12 @@ export function AskDialog({
     setTurns(next);
     setBusy(true);
     try {
-      // A fresh bot check per message. The endpoint costs money per call and
-      // anyone can reach it, so the server refuses a message without one;
-      // asking for it here rather than once per conversation is what keeps
-      // the single-use token valid.
-      const turnstile = await freshToken();
-
       const res = await fetch(`${CHECKOUT_API}/api/ask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: next.map((t) => ({ role: t.role, content: t.content })),
           logId: logId.current,
-          turnstile,
         }),
       });
       const out = (await res.json()) as {
