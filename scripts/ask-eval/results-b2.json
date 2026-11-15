@@ -1,0 +1,144 @@
+{
+  "base": "https://rankify-com-au.vercel.app",
+  "total": 9,
+  "failed": 0,
+  "byRule": {},
+  "results": [
+    {
+      "text": "I need a Shopify store for a Shopify clothing brand. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "Yes, we build Shopify stores and we build them around getting people to buy, not just how the site looks. Book fifteen minutes with Tom to talk through what you need, or have a look at how we work on Shopify.",
+      "sentTo": [
+        "shopify",
+        "call"
+      ],
+      "failures": []
+    },
+    {
+      "text": "I need a Shopify store for a plumbing business. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "Yes, we build Shopify stores, and we build them around getting people to buy rather than just looking good. A plumbing business selling parts, fittings or service packages online is normal work for us. Book fifteen minutes with Tom and he'll work out what the store needs to sell and how it should be set up.",
+      "sentTo": [
+        "shopify",
+        "call"
+      ],
+      "failures": []
+    },
+    {
+      "text": "I need a Shopify store for a law firm. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "Yes, we build Shopify stores, but a law firm usually doesn't need one. Most firms are better served by a custom website that handles enquiries, consultation bookings and client intake, which is work we do too. Book fifteen minutes with Tom and he'll tell you which one fits what you're trying to sell.",
+      "sentTo": [
+        "website",
+        "call"
+      ],
+      "failures": []
+    },
+    {
+      "text": "I need a Shopify store for a cafe. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "Yes, we build Shopify stores, and we build them around getting people to order rather than just looking good. A cafe store is usually about selling coffee beans, merch or gift cards and taking pre-orders, so it's worth working out what you actually want to sell online. Book fifteen minutes with Tom and he'll sort out the scope with you, or have a look at how we do Shopify builds first.",
+      "sentTo": [
+        "shopify",
+        "call"
+      ],
+      "failures": []
+    },
+    {
+      "text": "I need a Shopify store for an electrician. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "Yes, we build Shopify stores, and we build them around how customers actually buy rather than just how they look. For an electrician, the question is whether you are selling products online, like fittings or kits, or whether the site is mainly for booking jobs and quotes. Book fifteen minutes with Tom and he'll work out the right setup, or read how we approach Shopify builds first.",
+      "sentTo": [
+        "shopify",
+        "call"
+      ],
+      "failures": []
+    },
+    {
+      "text": "I need a Shopify store for a gym. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "Yes, we build Shopify stores, and for a gym that usually means selling memberships, PT packages or merch with the checkout set up properly for recurring or bundled products. Book fifteen minutes with Tom and he can work out what you need to sell and how it should be set up.",
+      "sentTo": [
+        "shopify",
+        "call"
+      ],
+      "failures": []
+    },
+    {
+      "text": "I need a Shopify store for a dental practice. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "Yes, we build Shopify stores, and we can build one for a dental practice if you are selling products like whitening kits, mouthguards or aligner accessories. Booking appointments is a different job, and that can be a custom build alongside the store, which the call can sort out. Book fifteen minutes with Tom, or read how we approach Shopify builds first.",
+      "sentTo": [
+        "shopify",
+        "call"
+      ],
+      "failures": []
+    },
+    {
+      "text": "I need a Shopify store for a removalist company. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "Yes, we build Shopify stores, but a removalist is a service business, not a product catalogue, so the right setup depends on how you take bookings and payments. Is the store meant to sell things like packing supplies, or is it mainly to take quotes and bookings for moves?",
+      "sentTo": [
+        "shopify",
+        "work",
+        "call"
+      ],
+      "failures": []
+    },
+    {
+      "text": "I need a Shopify store for an accountant. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "Shopify stores are our thing, but a store for an accountant is a bit unusual, so I need to know what they would be selling. If it is a set of services or products to sell online, we can build that. Book fifteen minutes with Tom and he will work through what the store needs to do.",
+      "sentTo": [
+        "shopify",
+        "call"
+      ],
+      "failures": []
+    }
+  ]
+}

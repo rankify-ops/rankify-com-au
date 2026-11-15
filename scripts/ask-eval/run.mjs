@@ -27,6 +27,15 @@ const argOf = (flag, fallback) => {
 
 const BASE = argOf("--base", "https://rankify-com-au.vercel.app");
 const LIMIT = Number(argOf("--limit", "0")) || PROMPTS.length;
+/**
+ * Where to start in the list.
+ *
+ * The endpoint rate-limits by address, so a long run has to go in batches
+ * spaced out over the day unless the caps are raised for it. Skipping lets
+ * the next batch pick up where the last one stopped instead of grading the
+ * same opening prompts again.
+ */
+const SKIP = Number(argOf("--skip", "0"));
 const CONCURRENCY = Number(argOf("--concurrency", "4"));
 const OUT = argOf("--out", "scripts/ask-eval/results.json");
 
@@ -120,7 +129,7 @@ async function ask(prompt) {
 }
 
 const run = async () => {
-  const queue = PROMPTS.slice(0, LIMIT);
+  const queue = PROMPTS.slice(SKIP, SKIP + LIMIT);
   const results = [];
   let done = 0;
   let unconfigured = 0;
