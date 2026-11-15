@@ -177,6 +177,68 @@ export const VSL_LIST = "VSL qualifying";
  */
 export const SIDEKICK_LIST = "Ad Sidekick access";
 
+/**
+ * Everything anyone asks the ask box.
+ *
+ * One card per conversation, rewritten as it goes, so the list reads as what
+ * people actually wanted rather than a stream of fragments. The status is the
+ * useful part: "No page for this" is a request for something the site does
+ * not cover yet, which is the queue of pages worth building.
+ *
+ * No email and no name: the box is anonymous and asking for one before
+ * answering is how you get nothing. The conversation is the signal.
+ */
+export const ASK_LIST = "Ask box";
+
+type AskLog = {
+  transcript: string;
+  topic: string;
+  /** Work we do. False is the short list of things we plainly do not. */
+  covered: boolean;
+  /** We do it, but no page explains it. These are the pages worth building. */
+  pageGap: boolean;
+  sentTo: string[];
+};
+
+/**
+ * Three statuses, because they mean three different things.
+ *
+ * "Not something we do" is noise to skim. "No page for this" is the queue:
+ * somebody wanted work we take on and the best the box could do was send
+ * them somewhere adjacent. "Answered" needs nothing.
+ */
+function askCard(c: AskLog) {
+  const first = c.transcript.split("\n").find((l) => l.startsWith("Them:")) ?? "Asked something";
+  return {
+    name: first.replace(/^Them:\s*/, "").slice(0, 90) || "Asked something",
+    list: ASK_LIST,
+    status: !c.covered ? "Not something we do" : c.pageGap ? "No page for this" : "Answered",
+    description: [
+      `Topic: ${c.topic}`,
+      `Sent to: ${c.sentTo.join(", ") || "nowhere"}`,
+      "",
+      c.transcript,
+    ].join("\n"),
+  };
+}
+
+/** Creates the card. Returns its id so later turns rewrite it in place. */
+export async function logAsk(c: AskLog): Promise<string | null> {
+  const out = await routine({ action: "add_website_item", item: askCard(c) });
+  return (out?.item as { id?: string } | undefined)?.id ?? null;
+}
+
+/** Rewrites the card with the conversation so far. */
+export async function updateAsk(id: string, c: AskLog): Promise<void> {
+  const item = askCard(c);
+  await routine({
+    action: "update_space_item",
+    space: WEBSITE_SPACE,
+    id,
+    updates: { status: item.status, description: item.description },
+  });
+}
+
 export async function addSidekickRequest(c: {
   name: string;
   email: string;

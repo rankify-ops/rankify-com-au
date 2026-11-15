@@ -83,10 +83,24 @@ const GRADERS = {
       ? "answered an off-topic request"
       : null,
 
-  has_next_step: (a) =>
-    /(book|call|\/web-design|\/meta-ads|\/schedule|get in touch|tell me)/i.test(a)
-      ? null
-      : "offers no next step",
+  // The endpoint now returns real destinations and the model is told not to
+  // write links, so a next step is a button that exists, not a phrase.
+  has_next_step: (_a, r) =>
+    Array.isArray(r.actions) && r.actions.length > 0 ? null : "offers no next step",
+
+  // Links are chosen server side from a fixed list. A URL in the prose means
+  // the model started writing its own, which is how 404s reach visitors.
+  no_written_links: (a) =>
+    /(https?:\/\/|www\.|rankify\.com\.au\/|\s\/[a-z-]{4,})/i.test(a)
+      ? "writes a URL in the reply instead of leaving it to the buttons"
+      : null,
+
+  // Tom's instruction: say yes to anything in marketing, web, apps, AI,
+  // automation or Shopify. A hedge on that work is the expensive failure.
+  says_yes: (a) =>
+    /(we (don't|do not|can't|cannot)|that('s| is) not something we|outside (our|what we)|we don't offer)/i.test(a)
+      ? "declines work Rankify does"
+      : null,
 };
 
 async function ask(prompt) {
@@ -96,7 +110,13 @@ async function ask(prompt) {
     body: JSON.stringify({ messages: [{ role: "user", content: prompt.text }] }),
   });
   const body = await res.json().catch(() => ({}));
-  return { status: res.status, reply: String(body.reply ?? ""), configured: body.configured };
+  return {
+    status: res.status,
+    reply: String(body.reply ?? ""),
+    followUp: String(body.followUp ?? ""),
+    actions: Array.isArray(body.actions) ? body.actions : [],
+    configured: body.configured,
+  };
 }
 
 const run = async () => {
@@ -110,16 +130,17 @@ const run = async () => {
       const prompt = queue.shift();
       if (!prompt) return;
       try {
-        const { reply, configured } = await ask(prompt);
+        const result = await ask(prompt);
+        const { reply, actions, configured } = result;
         if (configured === false) unconfigured++;
         const failures = prompt.rules
           .map((r) => {
             const grader = GRADERS[r];
-            const why = grader ? grader(reply) : null;
+            const why = grader ? grader(reply, result) : null;
             return why ? { rule: r, why } : null;
           })
           .filter(Boolean);
-        results.push({ ...prompt, reply, failures });
+        results.push({ ...prompt, reply, sentTo: actions.map((x) => x.key), failures });
       } catch (e) {
         results.push({ ...prompt, reply: "", failures: [{ rule: "request", why: String(e).slice(0, 120) }] });
       }

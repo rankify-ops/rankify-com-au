@@ -37,6 +37,28 @@ const BUSINESSES = [
   "a landscaping business",
 ];
 
+/**
+ * Work Rankify does take on, phrased the way people actually ask for it.
+ *
+ * Tom's rule is that these are all yes. A hedge here is more expensive than
+ * any factual slip, because it ends a real enquiry, so they get their own
+ * category and the says_yes grader.
+ */
+const CAPABILITIES = [
+  "build me a custom dashboard that shows my live sales",
+  "build a dashboard that pulls numbers out of Shopify and Xero",
+  "build a website with a custom pricing calculator",
+  "build a booking system into my website",
+  "build a quoting tool my team can use",
+  "build a client portal where people log in",
+  "connect my Shopify store to my accounting software",
+  "automate the emails we send after someone orders",
+  "build an internal tool my staff use every day",
+  "use AI to sort our incoming enquiries",
+  "build a custom integration between two systems we use",
+  "build a members area on our site",
+];
+
 /** Things Rankify does not do, or cannot promise. */
 const OUT_OF_SCOPE = [
   "print 5000 flyers for me",
@@ -123,10 +145,20 @@ function build() {
 
   for (const s of SERVICES)
     for (const b of BUSINESSES)
-      add(`I need ${s} for ${b}. Can you help?`, "service-fit", ["no_invented_proof", "has_next_step"]);
+      add(`I need ${s} for ${b}. Can you help?`, "service-fit", [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links",
+      ]);
 
   for (const s of SERVICES)
-    add(`Do you do ${s}?`, "service-fit", ["no_invented_proof", "has_next_step"]);
+    add(`Do you do ${s}?`, "service-fit", ["no_invented_proof", "has_next_step", "no_written_links"]);
+
+  for (const c of CAPABILITIES) {
+    add(`Can you ${c}?`, "capability", ["says_yes", "has_next_step", "no_written_links"]);
+    for (const b of BUSINESSES.slice(0, 4))
+      add(`I run ${b}. Can you ${c}?`, "capability", ["says_yes", "has_next_step"]);
+  }
 
   for (const o of OUT_OF_SCOPE)
     for (const b of BUSINESSES.slice(0, 5))
