@@ -151,6 +151,20 @@ export function AskBox() {
     // and no transform or opacity on this wrapper, because either would
     // cancel the backdrop-filter underneath it.
     <div className="relative w-full max-w-[520px] rounded-[28px] ring-1 ring-white/20 before:pointer-events-none before:absolute before:inset-0 before:z-[3] before:rounded-[28px] before:bg-[linear-gradient(135deg,rgba(255,255,255,0.45)_0%,rgba(255,255,255,0.06)_26%,rgba(255,255,255,0)_52%)] after:pointer-events-none after:absolute after:inset-x-8 after:top-0 after:z-[3] after:h-px after:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.75),transparent)]">
+      <div className="mb-4 flex items-center justify-center gap-3 text-left">
+        <Image
+          src={asset("/assets/images/fZdV1icYbXIkqfVAekWtJEAifo.png")}
+          alt="Thomas Flood"
+          width={104}
+          height={118}
+          className="h-11 w-11 flex-none rounded-full object-cover object-top grayscale"
+        />
+        <p className="max-w-[360px] text-[14.5px] leading-snug text-white/75">
+          <span className="font-semibold text-white">Hey, I&rsquo;m Thomas.</span> Tell me
+          below how our team can help, and we&rsquo;ll take it from there.
+        </p>
+      </div>
+
       {/* Only the standard backdrop-filter, via Tailwind. Hand-writing a
           -webkit- one alongside it makes Lightning CSS drop the unprefixed
           property and the blur disappears from the shipped stylesheet. */}
@@ -192,15 +206,8 @@ export function AskBox() {
               e.preventDefault();
               void send(draft);
             }}
-            className="flex items-center gap-3 rounded-full border border-white/20 bg-white/[0.08] py-2 pl-2 pr-2 transition-colors focus-within:border-white/45"
+            className="flex items-center gap-3 rounded-full border border-white/20 bg-white/[0.08] py-2 pl-5 pr-2 transition-colors focus-within:border-white/45"
           >
-            <Image
-              src={asset("/assets/images/fZdV1icYbXIkqfVAekWtJEAifo.png")}
-              alt="Thomas Flood"
-              width={104}
-              height={118}
-              className="h-9 w-9 flex-none rounded-full object-cover object-top grayscale"
-            />
             {/* The placeholder is drawn rather than native so a caret can
                 blink in front of it: the field looks ready to type in without
                 autofocus, which on load would yank the page's scroll
