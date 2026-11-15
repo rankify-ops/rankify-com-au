@@ -80,7 +80,12 @@ export function AskBox() {
   }
 
   return (
-    <div className="w-full max-w-[520px]">
+    // The same lit edge the door cards had: a bright hairline along the top
+    // and a diagonal sheen falling from the top left, which is what makes the
+    // surface read as glass rather than a tinted panel. Pseudo-elements only,
+    // and no transform or opacity on this wrapper, because either would
+    // cancel the backdrop-filter underneath it.
+    <div className="relative w-full max-w-[520px] rounded-[28px] ring-1 ring-white/20 before:pointer-events-none before:absolute before:inset-0 before:z-[3] before:rounded-[28px] before:bg-[linear-gradient(135deg,rgba(255,255,255,0.45)_0%,rgba(255,255,255,0.06)_26%,rgba(255,255,255,0)_52%)] after:pointer-events-none after:absolute after:inset-x-8 after:top-0 after:z-[3] after:h-px after:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.75),transparent)]">
       <GlassSurface
         width="100%"
         height="100%"
