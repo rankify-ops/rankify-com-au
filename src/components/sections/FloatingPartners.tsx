@@ -24,18 +24,24 @@ import { asset } from "@/lib/basePath";
 
 type Mark = {
   label: string;
-  /** Set once the file exists in public/assets/partners. */
+  /** A brand mark in public/assets/partners. */
   src?: string;
+  /** A stroke glyph instead, for things that are not a brand. */
+  d?: string;
   className: string;
   delay: string;
 };
 
 const MARKS: Mark[] = [
-  { label: "Shopify", src: "/assets/partners/shopify.svg", className: "left-[15%] top-[26%]", delay: "0s" },
-  { label: "Claude", src: "/assets/partners/claude.svg", className: "left-[22%] top-[66%]", delay: "-2.4s" },
-  { label: "Firecrawl", src: "/assets/partners/firecrawl.svg", className: "right-[16%] top-[24%]", delay: "-1.2s" },
-  { label: "Grok", src: "/assets/partners/grok.svg", className: "right-[21%] top-[68%]", delay: "-3.6s" },
-  { label: "Semrush", src: "/assets/partners/semrush.svg", className: "left-[8%] top-[46%]", delay: "-4.8s" },
+  { label: "Shopify", src: "/assets/partners/shopify.svg", className: "left-[26%] top-[27%]", delay: "0s" },
+  { label: "Claude", src: "/assets/partners/claude.svg", className: "left-[19%] top-[60%]", delay: "-2.4s" },
+  { label: "Firecrawl", src: "/assets/partners/firecrawl.svg", className: "right-[27%] top-[26%]", delay: "-1.2s" },
+  { label: "Grok", src: "/assets/partners/grok.svg", className: "right-[20%] top-[61%]", delay: "-3.6s" },
+  { label: "Semrush", src: "/assets/partners/semrush.svg", className: "left-[16%] top-[42%]", delay: "-4.8s" },
+  { label: "Google", src: "/assets/partners/google.svg", className: "right-[15%] top-[41%]", delay: "-1.8s" },
+  { label: "Meta", src: "/assets/partners/meta.svg", className: "left-[33%] top-[16%]", delay: "-5.4s" },
+  // Not a brand: the work itself, so a glyph rather than somebody's logo.
+  { label: "Code", d: "m9 8-4.5 4L9 16M15 8l4.5 4L15 16", className: "right-[33%] top-[70%]", delay: "-3s" },
 ];
 
 /** How close the cursor gets before a mark starts moving, and how hard. */
@@ -112,8 +118,20 @@ export function FloatingPartners() {
                 alt=""
                 width={96}
                 height={96}
-                className="h-[46px] w-[46px] object-contain opacity-70"
+                className="h-[42px] w-[42px] object-contain opacity-70"
               />
+            ) : m.d ? (
+              <svg
+                viewBox="0 0 24 24"
+                className="h-[42px] w-[42px] text-white/70"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d={m.d} />
+              </svg>
             ) : (
               <span className="flex h-[46px] w-[46px] items-center justify-center rounded-full border border-dashed border-white/25 text-[13px] font-semibold text-white/45">
                 {m.label[0]}

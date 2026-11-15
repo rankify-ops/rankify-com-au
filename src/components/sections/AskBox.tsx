@@ -95,6 +95,12 @@ export function AskBox() {
   const [focused, setFocused] = useState(false);
   const typed = useTypedPlaceholder(!draft && !focused && turns.length === 0);
   const scroller = useRef<HTMLDivElement>(null);
+  const field = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!window.matchMedia?.("(min-width: 1024px)").matches) return;
+    field.current?.focus({ preventScroll: true });
+  }, []);
 
   async function send(text: string) {
     const question = text.trim();
@@ -201,6 +207,7 @@ export function AskBox() {
                 position to the hero. */}
             <span className="relative min-w-0 flex-1">
               <input
+                ref={field}
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
                 onFocus={() => setFocused(true)}
@@ -214,7 +221,7 @@ export function AskBox() {
                   className="pointer-events-none absolute inset-y-0 left-0 flex items-center gap-[3px] text-[15px] text-white/50"
                 >
                   <span className={`${typed.still ? "" : "caret-blink "}inline-block h-[17px] w-px bg-white/80`} />
-                  {typed.text || "What can we help you with?"}
+                  {typed.text}
                 </span>
               )}
             </span>

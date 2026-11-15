@@ -149,20 +149,20 @@ export function HomeHero() {
       <FloatingPartners />
 
       <div className="relative z-[3] flex flex-col items-center justify-center px-5 pb-14 pt-12 text-center sm:px-10 sm:pb-20 sm:pt-16 lg:min-h-[calc(100svh-60px)]">
-        <Reveal delay={0.12}>
-          <h1 className="mx-auto max-w-[680px] text-[clamp(22px,2.3vw,32px)] font-medium leading-[1.05] tracking-[-0.04em] text-white">
-            High-performance marketing, websites, apps and AI automation.{" "}
-            <span className="text-white/55">Custom built for your business.</span>
-          </h1>
-        </Reveal>
-
         {/* Outside Reveal: it animates opacity and transform, and either one
             cancels the glass this box is drawn with. */}
         <div className="mt-9 flex w-full justify-center">
           <AskBox />
         </div>
 
-        <Reveal delay={0.3} className="mt-10">
+        <Reveal delay={0.2} className="mt-9">
+          <h1 className="mx-auto max-w-[680px] text-[clamp(18px,1.7vw,24px)] font-medium leading-[1.15] tracking-[-0.03em] text-white">
+            High-performance marketing, websites, apps and AI automation.{" "}
+            <span className="text-white/55">Custom built for your business.</span>
+          </h1>
+        </Reveal>
+
+        <Reveal delay={0.3} className="mt-5">
           <p className="mx-auto max-w-[560px] text-[15.5px] leading-snug text-white/55">
             You work directly with us, and the goal is profit. Not clicks, not views,
             the business performance that actually matters.
