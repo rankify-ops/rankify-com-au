@@ -34,7 +34,7 @@ type Mark = {
 const MARKS: Mark[] = [
   { label: "Shopify", src: "/assets/partners/shopify.svg" },
   { label: "Claude", src: "/assets/partners/claude.svg" },
-  { label: "Firecrawl", src: "/assets/partners/firecrawl.svg" },
+  { label: "Firecrawl", src: "/assets/partners/firecrawl-white.svg" },
   { label: "Grok", src: "/assets/partners/grok.svg" },
   { label: "Semrush", src: "/assets/partners/semrush.svg" },
   { label: "Google", src: "/assets/partners/google.svg" },
