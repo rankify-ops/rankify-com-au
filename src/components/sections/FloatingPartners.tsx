@@ -5,21 +5,21 @@ import { useEffect, useRef } from "react";
 import { asset } from "@/lib/basePath";
 
 /**
- * The tools we work with, drifting around the ask box and pushing away from
- * the cursor.
+ * The tools we build with, orbiting the ask box on an ellipse.
  *
- * The marks live in `public/assets/partners/`. Shopify, Claude and Semrush
- * come from Simple Icons in white; Firecrawl and Grok are each brand's own
- * published SVG and keep their colours. A mark with no file falls back to a
- * monogram rather than a logo drawn from memory.
+ * Orbit and cursor-push are computed together in one rAF loop and written as
+ * a single transform per mark. As two nested elements — a CSS animation
+ * outside, JS inside — they were two transforms competing for the same
+ * element every frame; one loop is simpler and smoother.
  *
- * Two layers per icon, deliberately: the outer span runs the CSS float, the
- * inner one takes the cursor push. One element cannot hold two transforms, and
- * combining them in JS would mean reimplementing the float by hand.
+ * Styles go straight to the nodes. A re-render per frame, ten marks deep,
+ * would be the most expensive thing on the page.
  *
- * Hidden below lg, where the ask box already fills the width. The whole thing
- * is `pointer-events-none`, so none of it can swallow a click meant for the
- * box underneath.
+ * The loop stops when the hero scrolls out of view, and never starts under
+ * prefers-reduced-motion — the marks just sit on the ellipse.
+ *
+ * Hidden below lg, where the ask box fills the width and these would land on
+ * top of it.
  */
 
 type Mark = {
@@ -28,102 +28,140 @@ type Mark = {
   src?: string;
   /** A stroke glyph instead, for things that are not a brand. */
   d?: string;
-  className: string;
-  delay: string;
 };
 
+/** Order is the order round the ellipse, starting at the right. */
 const MARKS: Mark[] = [
-  { label: "Shopify", src: "/assets/partners/shopify.svg", className: "left-[26%] top-[27%]", delay: "0s" },
-  { label: "Claude", src: "/assets/partners/claude.svg", className: "left-[19%] top-[60%]", delay: "-2.4s" },
-  { label: "Firecrawl", src: "/assets/partners/firecrawl.svg", className: "right-[27%] top-[26%]", delay: "-1.2s" },
-  { label: "Grok", src: "/assets/partners/grok.svg", className: "right-[20%] top-[61%]", delay: "-3.6s" },
-  { label: "Semrush", src: "/assets/partners/semrush.svg", className: "left-[16%] top-[42%]", delay: "-4.8s" },
-  { label: "Google", src: "/assets/partners/google.svg", className: "right-[15%] top-[41%]", delay: "-1.8s" },
-  { label: "Meta", src: "/assets/partners/meta.svg", className: "left-[33%] top-[16%]", delay: "-5.4s" },
+  { label: "Shopify", src: "/assets/partners/shopify.svg" },
+  { label: "Claude", src: "/assets/partners/claude.svg" },
+  { label: "Firecrawl", src: "/assets/partners/firecrawl.svg" },
+  { label: "Grok", src: "/assets/partners/grok.svg" },
+  { label: "Semrush", src: "/assets/partners/semrush.svg" },
+  { label: "Google", src: "/assets/partners/google.svg" },
+  { label: "Meta", src: "/assets/partners/meta.svg" },
+  { label: "Stripe", src: "/assets/partners/stripe.svg" },
+  { label: "Next.js", src: "/assets/partners/nextjs.svg" },
   // Not a brand: the work itself, so a glyph rather than somebody's logo.
-  { label: "Code", d: "m9 8-4.5 4L9 16M15 8l4.5 4L15 16", className: "right-[33%] top-[70%]", delay: "-3s" },
+  { label: "Code", d: "m9 8-4.5 4L9 16M15 8l4.5 4L15 16" },
 ];
 
-/** How close the cursor gets before a mark starts moving, and how hard. */
-const RADIUS = 190;
-const PUSH = 46;
+/** Half-width and half-height of the ellipse, as a share of the hero. */
+const RX = 0.37;
+const RY = 0.3;
+/** One lap in seconds. Slow enough to read as drift, not as a carousel. */
+const PERIOD = 70;
+/** How near the cursor gets before a mark gives way, and how hard. */
+const RADIUS = 170;
+const PUSH = 42;
 
 export function FloatingPartners() {
-  const wrap = useRef<HTMLDivElement>(null);
-  const inners = useRef<(HTMLSpanElement | null)[]>([]);
+  const host = useRef<HTMLDivElement>(null);
+  const nodes = useRef<(HTMLSpanElement | null)[]>([]);
 
   useEffect(() => {
-    const host = wrap.current;
-    if (!host) return;
-    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+    const box = host.current;
+    if (!box) return;
 
-    let frame = 0;
+    const still = Boolean(window.matchMedia?.("(prefers-reduced-motion: reduce)").matches);
     let mx = -9999;
     let my = -9999;
+    let frame = 0;
+    let running = false;
+
+    const place = (t: number) => {
+      const r = box.getBoundingClientRect();
+      const cx = r.width / 2;
+      const cy = r.height / 2;
+      const rx = r.width * RX;
+      const ry = r.height * RY;
+
+      nodes.current.forEach((el, i) => {
+        if (!el) return;
+        const base = (i / MARKS.length) * Math.PI * 2;
+        const angle = still ? base : base + (t / (PERIOD * 1000)) * Math.PI * 2;
+        let x = cx + Math.cos(angle) * rx;
+        let y = cy + Math.sin(angle) * ry;
+
+        const dx = r.left + x - mx;
+        const dy = r.top + y - my;
+        const dist = Math.hypot(dx, dy);
+        if (dist < RADIUS && dist > 0) {
+          const force = (1 - dist / RADIUS) ** 2 * PUSH;
+          x += (dx / dist) * force;
+          y += (dy / dist) * force;
+        }
+
+        el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      });
+    };
+
+    const tick = (t: number) => {
+      place(t);
+      if (running) frame = requestAnimationFrame(tick);
+    };
+    const start = () => {
+      if (running || still) return;
+      running = true;
+      frame = requestAnimationFrame(tick);
+    };
+    const stop = () => {
+      running = false;
+      if (frame) cancelAnimationFrame(frame);
+      frame = 0;
+    };
+
+    place(0);
 
     const onMove = (e: PointerEvent) => {
       mx = e.clientX;
       my = e.clientY;
-      if (!frame) frame = requestAnimationFrame(apply);
+      if (still) place(0);
     };
-
-    // Styles are written straight to the nodes rather than through state: this
-    // runs on every pointer move, and a re-render per frame would be the most
-    // expensive thing on the page.
-    const apply = () => {
-      frame = 0;
-      for (const el of inners.current) {
-        if (!el) continue;
-        const r = el.getBoundingClientRect();
-        const dx = r.x + r.width / 2 - mx;
-        const dy = r.y + r.height / 2 - my;
-        const dist = Math.hypot(dx, dy);
-        if (dist > RADIUS || dist === 0) {
-          el.style.transform = "translate3d(0,0,0)";
-          continue;
-        }
-        const force = (1 - dist / RADIUS) ** 2 * PUSH;
-        el.style.transform = `translate3d(${(dx / dist) * force}px, ${(dy / dist) * force}px, 0)`;
-      }
-    };
-
-    const onLeave = () => {
-      mx = -9999;
-      my = -9999;
-      apply();
-    };
-
     window.addEventListener("pointermove", onMove, { passive: true });
-    window.addEventListener("pointerleave", onLeave);
+
+    // No point animating a hero nobody is looking at.
+    const seen = new IntersectionObserver(([entry]) => (entry.isIntersecting ? start() : stop()), {
+      threshold: 0,
+    });
+    seen.observe(box);
+
+    const onResize = () => place(performance.now());
+    window.addEventListener("resize", onResize);
+
     return () => {
+      stop();
+      seen.disconnect();
       window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("pointerleave", onLeave);
-      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("resize", onResize);
     };
   }, []);
 
   return (
-    <div ref={wrap} aria-hidden className="pointer-events-none absolute inset-0 z-[2] hidden lg:block">
+    <div ref={host} aria-hidden className="pointer-events-none absolute inset-0 z-[2] hidden lg:block">
       {MARKS.map((m, i) => (
-        <span key={m.label} className={`float-soft absolute ${m.className}`} style={{ animationDelay: m.delay }}>
-          <span
-            ref={(el) => {
-              inners.current[i] = el;
-            }}
-            className="block transition-transform duration-500 ease-out will-change-transform"
-          >
+        <span
+          key={m.label}
+          ref={(el) => {
+            nodes.current[i] = el;
+          }}
+          // Half the mark in negative margin, so the transform positions its
+          // centre rather than its corner.
+          className="group pointer-events-auto absolute left-0 top-0 -ml-[21px] -mt-[21px] flex h-[42px] w-[42px] items-center justify-center"
+          title={m.label}
+        >
+          <span className="block opacity-65 transition-all duration-300 group-hover:scale-125 group-hover:opacity-100 group-hover:drop-shadow-[0_0_14px_rgba(63,216,187,0.75)]">
             {m.src ? (
               <Image
                 src={asset(m.src)}
                 alt=""
                 width={96}
                 height={96}
-                className="h-[42px] w-[42px] object-contain opacity-70"
+                className="h-[38px] w-[38px] object-contain"
               />
             ) : m.d ? (
               <svg
                 viewBox="0 0 24 24"
-                className="h-[42px] w-[42px] text-white/70"
+                className="h-[38px] w-[38px] text-white"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.5"
@@ -132,11 +170,7 @@ export function FloatingPartners() {
               >
                 <path d={m.d} />
               </svg>
-            ) : (
-              <span className="flex h-[46px] w-[46px] items-center justify-center rounded-full border border-dashed border-white/25 text-[13px] font-semibold text-white/45">
-                {m.label[0]}
-              </span>
-            )}
+            ) : null}
           </span>
         </span>
       ))}
