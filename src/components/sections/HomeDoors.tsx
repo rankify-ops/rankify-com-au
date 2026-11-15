@@ -157,7 +157,8 @@ export function HomeHero() {
 
         <Reveal delay={0.2} className="mt-9">
           <h1 className="mx-auto max-w-[680px] text-[clamp(18px,1.7vw,24px)] font-medium leading-[1.15] tracking-[-0.03em] text-white">
-            High-performance marketing, websites, apps and AI automation.{" "}
+            We engineer high-performance marketing, websites, apps, AI,
+            automations and dashboards.{" "}
             <span className="text-white/55">Custom built for your business.</span>
           </h1>
         </Reveal>
