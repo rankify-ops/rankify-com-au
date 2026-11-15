@@ -91,10 +91,24 @@ export function AskBox() {
         height="100%"
         borderRadius={28}
         blur={14}
+        borderWidth={0.02}
         backgroundOpacity={0.08}
         saturation={1.4}
-        distortionScale={-140}
-        className="w-full"
+        distortionScale={-90}
+        // The default splits the channels by 0/10/20, which is what put a
+        // coloured line along the bottom edge and the smears in the bottom
+        // corners: the filter displaces red, green and blue by different
+        // amounts and the edge is where that separation shows. Equal offsets
+        // keep the refraction and drop the fringing.
+        redOffset={0}
+        greenOffset={0}
+        blueOffset={0}
+        // GlassSurface's own inset shadows are what streak at the bottom
+        // corners, where a 28px radius meets several stacked inset rings. The
+        // wrapper already draws the edge light, so this one does not need
+        // them. !important because the component sets boxShadow inline, which
+        // a class cannot otherwise beat.
+        className="w-full [box-shadow:none!important]"
       >
         <div className="flex w-full flex-col p-4 sm:p-5">
           {turns.length > 0 && (
@@ -142,13 +156,27 @@ export function AskBox() {
               height={118}
               className="h-9 w-9 flex-none rounded-full object-cover object-top grayscale"
             />
-            <input
-              value={draft}
-              onChange={(e) => setDraft(e.target.value)}
-              placeholder="What can we help you with?"
-              aria-label="Tell us what you need help with"
-              className="min-w-0 flex-1 bg-transparent text-[15px] text-white outline-none placeholder:text-white/50"
-            />
+            {/* The placeholder is drawn rather than native so a caret can
+                blink in front of it: the field looks ready to type in without
+                autofocus, which on load would yank the page's scroll
+                position to the hero. */}
+            <span className="relative min-w-0 flex-1">
+              <input
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                aria-label="Tell us what you need help with"
+                className="w-full bg-transparent text-[15px] text-white outline-none"
+              />
+              {!draft && (
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-y-0 left-0 flex items-center gap-[3px] text-[15px] text-white/50"
+                >
+                  <span className="caret-blink inline-block h-[17px] w-px bg-white/80" />
+                  What can we help you with?
+                </span>
+              )}
+            </span>
             <button
               type="submit"
               disabled={busy || !draft.trim()}
