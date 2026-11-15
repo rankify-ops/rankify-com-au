@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { asset } from "@/lib/basePath";
 import { CHECKOUT_API } from "@/lib/checkout";
-import GlassSurface from "@/components/GlassSurface";
 
 /**
  * The ask box in the hero.
@@ -86,30 +85,10 @@ export function AskBox() {
     // and no transform or opacity on this wrapper, because either would
     // cancel the backdrop-filter underneath it.
     <div className="relative w-full max-w-[520px] rounded-[28px] ring-1 ring-white/20 before:pointer-events-none before:absolute before:inset-0 before:z-[3] before:rounded-[28px] before:bg-[linear-gradient(135deg,rgba(255,255,255,0.45)_0%,rgba(255,255,255,0.06)_26%,rgba(255,255,255,0)_52%)] after:pointer-events-none after:absolute after:inset-x-8 after:top-0 after:z-[3] after:h-px after:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.75),transparent)]">
-      <GlassSurface
-        width="100%"
-        height="100%"
-        borderRadius={28}
-        blur={14}
-        borderWidth={0.02}
-        backgroundOpacity={0.08}
-        saturation={1.4}
-        distortionScale={-90}
-        // The default splits the channels by 0/10/20, which is what put a
-        // coloured line along the bottom edge and the smears in the bottom
-        // corners: the filter displaces red, green and blue by different
-        // amounts and the edge is where that separation shows. Equal offsets
-        // keep the refraction and drop the fringing.
-        redOffset={0}
-        greenOffset={0}
-        blueOffset={0}
-        // GlassSurface's own inset shadows are what streak at the bottom
-        // corners, where a 28px radius meets several stacked inset rings. The
-        // wrapper already draws the edge light, so this one does not need
-        // them. !important because the component sets boxShadow inline, which
-        // a class cannot otherwise beat.
-        className="w-full [box-shadow:none!important]"
-      >
+      {/* Only the standard backdrop-filter, via Tailwind. Hand-writing a
+          -webkit- one alongside it makes Lightning CSS drop the unprefixed
+          property and the blur disappears from the shipped stylesheet. */}
+      <div className="w-full rounded-[28px] bg-white/[0.07] backdrop-blur-xl backdrop-saturate-150">
         <div className="flex w-full flex-col p-4 sm:p-5">
           {turns.length > 0 && (
             <div
@@ -206,7 +185,7 @@ export function AskBox() {
             </p>
           )}
         </div>
-      </GlassSurface>
+      </div>
     </div>
   );
 }
