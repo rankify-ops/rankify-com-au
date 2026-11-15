@@ -177,7 +177,8 @@ export function HomeCtaCards() {
   return (
     <section className="mx-auto max-w-[1400px] px-5 py-14 sm:px-10 sm:py-20">
       <SectionHeading
-        label="What we do"
+        label="Tools & Services"
+        labelClassName="text-[14px] tracking-[0.18em]"
         heading="Everything you need to get found,"
         headingDim="and everything you need to convert."
         sub="Pick the one you came for. Each is priced up front, and you deal with the developer doing the work."

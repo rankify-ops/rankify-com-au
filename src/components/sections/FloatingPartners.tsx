@@ -1,51 +1,127 @@
+"use client";
+
+import Image from "next/image";
+import { useEffect, useRef } from "react";
+import { asset } from "@/lib/basePath";
+
 /**
- * Service icons drifting around the ask box.
+ * The tools we work with, drifting around the ask box and pushing away from
+ * the cursor.
  *
- * The first pass used the partner logos from the carousel. They are
- * wordmarks, not icons, and shrunk into chips and inverted they looked like
- * clip art. These are the same stroke icons the nav uses for each service, so
- * they are genuinely icons, already part of the site's vocabulary, and nobody
- * else's trademark.
+ * **These need real icon files.** Drop transparent SVG or PNG marks into
+ * `public/assets/partners/` as `shopify.svg`, `claude.svg`, `firecrawl.svg`,
+ * `grok.svg` and `semrush.svg`, then set `src` below. Until a mark has a file
+ * it renders as a monogram so the motion is visible — obviously a placeholder,
+ * and not a brand mark drawn from memory, which would be both wrong and not
+ * ours to invent.
  *
- * Hidden below lg: on a phone the ask box fills the width and these would
- * land on top of it.
+ * Two layers per icon, deliberately: the outer span runs the CSS float, the
+ * inner one takes the cursor push. One element cannot hold two transforms, and
+ * combining them in JS would mean reimplementing the float by hand.
  *
- * Siblings of the ask box, never ancestors — each animates `transform`, and a
- * transform on an ancestor cancels the backdrop-filter the box is drawn with.
- * They carry no blur of their own for the same reason.
+ * Hidden below lg, where the ask box already fills the width. The whole thing
+ * is `pointer-events-none`, so none of it can swallow a click meant for the
+ * box underneath.
  */
 
-type Mark = { label: string; d: string; className: string; delay: string };
+type Mark = {
+  label: string;
+  /** Set once the file exists in public/assets/partners. */
+  src?: string;
+  className: string;
+  delay: string;
+};
 
 const MARKS: Mark[] = [
-  { label: "Web development", d: "m9 8-4.5 4L9 16M15 8l4.5 4L15 16", className: "left-[15%] top-[28%]", delay: "0s" },
-  { label: "Shopify", d: "M4 5h2l2 10h9l2-7H7M9.5 19.5h.01M16.5 19.5h.01", className: "left-[23%] top-[64%]", delay: "-2.4s" },
-  { label: "Meta ads", d: "M4 10v4h3l6 4V6L7 10H4ZM17.5 9.2a4.2 4.2 0 0 1 0 5.6", className: "right-[17%] top-[25%]", delay: "-1.2s" },
-  { label: "Automation", d: "M7.5 9.5h9a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2ZM12 6.5v3M12 4.2h.01M9.5 13.5h.01M14.5 13.5h.01M3.2 12.5v3M20.8 12.5v3", className: "right-[22%] top-[66%]", delay: "-3.6s" },
-  { label: "SEO", d: "M11 17.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13ZM20 20l-4.4-4.4", className: "left-[9%] top-[47%]", delay: "-4.8s" },
-  { label: "Analytics", d: "M4.5 19.5V13M9.5 19.5V6.5M14.5 19.5v-8M19.5 19.5V9", className: "right-[10%] top-[46%]", delay: "-6s" },
+  { label: "Shopify", className: "left-[15%] top-[26%]", delay: "0s" },
+  { label: "Claude", className: "left-[22%] top-[66%]", delay: "-2.4s" },
+  { label: "Firecrawl", className: "right-[16%] top-[24%]", delay: "-1.2s" },
+  { label: "Grok", className: "right-[21%] top-[68%]", delay: "-3.6s" },
+  { label: "Semrush", className: "left-[8%] top-[46%]", delay: "-4.8s" },
 ];
 
+/** How close the cursor gets before a mark starts moving, and how hard. */
+const RADIUS = 190;
+const PUSH = 46;
+
 export function FloatingPartners() {
+  const wrap = useRef<HTMLDivElement>(null);
+  const inners = useRef<(HTMLSpanElement | null)[]>([]);
+
+  useEffect(() => {
+    const host = wrap.current;
+    if (!host) return;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+
+    let frame = 0;
+    let mx = -9999;
+    let my = -9999;
+
+    const onMove = (e: PointerEvent) => {
+      mx = e.clientX;
+      my = e.clientY;
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+
+    // Styles are written straight to the nodes rather than through state: this
+    // runs on every pointer move, and a re-render per frame would be the most
+    // expensive thing on the page.
+    const apply = () => {
+      frame = 0;
+      for (const el of inners.current) {
+        if (!el) continue;
+        const r = el.getBoundingClientRect();
+        const dx = r.x + r.width / 2 - mx;
+        const dy = r.y + r.height / 2 - my;
+        const dist = Math.hypot(dx, dy);
+        if (dist > RADIUS || dist === 0) {
+          el.style.transform = "translate3d(0,0,0)";
+          continue;
+        }
+        const force = (1 - dist / RADIUS) ** 2 * PUSH;
+        el.style.transform = `translate3d(${(dx / dist) * force}px, ${(dy / dist) * force}px, 0)`;
+      }
+    };
+
+    const onLeave = () => {
+      mx = -9999;
+      my = -9999;
+      apply();
+    };
+
+    window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("pointerleave", onLeave);
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerleave", onLeave);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
+
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 z-[2] hidden lg:block">
-      {MARKS.map((m) => (
-        <span
-          key={m.label}
-          className={`float-soft absolute flex h-[54px] w-[54px] items-center justify-center rounded-2xl border border-white/12 bg-white/[0.06] text-[color:#3fd8bb] ${m.className}`}
-          style={{ animationDelay: m.delay }}
-        >
-          <svg
-            viewBox="0 0 24 24"
-            className="h-[22px] w-[22px]"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+    <div ref={wrap} aria-hidden className="pointer-events-none absolute inset-0 z-[2] hidden lg:block">
+      {MARKS.map((m, i) => (
+        <span key={m.label} className={`float-soft absolute ${m.className}`} style={{ animationDelay: m.delay }}>
+          <span
+            ref={(el) => {
+              inners.current[i] = el;
+            }}
+            className="block transition-transform duration-500 ease-out will-change-transform"
           >
-            <path d={m.d} />
-          </svg>
+            {m.src ? (
+              <Image
+                src={asset(m.src)}
+                alt=""
+                width={96}
+                height={96}
+                className="h-[46px] w-[46px] object-contain opacity-70"
+              />
+            ) : (
+              <span className="flex h-[46px] w-[46px] items-center justify-center rounded-full border border-dashed border-white/25 text-[13px] font-semibold text-white/45">
+                {m.label[0]}
+              </span>
+            )}
+          </span>
         </span>
       ))}
     </div>

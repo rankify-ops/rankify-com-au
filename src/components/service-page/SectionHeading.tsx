@@ -17,6 +17,7 @@ export function SectionHeading({
   dark = false,
   centred = false,
   className = "",
+  labelClassName = "text-[11px] tracking-[0.14em]",
 }: {
   /** Small teal line above the headline. */
   label?: string;
@@ -28,12 +29,14 @@ export function SectionHeading({
   /** Centres the stack — used by the pricing sections. */
   centred?: boolean;
   className?: string;
+  /** Size and tracking for the label, where a section wants it louder. */
+  labelClassName?: string;
 }) {
   return (
     <div className={`${centred ? "text-center" : ""} ${className}`}>
       {label && (
         <Reveal>
-          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--green-text)]">
+          <p className={`mb-3 font-semibold uppercase text-[color:var(--green-text)] ${labelClassName}`}>
             {label}
           </p>
         </Reveal>
