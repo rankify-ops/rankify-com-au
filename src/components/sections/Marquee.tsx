@@ -2,8 +2,10 @@ import Image from "next/image";
 import { asset } from "@/lib/basePath";
 import { marqueeHalf } from "@/lib/marquee";
 
+// WordPress is deliberately not here. It leads the row with the one platform
+// Tom would rather not be hired for, and this strip is what we want to be
+// asked about. The webp is still in public/assets/images if it comes back.
 const LOGOS = [
-  { src: "/assets/images/FOGjLSJec0TAQCAifujN9P3s.webp", alt: "WordPress" },
   { src: "/assets/images/R2XUvEl0vRM2jpzdgyV94NyIg.webp", alt: "Google Analytics" },
   { src: "/assets/images/O8CbTI7JLhPRInNgXH6yrfNQ8E.webp", alt: "Semrush" },
   { src: "/assets/images/itYXCWTMEyLhUl5y8mb9eKNL4mY.webp", alt: "Shopify Partner" },
