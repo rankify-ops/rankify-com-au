@@ -148,7 +148,10 @@ export function HomeHero() {
           on the centre line rather than in a corner. */}
       <FloatingPartners />
 
-      <div className="relative z-[3] flex flex-col items-center justify-center px-5 pb-14 pt-12 text-center sm:px-10 sm:pb-20 sm:pt-16 lg:min-h-[calc(100svh-60px)]">
+      {/* svh, not vh: on a phone vh is the height with the browser chrome
+          hidden, so a vh-tall hero sits taller than the screen and pushes its
+          own bottom out of sight until you scroll. svh is the visible height. */}
+      <div className="relative z-[3] flex min-h-[calc(100svh-72px)] flex-col items-center justify-center px-3.5 pb-12 pt-10 text-center sm:px-10 sm:pb-20 sm:pt-16 lg:min-h-[calc(100svh-60px)]">
         {/* Outside Reveal: it animates opacity and transform, and either one
             cancels the glass this box is drawn with. */}
         <div className="mt-9 flex w-full justify-center">
@@ -156,7 +159,7 @@ export function HomeHero() {
         </div>
 
         <Reveal delay={0.2} className="mt-9">
-          <h1 className="mx-auto max-w-[680px] text-[clamp(18px,1.7vw,24px)] font-medium leading-[1.15] tracking-[-0.03em] text-white">
+          <h1 className="mx-auto max-w-[680px] text-balance text-[clamp(18px,1.7vw,24px)] font-medium leading-[1.15] tracking-[-0.03em] text-white">
             We engineer high-performance marketing, websites, apps, AI,
             automations and dashboards.{" "}
             <span className="text-white/55">Custom built for your business.</span>
@@ -164,7 +167,7 @@ export function HomeHero() {
         </Reveal>
 
         <Reveal delay={0.3} className="mt-5">
-          <p className="mx-auto max-w-[560px] text-[15.5px] leading-snug text-white/55">
+          <p className="mx-auto max-w-[560px] text-balance text-[14.5px] leading-snug text-white/55 sm:text-[15.5px]">
             You work directly with us, and the goal is profit. Not clicks, not views,
             the business performance that actually matters.
           </p>

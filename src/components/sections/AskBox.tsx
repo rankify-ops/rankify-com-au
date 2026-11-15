@@ -22,21 +22,40 @@ import { CHECKOUT_API } from "@/lib/checkout";
  * either cancels the backdrop-filter that draws it.
  */
 
+/**
+ * The articles are dropped on purpose: this row must stay on one line down to
+ * a 320px phone, and "a new website · Meta ads · a custom app" overflowed it.
+ */
 const SUGGESTIONS = [
-  { label: "a new website", ask: "I need a new website" },
+  { label: "new website", ask: "I need a new website" },
   { label: "Meta ads", ask: "I need help with my Meta ads" },
-  { label: "a custom app", ask: "I need a custom app or internal tool built" },
+  { label: "custom app", ask: "I need a custom app or internal tool built" },
 ];
 
 type Turn = { role: "user" | "assistant"; content: string };
 
-/** What the placeholder types out, in the visitor's own words. */
-const TYPED = [
+/**
+ * What the placeholder types out, in the visitor's own words.
+ *
+ * Two sets, because a phone's type bar is about 225px wide and the long
+ * phrases measure up to 350px: on a narrow screen they wrapped inside the
+ * pill and broke the card. The short set says the same thing in under 28
+ * characters, which fits on one line with room to spare.
+ */
+const TYPED_WIDE = [
   "I need a new Shopify store for my brand",
   "I want to run some Meta ads",
   "I want to set up some automations",
   "I need a web developer",
   "I want to connect Claude to my Shopify store",
+];
+
+const TYPED_NARROW = [
+  "I need a new website",
+  "I want a Shopify store",
+  "I need Meta ads",
+  "I want automations",
+  "I need a developer",
 ];
 
 /**
@@ -50,9 +69,22 @@ const TYPED = [
 function useTypedPlaceholder(active: boolean) {
   const [text, setText] = useState("");
   const [still, setStill] = useState(false);
+  // Null until mounted, so the server and the first client render agree on an
+  // empty placeholder and nothing has to be guessed from a user agent.
+  const [wide, setWide] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (!active) return;
+    const mq = window.matchMedia("(min-width: 640px)");
+    const sync = () => setWide(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    if (!active || wide === null) return;
+    const TYPED = wide ? TYPED_WIDE : TYPED_NARROW;
+
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
       setText(TYPED[0]);
       setStill(true);
@@ -82,8 +114,11 @@ function useTypedPlaceholder(active: boolean) {
     };
 
     timer = setTimeout(tick, 600);
-    return () => clearTimeout(timer);
-  }, [active]);
+    return () => {
+      clearTimeout(timer);
+      setText("");
+    };
+  }, [active, wide]);
 
   return { text, still };
 }
@@ -159,7 +194,7 @@ export function AskBox() {
             height={118}
             className="h-16 w-16 flex-none rounded-full object-cover object-top grayscale"
           />
-          <p className="max-w-[440px] text-[16px] leading-snug text-white/75">
+          <p className="max-w-[440px] text-balance text-[15px] leading-snug text-white/75 sm:text-[16px]">
             <span className="font-semibold text-white">Hey, I&rsquo;m Thomas.</span> Tell me
             below how our team can help, and we&rsquo;ll take it from there.
           </p>
@@ -170,7 +205,7 @@ export function AskBox() {
             -webkit- one alongside it makes Lightning CSS drop the unprefixed
             property and the blur disappears from the shipped stylesheet. */}
         <div className="w-full rounded-[28px] bg-white/[0.07] backdrop-blur-xl backdrop-saturate-150">
-          <div className="flex w-full flex-col p-5 sm:p-6">
+          <div className="flex w-full flex-col p-4 sm:p-6">
             {turns.length > 0 && (
               <div
                 ref={scroller}
@@ -207,13 +242,19 @@ export function AskBox() {
                 e.preventDefault();
                 void send(draft);
               }}
-              className="flex items-center gap-3 rounded-full border border-white/20 bg-white/[0.08] py-2.5 pl-6 pr-2.5 transition-colors focus-within:border-white/45"
+              className="flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.08] py-2.5 pl-4 pr-2 transition-colors focus-within:border-white/45 sm:gap-3 sm:pl-6 sm:pr-2.5"
             >
               {/* The placeholder is drawn rather than native so a caret can
                   blink in front of it: the field looks ready to type in without
                   autofocus, which on load would yank the page's scroll
-                  position to the hero. */}
-              <span className="relative min-w-0 flex-1">
+                  position to the hero.
+
+                  16px is the floor for the input itself — below that, iOS
+                  Safari zooms the whole page when the field takes focus. */}
+              {/* overflow-hidden is the backstop: if a phrase ever outgrows a
+                  very narrow field it gets cut off here rather than running
+                  out under the send button. */}
+              <span className="relative min-w-0 flex-1 overflow-hidden">
                 <input
                   ref={field}
                   value={draft}
@@ -221,12 +262,12 @@ export function AskBox() {
                   onFocus={() => setFocused(true)}
                   onBlur={() => setFocused(false)}
                   aria-label="Tell us what you need help with"
-                  className="w-full bg-transparent text-[16.5px] text-white outline-none"
+                  className="w-full bg-transparent text-[16px] text-white outline-none sm:text-[16.5px]"
                 />
                 {!draft && (
                   <span
                     aria-hidden
-                    className="pointer-events-none absolute inset-y-0 left-0 flex items-center gap-[3px] text-[16.5px] text-white/50"
+                    className="pointer-events-none absolute inset-y-0 left-0 flex items-center gap-[3px] whitespace-nowrap text-[16px] text-white/50 sm:text-[16.5px]"
                   >
                     <span className={`${typed.still ? "" : "caret-blink "}inline-block h-[19px] w-px bg-white/80`} />
                     {typed.text}
@@ -246,7 +287,7 @@ export function AskBox() {
             </form>
   
             {turns.length === 0 && (
-              <p className="mt-4 text-center text-[14px] text-white/40">
+              <p className="mt-4 whitespace-nowrap text-center text-[13px] text-white/40 sm:text-[14px]">
                 {SUGGESTIONS.map((sug, i) => (
                   <span key={sug.label}>
                     {i > 0 && <span className="px-1.5 text-white/25">·</span>}
