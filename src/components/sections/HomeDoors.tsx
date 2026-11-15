@@ -51,31 +51,34 @@ const CARDS: Card[] = [
   {
     kicker: "Websites",
     title: "Get a high performance website built",
-    line: "A custom build made around how your customers buy. Then edit it yourself with AI.",
+    line: "A custom build made around how your customers actually buy, not a template.",
     href: "/web-design-and-development",
     accent: true,
     icon: <I d="m9 8-4.5 4L9 16M15 8l4.5 4L15 16" />,
   },
   {
-    kicker: "Meta ads",
+    // The other half of the website offer. Sold, not framed as a login door:
+    // existing clients sign in from the header, and this row is for people
+    // who are not customers yet.
+    kicker: "Websites",
+    title: "Change it yourself, just by asking",
+    line: "Every site comes with a back end. Ask for a change in plain words, see it before it goes live, undo it any time.",
+    href: "/web-design-and-development",
+    icon: <I d="M12 3.5 13.8 9l5.7 1.8-5.7 1.8L12 18.5l-1.8-5.9L4.5 10.8 10.2 9 12 3.5Z" />,
+  },
+  {
+    kicker: "Ecommerce",
     title: "Ad Sidekick",
-    line: "Run your Meta ads without logging into Meta. Told what to upload, scale and turn off.",
+    line: "Run your Meta ads without logging into Meta. Told what to upload, when to scale and what to turn off.",
     href: "/meta-ads",
     icon: <I d="M4 10v4h3l6 4V6L7 10H4ZM17.5 9.2a4.2 4.2 0 0 1 0 5.6" />,
   },
   {
-    kicker: "Ecommerce",
+    kicker: "Shopify",
     title: "Build or fix a Shopify store",
     line: "A store built to sell, or development on the one you already have.",
     href: "/shopify-development-services",
     icon: <I d="M4 5h2l2 10h9l2-7H7M9.5 19.5h.01M16.5 19.5h.01" />,
-  },
-  {
-    kicker: "Apps & automation",
-    title: "Custom tools, apps and AI automation",
-    line: "Backends, internal tools and workflows built around how your business actually runs.",
-    href: "/ai-and-automation",
-    icon: <I d="M7.5 9.5h9a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2ZM12 6.5v3M12 4.2h.01M9.5 13.5h.01M14.5 13.5h.01M3.2 12.5v3M20.8 12.5v3" />,
   },
 ];
 

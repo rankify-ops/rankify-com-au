@@ -24,10 +24,9 @@ import GlassSurface from "@/components/GlassSurface";
  */
 
 const SUGGESTIONS = [
-  "I need a new website",
-  "Help with my Meta ads",
-  "I need a custom app or tool",
-  "Can you fix my Shopify store?",
+  { label: "a new website", ask: "I need a new website" },
+  { label: "Meta ads", ask: "I need help with my Meta ads" },
+  { label: "a custom app", ask: "I need a custom app or internal tool built" },
 ];
 
 type Turn = { role: "user" | "assistant"; content: string };
@@ -92,31 +91,13 @@ export function AskBox() {
         distortionScale={-140}
         className="w-full"
       >
-        <div className="flex w-full flex-col p-5 sm:p-6">
-          <div className="flex items-center gap-3.5">
-            <Image
-              src={asset("/assets/images/fZdV1icYbXIkqfVAekWtJEAifo.png")}
-              alt="Thomas Flood"
-              width={104}
-              height={118}
-              className="h-[52px] w-[52px] flex-none rounded-full object-cover object-top grayscale"
-            />
-            <div className="min-w-0">
-              <p className="text-[16.5px] font-semibold leading-tight text-white">
-                What can I help you with today?
-              </p>
-              <p className="mt-0.5 text-[12.5px] text-white/55">
-                Thomas Flood, Director. Ask anything about your business.
-              </p>
-            </div>
-          </div>
-
+        <div className="flex w-full flex-col p-4 sm:p-5">
           {turns.length > 0 && (
             <div
               ref={scroller}
-              className="mt-4 max-h-[220px] overflow-y-auto overscroll-contain pr-1"
+              className="mb-3 max-h-[240px] overflow-y-auto overscroll-contain pr-1"
             >
-              <div className="grid gap-2.5">
+              <div className="grid gap-2.5 text-left">
                 {turns.map((t, i) => (
                   <p
                     key={i}
@@ -138,46 +119,59 @@ export function AskBox() {
             </div>
           )}
 
-          {turns.length === 0 && (
-            <div className="mt-4 flex flex-wrap gap-2">
-              {SUGGESTIONS.map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  onClick={() => void send(s)}
-                  className="rounded-full border border-white/20 bg-white/[0.08] px-3.5 py-2 text-[13px] font-medium text-white/85 transition-colors hover:border-white/40 hover:bg-white/15"
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-          )}
-
+          {/* One row: his face, a field, a button. The heading, the subtitle
+              and the four chips that used to sit above this were seven lines
+              of furniture before anyone could type, and on a phone they
+              wrapped against his head. */}
           <form
             onSubmit={(e) => {
               e.preventDefault();
               void send(draft);
             }}
-            className="mt-4 flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.08] py-1.5 pl-4 pr-1.5 focus-within:border-white/45"
+            className="flex items-center gap-3 rounded-full border border-white/20 bg-white/[0.08] py-2 pl-2 pr-2 transition-colors focus-within:border-white/45"
           >
+            <Image
+              src={asset("/assets/images/fZdV1icYbXIkqfVAekWtJEAifo.png")}
+              alt="Thomas Flood"
+              width={104}
+              height={118}
+              className="h-9 w-9 flex-none rounded-full object-cover object-top grayscale"
+            />
             <input
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
-              placeholder="Ask anything…"
-              aria-label="Ask a question"
-              className="min-w-0 flex-1 bg-transparent py-2 text-[15px] text-white outline-none placeholder:text-white/45"
+              placeholder="Ask me anything…"
+              aria-label="Ask Rankify a question"
+              className="min-w-0 flex-1 bg-transparent text-[15px] text-white outline-none placeholder:text-white/50"
             />
             <button
               type="submit"
               disabled={busy || !draft.trim()}
               aria-label="Send"
-              className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-[color:#07a889] text-white transition-opacity disabled:opacity-40"
+              className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-[color:#07a889] text-white transition-opacity disabled:opacity-35"
             >
               <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h13M12 5.5 18.5 12 12 18.5" />
               </svg>
             </button>
           </form>
+
+          {turns.length === 0 && (
+            <p className="mt-3 text-center text-[13px] text-white/40">
+              {SUGGESTIONS.map((sug, i) => (
+                <span key={sug.label}>
+                  {i > 0 && <span className="px-1.5 text-white/25">·</span>}
+                  <button
+                    type="button"
+                    onClick={() => void send(sug.ask)}
+                    className="underline-offset-4 transition-colors hover:text-white/75 hover:underline"
+                  >
+                    {sug.label}
+                  </button>
+                </span>
+              ))}
+            </p>
+          )}
         </div>
       </GlassSurface>
     </div>
