@@ -147,13 +147,13 @@ export function AskBox() {
     // and no transform or opacity on this wrapper, because either would
     // cancel the backdrop-filter underneath it.
     <div className="w-full max-w-[680px]">
-      <div className="mb-5 flex items-center justify-center gap-4 text-left">
+      <div className="mb-4 flex items-center justify-center gap-3 text-left sm:mb-5 sm:gap-4">
         <Image
           src={asset("/assets/images/fZdV1icYbXIkqfVAekWtJEAifo.png")}
           alt="Thomas Flood"
           width={104}
           height={118}
-          className="h-16 w-16 flex-none rounded-full object-cover object-top grayscale"
+          className="h-12 w-12 flex-none rounded-full object-cover object-top grayscale sm:h-16 sm:w-16"
         />
         <p className="max-w-[440px] text-balance text-[15px] leading-snug text-white/75 sm:text-[16px]">
           <span className="font-semibold text-white">Hey, I&rsquo;m Thomas.</span> Tell me below
@@ -192,12 +192,12 @@ export function AskBox() {
                   onFocus={() => setFocused(true)}
                   onBlur={() => setFocused(false)}
                   aria-label="Tell us what you need help with"
-                  className="w-full bg-transparent text-[16px] text-white outline-none sm:text-[16.5px]"
+                  className="w-full bg-transparent text-[16px] text-white outline-none"
                 />
                 {!draft && (
                   <span
                     aria-hidden
-                    className="pointer-events-none absolute inset-y-0 left-0 flex items-center gap-[3px] whitespace-nowrap text-[16px] text-white/50 sm:text-[16.5px]"
+                    className="pointer-events-none absolute inset-y-0 left-0 flex items-center gap-[3px] whitespace-nowrap text-[16px] text-white/50"
                   >
                     <span
                       className={`${typed.still ? "" : "caret-blink "}inline-block h-[19px] w-px bg-white/80`}
@@ -226,7 +226,7 @@ export function AskBox() {
               </button>
             </form>
 
-            <p className="mt-4 whitespace-nowrap text-center text-[13px] text-white/40 sm:text-[14px]">
+            <p className="mt-4 whitespace-nowrap text-center text-[13px] text-white/40">
               {SUGGESTIONS.map((sug, i) => (
                 <span key={sug.label}>
                   {i > 0 && <span className="px-1.5 text-white/25">·</span>}

@@ -37,7 +37,18 @@ type Card = {
   accent?: boolean;
 };
 
-const I = ({ d }: { d: string }) => (
+/**
+ * One drawing grid for all eight card icons.
+ *
+ * They were drawn ad hoc and it showed at size: the robot's ears and
+ * antenna, the cart's wheels and the target's centre were detached
+ * one-pixel specks that smeared into the tile at 22px, the speaker's wave
+ * ran past the viewBox, and the sparkle and the star were the same shape
+ * twice. Every mark here is a continuous stroke, each one fills roughly the
+ * same 17 of the 24 units so none looks heavier than its neighbour, and no
+ * two silhouettes repeat.
+ */
+const I = ({ children }: { children: ReactNode }) => (
   <svg
     viewBox="0 0 24 24"
     className="h-[22px] w-[22px]"
@@ -47,7 +58,7 @@ const I = ({ d }: { d: string }) => (
     strokeLinecap="round"
     strokeLinejoin="round"
   >
-    <path d={d} />
+    {children}
   </svg>
 );
 
@@ -59,7 +70,14 @@ const CARDS: Card[] = [
     price: "From $2,999",
     href: "/web-design-and-development",
     accent: true,
-    icon: <I d="m9 8-4.5 4L9 16M15 8l4.5 4L15 16" />,
+    // A browser window, not code brackets: what is being sold is the site,
+    // not the writing of it.
+    icon: (
+      <I>
+        <path d="M4 4.5h16A1.5 1.5 0 0 1 21.5 6v12a1.5 1.5 0 0 1-1.5 1.5H4A1.5 1.5 0 0 1 2.5 18V6A1.5 1.5 0 0 1 4 4.5Z" />
+        <path d="M2.5 9h19M5.6 6.8h2.6" />
+      </I>
+    ),
   },
   {
     // The other half of the website offer, sold rather than framed as a
@@ -69,7 +87,13 @@ const CARDS: Card[] = [
     line: "Every site comes with a back end. Ask in plain words, see it before it goes live, undo it any time.",
     price: "From $199/mo",
     href: "/web-design-and-development",
-    icon: <I d="M12 3.5 13.8 9l5.7 1.8-5.7 1.8L12 18.5l-1.8-5.9L4.5 10.8 10.2 9 12 3.5Z" />,
+    // Four even arms. The old one was lopsided, with the bottom point
+    // noticeably longer than the top.
+    icon: (
+      <I>
+        <path d="M12 3.2 14.1 9.9 20.8 12l-6.7 2.1L12 20.8l-2.1-6.7L3.2 12l6.7-2.1L12 3.2Z" />
+      </I>
+    ),
   },
   {
     kicker: "Ecommerce",
@@ -77,7 +101,15 @@ const CARDS: Card[] = [
     line: "Run your Meta ads without logging into Meta. Told what to upload, when to scale and what to turn off.",
     price: "From $99/mo",
     href: "/meta-ads",
-    icon: <I d="M4 10v4h3l6 4V6L7 10H4ZM17.5 9.2a4.2 4.2 0 0 1 0 5.6" />,
+    // A megaphone with its handle, which reads as advertising. The speaker
+    // this replaces had its sound wave cut off by the edge of the viewBox.
+    icon: (
+      <I>
+        <path d="M18.5 5.2v13.6l-9-3.3V8.5l9-3.3Z" />
+        <path d="M9.5 8.5H6a2.6 2.6 0 0 0 0 5.2h3.5" />
+        <path d="m8.9 13.9 1.1 4.5a1.5 1.5 0 0 0 2.9-.7l-.9-3.8" />
+      </I>
+    ),
   },
   {
     kicker: "Shopify",
@@ -85,7 +117,14 @@ const CARDS: Card[] = [
     line: "Custom Liquid stores for brands scaling profitably. Migrations handled.",
     price: "From $5,999",
     href: "/shopify-development-services",
-    icon: <I d="M4 5h2l2 10h9l2-7H7M9.5 19.5h.01M16.5 19.5h.01" />,
+    // A bag rather than a trolley: the trolley's two wheels were isolated
+    // dots that vanished at this size.
+    icon: (
+      <I>
+        <path d="M5.6 7.8h12.8l1 11.7H4.6l1-11.7Z" />
+        <path d="M9 7.8V6.4a3 3 0 0 1 6 0v1.4" />
+      </I>
+    ),
   },
   {
     kicker: "SEO",
@@ -93,7 +132,12 @@ const CARDS: Card[] = [
     line: "Priced per page instead of an open-ended retainer, and reported in leads.",
     price: "$499 / page / mo",
     href: "/seo",
-    icon: <I d="M11 17.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13ZM20 20l-4.4-4.4" />,
+    icon: (
+      <I>
+        <path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14Z" />
+        <path d="m16.1 16.1 4.4 4.4" />
+      </I>
+    ),
   },
   {
     kicker: "Google Ads",
@@ -101,7 +145,15 @@ const CARDS: Card[] = [
     line: "Campaigns built to sell, with the tracking wired up properly from day one.",
     price: "Talk to us",
     href: "/google-ads",
-    icon: <I d="M12 20.5a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Zm0-4.6a3.9 3.9 0 1 0 0-7.8 3.9 3.9 0 0 0 0 7.8Z" />,
+    // Crosshairs make it a reticle. Two bare concentric circles read as a
+    // record, or a loading spinner.
+    icon: (
+      <I>
+        <path d="M12 20.3a8.3 8.3 0 1 0 0-16.6 8.3 8.3 0 0 0 0 16.6Z" />
+        <path d="M12 15.9a3.9 3.9 0 1 0 0-7.8 3.9 3.9 0 0 0 0 7.8Z" />
+        <path d="M12 2v1.7M12 20.3V22M2 12h1.7M20.3 12H22" />
+      </I>
+    ),
   },
   {
     kicker: "Apps & automation",
@@ -109,7 +161,16 @@ const CARDS: Card[] = [
     line: "The repetitive work eating your week, handed to software instead of a person.",
     price: "Talk to us",
     href: "/ai-and-automation",
-    icon: <I d="M7.5 9.5h9a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2ZM12 6.5v3M12 4.2h.01M9.5 13.5h.01M14.5 13.5h.01M3.2 12.5v3M20.8 12.5v3" />,
+    // A cycle, which is what automation looks like. The robot it replaces
+    // was seven marks in a 24px box, four of them floating.
+    icon: (
+      <I>
+        <path d="M20.4 11A8.5 8.5 0 0 0 5.9 6.6L3.5 9" />
+        <path d="M3.5 4.4V9H8.1" />
+        <path d="M3.6 13a8.5 8.5 0 0 0 14.5 4.4l2.4-2.4" />
+        <path d="M20.5 19.6V15h-4.6" />
+      </I>
+    ),
   },
   {
     kicker: "Branding",
@@ -117,7 +178,13 @@ const CARDS: Card[] = [
     line: "The identity the rest of it hangs off, done once and done properly.",
     price: "Talk to us",
     href: "/professional-logo-design",
-    icon: <I d="M12 3.5 14.6 9l6 .9-4.3 4.2 1 6L12 17.2 6.7 20l1-6L3.4 9.9l6-.9L12 3.5Z" />,
+    // A colour drop. A star here was the sparkle on the second card again,
+    // with five points instead of four.
+    icon: (
+      <I>
+        <path d="M12 3.4c3.3 3.6 6.1 7 6.1 10.1a6.1 6.1 0 0 1-12.2 0c0-3.1 2.8-6.5 6.1-10.1Z" />
+      </I>
+    ),
   },
 ];
 
@@ -154,20 +221,29 @@ export function HomeHero() {
       <div className="relative z-[3] flex min-h-[calc(100svh-72px)] flex-col items-center justify-center px-3.5 pb-12 pt-10 text-center sm:px-10 sm:pb-20 sm:pt-16 lg:min-h-[calc(100svh-60px)]">
         {/* Outside Reveal: it animates opacity and transform, and either one
             cancels the glass this box is drawn with. */}
-        <div className="mt-9 flex w-full justify-center">
+        <div className="mt-6 flex w-full justify-center sm:mt-9">
           <AskBox />
         </div>
 
-        <Reveal delay={0.2} className="mt-9">
-          <h1 className="mx-auto max-w-[680px] text-balance text-[clamp(18px,1.7vw,24px)] font-medium leading-[1.15] tracking-[-0.03em] text-white">
+        {/* The hero runs on three type sizes and nothing else: this headline,
+            one body size shared by the ask box's intro, its field and the line
+            below, and one micro size for the suggestions. It had five sizes
+            inside a 5px band, which reads as sloppiness rather than
+            hierarchy — the headline was 2px larger than body text, so nothing
+            looked like a heading. Rank is carried by weight and colour from
+            here on, not by half-pixel steps. The field itself is the one
+            exception at 16px, because anything smaller makes iOS Safari zoom
+            the page when it takes focus. */}
+        <Reveal delay={0.2} className="mt-7 sm:mt-9">
+          <h1 className="mx-auto max-w-[680px] text-balance text-[clamp(20px,2.1vw,28px)] font-medium leading-[1.12] tracking-[-0.03em] text-white">
             We engineer high-performance marketing, websites, apps, AI,
             automations and dashboards.{" "}
             <span className="text-white/55">Custom built for your business.</span>
           </h1>
         </Reveal>
 
-        <Reveal delay={0.3} className="mt-5">
-          <p className="mx-auto max-w-[560px] text-balance text-[14.5px] leading-snug text-white/55 sm:text-[15.5px]">
+        <Reveal delay={0.3} className="mt-4 sm:mt-5">
+          <p className="mx-auto max-w-[560px] text-balance text-[15px] leading-snug text-white/55 sm:text-[16px]">
             You work directly with us, and the goal is profit. Not clicks, not views,
             the business performance that actually matters.
           </p>
