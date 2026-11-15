@@ -18,8 +18,8 @@ import { asset } from "@/lib/basePath";
  * The loop stops when the hero scrolls out of view, and never starts under
  * prefers-reduced-motion — the marks just sit on the ellipse.
  *
- * Hidden below lg, where the ask box fills the width and these would land on
- * top of it.
+ * On a phone they are scenery: smaller, dimmer, and pointer-events-none, so
+ * nothing here can swallow a tap meant for the field.
  */
 
 type Mark = {
@@ -45,9 +45,18 @@ const MARKS: Mark[] = [
   { label: "Code", d: "m9 8-4.5 4L9 16M15 8l4.5 4L15 16" },
 ];
 
-/** Half-width and half-height of the ellipse, as a share of the hero. */
-const RX = 0.37;
-const RY = 0.3;
+/**
+ * Half-width and half-height of the ellipse, as a share of the hero.
+ *
+ * A phone hero is tall and narrow, so the desktop ellipse would run the marks
+ * straight through the ask box. The phone one is narrower and much taller:
+ * the marks ring the box instead of crossing it, and where they do pass
+ * behind the glass they read as depth rather than clutter.
+ */
+const ELLIPSE = {
+  phone: { rx: 0.46, ry: 0.4 },
+  desktop: { rx: 0.37, ry: 0.3 },
+};
 /** One lap in seconds. Slow enough to read as drift, not as a carousel. */
 const PERIOD = 70;
 /** How near the cursor gets before a mark gives way, and how hard. */
@@ -72,8 +81,9 @@ export function FloatingPartners() {
       const r = box.getBoundingClientRect();
       const cx = r.width / 2;
       const cy = r.height / 2;
-      const rx = r.width * RX;
-      const ry = r.height * RY;
+      const { rx: fx, ry: fy } = window.innerWidth >= 1024 ? ELLIPSE.desktop : ELLIPSE.phone;
+      const rx = r.width * fx;
+      const ry = r.height * fy;
 
       nodes.current.forEach((el, i) => {
         if (!el) return;
@@ -137,7 +147,7 @@ export function FloatingPartners() {
   }, []);
 
   return (
-    <div ref={host} aria-hidden className="pointer-events-none absolute inset-0 z-[2] hidden lg:block">
+    <div ref={host} aria-hidden className="pointer-events-none absolute inset-0 z-[2]">
       {MARKS.map((m, i) => (
         <span
           key={m.label}
@@ -146,22 +156,22 @@ export function FloatingPartners() {
           }}
           // Half the mark in negative margin, so the transform positions its
           // centre rather than its corner.
-          className="group pointer-events-auto absolute left-0 top-0 -ml-[21px] -mt-[21px] flex h-[42px] w-[42px] items-center justify-center"
+          className="group absolute left-0 top-0 -ml-[15px] -mt-[15px] flex h-[30px] w-[30px] items-center justify-center lg:pointer-events-auto lg:-ml-[21px] lg:-mt-[21px] lg:h-[42px] lg:w-[42px]"
           title={m.label}
         >
-          <span className="block opacity-65 transition-all duration-300 group-hover:scale-125 group-hover:opacity-100 group-hover:drop-shadow-[0_0_14px_rgba(63,216,187,0.75)]">
+          <span className="block opacity-25 transition-all duration-300 lg:opacity-65 lg:group-hover:scale-125 lg:group-hover:opacity-100 lg:group-hover:drop-shadow-[0_0_14px_rgba(63,216,187,0.75)]">
             {m.src ? (
               <Image
                 src={asset(m.src)}
                 alt=""
                 width={96}
                 height={96}
-                className="h-[38px] w-[38px] object-contain"
+                className="h-[26px] w-[26px] object-contain lg:h-[38px] lg:w-[38px]"
               />
             ) : m.d ? (
               <svg
                 viewBox="0 0 24 24"
-                className="h-[38px] w-[38px] text-white"
+                className="h-[26px] w-[26px] text-white lg:h-[38px] lg:w-[38px]"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.5"
