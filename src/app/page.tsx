@@ -9,7 +9,6 @@ import { Services } from "@/components/sections/Services";
 import { Process } from "@/components/sections/Process";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { StatsManifesto } from "@/components/sections/StatsManifesto";
-import { ServicesShowcase } from "@/components/sections/ServicesShowcase";
 import { ServiceFaq } from "@/components/service-page/ServiceFaq";
 import { HOME_FAQ } from "@/content/home-faq";
 import { ContactFooter } from "@/components/sections/ContactFooter";
@@ -25,7 +24,6 @@ export default function Home() {
       <HomeCtaCards />
       <ComparisonSection block={HOME_COMPARISON} />
       <Projects />
-      <ServicesShowcase />
       <WhyChooseUs />
       <Services />
       <Process />

@@ -266,6 +266,25 @@ body {
   }
 }
 
+@keyframes float-soft {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -12px, 0); }
+}
+
+/* The chips animate `transform`, which is why they are siblings of the ask
+   box and never wrap it: a transform on an ancestor cancels backdrop-filter,
+   and the box is drawn with one. They carry no blur themselves for the same
+   reason — an element cannot animate transform and hold a backdrop-filter. */
+.float-soft {
+  animation: float-soft 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-soft {
+    animation: none;
+  }
+}
+
 .neu-btn {
   transition:
     box-shadow 0.3s ease,

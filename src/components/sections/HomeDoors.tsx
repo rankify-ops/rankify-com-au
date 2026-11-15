@@ -6,6 +6,8 @@ import type { ReactNode } from "react";
 import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { AskBox } from "@/components/sections/AskBox";
+import { FloatingPartners } from "@/components/sections/FloatingPartners";
+import { SectionHeading } from "@/components/service-page/SectionHeading";
 
 /**
  * The home page's first sections.
@@ -29,6 +31,8 @@ type Card = {
   line: string;
   href: string;
   icon: ReactNode;
+  /** Shown up front, because that is the promise the heading makes. */
+  price: string;
   /** The one we most want pressed. */
   accent?: boolean;
 };
@@ -52,17 +56,18 @@ const CARDS: Card[] = [
     kicker: "Websites",
     title: "Get a high performance website built",
     line: "A custom build made around how your customers actually buy, not a template.",
+    price: "From $2,999",
     href: "/web-design-and-development",
     accent: true,
     icon: <I d="m9 8-4.5 4L9 16M15 8l4.5 4L15 16" />,
   },
   {
-    // The other half of the website offer. Sold, not framed as a login door:
-    // existing clients sign in from the header, and this row is for people
-    // who are not customers yet.
+    // The other half of the website offer, sold rather than framed as a
+    // login: existing clients sign in from the header.
     kicker: "Websites",
     title: "Change it yourself, just by asking",
-    line: "Every site comes with a back end. Ask for a change in plain words, see it before it goes live, undo it any time.",
+    line: "Every site comes with a back end. Ask in plain words, see it before it goes live, undo it any time.",
+    price: "From $199/mo",
     href: "/web-design-and-development",
     icon: <I d="M12 3.5 13.8 9l5.7 1.8-5.7 1.8L12 18.5l-1.8-5.9L4.5 10.8 10.2 9 12 3.5Z" />,
   },
@@ -70,15 +75,49 @@ const CARDS: Card[] = [
     kicker: "Ecommerce",
     title: "Ad Sidekick",
     line: "Run your Meta ads without logging into Meta. Told what to upload, when to scale and what to turn off.",
+    price: "From $99/mo",
     href: "/meta-ads",
     icon: <I d="M4 10v4h3l6 4V6L7 10H4ZM17.5 9.2a4.2 4.2 0 0 1 0 5.6" />,
   },
   {
     kicker: "Shopify",
     title: "Build or fix a Shopify store",
-    line: "A store built to sell, or development on the one you already have.",
+    line: "Custom Liquid stores for brands scaling profitably. Migrations handled.",
+    price: "From $5,999",
     href: "/shopify-development-services",
     icon: <I d="M4 5h2l2 10h9l2-7H7M9.5 19.5h.01M16.5 19.5h.01" />,
+  },
+  {
+    kicker: "SEO",
+    title: "Get found for what you sell",
+    line: "Priced per page instead of an open-ended retainer, and reported in leads.",
+    price: "$499 / page / mo",
+    href: "/seo",
+    icon: <I d="M11 17.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13ZM20 20l-4.4-4.4" />,
+  },
+  {
+    kicker: "Google Ads",
+    title: "Search and Shopping, pointed at profit",
+    line: "Campaigns built to sell, with the tracking wired up properly from day one.",
+    price: "Talk to us",
+    href: "/google-ads",
+    icon: <I d="M12 20.5a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Zm0-4.6a3.9 3.9 0 1 0 0-7.8 3.9 3.9 0 0 0 0 7.8Z" />,
+  },
+  {
+    kicker: "Apps & automation",
+    title: "Custom tools, apps and AI automation",
+    line: "The repetitive work eating your week, handed to software instead of a person.",
+    price: "Talk to us",
+    href: "/ai-and-automation",
+    icon: <I d="M7.5 9.5h9a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2ZM12 6.5v3M12 4.2h.01M9.5 13.5h.01M14.5 13.5h.01M3.2 12.5v3M20.8 12.5v3" />,
+  },
+  {
+    kicker: "Branding",
+    title: "A logo and brand that fits",
+    line: "The identity the rest of it hangs off, done once and done properly.",
+    price: "Talk to us",
+    href: "/professional-logo-design",
+    icon: <I d="M12 3.5 14.6 9l6 .9-4.3 4.2 1 6L12 17.2 6.7 20l1-6L3.4 9.9l6-.9L12 3.5Z" />,
   },
 ];
 
@@ -107,19 +146,10 @@ export function HomeHero() {
 
       {/* One centred column. The ask box is the point of the hero, so it sits
           on the centre line rather than in a corner. */}
-      <div className="relative z-[2] flex flex-col items-center justify-center px-5 pb-14 pt-12 text-center sm:px-10 sm:pb-20 sm:pt-16 lg:min-h-[calc(100svh-60px)]">
-        <Reveal className="w-full">
-          <Image
-            src={asset("/assets/images/n92JU5BqmoxMotdcH6fGsTpi7e4.svg")}
-            alt="Rankify®"
-            width={974}
-            height={210}
-            priority
-            className="mx-auto h-auto w-full max-w-[680px] lg:max-w-[820px]"
-          />
-        </Reveal>
+      <FloatingPartners />
 
-        <Reveal delay={0.12} className="mt-7">
+      <div className="relative z-[3] flex flex-col items-center justify-center px-5 pb-14 pt-12 text-center sm:px-10 sm:pb-20 sm:pt-16 lg:min-h-[calc(100svh-60px)]">
+        <Reveal delay={0.12}>
           <h1 className="mx-auto max-w-[680px] text-[clamp(22px,2.3vw,32px)] font-medium leading-[1.05] tracking-[-0.04em] text-white">
             High-performance marketing, websites, apps and AI automation.{" "}
             <span className="text-white/55">Custom built for your business.</span>
@@ -145,8 +175,16 @@ export function HomeHero() {
 
 export function HomeCtaCards() {
   return (
-    <section className="mx-auto max-w-[1400px] px-5 py-12 sm:px-10 sm:py-16">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <section className="mx-auto max-w-[1400px] px-5 py-14 sm:px-10 sm:py-20">
+      <SectionHeading
+        label="What we do"
+        heading="Everything you need to get found,"
+        headingDim="and everything you need to convert."
+        sub="Pick the one you came for. Each is priced up front, and you deal with the developer doing the work."
+        centred
+      />
+
+      <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 lg:grid-cols-4">
         {CARDS.map((c, i) => (
           <Reveal key={c.title} delay={i * 0.05}>
             <Link
@@ -168,14 +206,16 @@ export function HomeCtaCards() {
                 </span>
               </span>
 
-              <h2 className="mt-5 text-[clamp(18px,1.5vw,21px)] font-semibold leading-[1.15] tracking-[-0.025em]">
+              <h3 className="mt-5 text-[clamp(17px,1.4vw,20px)] font-semibold leading-[1.15] tracking-[-0.025em]">
                 {c.title}
-              </h2>
+              </h3>
               <p className="mt-2.5 flex-1 text-[14.5px] leading-relaxed text-grey">
                 {c.line}
               </p>
 
-              <span className="mt-5 inline-flex items-center gap-1.5 text-[14.5px] font-semibold text-[color:var(--green-text)]">
+              <span className="mt-4 block text-[13.5px] font-semibold text-ink/70">{c.price}</span>
+
+              <span className="mt-3 inline-flex items-center gap-1.5 text-[14.5px] font-semibold text-[color:var(--green-text)]">
                 Have a look
                 <svg
                   viewBox="0 0 24 24"

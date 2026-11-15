@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { asset } from "@/lib/basePath";
 import { CHECKOUT_API } from "@/lib/checkout";
 
@@ -30,10 +30,70 @@ const SUGGESTIONS = [
 
 type Turn = { role: "user" | "assistant"; content: string };
 
+/** What the placeholder types out, in the visitor's own words. */
+const TYPED = [
+  "I need a new Shopify store for my brand",
+  "I want to run some Meta ads",
+  "I want to set up some automations",
+  "I need a web developer",
+  "I want to connect Claude to my Shopify store",
+];
+
+/**
+ * Types a phrase, holds it, deletes it, moves to the next.
+ *
+ * It only runs while the field is empty and unfocused, so it can never fight
+ * with somebody typing, and it stops dead for anyone who has asked for
+ * reduced motion — a looping animation in the first thing on the page is
+ * exactly what that setting exists for.
+ */
+function useTypedPlaceholder(active: boolean) {
+  const [text, setText] = useState("");
+  const [still, setStill] = useState(false);
+
+  useEffect(() => {
+    if (!active) return;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      setText(TYPED[0]);
+      setStill(true);
+      return;
+    }
+
+    let phrase = 0;
+    let chars = 0;
+    let deleting = false;
+    let timer: ReturnType<typeof setTimeout>;
+
+    const tick = () => {
+      const full = TYPED[phrase];
+      chars += deleting ? -1 : 1;
+      setText(full.slice(0, chars));
+
+      let wait = deleting ? 28 : 58;
+      if (!deleting && chars === full.length) {
+        wait = 1700;
+        deleting = true;
+      } else if (deleting && chars === 0) {
+        wait = 320;
+        deleting = false;
+        phrase = (phrase + 1) % TYPED.length;
+      }
+      timer = setTimeout(tick, wait);
+    };
+
+    timer = setTimeout(tick, 600);
+    return () => clearTimeout(timer);
+  }, [active]);
+
+  return { text, still };
+}
+
 export function AskBox() {
   const [turns, setTurns] = useState<Turn[]>([]);
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const typed = useTypedPlaceholder(!draft && !focused && turns.length === 0);
   const scroller = useRef<HTMLDivElement>(null);
 
   async function send(text: string) {
@@ -143,6 +203,8 @@ export function AskBox() {
               <input
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
                 aria-label="Tell us what you need help with"
                 className="w-full bg-transparent text-[15px] text-white outline-none"
               />
@@ -151,8 +213,8 @@ export function AskBox() {
                   aria-hidden
                   className="pointer-events-none absolute inset-y-0 left-0 flex items-center gap-[3px] text-[15px] text-white/50"
                 >
-                  <span className="caret-blink inline-block h-[17px] w-px bg-white/80" />
-                  What can we help you with?
+                  <span className={`${typed.still ? "" : "caret-blink "}inline-block h-[17px] w-px bg-white/80`} />
+                  {typed.text || "What can we help you with?"}
                 </span>
               )}
             </span>
