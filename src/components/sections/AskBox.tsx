@@ -140,8 +140,8 @@ export function AskBox() {
             <input
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
-              placeholder="Ask me anything…"
-              aria-label="Ask Rankify a question"
+              placeholder="What can we help you with?"
+              aria-label="Tell us what you need help with"
               className="min-w-0 flex-1 bg-transparent text-[15px] text-white outline-none placeholder:text-white/50"
             />
             <button
