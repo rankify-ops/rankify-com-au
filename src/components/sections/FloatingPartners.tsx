@@ -8,12 +8,10 @@ import { asset } from "@/lib/basePath";
  * The tools we work with, drifting around the ask box and pushing away from
  * the cursor.
  *
- * **These need real icon files.** Drop transparent SVG or PNG marks into
- * `public/assets/partners/` as `shopify.svg`, `claude.svg`, `firecrawl.svg`,
- * `grok.svg` and `semrush.svg`, then set `src` below. Until a mark has a file
- * it renders as a monogram so the motion is visible — obviously a placeholder,
- * and not a brand mark drawn from memory, which would be both wrong and not
- * ours to invent.
+ * The marks live in `public/assets/partners/`. Shopify, Claude and Semrush
+ * come from Simple Icons in white; Firecrawl and Grok are each brand's own
+ * published SVG and keep their colours. A mark with no file falls back to a
+ * monogram rather than a logo drawn from memory.
  *
  * Two layers per icon, deliberately: the outer span runs the CSS float, the
  * inner one takes the cursor push. One element cannot hold two transforms, and
@@ -33,11 +31,11 @@ type Mark = {
 };
 
 const MARKS: Mark[] = [
-  { label: "Shopify", className: "left-[15%] top-[26%]", delay: "0s" },
-  { label: "Claude", className: "left-[22%] top-[66%]", delay: "-2.4s" },
-  { label: "Firecrawl", className: "right-[16%] top-[24%]", delay: "-1.2s" },
-  { label: "Grok", className: "right-[21%] top-[68%]", delay: "-3.6s" },
-  { label: "Semrush", className: "left-[8%] top-[46%]", delay: "-4.8s" },
+  { label: "Shopify", src: "/assets/partners/shopify.svg", className: "left-[15%] top-[26%]", delay: "0s" },
+  { label: "Claude", src: "/assets/partners/claude.svg", className: "left-[22%] top-[66%]", delay: "-2.4s" },
+  { label: "Firecrawl", src: "/assets/partners/firecrawl.svg", className: "right-[16%] top-[24%]", delay: "-1.2s" },
+  { label: "Grok", src: "/assets/partners/grok.svg", className: "right-[21%] top-[68%]", delay: "-3.6s" },
+  { label: "Semrush", src: "/assets/partners/semrush.svg", className: "left-[8%] top-[46%]", delay: "-4.8s" },
 ];
 
 /** How close the cursor gets before a mark starts moving, and how hard. */
