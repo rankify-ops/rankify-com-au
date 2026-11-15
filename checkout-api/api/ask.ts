@@ -67,8 +67,12 @@ const MAX_CHARS = 1000;
  */
 const LIMITS = {
   bucket: "ask",
-  burst: 10,
-  perDay: 40,
+  // Tunable from the environment so the eval harness can be let through for
+  // a run without editing and redeploying code. Unset is the real setting;
+  // raising them is meant to be temporary, and the global cap below still
+  // holds the bill while they are raised.
+  burst: Number(process.env.ASK_BURST ?? 10),
+  perDay: Number(process.env.ASK_PER_DAY ?? 40),
   globalPerDay: Number(process.env.ASK_DAILY_CAP ?? 1500),
 } as const;
 

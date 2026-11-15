@@ -1,0 +1,160 @@
+{
+  "base": "https://rankify-com-au.vercel.app",
+  "total": 10,
+  "failed": 0,
+  "byRule": {},
+  "results": [
+    {
+      "text": "I need a new website for a plumbing business. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "Yes, we build custom websites for trades businesses like plumbing, built around how their customers actually find them and get in touch. Websites start from $2,999 and usually take about 7 to 15 days. Book fifteen minutes with Tom to talk through what you need, or have a look at how we build sites.",
+      "sentTo": [
+        "website",
+        "call"
+      ],
+      "failures": []
+    },
+    {
+      "text": "I need a new website for a Shopify clothing brand. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "Yes, we build websites and Shopify stores for clothing brands, and we build them around how your customers actually buy rather than from a template. Websites start from $2,999 and usually take about 7 to 15 days. Book fifteen minutes with Tom to talk through what you need, or have a look at how we build Shopify stores.",
+      "sentTo": [
+        "shopify",
+        "call",
+        "website"
+      ],
+      "failures": []
+    },
+    {
+      "text": "I need a new website for a law firm. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "Yes, we build custom websites for law firms, built around how your clients actually find you and get in touch rather than off a template. Websites start from $2,999 and take about 7 to 15 days. Book fifteen minutes with Tom to work out what the site needs to do, or read how we build them.",
+      "sentTo": [
+        "website",
+        "call"
+      ],
+      "failures": []
+    },
+    {
+      "text": "I need a new website for a cafe. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "Yes, we build custom websites for cafes and other small businesses, designed around how your customers actually find you and order or book. Work out what the site needs to do first, like online ordering, bookings, or just menus and hours, and the call will settle the rest. Read how we build websites, or book fifteen minutes with Tom.",
+      "sentTo": [
+        "website",
+        "call"
+      ],
+      "failures": []
+    },
+    {
+      "text": "I need a new website for an electrician. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "Yes, we build custom websites for tradies like electricians, designed around how their customers actually find them and get in touch rather than from a template. Websites start from $2,999, and most take about 7 to 15 days. Book fifteen minutes with Tom to talk through what you need, or have a look at our work first.",
+      "sentTo": [
+        "website",
+        "work",
+        "call"
+      ],
+      "failures": []
+    },
+    {
+      "text": "I need a new website for a gym. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "Yes, we build websites for gyms and other businesses, built around how their members actually sign up and book rather than a generic template. Custom sites start from $2,999, and websites usually take about 7 to 15 days. Book fifteen minutes with Tom to work out what the site needs to do, or have a look at how we build websites first.",
+      "sentTo": [
+        "website",
+        "call"
+      ],
+      "failures": []
+    },
+    {
+      "text": "I need a new website for a dental practice. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "Yes, we build custom websites for practices like dental clinics, built around how their patients actually book and make a decision to come in, not from a template. Websites start from $2,999 and usually take about 7 to 15 days. Book fifteen minutes with Tom to talk through what you need, or read how we build sites first.",
+      "sentTo": [
+        "website",
+        "call"
+      ],
+      "failures": []
+    },
+    {
+      "text": "I need a new website for a removalist company. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "Yes, we build custom websites for removalists and other service businesses, designed around how their customers actually book and get a quote rather than from a template. Websites start from $2,999 and usually take about 7 to 15 days. Book fifteen minutes with Tom to work out what the site needs to do, or have a look at our work first.",
+      "sentTo": [
+        "website",
+        "work",
+        "call"
+      ],
+      "failures": []
+    },
+    {
+      "text": "I need a new website for a landscaping business. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "That is a lot of questions in a short time. Book a fifteen minute call with Tom and he will go through it properly.",
+      "sentTo": [
+        "call"
+      ],
+      "failures": []
+    },
+    {
+      "text": "I need a new website for an accountant. Can you help?",
+      "category": "service-fit",
+      "rules": [
+        "no_invented_proof",
+        "has_next_step",
+        "no_written_links"
+      ],
+      "reply": "Yes, we build custom websites for accounting firms, built around how their clients find them and get in touch rather than a template. Websites start from $2,999 and take about 7 to 15 days. Book fifteen minutes with Tom to talk through what the site needs to do, or read how we build them first.",
+      "sentTo": [
+        "website",
+        "call"
+      ],
+      "failures": []
+    }
+  ]
+}
