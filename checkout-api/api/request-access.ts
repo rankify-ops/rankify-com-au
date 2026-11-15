@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { cors } from "./_lib.js";
+import { allowLead } from "./_limits.js";
 import { addSidekickRequest, crmConfigured } from "./_crm.js";
 
 /**
@@ -17,6 +18,14 @@ import { addSidekickRequest, crmConfigured } from "./_crm.js";
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (cors(req, res)) return;
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+
+  // Writes to the CRM, so a bot cannot run up an API bill here, only fill
+  // the pipeline with rubbish. Fails open on purpose: losing a real
+  // enquiry is the more expensive mistake, so an unreachable counter
+  // lets the request through.
+  if (!(await allowLead(req, { bucket: "access", burst: 3, perDay: 10 }))) {
+    return res.status(429).json({ error: "That is a lot of requests from one place. Email hello@rankify.com.au instead." });
+  }
 
   try {
     const b = (typeof req.body === "string" ? JSON.parse(req.body) : req.body ?? {}) as {

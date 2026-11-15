@@ -116,3 +116,23 @@ export async function allow(req: VercelRequest, spec: LimitSpec): Promise<Allowa
     return { ok: false, reason: "store" };
   }
 }
+
+/**
+ * The same count, for the endpoints that write to the CRM rather than call a
+ * paid API — leads, qualification answers, Sidekick access requests.
+ *
+ * This one fails OPEN, the opposite of `allow`, and the difference is the
+ * point. Flooding these costs nothing but a mess in the CRM, while refusing
+ * one wrongly loses a real enquiry, which is the expensive mistake here. So
+ * an unreachable store means the lead goes through.
+ *
+ * Returns true when the request should be served.
+ */
+export async function allowLead(req: VercelRequest, spec: LimitSpec): Promise<boolean> {
+  if (!limitsConfigured) return true;
+  const verdict = await allow(req, spec);
+  if (verdict.ok) return true;
+  if (verdict.reason === "store") return true;
+  console.warn(`${spec.bucket} limited`, verdict.reason);
+  return false;
+}
