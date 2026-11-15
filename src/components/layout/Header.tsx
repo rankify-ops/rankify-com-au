@@ -117,8 +117,37 @@ export function Header() {
         }`}
         onMouseLeave={scheduleHide}
       >
-        <nav className="flex h-[60px] items-center justify-between gap-5 px-5">
-          <Link href="/" aria-label="Rankify home" className="flex-none" onClick={hideNow}>
+        {/* Three slots on a phone: menu, wordmark, account. It reads as an
+            app bar, which is what a thumb expects, and it puts the two
+            controls at the two edges rather than stacked in one corner.
+            At xl it goes back to a row: wordmark, nav, actions. The menu
+            button is display:none there, so it drops out of the flex row
+            and the order is unchanged. */}
+        <nav className="grid h-[60px] grid-cols-[1fr_auto_1fr] items-center px-3 xl:flex xl:justify-between xl:gap-5 xl:px-5">
+          <button
+            aria-label="Open menu"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="relative h-10 w-10 justify-self-start xl:hidden"
+          >
+            <motion.span
+              className="absolute left-2 right-2 h-[2px] bg-ink"
+              animate={open ? { top: 20, rotate: 45 } : { top: 14, rotate: 0 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.span
+              className="absolute left-2 right-2 h-[2px] bg-ink"
+              animate={open ? { top: 20, rotate: -45 } : { top: 24, rotate: 0 }}
+              transition={{ duration: 0.3 }}
+            />
+          </button>
+
+          <Link
+            href="/"
+            aria-label="Rankify home"
+            className="justify-self-center xl:flex-none xl:justify-self-start"
+            onClick={hideNow}
+          >
             <Image
               src={asset("/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg")}
               alt="Rankify®"
@@ -168,7 +197,7 @@ export function Header() {
             ))}
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center justify-end gap-2 justify-self-end sm:gap-3">
             {/* Two apps, two different customers. The chooser is in the bar
                 because a paying client had nowhere to sign in from the
                 marketing site at all. */}
@@ -178,23 +207,6 @@ export function Header() {
             <div className="hidden xl:block" onMouseEnter={hideNow}>
               <Button href="/schedule-strategy-call" pulse>Schedule Call</Button>
             </div>
-            <button
-              aria-label="Open menu"
-              aria-expanded={open}
-              onClick={() => setOpen((v) => !v)}
-              className="relative h-10 w-10 xl:hidden"
-            >
-              <motion.span
-                className="absolute left-2 right-2 h-[2px] bg-ink"
-                animate={open ? { top: 20, rotate: 45 } : { top: 14, rotate: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-              <motion.span
-                className="absolute left-2 right-2 h-[2px] bg-ink"
-                animate={open ? { top: 20, rotate: -45 } : { top: 24, rotate: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </button>
           </div>
         </nav>
 
