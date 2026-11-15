@@ -167,6 +167,40 @@ const WEBSITE_SPACE = "rankify-website";
 
 export const VSL_LIST = "VSL qualifying";
 
+/**
+ * Ad Sidekick access requests.
+ *
+ * Its own list, not the VSL one: these people asked for a product that is not
+ * open yet, so they are a queue to let in rather than a funnel to qualify.
+ * Same space as the rest of the website captures — Leads stays for people
+ * actually being worked.
+ */
+export const SIDEKICK_LIST = "Ad Sidekick access";
+
+export async function addSidekickRequest(c: {
+  name: string;
+  email: string;
+  phone?: string;
+  business?: string;
+  spend?: string;
+}): Promise<string | null> {
+  const out = await routine({
+    action: "add_website_item",
+    item: {
+      name: c.name || c.email,
+      list: SIDEKICK_LIST,
+      status: "Requested access",
+      description: [
+        `Contact: ${c.name || "—"} · ${c.email} · ${c.phone || "no mobile"}`,
+        `Business: ${c.business || "—"}`,
+        `Monthly ad spend: ${c.spend || "—"}`,
+        "Asked for access to Ad Sidekick while sign-up is invite-only.",
+      ].join("\n"),
+    },
+  });
+  return (out?.item as { id?: string } | undefined)?.id ?? null;
+}
+
 function captureItem(c: {
   name: string;
   email: string;
