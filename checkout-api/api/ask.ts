@@ -2,6 +2,8 @@ import Anthropic from "@anthropic-ai/sdk";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { cors } from "./_lib.js";
 import { crmConfigured, logAsk, updateAsk } from "./_crm.js";
+import { allow, limitsConfigured } from "./_limits.js";
+import { humanVerified, turnstileConfigured } from "./_turnstile.js";
 
 /**
  * The ask box on the home page.
@@ -26,7 +28,60 @@ import { crmConfigured, logAsk, updateAsk } from "./_crm.js";
  * route. Those are the queue of pages worth building.
  */
 
-const MODEL = "claude-opus-5-5";
+/**
+ * Haiku, not Opus, for two separate reasons.
+ *
+ * Cost: this is short sales Q&A with a fixed answer shape, and Haiku 5.5 is
+ * roughly forty times cheaper than Opus 5.5 per token ($0.10/$0.50 against
+ * $4/$20 per million). On an endpoint the public can call, that multiplier
+ * is the difference between a bad day and a bad month.
+ *
+ * Correctness: Opus 5.5 rejects forced tool choice outright, so the
+ * `tool_choice` below would have returned a 400 on every single call and
+ * every visitor would have got the "something went wrong" fallback. Haiku
+ * 5.5 still accepts it, so the answer shape stays guaranteed.
+ */
+const MODEL = "claude-haiku-5-5";
+
+/**
+ * How much of a conversation we are willing to pay to read.
+ *
+ * The endpoint is public and the origin allow-list only binds browsers, so
+ * assume every request is hostile and price it accordingly: these two
+ * numbers are the ceiling on input tokens per call.
+ */
+const MAX_TURNS = 6;
+const MAX_CHARS = 1000;
+
+/**
+ * The ceiling on what a day here can cost.
+ *
+ * `globalPerDay` is the number that matters: it is a hard stop on model
+ * calls across everybody, so the worst possible day is that many calls, not
+ * however many a botnet felt like making. At Haiku's rates and these caps
+ * the ceiling is roughly two US dollars a day, which is a number you can
+ * ignore rather than watch.
+ *
+ * The per-address caps are what keep one visitor from eating the global one.
+ * Ten in ten minutes is far more conversation than a real person has with a
+ * box like this, and forty in a day is generous for someone who came back.
+ */
+const LIMITS = {
+  bucket: "ask",
+  burst: 10,
+  perDay: 40,
+  globalPerDay: Number(process.env.ASK_DAILY_CAP ?? 1500),
+} as const;
+
+/** What a visitor gets whenever we decide not to call the model. */
+function deflect(res: VercelResponse, reply: string, logId?: string) {
+  return res.status(200).json({
+    reply,
+    actions: actionsFor(FALLBACK.destinations),
+    logId,
+    configured: true,
+  });
+}
 
 /** Set in the Vercel project's environment variables, never committed. */
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY ?? "" });
@@ -203,6 +258,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   }
 
+  // The guards are not optional and this is on purpose. An API key without a
+  // counter in front of it is the failure mode this whole file is built to
+  // avoid, and the easiest way to end up there is adding the key to Vercel
+  // and forgetting the rest. So a half-configured deployment answers like an
+  // unconfigured one instead of quietly spending money.
+  if (!limitsConfigured || !turnstileConfigured) {
+    console.error("ask refused: limits or turnstile not configured", {
+      limitsConfigured,
+      turnstileConfigured,
+    });
+    return deflect(
+      res,
+      "The assistant is not switched on yet. Book a fifteen minute call with Tom and he will answer it himself.",
+    );
+  }
+
   let history: Turn[] = [];
   let logId: string | undefined;
 
@@ -211,19 +282,53 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       messages?: Turn[];
       /** The CRM card for this conversation, returned by the first answer. */
       logId?: string;
+      /** A fresh Turnstile solve. One per message: the tokens are single use. */
+      turnstile?: string;
     };
 
     logId = typeof b.logId === "string" ? b.logId.slice(0, 40) : undefined;
 
     // Only the last few turns, and only text. An unbounded history from a
-    // public box is somebody else's bill.
+    // public box is somebody else's bill: every character here is input
+    // tokens we pay for, on a request anybody on the internet can send.
+    // Six turns of a thousand characters is far more than a real visitor
+    // types and roughly a third of what the old caps allowed through.
     history = (Array.isArray(b.messages) ? b.messages : [])
       .filter((m) => (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
-      .slice(-8)
-      .map((m) => ({ role: m.role, content: m.content.slice(0, 2000) }));
+      .slice(-MAX_TURNS)
+      .map((m) => ({ role: m.role, content: m.content.slice(0, MAX_CHARS) }));
 
     if (!history.length || history[history.length - 1].role !== "user") {
       return res.status(400).json({ error: "The last message must be from the visitor." });
+    }
+
+    // Padding the question itself is the cheapest way to run the bill up, so
+    // it is refused rather than quietly truncated: a real question is never
+    // this long, and silently answering a padded one still costs us the call.
+    if (history[history.length - 1].content.length >= MAX_CHARS) {
+      return res.status(400).json({ error: "That question is too long. Shorten it, or book a call." });
+    }
+
+    // Counting comes before verifying, so a flood of junk tokens is cut off
+    // by the limiter rather than costing us a Cloudflare round trip each.
+    const allowance = await allow(req, LIMITS);
+    if (!allowance.ok) {
+      console.warn("ask limited", allowance.reason);
+      return deflect(
+        res,
+        allowance.reason === "global_day"
+          ? "The assistant has answered all it can for today. Book a fifteen minute call with Tom and he will answer it himself."
+          : "That is a lot of questions in a short time. Book a fifteen minute call with Tom and he will go through it properly.",
+        logId,
+      );
+    }
+
+    if (!(await humanVerified(req, b.turnstile))) {
+      return deflect(
+        res,
+        "We could not check that this came from a browser. Reload the page and try again, or book a fifteen minute call with Tom.",
+        logId,
+      );
     }
 
     const response = await client.messages.create({
@@ -232,15 +337,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       // Low effort: this is short sales Q&A, not reasoning work, and the
       // visitor is waiting with a cursor blinking at them.
       output_config: { effort: "low" },
-      // Server-side fallback, so a safety refusal returns an answer rather
-      // than an empty box.
-      betas: ["server-side-fallback-2026-07-01"],
-      fallbacks: "default",
+      // No server-side fallback here: Haiku 5.5 does not offer one. A safety
+      // refusal is handled below instead, by checking stop_reason.
       system: SYSTEM,
       tools: [ANSWER_TOOL],
       tool_choice: { type: "tool", name: "answer" },
       messages: history,
     } as Parameters<typeof client.messages.create>[0]);
+
+    // A refusal comes back as a normal 200 with no answer in it, so it has to
+    // be checked rather than waited for as an exception.
+    if ((response as { stop_reason?: string }).stop_reason === "refusal") {
+      console.warn("ask refused by the model");
+      return deflect(
+        res,
+        "I am not able to answer that one. Book a fifteen minute call with Tom and he will take it from there.",
+        logId,
+      );
+    }
 
     const blocks = (response as { content: Array<{ type: string; name?: string; input?: unknown }> })
       .content;

@@ -38,6 +38,17 @@ jobs:
           # fallback — the checkout button stops charging and nobody is told.
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: pk_live_51QNo1yGkhGJ4OA8NK9HofsL5Gi2yS7tuyYErUn9FTmqX4GQpncDjBPxPnQyXlvWTMLwgNK1Ryk3QnuinxdI5QTm100eYhqNJpX
           NEXT_PUBLIC_CHECKOUT_API: https://rankify-com-au.vercel.app
+          # Cloudflare Turnstile's *site* key — public by design, it is read
+          # by the browser; the secret half lives only in Vercel. Set it as a
+          # repository variable (Settings, Secrets and variables, Actions,
+          # Variables) named TURNSTILE_SITE_KEY.
+          #
+          # If this is missing the ask box cannot mint a bot-check token and
+          # the endpoint refuses every message, so the box answers "book a
+          # call" instead of answering. That is the safe direction, but it is
+          # silent — if the box stops answering in production, look here
+          # first.
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out

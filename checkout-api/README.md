@@ -51,6 +51,17 @@ numbers in step with the configurator block** in
    | `CRM_API_URL` | origin of rankify-crm, e.g. `https://rankify-crm.vercel.app` |
    | `CRM_ROUTINE_SECRET` | the same value as `ROUTINE_SECRET` in the CRM project |
 
+   And, for the ask box on the home page — **all four, or it will not answer**:
+
+   | Name | Value |
+   |---|---|
+   | `ANTHROPIC_API_KEY` | from console.anthropic.com |
+   | `TURNSTILE_SECRET_KEY` | the secret half of the Cloudflare Turnstile pair |
+   | `KV_REST_API_URL` | set for you by the Vercel KV / Upstash integration |
+   | `KV_REST_API_TOKEN` | likewise |
+
+   `ASK_DAILY_CAP` is optional and defaults to 1500 model calls a day.
+
 5. Once deployed, in the Stripe dashboard: **Developers → Webhooks → Add
    endpoint**, URL `https://<your-deployment>.vercel.app/api/webhook`, event
    `checkout.session.completed`. Copy the signing secret into
@@ -73,3 +84,38 @@ signature. That's why `webhook.ts` doesn't call `cors()`.
 With `sk_test_…` set, card `4242 4242 4242 4242`, any future expiry, any CVC.
 `stripe listen --forward-to localhost:3000/api/webhook` replays webhooks
 locally against `vercel dev`.
+
+## What stops the ask box becoming a bill
+
+`/api/ask` calls a paid API and anybody on the internet can reach it. The
+origin allow-list above does not help here: it only binds browsers, and one
+`-H "Origin: https://rankify.com.au"` walks straight past it. So the endpoint
+assumes every caller is hostile and counts them.
+
+Four layers, in the order a request meets them:
+
+1. **Input caps** (`MAX_TURNS`, `MAX_CHARS` in `ask.ts`). Six turns of a
+   thousand characters. A padded question is refused rather than truncated,
+   because answering a padded one still costs us the call.
+2. **Rate limits** (`_limits.ts`). Ten per address per ten minutes, forty per
+   address per day, and `ASK_DAILY_CAP` model calls a day across everybody.
+   That last one is the real ceiling: the worst possible day is that many
+   calls, which at Haiku's rates is about two US dollars.
+3. **Turnstile** (`_turnstile.ts`). A fresh single-use solve per message. The
+   limiter decides how fast you may call; this decides whether you are a
+   browser at all, which is what stops a botnet spreading its traffic across
+   a thousand addresses to stay under the per-address caps.
+4. **The model choice.** Haiku 5.5 rather than Opus 5.5, roughly forty times
+   cheaper per token. Opus 5.5 also rejects forced `tool_choice` outright, so
+   the answer-shaping tool call would 400 on every request there.
+
+**It fails closed, deliberately.** If the KV store cannot be reached, or
+either key is missing, the box stops calling the model and serves the
+book-a-call fallback. A quiet hour of "book a call with Tom" is a far better
+failure than an uncounted bill. The trade is that a missing key looks like a
+working site that never answers, so if the box goes quiet in production, check
+the environment variables before anything else.
+
+**None of this is a substitute for a spend cap on the Anthropic account.**
+Everything above is code, and code can have a bug in it. The cap is the only
+limit that holds when the code is wrong.
