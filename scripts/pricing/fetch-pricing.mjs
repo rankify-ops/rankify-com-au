@@ -121,7 +121,19 @@ async function main() {
   export const SHOPIFY_FROM = P.shopify_build.from_display;
   export const SHOPIFY_RETAINER_FROM = P.shopify_retainer.from_display;
   export const SHOPIFY_HOURLY = P.shopify_hourly.per_hour_display;
-  export const SEO_PER_PAGE = P.seo.per_page_per_month_display;
+  /**
+ * ", 2 hour minimum" or "", depending on the record.
+ *
+ * The shared FAQ asserted a two hour minimum while the Casual tier card on
+ * the same site said "no commitment" and named none. That sentence had
+ * already carried two stale prices, so rather than pick a side the claim is
+ * now rendered only when the record actually sets a minimum.
+ */
+export const SHOPIFY_HOURLY_MINIMUM = P.shopify_hourly.minimum_hours
+  ? ", " + P.shopify_hourly.minimum_hours + " hour minimum"
+  : "";
+
+export const SEO_PER_PAGE = P.seo.per_page_per_month_display;
   export const SEO_MINIMUM_MONTHS = P.seo.minimum_term_months;
   export const BRANDING_FROM = P.branding.from_display;
   export const SIDEKICK_FROM = P.ad_sidekick.tiers[0].per_month_display;

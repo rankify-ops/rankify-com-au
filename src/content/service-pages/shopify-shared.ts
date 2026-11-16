@@ -8,7 +8,7 @@
  * both pages legitimately share.
  */
 import type { CardGridBlock, FaqItem, MarqueeBlock } from "./types";
-import { SHOPIFY_HOURLY, SHOPIFY_RETAINER_FROM, SHOPIFY_FROM } from "@/content/pricing.generated";
+import { SHOPIFY_HOURLY, SHOPIFY_HOURLY_MINIMUM, SHOPIFY_RETAINER_FROM, SHOPIFY_FROM } from "@/content/pricing.generated";
 
 export const SHOPIFY_CLOSING_NOTE =
   "We believe that a website should be more than just a digital presence—it should be a tool that works for your business. That's why we prioritise performance, user experience in everything we create. We build websites that are fast, efficient, and easy to manage, so you can focus on what matters—running your business.";
@@ -37,6 +37,6 @@ export const SHOPIFY_WHY_US: CardGridBlock = {
 /** FAQ entries that apply no matter which page someone landed on. */
 export const SHOPIFY_COMMON_FAQ: FaqItem[] = [
   { q: "Where are you based?", a: "We're based on the Gold Coast, Queensland. We work with Shopify clients across Australia — Sydney, Melbourne, Brisbane, Perth, Adelaide, and regional areas. All work is handled remotely with clear communication throughout." },
-  { q: "How is your pricing structured?", a: `We offer hourly development (${SHOPIFY_HOURLY}/hr, 2 hour minimum), monthly retainers (from ${SHOPIFY_RETAINER_FROM}/month), and custom store builds (from ${SHOPIFY_FROM}). Every project is scoped and quoted before work begins. Payment is upfront — no invoicing after the fact.` },
+  { q: "How is your pricing structured?", a: `We offer hourly development (${SHOPIFY_HOURLY}/hr${SHOPIFY_HOURLY_MINIMUM}), monthly retainers (from ${SHOPIFY_RETAINER_FROM}/month), and custom store builds (from ${SHOPIFY_FROM}). Every project is scoped and quoted before work begins. Payment is upfront — no invoicing after the fact.` },
   { q: "What makes you different from larger Shopify agencies?", a: "You work directly with the person building your store. No account managers, no layers, no offshore teams. We handle design, development, and SEO in one team — nothing gets lost between departments. Our retainer clients get a dedicated developer who knows their store, not a rotating roster." },
 ];
