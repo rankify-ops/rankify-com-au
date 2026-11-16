@@ -62,7 +62,9 @@ async function main() {
     die(
       res.status === 404
         ? `The CRM has no published price set (404).\n  Seed and publish it at https://rankify-crm.vercel.app/pricing.html\n\n  ${body.slice(0, 200)}`
-        : `The pricing record answered ${res.status}.\n\n  ${body.slice(0, 200)}`,
+        : res.status >= 500
+          ? `The CRM could not read its own store (${res.status}). That is an outage, not a price change: try again rather than typing a number in here.\n\n  ${body.slice(0, 200)}`
+          : `The pricing record answered ${res.status}.\n\n  ${body.slice(0, 200)}`,
     );
   }
 

@@ -35,7 +35,24 @@ let inFlight: Promise<PriceRecord | null> | null = null;
 async function load(): Promise<PriceRecord | null> {
   try {
     const res = await fetch(URL, { headers: { Accept: "application/json" } });
+
+    // 404 and 5xx mean opposite things and must not be handled alike.
+    //
+    // 404 is the record speaking: nothing is published right now. Serving the
+    // last good copy there would mean quoting prices that have been
+    // deliberately withdrawn, which is worse than quoting none. So the cache
+    // is dropped and the caller is told there are no prices.
+    if (res.status === 404) {
+      if (cached) console.warn("pricing: nothing published, dropping the cached copy");
+      cached = null;
+      fetchedAt = Date.now();
+      return null;
+    }
+
+    // Anything else — 5xx, a timeout, a network error — is the CRM failing to
+    // answer, not a statement about prices. The last good copy stands.
     if (!res.ok) throw new Error(`pricing ${res.status}`);
+
     const data = (await res.json()) as PriceRecord;
     if (data.status !== "published" || !data.products) throw new Error("pricing not published");
     cached = data;
@@ -43,9 +60,9 @@ async function load(): Promise<PriceRecord | null> {
     return data;
   } catch (err) {
     console.warn("pricing fetch failed, using last good copy", err);
-    // Deliberately returns the stale copy rather than nothing: an answer with
-    // five-minute-old prices beats an answer with no prices, and these are
-    // read-only. Null only on a cold instance that has never succeeded.
+    // Five-minute-old prices beat no prices while the CRM is unreachable, and
+    // this never feeds a charge. Null only on a cold instance that has never
+    // had a successful read.
     return cached;
   }
 }
