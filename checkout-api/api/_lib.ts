@@ -25,6 +25,12 @@ const ALLOWED_ORIGINS = [
   "http://localhost:5193",
   "http://localhost:3000",
   "http://localhost:3099", // preview-gate-test dev server
+  // Tom's machine on the home LAN, so the dev server can be reviewed on a
+  // real phone rather than a desktop pretending to be one. A 192.168.*
+  // origin costs nothing to allow: the list only ever binds browsers, and
+  // anything scripted sends whatever Origin it likes regardless. The rate
+  // limits in `_limits.ts` are what actually holds.
+  "http://192.168.50.148:5193",
 ];
 
 /**
