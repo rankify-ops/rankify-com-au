@@ -31,8 +31,6 @@ type Card = {
   line: string;
   href: string;
   icon: ReactNode;
-  /** Shown up front, because that is the promise the heading makes. */
-  price: string;
   /** The one we most want pressed. */
   accent?: boolean;
 };
@@ -67,7 +65,6 @@ const CARDS: Card[] = [
     kicker: "Websites",
     title: "Get a high performance website built",
     line: "A custom build made around how your customers actually buy, not a template.",
-    price: "From $2,999",
     href: "/web-design-and-development",
     accent: true,
     // A browser window, not code brackets: what is being sold is the site,
@@ -80,26 +77,9 @@ const CARDS: Card[] = [
     ),
   },
   {
-    // The other half of the website offer, sold rather than framed as a
-    // login: existing clients sign in from the header.
-    kicker: "Websites",
-    title: "Change it yourself, just by asking",
-    line: "Every site comes with a back end. Ask in plain words, see it before it goes live, undo it any time.",
-    price: "From $199/mo",
-    href: "/web-design-and-development",
-    // Four even arms. The old one was lopsided, with the bottom point
-    // noticeably longer than the top.
-    icon: (
-      <I>
-        <path d="M12 3.2 14.1 9.9 20.8 12l-6.7 2.1L12 20.8l-2.1-6.7L3.2 12l6.7-2.1L12 3.2Z" />
-      </I>
-    ),
-  },
-  {
     kicker: "Ecommerce",
     title: "Ad Sidekick",
     line: "Run your Meta ads without logging into Meta. Told what to upload, when to scale and what to turn off.",
-    price: "From $99/mo",
     href: "/meta-ads",
     // A megaphone with its handle, which reads as advertising. The speaker
     // this replaces had its sound wave cut off by the edge of the viewBox.
@@ -115,7 +95,6 @@ const CARDS: Card[] = [
     kicker: "Shopify",
     title: "Build or fix a Shopify store",
     line: "Custom Liquid stores for brands scaling profitably. Migrations handled.",
-    price: "From $5,999",
     href: "/shopify-development-services",
     // A bag rather than a trolley: the trolley's two wheels were isolated
     // dots that vanished at this size.
@@ -130,7 +109,6 @@ const CARDS: Card[] = [
     kicker: "SEO",
     title: "Get found for what you sell",
     line: "Priced per page instead of an open-ended retainer, and reported in leads.",
-    price: "$499 / page / mo",
     href: "/seo",
     icon: (
       <I>
@@ -143,7 +121,6 @@ const CARDS: Card[] = [
     kicker: "Google Ads",
     title: "Search and Shopping, pointed at profit",
     line: "Campaigns built to sell, with the tracking wired up properly from day one.",
-    price: "Talk to us",
     href: "/google-ads",
     // Crosshairs make it a reticle. Two bare concentric circles read as a
     // record, or a loading spinner.
@@ -159,7 +136,6 @@ const CARDS: Card[] = [
     kicker: "Apps & automation",
     title: "Custom tools, apps and AI automation",
     line: "The repetitive work eating your week, handed to software instead of a person.",
-    price: "Talk to us",
     href: "/ai-and-automation",
     // A cycle, which is what automation looks like. The robot it replaces
     // was seven marks in a 24px box, four of them floating.
@@ -173,13 +149,28 @@ const CARDS: Card[] = [
     ),
   },
   {
+    kicker: "Dashboards",
+    title: "Business dashboards",
+    line: "One live screen for the numbers you actually run the business on.",
+    // Same destination the header's dashboard entry uses, so the two cannot
+    // drift apart.
+    href: "/ai-and-automation#dashboards",
+    // Bars on a baseline. A rising line would have read as the cycle arrows
+    // two cards earlier, and a framed chart as the browser window on the
+    // first card; bars share a silhouette with neither.
+    icon: (
+      <I>
+        <path d="M3.5 20.2h17" />
+        <path d="M7 20.2v-6.7M12 20.2V9M17 20.2V5.2" />
+      </I>
+    ),
+  },
+  {
     kicker: "Branding",
     title: "A logo and brand that fits",
     line: "The identity the rest of it hangs off, done once and done properly.",
-    price: "Talk to us",
     href: "/professional-logo-design",
-    // A colour drop. A star here was the sparkle on the second card again,
-    // with five points instead of four.
+    // A colour drop, which reads as paint rather than as a rating.
     icon: (
       <I>
         <path d="M12 3.4c3.3 3.6 6.1 7 6.1 10.1a6.1 6.1 0 0 1-12.2 0c0-3.1 2.8-6.5 6.1-10.1Z" />
@@ -261,7 +252,7 @@ export function HomeCtaCards() {
         labelClassName="text-[14px] tracking-[0.18em]"
         heading="Everything you need to get found,"
         headingDim="and everything you need to convert."
-        sub="Pick the one you came for. Each is priced up front, and you deal with the developer doing the work."
+        sub="Pick the one you came for. You deal with the developer doing the work, not an account manager."
         centred
       />
 
@@ -294,7 +285,6 @@ export function HomeCtaCards() {
                 {c.line}
               </p>
 
-              <span className="mt-4 block text-[13.5px] font-semibold text-ink/70">{c.price}</span>
 
               <span className="mt-3 inline-flex items-center gap-1.5 text-[14.5px] font-semibold text-[color:var(--green-text)]">
                 Have a look
