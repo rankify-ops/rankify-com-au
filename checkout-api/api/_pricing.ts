@@ -113,6 +113,25 @@ export function priceBlock(rec: PriceRecord | null): string | null {
 
   if (!website || !shopify || !seo) return null;
 
+  // The ongoing plans sold through app.rankify.com.au. Optional on purpose:
+  // the product was added to the record after this endpoint shipped, so a
+  // record without it still answers rather than failing. This line used to be
+  // "$199 a month" written into the prompt, which is exactly the kind of copy
+  // that goes stale without anyone noticing.
+  const plans = p.website_plans;
+  const planTiers = Array.isArray(plans?.tiers) ? (plans.tiers as Money[]) : [];
+  const planFrom = str(plans, "from_display");
+  const planList = planTiers
+    .map((t) => `${t.name} ${t.per_month_display}`)
+    .filter((x) => !x.includes("undefined"));
+  // Yearly is stored as a rule rather than a second number, so it is derived
+  // here too instead of being quoted.
+  const months = (plans?.billing as Money | undefined)?.year_rule as Money | undefined;
+  const yearly =
+    typeof months?.months_charged === "number"
+      ? ` Paid yearly, you pay ${months.months_charged} months for twelve.`
+      : "";
+
   return [
     `PRICES (version ${rec.version}, effective ${rec.effective_from} — these are the only prices you may quote)`,
     `- Websites from ${website}. ${pages} pages included, ${extra} per page after that.`,
@@ -121,6 +140,9 @@ export function priceBlock(rec: PriceRecord | null): string | null {
     retainer && hourly && `- Shopify retainers from ${retainer} a month, or ${hourly} an hour casual.`,
     `- SEO ${seo} per page per month${seoMin ? `, ${seoMin} month minimum` : ""}.`,
     branding && `- Branding and logo packages from ${branding}.`,
+    planFrom &&
+      planList.length &&
+      `- Ongoing website plans at app.rankify.com.au from ${planFrom} a month: ${planList.join(", ")}.${yearly}`,
     sidekick && `- Ad Sidekick ${sidekick} a month. No contract.`,
     `Never quote a price that is not in this list. If you are asked about something not listed, say Tom will confirm it on the call.`,
   ]
