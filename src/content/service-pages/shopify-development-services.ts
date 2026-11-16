@@ -3,6 +3,7 @@
  * one process, one price. Retainer and hourly work lives on /shopify-developer.
  */
 import type { ServicePageData } from "./types";
+import { SHOPIFY_FROM } from "@/content/pricing.generated";
 import {
   SHOPIFY_CLIENT_LOGOS,
   SHOPIFY_CLOSING_NOTE,
@@ -43,7 +44,7 @@ export const shopifyDevelopmentServices: ServicePageData = {
       rows: [
         { icon: "person", label: "Who you talk to", agency: "Account managers, juniors, whoever", us: "Just the developer" },
         { icon: "clock", label: "Timeline", agency: "2–4 months", us: "4–8 weeks" },
-        { icon: "dollar", label: "Build cost", agency: "$20k–$40k+", us: "From $5,999" },
+        { icon: "dollar", label: "Build cost", agency: "$20k–$40k+", us: `From ${SHOPIFY_FROM}` },
         { icon: "trending", label: "The theme", agency: "A premium theme reskinned", us: "Custom Liquid, built around your products" },
         { icon: "repeat", label: "Apps", agency: "Bolted on — $50–200/mo forever", us: "Built into the theme wherever we can" },
         { icon: "shield", label: "Migration", agency: "Quoted as a separate project", us: "Products, customers, orders and redirects included" },
@@ -148,7 +149,7 @@ export const shopifyDevelopmentServices: ServicePageData = {
       assurance: "No refund after final payment",
       tiers: [
         {
-          price: "$5,999",
+          price: `${SHOPIFY_FROM}`,
           period: "/project",
           note: "Delivery time 4–8 weeks",
           features: ["Homepage + up to 4 inner pages", "Design and Development", "Mobile-Optimised Design"],

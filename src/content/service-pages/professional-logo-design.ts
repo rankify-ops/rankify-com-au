@@ -1,4 +1,5 @@
 import type { ServicePageData } from "./types";
+import { PRICING, BRANDING_FROM } from "@/content/pricing.generated";
 
 const CLOSING_NOTE =
   "We believe that a website should be more than just a digital presence—it should be a tool that works for your business. That's why we prioritise performance, user experience in everything we create. We build websites that are fast, efficient, and easy to manage, so you can focus on what matters—running your business.";
@@ -15,7 +16,7 @@ const BRANDBOOK_PDF = "/assets/images/AvyENKvhfMltqXSlWMPk8vEDAeg.pdf";
 export const professionalLogoDesign: ServicePageData = {
   hero: {
     variant: "showcase",
-    heading: "Expertly designed, custom branding from only $499.",
+    heading: `Expertly designed, custom branding from only ${BRANDING_FROM}.`,
     subheading: "Professional Logo Design",
     intro:
       "Unique handcrafted logos and brand kits made to look world-class, without the agency bloat. For companies who want to move fast, and make it big.",
@@ -100,7 +101,7 @@ export const professionalLogoDesign: ServicePageData = {
         {
           name: "Basic",
           spots: "Only 7 spots today",
-          price: "$499",
+          price: PRICING.products.branding.packages[0].price_display,
           period: "/ per package",
           features: [
             "1 logo concept included",
@@ -123,7 +124,7 @@ export const professionalLogoDesign: ServicePageData = {
           badge: "MOST POPULAR",
           highlighted: true,
           spots: "Only 7 spots today",
-          price: "$1,249",
+          price: PRICING.products.branding.packages[1].price_display,
           period: "/ per package",
           features: [
             "Everything in Basic +",
@@ -146,7 +147,7 @@ export const professionalLogoDesign: ServicePageData = {
         {
           name: "Brand Powerhouse",
           spots: "Only 7 spots today",
-          price: "$2,670",
+          price: PRICING.products.branding.packages[2].price_display,
           period: "/ per package",
           features: [
             "Everything in Premium +",

@@ -1,4 +1,5 @@
 import type { ServicePageData } from "./service-pages/types";
+import { SEO_PER_PAGE } from "@/content/pricing.generated";
 
 /**
  * Homepage FAQ, in the shape ServiceFaq takes so the homepage renders the same
@@ -28,7 +29,7 @@ export const HOME_FAQ: ServicePageData["faq"] = {
     },
     {
       q: "How does SEO pricing work?",
-      a: "$499 per page, per month, with a three month minimum. You pick the pages worth ranking and the price is simply that many pages — no open-ended retainer and no lock-in past the first three months.",
+      a: `${SEO_PER_PAGE} per page, per month, with a three month minimum. You pick the pages worth ranking and the price is simply that many pages — no open-ended retainer and no lock-in past the first three months.`,
     },
     {
       q: "Can you redesign my existing website?",

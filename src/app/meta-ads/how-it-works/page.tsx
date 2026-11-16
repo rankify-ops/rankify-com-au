@@ -4,6 +4,7 @@ import { ContactFooter } from "@/components/sections/ContactFooter";
 import { Reveal } from "@/components/ui/Reveal";
 import { Shot } from "@/components/sidekick/Shot";
 import { Band, Heading, SidekickCta, SidekickNav } from "@/components/sidekick/SidekickChrome";
+import { SIDEKICK_FROM } from "@/content/pricing.generated";
 
 /**
  * One ad, from the file on your desktop to a verdict.
@@ -132,7 +133,7 @@ export default function HowItWorksPage() {
             That loop, every week, without you learning Meta first.
           </h2>
           <p className="mx-auto mt-4 max-w-[560px] text-[16px] leading-relaxed text-white/70">
-            From $99 a month. No contract, no exit fee, and your whole team included.
+            From {SIDEKICK_FROM} a month. No contract, no exit fee, and your whole team included.
           </p>
           <div className="mt-8 flex justify-center">
             <SidekickCta light />

@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Publishing a price in the CRM dispatches this, so a price change reaches
+  # the live site without anyone pushing a commit. The prices are baked into
+  # <title> tags and JSON-LD at build time, so a rebuild is what "updating the
+  # website" actually means here.
+  repository_dispatch:
+    types: [pricing-updated]
 
 permissions:
   contents: read
@@ -38,6 +44,11 @@ jobs:
           # fallback — the checkout button stops charging and nobody is told.
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: pk_live_51QNo1yGkhGJ4OA8NK9HofsL5Gi2yS7tuyYErUn9FTmqX4GQpncDjBPxPnQyXlvWTMLwgNK1Ryk3QnuinxdI5QTm100eYhqNJpX
           NEXT_PUBLIC_CHECKOUT_API: https://rankify-com-au.vercel.app
+          # Where `npm run pricing` (the prebuild step) reads prices from.
+          # Every price on the site comes from here; the build fails rather
+          # than falling back, because a silent fallback is how nine copies of
+          # every price drifted apart in the first place.
+          PRICING_URL: https://rankify-crm.vercel.app/pricing.json
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out

@@ -1,11 +1,15 @@
 /**
  * Ad Sidekick, as the website sells it.
  *
- * The plan rows are a copy of `SIDEKICK_FEATURES` in
- * `rankify-editor/src/lib/sidekick-plans.ts`, which is what Stripe bills from
- * and what `ecomsidekick-app/src/lib/planMenu.ts` enforces in the app's own
- * sidebar. Two copies of a price list drift, so when one of those changes this
- * file changes with it — the values below were taken from that file on
+ * Every number here comes from the CRM price record at build time. Nothing in
+ * this file is a price; it holds the copy that sits next to one.
+ *
+ * WARNING: the record is not yet what Stripe bills from.
+ * `rankify-editor/src/lib/sidekick-plans.ts` is still the list Stripe charges
+ * against, and `ecomsidekick-app/src/lib/planMenu.ts` is what the app enforces
+ * in its own sidebar. Changing the price in the CRM changes what this website
+ * advertises and nothing else, so those two still have to be moved over before
+ * a price change is real — the values below were taken from that file on
  * 14 Nov 2026 and match it exactly.
  *
  * Things this file may not say, and why:
@@ -21,6 +25,8 @@
  *     Meta has not approved the app yet.
  */
 
+import { PRICING } from "@/content/pricing.generated";
+
 export type SidekickPlan = {
   id: "basic" | "pro" | "max";
   name: string;
@@ -33,36 +39,39 @@ export type SidekickPlan = {
   featured?: boolean;
 };
 
-export const SIDEKICK_PLANS: SidekickPlan[] = [
-  {
-    id: "basic",
-    name: "Basic",
-    priceAud: 99,
-    brands: "1 brand",
-    extraBrandAud: 49,
-    creatives: "30 AI creatives a month",
-    pitch: "One brand, every number in one place.",
-  },
-  {
-    id: "pro",
-    name: "Pro",
-    priceAud: 299,
-    brands: "3 brands",
-    extraBrandAud: 39,
-    creatives: "150 AI creatives a month",
-    pitch: "Three brands, and the creative made for you.",
-    featured: true,
-  },
-  {
-    id: "max",
-    name: "Max",
-    priceAud: 699,
-    brands: "10 brands",
-    extraBrandAud: 29,
-    creatives: "600 AI creatives a month",
-    pitch: "Ten brands, running themselves. For agencies.",
-  },
-];
+/**
+ * Copy that belongs to the plan rather than to its price. Keyed by plan id so
+ * a plan the CRM adds shows up with no copy rather than disappearing.
+ */
+const PLAN_PITCH: Record<string, string> = {
+  basic: "One brand, every number in one place.",
+  pro: "Three brands, and the creative made for you.",
+  max: "Ten brands, running themselves. For agencies.",
+};
+
+/** The plan we point most people at. */
+const FEATURED_PLAN = "pro";
+
+/**
+ * Built from the CRM price record, not written out here.
+ *
+ * The numbers used to be a hand-kept copy of the list Stripe bills from, and a
+ * hand-kept copy is a copy that drifts. Now the only way to change a price is
+ * to change it in the one place, which is the point.
+ */
+export const SIDEKICK_PLANS: SidekickPlan[] = PRICING.products.ad_sidekick.tiers.map((t) => ({
+  id: t.id as SidekickPlan["id"],
+  name: t.name,
+  priceAud: t.per_month_cents / 100,
+  brands: `${t.brands_included} ${t.brands_included === 1 ? "brand" : "brands"}`,
+  extraBrandAud: t.extra_brand_per_month_cents / 100,
+  creatives: `${t.ai_creatives_per_month} AI creatives a month`,
+  pitch: PLAN_PITCH[t.id] ?? "",
+  featured: t.id === FEATURED_PLAN,
+}));
+
+/** By id, for the rows below. */
+const PLAN = Object.fromEntries(PRICING.products.ad_sidekick.tiers.map((t) => [t.id, t]));
 
 export type PlanRow = {
   label: string;
@@ -74,8 +83,19 @@ export type PlanRow = {
 
 /** Mirrors SIDEKICK_FEATURES, in the app's own menu order. */
 export const PLAN_ROWS: PlanRow[] = [
-  { label: "Brands included", note: "Each brand past this is charged per month", basic: "1", pro: "3", max: "10" },
-  { label: "Each extra brand", basic: "$49/mo", pro: "$39/mo", max: "$29/mo" },
+  {
+    label: "Brands included",
+    note: "Each brand past this is charged per month",
+    basic: String(PLAN.basic.brands_included),
+    pro: String(PLAN.pro.brands_included),
+    max: String(PLAN.max.brands_included),
+  },
+  {
+    label: "Each extra brand",
+    basic: `${PLAN.basic.extra_brand_per_month_display}/mo`,
+    pro: `${PLAN.pro.extra_brand_per_month_display}/mo`,
+    max: `${PLAN.max.extra_brand_per_month_display}/mo`,
+  },
   {
     label: "Everyone in your team",
     note: "People are never charged for — add the whole agency",

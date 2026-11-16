@@ -1,6 +1,7 @@
 import type Stripe from "stripe";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { stripe, cors, clip } from "./_lib.js";
+import { getPricing, driftReport } from "./_pricing.js";
 
 /**
  * Creates an embedded Checkout Session for a website build.
@@ -47,6 +48,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const pagesMode = b.pagesMode === "rankify" ? "rankify" : "custom";
     const totalPages = pagesMode === "rankify" ? INCLUDED_PAGES : pages.length + servicePages;
     const extra = Math.max(0, totalPages - INCLUDED_PAGES);
+
+    // What we are about to charge, checked against what the CRM says the
+    // price is supposed to be. Deliberately a log line and not a correction:
+    // the record is the advertised price, these constants are the charged one,
+    // and a bad write in the CRM must never become a wrong card charge. If
+    // this ever fires, the website and the checkout have drifted apart and a
+    // person needs to decide which is right.
+    void getPricing().then((rec) => {
+      const drift = driftReport(
+        rec,
+        { BASE_CENTS, EXTRA_PAGE_CENTS },
+        {
+          BASE_CENTS: ["website_build", "base_cents"],
+          EXTRA_PAGE_CENTS: ["website_build", "extra_page_cents"],
+        },
+      );
+      if (drift.length) console.error("PRICE DRIFT in create-checkout-session:", drift.join("; "));
+    });
 
     const email = typeof b.email === "string" ? b.email.trim() : "";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {

@@ -1,4 +1,5 @@
 import type { ComparisonBlock } from "./service-pages/types";
+import { WEBSITE_FROM, SHOPIFY_FROM, HOSTING_PER_YEAR } from "@/content/pricing.generated";
 
 /**
  * The agency comparison, on the homepage.
@@ -17,14 +18,14 @@ export const HOME_COMPARISON: ComparisonBlock = {
   rows: [
     { icon: "person", label: "Who you talk to", agency: "Account managers, juniors, whoever", us: "Just the developer" },
     { icon: "clock", label: "Timeline", agency: "2–4 months", us: "Days and weeks, not quarters" },
-    { icon: "dollar", label: "What it costs", agency: "$20k–$40k+ to start", us: "Websites from $2,999, stores from $5,999" },
+    { icon: "dollar", label: "What it costs", agency: "$20k–$40k+ to start", us: `Websites from ${WEBSITE_FROM}, stores from ${SHOPIFY_FROM}` },
     { icon: "repeat", label: "Retainer", agency: "Mandatory, up to $500/mo", us: "Optional, only if you want ongoing work" },
     { icon: "trending", label: "Built to convert", agency: "Looks nice, maybe", us: "Engineered to sell, and looks better" },
     { icon: "revisions", label: "Revisions", agency: "Billed hourly", us: "Unlimited, submitted in 2 rounds" },
     { icon: "shield", label: "Everything in one place", agency: "Separate SEO and ads agencies", us: "Build, SEO and ads under one roof" },
-    { icon: "card", label: "Ongoing cost / year", agency: "$2,000 – $7,000+", us: "$250 hosting, nothing else", highlight: true },
+    { icon: "card", label: "Ongoing cost / year", agency: "$2,000 – $7,000+", us: `${HOSTING_PER_YEAR} hosting, nothing else`, highlight: true },
   ],
-  footnote: "Agency retainers add up every single year. With us it's $250 a year for hosting and security — staying on for anything more is a choice you make monthly.",
+  footnote: `Agency retainers add up every single year. With us it's ${HOSTING_PER_YEAR} a year for hosting and security — staying on for anything more is a choice you make monthly.`,
   eyebrow: "One developer. Whole-agency output.",
   heading: "A developer who knows AI, conversion, and design is a whole agency in one person.",
   body: [

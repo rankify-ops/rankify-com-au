@@ -5,6 +5,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { ServiceFaq } from "@/components/service-page/ServiceFaq";
 import { Band, Heading, SidekickCta, SidekickNav } from "@/components/sidekick/SidekickChrome";
 import { PLAN_ROWS, SIDEKICK_PLANS, SIDEKICK_FAQ } from "@/content/sidekick";
+import { SIDEKICK_TIERS } from "@/content/pricing.generated";
 
 /**
  * Every row of every plan.
@@ -15,7 +16,7 @@ import { PLAN_ROWS, SIDEKICK_PLANS, SIDEKICK_FAQ } from "@/content/sidekick";
  * so it has to stay in step with that file rather than be rewritten by hand.
  */
 export const metadata: Metadata = {
-  title: "Ad Sidekick pricing — $99, $299 and $699 a month | Rankify",
+  title: `Ad Sidekick pricing — ${SIDEKICK_TIERS} a month | Rankify`,
   description:
     "Every plan includes the whole core product: upload, review, testing, winners, the scale checks and the daily P&L. Pro adds creative production, Max adds automation. No contract.",
   alternates: { canonical: "/meta-ads/pricing" },

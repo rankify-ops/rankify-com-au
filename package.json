@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build && node scripts/trailing-slash.mjs",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "pricing": "node scripts/pricing/fetch-pricing.mjs",
+    "predev": "npm run pricing",
+    "prebuild": "npm run pricing"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",

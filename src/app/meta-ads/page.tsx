@@ -7,6 +7,7 @@ import { ServiceFaq } from "@/components/service-page/ServiceFaq";
 import { Shot } from "@/components/sidekick/Shot";
 import { Band, Heading, SidekickCta, SidekickNav } from "@/components/sidekick/SidekickChrome";
 import { SIDEKICK_FAQ, SIDEKICK_PLANS, SIDEKICK_STEPS, LEARNING_NOTES } from "@/content/sidekick";
+import { SIDEKICK_FROM, SIDEKICK_TO } from "@/content/pricing.generated";
 
 /**
  * Ad Sidekick, sold as its own product.
@@ -18,7 +19,7 @@ import { SIDEKICK_FAQ, SIDEKICK_PLANS, SIDEKICK_STEPS, LEARNING_NOTES } from "@/
 export const metadata: Metadata = {
   title: "Ad Sidekick — run your Meta ads without logging into Meta | Rankify",
   description:
-    "Upload your ads and Ad Sidekick names them, builds the campaigns, tells you which are working, when to scale and what to turn off. For Shopify brands. From $99/mo, no contract.",
+    `Upload your ads and Ad Sidekick names them, builds the campaigns, tells you which are working, when to scale and what to turn off. For Shopify brands. From ${SIDEKICK_FROM}/mo, no contract.`,
   alternates: { canonical: "/meta-ads" },
 };
 
@@ -81,7 +82,7 @@ export default function MetaAdsPage() {
             <Reveal delay={0.15} className="mt-8">
               <SidekickCta />
               <p className="mt-3.5 text-[13.5px] text-grey">
-                From $99/mo. No contract, no exit fee.
+                From {SIDEKICK_FROM}/mo. No contract, no exit fee.
               </p>
             </Reveal>
           </div>
@@ -102,7 +103,7 @@ export default function MetaAdsPage() {
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
             { k: "Your retainer", v: "whatever you pay now" },
-            { k: "Ad Sidekick", v: "$99 – $699/mo" },
+            { k: "Ad Sidekick", v: `${SIDEKICK_FROM} – ${SIDEKICK_TO}/mo` },
             { k: "The difference", v: "goes into ad spend" },
             { k: "To know an ad works", v: "about 3 days" },
           ].map((c) => (

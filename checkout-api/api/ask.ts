@@ -3,6 +3,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { cors } from "./_lib.js";
 import { crmConfigured, logAsk, updateAsk } from "./_crm.js";
 import { allow, limitsConfigured } from "./_limits.js";
+import { getPricing, priceBlock } from "./_pricing.js";
 
 /**
  * The ask box on the home page.
@@ -132,6 +133,21 @@ const TOPICS = [
   "off_topic",
 ] as const;
 
+/**
+ * The prompt the model actually gets: the fixed text, plus whatever prices the
+ * CRM is publishing right now.
+ *
+ * Prices are not written into SYSTEM any more. A price in a prompt is a copy
+ * of a price, and a copy drifts — this endpoint was quoting $99 Ad Sidekick
+ * for as long as the prompt said so, whatever the plan table showed.
+ */
+async function buildSystem(): Promise<string> {
+  const block = priceBlock(await getPricing());
+  return block
+    ? `${SYSTEM}\n\n${block}`
+    : `${SYSTEM}\n\nPRICES\nYou do not have prices available right now. Do not quote, estimate or guess any price, and do not repeat a price from earlier in this conversation. Say that Tom will confirm exact pricing on the call, and get them to book one.`;
+}
+
 const SYSTEM = `You are the assistant on rankify.com.au, an Australian digital agency run by Thomas Flood.
 
 Answer in Tom's voice: plain, direct, Australian, no hype and no marketing waffle. Short. Two or three sentences usually does it. Never use em dashes.
@@ -139,7 +155,7 @@ Answer in Tom's voice: plain, direct, Australian, no hype and no marketing waffl
 Every answer does the same two things: say whether we do the thing and what it actually involves, then hand them off. Something like "Yes, we build Shopify stores and we build them around conversion rather than looks. Book fifteen minutes with Tom, or read how we do it." You are not trying to close them in the chat. You are getting them to the right page or onto a call.
 
 WHAT RANKIFY DOES
-- Custom websites. Built around how the customer's customers actually buy, not from a template. From $2,999. Anything custom in a site is normal work for us: calculators, booking systems, quoting tools, portals, member areas.
+- Custom websites. Built around how the customer's customers actually buy, not from a template. Anything custom in a site is normal work for us: calculators, booking systems, quoting tools, portals, member areas.
 - Shopify ecommerce builds, and Shopify development on existing stores.
 - Custom apps, internal tools, backends, dashboards and workflows. This is a real part of the business, not a sideline.
 - AI and automation: automations, integrations, and AI built into how a business runs.
@@ -149,8 +165,8 @@ WHAT RANKIFY DOES
 - Branding and logo design, though it is not the main focus.
 
 THE TWO PRODUCTS
-- Every Rankify website comes with a back end at app.rankify.com.au. The client asks for a change in plain words, sees it before it goes live, approves it, and can undo it. Ongoing plans run from $199 a month.
-- Ad Sidekick (sidekick.rankify.com.au) is our own product for Shopify brands running Meta ads. Upload your ads, it names them, builds the campaigns, tells you which are working, when to raise spend and what to turn off, and keeps your winners. $99, $299 or $699 a month. No contract. Every plan includes the whole core product; Pro adds creative production, Max adds automation. Sign-up is invitation only right now, so people request access.
+- Every Rankify website comes with a back end at app.rankify.com.au. The client asks for a change in plain words, sees it before it goes live, approves it, and can undo it.
+- Ad Sidekick (sidekick.rankify.com.au) is our own product for Shopify brands running Meta ads. Upload your ads, it names them, builds the campaigns, tells you which are working, when to raise spend and what to turn off, and keeps your winners. No contract. Every plan includes the whole core product; Pro adds creative production, Max adds automation. Sign-up is invitation only right now, so people request access.
 
 THE POSITIONING
 The goal is profit. Not clicks, not views. The client works directly with Tom, not an account manager.
@@ -321,6 +337,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       );
     }
 
+    // Fetched before the model call, not at module load: a serverless
+    // instance can live long enough for a price change to land, and this is
+    // cached for five minutes anyway.
+    const systemPrompt = await buildSystem();
+
     const response = await client.messages.create({
       model: MODEL,
       max_tokens: 1024,
@@ -329,7 +350,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       output_config: { effort: "low" },
       // No server-side fallback here: Haiku 5.5 does not offer one. A safety
       // refusal is handled below instead, by checking stop_reason.
-      system: SYSTEM,
+      system: systemPrompt,
       tools: [ANSWER_TOOL],
       tool_choice: { type: "tool", name: "answer" },
       messages: history,

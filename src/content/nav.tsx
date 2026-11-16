@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { WEBSITE_FROM, SHOPIFY_FROM, SEO_PER_PAGE, SHOPIFY_RETAINER_FROM } from "@/content/pricing.generated";
 
 /* --- tiny stroke icons used on the menu choice cards --- */
 const I = ({ d }: { d: string }) => (
@@ -66,13 +67,13 @@ export const NAV_ITEMS: NavItem[] = [
           // Top of the page, not the configurator — the menu sends people to
           // the pitch; Get Started is what jumps them to the price.
           label: "I want a new website",
-          sub: "Custom built, designed around how your customers buy. Websites from $2,999.",
+          sub: `Custom built, designed around how your customers buy. Websites from ${WEBSITE_FROM}.`,
           href: WEB,
           icon: <Code />,
         },
         {
           label: "I want an online store",
-          sub: "Selling products online? That's a Shopify build. Stores from $5,999.",
+          sub: `Selling products online? That's a Shopify build. Stores from ${SHOPIFY_FROM}.`,
           href: SHOP,
           icon: <Cart />,
         },
@@ -105,13 +106,13 @@ export const NAV_ITEMS: NavItem[] = [
       choices: [
         {
           label: "I want a new website",
-          sub: "Custom Shopify store designed and built from scratch. Stores from $5,999.",
+          sub: `Custom Shopify store designed and built from scratch. Stores from ${SHOPIFY_FROM}.`,
           href: SHOP,
           icon: <Cart />,
         },
         {
           label: "I want an ongoing developer",
-          sub: "A dedicated developer on monthly retainer. From $499/month, no lock in.",
+          sub: `A dedicated developer on monthly retainer. From ${SHOPIFY_RETAINER_FROM}/month, no lock in.`,
           href: `${DEV}#hourly-pricing`,
           icon: <Shield />,
         },
@@ -147,7 +148,7 @@ export const NAV_ITEMS: NavItem[] = [
         },
         {
           label: "I want SEO for corporate or B2B",
-          sub: "Serious SEO for serious growth, scale, and visibility. $499 per page, 3 month minimum.",
+          sub: `Serious SEO for serious growth, scale, and visibility. ${SEO_PER_PAGE} per page, 3 month minimum.`,
           href: "/seo#corporate-b2b",
           icon: <Chart />,
         },

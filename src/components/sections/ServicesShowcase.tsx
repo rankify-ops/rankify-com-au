@@ -2,6 +2,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SmartLink } from "@/components/ui/SmartLink";
 import { SectionHeading } from "@/components/service-page/SectionHeading";
 import { NAV_ITEMS } from "@/content/nav";
+import { WEBSITE_FROM, SHOPIFY_FROM, SEO_PER_PAGE } from "@/content/pricing.generated";
 
 /**
  * The six services as cards, on the dark band the "Websites Starting From"
@@ -15,15 +16,15 @@ import { NAV_ITEMS } from "@/content/nav";
 const BLURBS: Record<string, { line: string; price: string }> = {
   "Web Development": {
     line: "Custom sites built around how your customers actually decide. Live in 7–15 days.",
-    price: "From $2,999",
+    price: `From ${WEBSITE_FROM}`,
   },
   Shopify: {
     line: "Custom Liquid stores for brands scaling profitably. Migrations handled.",
-    price: "From $5,999",
+    price: `From ${SHOPIFY_FROM}`,
   },
   SEO: {
     line: "Priced per page instead of an open-ended retainer, reported in leads.",
-    price: "$499 / page / mo",
+    price: `${SEO_PER_PAGE} / page / mo`,
   },
   "Google Ads": {
     line: "Search and Shopping pointed at profit, with the tracking wired up properly.",
