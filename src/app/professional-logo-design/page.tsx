@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { JsonLd, faqSchema, serviceSchema } from "@/lib/schema";
 import { ServicePageTemplate } from "@/components/templates/ServicePageTemplate";
 import { professionalLogoDesign } from "@/content/service-pages/professional-logo-design";
-import { BRANDING_FROM } from "@/content/pricing.generated";
+import { BRANDING_FROM, BRANDING_FROM_AMOUNT } from "@/content/pricing.generated";
 
 export const metadata: Metadata = {
   title: `Professional Logo Design | Custom Branding from ${BRANDING_FROM} | Rankify`,
@@ -27,7 +27,7 @@ export default function ProfessionalLogoDesignPage() {
           description:
             "Custom logo and brand identity design, delivered with full ownership of the source files.",
           path: "/professional-logo-design",
-          price: 499,
+          price: BRANDING_FROM_AMOUNT,
           unit: `From ${BRANDING_FROM} per logo package`,
         })}
       />

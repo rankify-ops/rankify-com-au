@@ -8,7 +8,7 @@
  */
 import type { ServicePageData } from "./types";
 import { WEB_CLIENT_LOGOS } from "./client-logos";
-import { SEO_PER_PAGE } from "@/content/pricing.generated";
+import { SEO_PER_PAGE, SEO_PER_PAGE_AMOUNT, SEO_MINIMUM_MONTHS } from "@/content/pricing.generated";
 
 const CLOSING_NOTE =
   "SEO compounds. The work we do in month one is still earning in month twelve, which is the opposite of ads — the moment you stop paying for those, the traffic stops. That's why we scope it properly, report on it honestly, and never lock you into a contract to keep you.";
@@ -180,8 +180,8 @@ export const seo: ServicePageData = {
       blurb:
         `${SEO_PER_PAGE} per page, per month, with a three month minimum. Tick the pages that actually bring you work and the price updates as you go — no open-ended retainer, no guessing what's covered.`,
       // Per-page model rather than the web dev page's base-plus-extras.
-      pricePerPage: 499,
-      minMonths: 3,
+      pricePerPage: SEO_PER_PAGE_AMOUNT,
+      minMonths: SEO_MINIMUM_MONTHS,
       checkout: false,
       corePages: ["Home", "Main service page", "Location page"],
       optionalPages: [
@@ -265,7 +265,7 @@ export const seo: ServicePageData = {
       { q: "What is SEO?", a: "Search Engine Optimisation (SEO) helps your site show up when people search for what you offer. Better rankings mean more traffic, leads, and sales — without paying for ads." },
       { q: "How does SEO work?", a: "We optimise your website behind the scenes, write smart content, and build links to help you rank higher on Google. It's about improving your site and building authority over time." },
       { q: "Is SEO right for my business?", a: "If your customers are searching online, yes. SEO is ideal for local services, B2B, and eCommerce — but it's a long game, not a quick fix." },
-      { q: "How much does SEO cost?", a: `${SEO_PER_PAGE} per page, per month, with a three month minimum. You pick the pages worth ranking and the price is simply that many pages — so a three page campaign is $1,497 a month and you know exactly what's covered. No open-ended retainer, no lock-in past the first three months.` },
+      { q: "How much does SEO cost?", a: `${SEO_PER_PAGE} per page, per month, with a ${SEO_MINIMUM_MONTHS} month minimum. You pick the pages worth ranking and the price is simply that many pages — so a three page campaign is ${(SEO_PER_PAGE_AMOUNT * 3).toLocaleString("en-AU", { style: "currency", currency: "AUD", maximumFractionDigits: 0 })} a month and you know exactly what's covered. No open-ended retainer, no lock-in past the first three months.` },
       { q: "How fast will I see results?", a: "Most clients see traction in 3–6 months. SEO builds over time — real growth doesn't happen overnight." },
       { q: "Do I need to keep doing SEO once I rank?", a: "Yes. Rankings shift, algorithms update, and your competitors don't stop. Staying on top requires consistent work." },
       { q: "What's a backlink?", a: "A backlink is when another website links to yours. Good backlinks build trust with Google and help you rank." },

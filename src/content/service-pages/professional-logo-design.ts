@@ -128,7 +128,7 @@ export const professionalLogoDesign: ServicePageData = {
           period: "/ per package",
           features: [
             "Everything in Basic +",
-            "3 logo concepts included (in total)",
+            `${PRICING.products.branding.packages[1].logo_concepts} logo concepts included (in total)`,
             "Complete Brand Guidelines",
             "Brand Competitive Analysis",
             "Color palettes",

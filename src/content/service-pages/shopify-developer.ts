@@ -94,7 +94,7 @@ export const shopifyDeveloper: ServicePageData = {
           spots: "8 Spots Available",
           price: PRICING.products.shopify_retainer.tiers[0].per_month_display,
           period: "/ monthly",
-          note: "2 hours of dedicated Shopify development each month for your custom requests. No lock in.",
+          note: `${PRICING.products.shopify_retainer.tiers[0].hours_included} hours of dedicated Shopify development each month for your custom requests. No lock in.`,
           features: [
             `Overflow hours ${PRICING.products.shopify_retainer.tiers[0].overflow_hourly_display}/hr`,
             "Priority response (within 24hrs)",
@@ -113,7 +113,7 @@ export const shopifyDeveloper: ServicePageData = {
           spots: "8 Spots Available",
           price: PRICING.products.shopify_retainer.tiers[1].per_month_display,
           period: "/ monthly",
-          note: "5 hours of dedicated Shopify development each month for your custom requests. No lock in.",
+          note: `${PRICING.products.shopify_retainer.tiers[1].hours_included} hours of dedicated Shopify development each month for your custom requests. No lock in.`,
           features: [
             `Overflow hours ${PRICING.products.shopify_retainer.tiers[1].overflow_hourly_display}/hr`,
             "Priority response (within 24hrs)",
@@ -174,7 +174,7 @@ export const shopifyDeveloper: ServicePageData = {
     subheading: "Got questions? We've got answers. Here's everything you need to know about working with us.",
     closingNote: SHOPIFY_CLOSING_NOTE,
     items: [
-      { q: "What does your ongoing Shopify support retainer include?", a: `Our retainer plans start at ${SHOPIFY_RETAINER_FROM}/month for 2 hours and cover bug fixes, design updates, content changes, new features, app troubleshooting, and performance monitoring. You get a dedicated developer who already knows your store — no re-explaining your setup every time. Overflow hours are billed at $125/hr.` },
+      { q: "What does your ongoing Shopify support retainer include?", a: `Our retainer plans start at ${SHOPIFY_RETAINER_FROM}/month for ${PRICING.products.shopify_retainer.tiers[0].hours_included} hours and cover bug fixes, design updates, content changes, new features, app troubleshooting, and performance monitoring. You get a dedicated developer who already knows your store — no re-explaining your setup every time. Overflow hours are billed at ${PRICING.products.shopify_retainer.tiers[0].overflow_hourly_display}/hr on ${PRICING.products.shopify_retainer.tiers[0].name} and ${PRICING.products.shopify_retainer.tiers[1].overflow_hourly_display}/hr on ${PRICING.products.shopify_retainer.tiers[1].name}.` },
       { q: "Can you integrate third-party apps with my Shopify store?", a: "Yes. We integrate with Klaviyo, Mailchimp, Judge.me, Loox, Recharge, Sendle, Australia Post, Xero, MYOB, and more. We recommend apps based on what your business actually needs rather than loading your store with unnecessary tools." },
       { q: "Do I have to sign a lock-in contract?", a: "No. Retainers are month to month and hourly work is on demand — pay per hour for one-off jobs with no commitment." },
       { q: "Can you work on a store you didn't build?", a: "Yes. Most of our retainer clients came to us with an existing store. We customise existing themes — section layouts, custom Liquid code, design tweaks, and functionality improvements — without starting from zero." },

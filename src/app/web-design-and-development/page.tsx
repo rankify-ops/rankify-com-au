@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { JsonLd, faqSchema, serviceSchema } from "@/lib/schema";
 import { ServicePageTemplate } from "@/components/templates/ServicePageTemplate";
 import { webDesignAndDevelopment } from "@/content/service-pages/web-design-and-development";
-import { WEBSITE_FROM, HOSTING_PER_YEAR } from "@/content/pricing.generated";
+import { WEBSITE_FROM, WEBSITE_FROM_AMOUNT, WEBSITE_PAGES_INCLUDED, HOSTING_PER_YEAR } from "@/content/pricing.generated";
 
 export const metadata: Metadata = {
   title: `Web Design & Development | Websites from ${WEBSITE_FROM} | Rankify`,
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 export default function WebDesignAndDevelopmentPage() {
   return (
     <>
-      <JsonLd data={serviceSchema({ name: "Web Design & Development", description: `Custom-built websites that convert, from ${WEBSITE_FROM} with 10 pages included.`, path: "/web-design-and-development", price: 2999, unit: `From ${WEBSITE_FROM}, 10 pages included` })} />
+      <JsonLd data={serviceSchema({ name: "Web Design & Development", description: `Custom-built websites that convert, from ${WEBSITE_FROM} with ${WEBSITE_PAGES_INCLUDED} pages included.`, path: "/web-design-and-development", price: WEBSITE_FROM_AMOUNT, unit: `From ${WEBSITE_FROM}, ${WEBSITE_PAGES_INCLUDED} pages included` })} />
       <JsonLd data={faqSchema(webDesignAndDevelopment.faq.items)} />
       <ServicePageTemplate data={webDesignAndDevelopment} />
     </>

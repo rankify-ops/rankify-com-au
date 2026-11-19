@@ -1,6 +1,15 @@
 import type Stripe from "stripe";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { stripe, cors, clip } from "./_lib.js";
+import {
+  BASE_CENTS as BUILD_CENTS,
+  HOSTING_CENTS,
+  HOSTING_LOOKUP_KEY,
+  OFFER_BUILD_DISCOUNT_CENTS,
+  OFFER_HOSTING_FIRST_YEAR_CENTS,
+  OFFER_HOURS,
+  OFFER_COUPON_ID as FIRST_YEAR_COUPON_ID,
+} from "./_pricing.generated.js";
 
 /**
  * Checkout for the free home page preview offer (the PreviewGate lock screen
@@ -23,17 +32,15 @@ import { stripe, cors, clip } from "./_lib.js";
  * was set up for.
  */
 const CURRENCY = "aud";
-const BUILD_CENTS = 299_900; // $2,999 website build
-const HOSTING_CENTS = 24_900; // $249 per year hosting, on top of the build
 
-const OFFER_HOURS = 72;
-const OFFER_BUILD_DISCOUNT_CENTS = 15_200; // $2,999 → $2,847, so with $1 hosting they pay $2,848 and save $400
-const OFFER_HOSTING_FIRST_YEAR_CENTS = 100; // $1 first year, then $249/yr
-
-// Hosting is a real Stripe product/price (created once, found by lookup key) so
-// the first-year coupon can be scoped to hosting alone.
-const HOSTING_LOOKUP_KEY = "preview_hosting_yearly_aud_249";
-const FIRST_YEAR_COUPON_ID = "preview-hosting-first-year-1";
+// Every amount above comes from the price record via _pricing.generated.ts.
+// The build price is the same website_build the configurator charges, so the
+// offer can never discount a price this site no longer sells.
+//
+// Hosting is a real Stripe product/price, created once and found by lookup
+// key, so the first-year coupon can be scoped to hosting alone. The key and
+// the coupon id come from the record too: they name objects that already
+// exist in Stripe, and renaming them would orphan what is renewing today.
 
 let hostingPriceId: string | null = null;
 let hostingProductId: string | null = null;

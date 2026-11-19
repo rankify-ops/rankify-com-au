@@ -2,19 +2,20 @@ import type Stripe from "stripe";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { stripe, cors, clip } from "./_lib.js";
 import { getPricing, driftReport } from "./_pricing.js";
+import { BASE_CENTS, INCLUDED_PAGES, EXTRA_PAGE_CENTS } from "./_pricing.generated.js";
 
 /**
  * Creates an embedded Checkout Session for a website build.
  *
  * Pricing is computed here, from the page count only. The browser never sends
- * an amount — if it did, anyone could POST $1 and get a website. Keep these
- * three numbers in step with the configurator block in
- * src/content/service-pages/web-design-and-development.ts.
+ * an amount — if it did, anyone could POST $1 and get a website.
+ *
+ * The three numbers come from the price record via _pricing.generated.ts, so
+ * they cannot drift from what the site advertises. They are still fixed at
+ * deploy rather than read per request: a live read would let a bad write in
+ * the CRM debit a card, and would reprice someone already on the payment page.
  */
 const CURRENCY = "aud";
-const BASE_CENTS = 299_900; // $2,999 — charged whether it's one page or ten
-const INCLUDED_PAGES = 10;
-const EXTRA_PAGE_CENTS = 20_000; // $200 per page beyond the included ten
 
 type Body = {
   /** "rankify" when they asked us to choose the pages instead of picking. */

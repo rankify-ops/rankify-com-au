@@ -48,7 +48,7 @@ jobs:
           # Every price on the site comes from here; the build fails rather
           # than falling back, because a silent fallback is how nine copies of
           # every price drifted apart in the first place.
-          PRICING_URL: https://rankify-crm.vercel.app/pricing.json
+          PRICING_URL: https://hq.rankify.com.au/api/pricing
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out

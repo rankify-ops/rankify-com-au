@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { JsonLd, faqSchema, serviceSchema } from "@/lib/schema";
 import { ServicePageTemplate } from "@/components/templates/ServicePageTemplate";
 import { shopifyDeveloper } from "@/content/service-pages/shopify-developer";
-import { SHOPIFY_RETAINER_FROM, SHOPIFY_HOURLY } from "@/content/pricing.generated";
+import { SHOPIFY_RETAINER_FROM, SHOPIFY_RETAINER_FROM_AMOUNT, SHOPIFY_HOURLY } from "@/content/pricing.generated";
 
 export const metadata: Metadata = {
   title: `Hire a Shopify Developer | Retainers from ${SHOPIFY_RETAINER_FROM}/mo | Rankify`,
@@ -27,7 +27,7 @@ export default function ShopifyDeveloperPage() {
           description:
             "Ongoing Shopify development on retainer or by the hour, with a dedicated developer who knows your store.",
           path: "/shopify-developer",
-          price: 499,
+          price: SHOPIFY_RETAINER_FROM_AMOUNT,
           unit: `From ${SHOPIFY_RETAINER_FROM} per month, or ${SHOPIFY_HOURLY} per hour casual`,
         })}
       />

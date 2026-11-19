@@ -2,6 +2,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { cors } from "./_lib.js";
 import { allowLead } from "./_limits.js";
 import { addEnquiry, crmConfigured, type Brief } from "./_crm.js";
+import { BASE_CENTS, INCLUDED_PAGES, EXTRA_PAGE_CENTS } from "./_pricing.generated.js";
 
 /**
  * Records a configurator enquiry the moment a usable email exists — before the
@@ -12,9 +13,11 @@ import { addEnquiry, crmConfigured, type Brief } from "./_crm.js";
  * Prices the brief the same way the checkout does, so the deal value on the
  * CRM record matches what they'd have paid.
  */
-const BASE = 2999;
-const INCLUDED_PAGES = 10;
-const EXTRA_PAGE = 200;
+// The same amounts the checkout charges, from the same generated file, so a
+// brief's recorded deal value can never disagree with what they were asked to
+// pay. In dollars because the CRM records the deal in dollars.
+const BASE = BASE_CENTS / 100;
+const EXTRA_PAGE = EXTRA_PAGE_CENTS / 100;
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (cors(req, res)) return;

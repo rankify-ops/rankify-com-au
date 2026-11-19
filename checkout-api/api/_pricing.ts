@@ -11,10 +11,15 @@
  * a bad write in the CRM becomes a wrong card charge, and a price change would
  * silently reprice people mid-checkout. What this is for is the opposite —
  * knowing what the amounts are *supposed* to be, so drift gets noticed. See
- * `driftReport` below and the repricing rule in rankify-crm/docs/pricing-api.md.
+ * `driftReport` below and the repricing rule in the pricing API docs.
+ *
+ * The amounts charged now come from `_pricing.generated.ts`, which is this
+ * same record baked in at generate time. So this read is no longer the only
+ * thing standing between the record and the charge — it is the check that the
+ * baked copy is still current, and it shouts when a deploy has fallen behind.
  */
 
-const URL = process.env.PRICING_URL ?? "https://rankify-crm.vercel.app/pricing.json";
+const URL = process.env.PRICING_URL ?? "https://hq.rankify.com.au/api/pricing";
 const TTL_MS = 5 * 60 * 1000;
 
 type Money = { [k: string]: unknown };
