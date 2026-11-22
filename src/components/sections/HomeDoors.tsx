@@ -204,12 +204,19 @@ export function HomeHero() {
 
       {/* One centred column. The ask box is the point of the hero, so it sits
           on the centre line rather than in a corner. */}
+      {/* No forced height on a phone.
+          Holding the hero at a full 100svh while the content is about 410px
+          tall left 206px of empty green above it and 122px below -- a third
+          of the hero doing nothing, which is what made the layout feel off
+          however the type was set. It now sizes to its content on a phone
+          and keeps the full-screen hero from sm up, where there is enough
+          content width to fill one. */}
       <FloatingPartners />
 
       {/* svh, not vh: on a phone vh is the height with the browser chrome
           hidden, so a vh-tall hero sits taller than the screen and pushes its
           own bottom out of sight until you scroll. svh is the visible height. */}
-      <div className="relative z-[3] flex min-h-[calc(100svh-72px)] flex-col items-center justify-center px-3.5 pb-12 pt-10 text-center sm:px-10 sm:pb-20 sm:pt-16 lg:min-h-[calc(100svh-60px)]">
+      <div className="relative z-[3] flex flex-col items-center justify-center px-3.5 pb-14 pt-12 text-center sm:min-h-[calc(100svh-72px)] sm:px-10 sm:pb-20 sm:pt-16 lg:min-h-[calc(100svh-60px)]">
         {/* Outside Reveal: it animates opacity and transform, and either one
             cancels the glass this box is drawn with. */}
         <div className="mt-6 flex w-full justify-center sm:mt-9">

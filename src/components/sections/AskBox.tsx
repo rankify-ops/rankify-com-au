@@ -147,32 +147,37 @@ export function AskBox() {
     // and no transform or opacity on this wrapper, because either would
     // cancel the backdrop-filter underneath it.
     <div className="w-full max-w-[680px]">
-      <div className="mb-4 flex items-center justify-center gap-3 text-left sm:mb-5 sm:gap-4">
+      <div className="mb-5 flex flex-col items-center justify-center gap-3 text-center sm:mb-5 sm:flex-row sm:gap-4 sm:text-left">
         <Image
           src={asset("/assets/images/fZdV1icYbXIkqfVAekWtJEAifo.png")}
           alt="Thomas Flood"
           width={104}
           height={118}
-          className="h-11 w-11 flex-none rounded-full object-cover object-top grayscale sm:h-16 sm:w-16"
+          className="h-14 w-14 flex-none rounded-full object-cover object-top grayscale sm:h-16 sm:w-16"
         />
-        <p className="max-w-[260px] text-[14.5px] leading-[1.35] text-white/70 sm:max-w-[440px] sm:text-balance sm:text-[16px]">
+        <p className="max-w-[280px] text-[14.5px] leading-[1.35] text-white/70 sm:max-w-[440px] sm:text-balance sm:text-[16px]">
           <span className="block font-semibold text-white">Hey, I&rsquo;m Thomas.</span>
           Tell me what you need and we&rsquo;ll take it from there.
         </p>
       </div>
 
-      <div className="relative w-full max-w-[680px] rounded-[28px] ring-1 ring-white/20 before:pointer-events-none before:absolute before:inset-0 before:z-[3] before:rounded-[28px] before:bg-[linear-gradient(135deg,rgba(255,255,255,0.45)_0%,rgba(255,255,255,0.06)_26%,rgba(255,255,255,0)_52%)] after:pointer-events-none after:absolute after:inset-x-8 after:top-0 after:z-[3] after:h-px after:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.75),transparent)]">
-        {/* Only the standard backdrop-filter, via Tailwind. Hand-writing a
+      <div className="relative w-full max-w-[680px] rounded-[24px] border border-white/10 shadow-[0_18px_50px_rgba(0,0,0,0.35)] before:hidden after:hidden sm:rounded-[28px] sm:border-0 sm:shadow-none sm:ring-1 sm:ring-white/20 sm:before:pointer-events-none sm:before:absolute sm:before:inset-0 sm:before:z-[3] sm:before:block sm:before:rounded-[28px] sm:before:bg-[linear-gradient(135deg,rgba(255,255,255,0.45)_0%,rgba(255,255,255,0.06)_26%,rgba(255,255,255,0)_52%)] sm:after:pointer-events-none sm:after:absolute sm:after:inset-x-8 sm:after:top-0 sm:after:z-[3] sm:after:block sm:after:h-px sm:after:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.75),transparent)]">
+        {/* Solid below sm, glass from sm up. Blur is expensive on a phone
+            and buys nothing with only a dark video behind it; the lit edge
+            and the top hairline above only read as glass, so they come off
+            at the same breakpoint rather than floating on a flat card.
+
+            Only the standard backdrop-filter, via Tailwind. Hand-writing a
             -webkit- one alongside it makes Lightning CSS drop the unprefixed
             property and the blur disappears from the shipped stylesheet. */}
-        <div className="w-full rounded-[28px] bg-white/[0.07] backdrop-blur-xl backdrop-saturate-150">
+        <div className="w-full rounded-[24px] bg-[#04231a] sm:rounded-[28px] sm:bg-white/[0.07] sm:backdrop-blur-xl sm:backdrop-saturate-150">
           <div className="flex w-full flex-col p-4 sm:p-6">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 ask(draft);
               }}
-              className="flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.08] py-2.5 pl-4 pr-2 transition-colors focus-within:border-white/45 sm:gap-3 sm:pl-6 sm:pr-2.5"
+              className="flex items-center gap-2 rounded-full border border-white/15 bg-black/25 py-2.5 pl-4 pr-2 transition-colors focus-within:border-white/45 sm:gap-3 sm:border-white/20 sm:bg-white/[0.08] sm:pl-6 sm:pr-2.5"
             >
               {/* The placeholder is drawn rather than native so a caret can
                   blink in front of it: the field looks ready to type in without
