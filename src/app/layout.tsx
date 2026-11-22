@@ -3,7 +3,6 @@ import Script from "next/script";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
-import { FloatingCta } from "@/components/layout/FloatingCta";
 import { JsonLd, organisationSchema, websiteSchema } from "@/lib/schema";
 
 /** Meta pixel, Rankify ad account. */
@@ -82,7 +81,6 @@ document.head.appendChild(o)}initApollo();`}
         <JsonLd data={websiteSchema} />
         <SmoothScroll />
         {children}
-        <FloatingCta />
       </body>
     </html>
   );
