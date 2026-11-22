@@ -153,11 +153,11 @@ export function AskBox() {
           alt="Thomas Flood"
           width={104}
           height={118}
-          className="h-12 w-12 flex-none rounded-full object-cover object-top grayscale sm:h-16 sm:w-16"
+          className="h-11 w-11 flex-none rounded-full object-cover object-top grayscale sm:h-16 sm:w-16"
         />
-        <p className="max-w-[440px] text-balance text-[15px] leading-snug text-white/75 sm:text-[16px]">
-          <span className="font-semibold text-white">Hey, I&rsquo;m Thomas.</span> Tell me below
-          how our team can help, and we&rsquo;ll take it from there.
+        <p className="max-w-[260px] text-[14.5px] leading-[1.35] text-white/70 sm:max-w-[440px] sm:text-balance sm:text-[16px]">
+          <span className="block font-semibold text-white">Hey, I&rsquo;m Thomas.</span>
+          Tell me what you need and we&rsquo;ll take it from there.
         </p>
       </div>
 

@@ -147,7 +147,7 @@ export function FloatingPartners() {
   }, []);
 
   return (
-    <div ref={host} aria-hidden className="pointer-events-none absolute inset-0 z-[2]">
+    <div ref={host} aria-hidden className="pointer-events-none absolute inset-0 z-[2] hidden sm:block">
       {MARKS.map((m, i) => (
         <span
           key={m.label}

@@ -7,6 +7,9 @@ import { useCallback, useEffect, useState } from "react";
  *
  * Rankify has two places to sign in and they are for different people: a
  * website client who wants to change their site, and an Ad Sidekick customer.
+ * Both titles are two words and both lines are one sentence, so the two cards
+ * sit the same height and their "Sign in" rows line up -- a card that wraps to
+ * a third line drags its own button out of step with the one beside it.
  * A single login link would send half of them to the wrong app, so the header
  * icon opens this instead of guessing.
  *
@@ -17,8 +20,8 @@ import { useCallback, useEffect, useState } from "react";
 
 const DOORS = [
   {
-    title: "Your website back end",
-    line: "Change your site by asking. See it before it goes live, and undo it any time.",
+    title: "Website Editor",
+    line: "Change your site by asking. See it before it goes live.",
     href: "https://app.rankify.com.au/login",
     icon: (
       <path d="m9 8-4.5 4L9 16M15 8l4.5 4L15 16" />
@@ -26,7 +29,7 @@ const DOORS = [
   },
   {
     title: "Ad Sidekick",
-    line: "What to upload, what to scale, what to turn off, and the daily P&L.",
+    line: "What to upload, what to scale, and the daily P&L.",
     href: "https://sidekick.rankify.com.au/login",
     icon: <path d="M4 10v4h3l6 4V6L7 10H4ZM17.5 9.2a4.2 4.2 0 0 1 0 5.6" />,
   },

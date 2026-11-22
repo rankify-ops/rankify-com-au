@@ -226,7 +226,7 @@ export function HomeHero() {
             exception at 16px, because anything smaller makes iOS Safari zoom
             the page when it takes focus. */}
         <Reveal delay={0.2} className="mt-7 sm:mt-9">
-          <h1 className="mx-auto max-w-[680px] text-balance text-[clamp(20px,2.1vw,28px)] font-medium leading-[1.12] tracking-[-0.03em] text-white">
+          <h1 className="mx-auto max-w-[680px] text-balance text-[clamp(22px,2.1vw,28px)] font-medium leading-[1.12] tracking-[-0.03em] text-white">
             We engineer high-performance marketing, websites, apps, AI,
             automations and dashboards.{" "}
             <span className="text-white/55">Custom built for your business.</span>
@@ -234,7 +234,7 @@ export function HomeHero() {
         </Reveal>
 
         <Reveal delay={0.3} className="mt-4 sm:mt-5">
-          <p className="mx-auto max-w-[560px] text-balance text-[15px] leading-snug text-white/55 sm:text-[16px]">
+          <p className="mx-auto max-w-[560px] text-balance text-[14.5px] leading-snug text-white/55 sm:text-[16px]">
             You work directly with us, and the goal is profit. Not clicks, not views,
             the business performance that actually matters.
           </p>
