@@ -38,9 +38,17 @@ export function LandingPixel({ contentName = "Free homepage offer" }: { contentN
 }
 
 /**
- * The mobile-only CTA bar, which appears once the hero's button has scrolled
- * past. Desktop keeps the in-page buttons — a phone is the only place where
- * you can be a long way from one.
+ * The CTA bar, which appears once the hero's button has scrolled past.
+ *
+ * It renders its own clearance. The bar is `fixed`, so it takes no space in
+ * the flow and will happily sit on top of whatever the page ends with — which
+ * on all four of these pages is the footer, and its legal links. Leaving that
+ * to the caller meant three of the four pages shipped without it. The spacer
+ * is an in-flow sibling rather than padding on the bar, because the bar is
+ * what we want out of the flow.
+ *
+ * Not mobile-only, despite how this once read: it shows at every width, so
+ * the clearance is unconditional too.
  */
 export function StickyCta({ href, label }: { href?: string; label: string }) {
   const [show, setShow] = useState(false);
@@ -61,34 +69,38 @@ export function StickyCta({ href, label }: { href?: string; label: string }) {
   }, []);
 
   return (
-    <div
-      className={`pointer-events-none fixed inset-x-0 bottom-0 z-[80] flex justify-center px-3 pb-3 transition-all duration-300 ${
-        show ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
-      }`}
-    >
-      {/* With no href it opens the qualifying form instead of navigating:
-          every CTA on a funnel page has to go through the same gate. */}
-      {href ? (
-        <Link
-          href={href}
-          className={`neu-btn neu-btn-dark block w-full max-w-[520px] rounded-full bg-[color:var(--green-text)] px-5 py-3.5 text-center text-[15px] font-bold text-white shadow-[0_12px_36px_rgba(7,168,137,0.35)] ${
-            show ? "pointer-events-auto" : ""
-          }`}
-        >
-          {label}
-        </Link>
-      ) : (
-        <button
-          type="button"
-          onClick={openQualify}
-          className={`neu-btn neu-btn-dark block w-full max-w-[520px] rounded-full bg-[color:var(--green-text)] px-5 py-3.5 text-center text-[15px] font-bold text-white shadow-[0_12px_36px_rgba(7,168,137,0.35)] ${
-            show ? "pointer-events-auto" : ""
-          }`}
-        >
-          {label}
-        </button>
-      )}
-    </div>
+    <>
+      {/* Clearance, so the page can always be scrolled clear of the bar. */}
+      <div aria-hidden className="h-24" />
+      <div
+        className={`pointer-events-none fixed inset-x-0 bottom-0 z-[80] flex justify-center px-3 pb-3 transition-all duration-300 ${
+          show ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+        }`}
+      >
+        {/* With no href it opens the qualifying form instead of navigating:
+            every CTA on a funnel page has to go through the same gate. */}
+        {href ? (
+          <Link
+            href={href}
+            className={`neu-btn neu-btn-dark block w-full max-w-[520px] rounded-full bg-[color:var(--green-text)] px-5 py-3.5 text-center text-[15px] font-bold text-white shadow-[0_12px_36px_rgba(7,168,137,0.35)] ${
+              show ? "pointer-events-auto" : ""
+            }`}
+          >
+            {label}
+          </Link>
+        ) : (
+          <button
+            type="button"
+            onClick={openQualify}
+            className={`neu-btn neu-btn-dark block w-full max-w-[520px] rounded-full bg-[color:var(--green-text)] px-5 py-3.5 text-center text-[15px] font-bold text-white shadow-[0_12px_36px_rgba(7,168,137,0.35)] ${
+              show ? "pointer-events-auto" : ""
+            }`}
+          >
+            {label}
+          </button>
+        )}
+      </div>
+    </>
   );
 }
 

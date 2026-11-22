@@ -333,10 +333,8 @@ export function DarkFunnelPage({ cfg }: { cfg: FunnelConfig }) {
         </div>
       </footer>
 
-      {/* Clearance for the sticky bar, at every width: the bar is not
-          mobile-only, so a `lg:hidden` spacer let it sit over the footer
-          links on desktop. */}
-      <div className="h-24" />
+      {/* StickyCta brings its own clearance now, so the footer links above
+          stay clickable without this page reserving the space itself. */}
       <StickyCta label={cfg.ctaLabel} />
       <QualifyModal />
     </div>
