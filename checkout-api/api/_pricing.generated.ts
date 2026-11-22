@@ -9,8 +9,8 @@
 // the diff to this file, and deploy checkout-api. A price change is meant to
 // be a deliberate deploy, not something that happens to a live checkout.
 //
-//   version 2, published, effective 2026-11-16
-//   generated 2026-11-19T12:03:16.133Z
+//   version 3, published, effective 2026-11-19
+//   generated 2026-11-22T09:37:15.360Z
 //   from https://hq.rankify.com.au/api/pricing
 
 /** Website build, charged whether it is one page or ten. */
@@ -38,4 +38,4 @@ export const OFFER_HOURS = 72;
 export const OFFER_COUPON_ID = "preview-hosting-first-year-1";
 
 /** The version these amounts came from, for the drift log. */
-export const CHARGING_FROM_VERSION = 2;
+export const CHARGING_FROM_VERSION = 3;
