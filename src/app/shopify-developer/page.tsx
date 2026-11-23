@@ -7,12 +7,12 @@ import { SHOPIFY_RETAINER_FROM, SHOPIFY_RETAINER_FROM_AMOUNT, SHOPIFY_HOURLY } f
 export const metadata: Metadata = {
   title: `Hire a Shopify Developer | Retainers from ${SHOPIFY_RETAINER_FROM}/mo | Rankify`,
   description:
-    "Ongoing Shopify development on retainer or by the hour. A dedicated developer who already knows your store — bug fixes, design changes, new features. No lock-in.",
+    "Ongoing Shopify development on retainer or by the hour. A dedicated developer who already knows your store — bug fixes, design changes, new features. 3 month minimum.",
   alternates: { canonical: "/shopify-developer" },
   openGraph: {
     title: `Hire a Shopify Developer | Retainers from ${SHOPIFY_RETAINER_FROM}/mo | Rankify`,
     description:
-      "Ongoing Shopify development on retainer or by the hour. A dedicated developer who already knows your store. No lock-in.",
+      "Ongoing Shopify development on retainer or by the hour. A dedicated developer who already knows your store. 3 month minimum.",
     url: "https://www.rankify.com.au/shopify-developer",
     type: "website",
   },

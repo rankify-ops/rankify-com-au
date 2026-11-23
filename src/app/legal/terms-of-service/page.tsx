@@ -71,7 +71,40 @@ const SECTIONS: LegalSection[] = [
     ],
   },
   {
-    heading: "4. Service Availability",
+    heading: "4. Shopify Developer Retainers",
+    blocks: [
+      {
+        type: "p",
+        text: "This section applies to retainers starting on or after 23 November 2026. It does not change any retainer already running.",
+      },
+      {
+        type: "p",
+        text: "Price. The retainer is A$499 per month and includes 2 hours of Shopify development each month. Extra hours are A$149 per hour. Work outside a retainer is A$275 per hour.",
+      },
+      {
+        type: "p",
+        text: "Minimum term. Each retainer has a minimum term of 3 monthly billing periods, then continues month to month until cancelled.",
+      },
+      {
+        type: "p",
+        text: "Billing. Fees are charged monthly in advance to your saved payment method.",
+      },
+      {
+        type: "p",
+        text: "Included hours. Included hours apply to the month they are billed and do not roll over unless we agree in writing.",
+      },
+      {
+        type: "p",
+        text: "Cancelling. You may cancel by email at any time. Cancellation takes effect at the end of the current billing month or the end of the minimum term, whichever is later. If you cancel during the minimum term, the remaining monthly fees for that term stay payable.",
+      },
+      {
+        type: "p",
+        text: "Nothing in this section limits your rights under the Australian Consumer Law.",
+      },
+    ],
+  },
+  {
+    heading: "5. Service Availability",
     blocks: [
       {
         type: "p",
@@ -80,7 +113,7 @@ const SECTIONS: LegalSection[] = [
     ],
   },
   {
-    heading: "5. Limitation of Liability",
+    heading: "6. Limitation of Liability",
     blocks: [
       {
         type: "p",
@@ -97,7 +130,7 @@ const SECTIONS: LegalSection[] = [
     ],
   },
   {
-    heading: "6. Third-Party Services",
+    heading: "7. Third-Party Services",
     blocks: [
       {
         type: "p",
@@ -106,7 +139,7 @@ const SECTIONS: LegalSection[] = [
     ],
   },
   {
-    heading: "7. Indemnification",
+    heading: "8. Indemnification",
     blocks: [
       {
         type: "p",
@@ -115,7 +148,7 @@ const SECTIONS: LegalSection[] = [
     ],
   },
   {
-    heading: "8. Governing Law",
+    heading: "9. Governing Law",
     blocks: [
       {
         type: "p",
@@ -124,7 +157,7 @@ const SECTIONS: LegalSection[] = [
     ],
   },
   {
-    heading: "9. Changes to These Terms",
+    heading: "10. Changes to These Terms",
     blocks: [
       {
         type: "p",
@@ -133,7 +166,7 @@ const SECTIONS: LegalSection[] = [
     ],
   },
   {
-    heading: "10. Contact Us",
+    heading: "11. Contact Us",
     blocks: [
       { type: "p", text: "If you have any questions about these Terms, contact us at:" },
       { type: "contact" },
@@ -147,7 +180,7 @@ export default function TermsOfServicePage() {
       <Header />
       <LegalPageTemplate
         title="Terms of service."
-        lastUpdated="28 October 2026"
+        lastUpdated="23 November 2026"
         intro='These Terms of Service ("Terms") govern your access to and use of rankify.com.au (the "Site"). By accessing or using our Site, you agree to these Terms.'
         sections={SECTIONS}
       />

@@ -112,7 +112,7 @@ export const NAV_ITEMS: NavItem[] = [
         },
         {
           label: "I want an ongoing developer",
-          sub: `A dedicated developer on monthly retainer. From ${SHOPIFY_RETAINER_FROM}/month, no lock in.`,
+          sub: `A dedicated developer on monthly retainer. From ${SHOPIFY_RETAINER_FROM}/month, 3 month minimum.`,
           href: `${DEV}#hourly-pricing`,
           icon: <Shield />,
         },
