@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import type { ReactNode } from "react";
 import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
@@ -238,13 +237,6 @@ export function HomeHero() {
             automations and dashboards.{" "}
             <span className="text-white/55">Custom built for your business.</span>
           </h1>
-        </Reveal>
-
-        <Reveal delay={0.3} className="mt-4 sm:mt-5">
-          <p className="mx-auto max-w-[560px] text-balance text-[14.5px] leading-snug text-white/55 sm:text-[16px]">
-            You work directly with us, and the goal is profit. Not clicks, not views,
-            the business performance that actually matters.
-          </p>
         </Reveal>
       </div>
     </section>

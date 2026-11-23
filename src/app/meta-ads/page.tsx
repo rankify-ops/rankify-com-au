@@ -1,26 +1,34 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Header } from "@/components/layout/Header";
 import { ContactFooter } from "@/components/sections/ContactFooter";
 import { Reveal } from "@/components/ui/Reveal";
 import { ServiceFaq } from "@/components/service-page/ServiceFaq";
 import { Shot } from "@/components/sidekick/Shot";
-import { Band, Heading, SidekickCta, SidekickNav } from "@/components/sidekick/SidekickChrome";
-import { PlanPanel, PlanRow } from "@/components/ui/PlanTable";
-import { SIDEKICK_FAQ, SIDEKICK_PLANS, SIDEKICK_STEPS, LEARNING_NOTES } from "@/content/sidekick";
-import { SIDEKICK_FROM, SIDEKICK_TO } from "@/content/pricing.generated";
+import { Band, Heading, SidekickCta, SidekickNav, SIGNUP_HREF } from "@/components/sidekick/SidekickChrome";
+import { PlanFootnote, PlanMatrix, PlanPanel, PlanRow } from "@/components/ui/PlanTable";
+import type { PlanColumn } from "@/components/ui/PlanTable";
+import { PLAN_ROWS, SIDEKICK_FAQ, SIDEKICK_PLANS, LEARNING_NOTES } from "@/content/sidekick";
+import { SIDEKICK_STAGES } from "@/content/sidekick-stages";
+import { SIDEKICK_FROM, SIDEKICK_TIERS, SIDEKICK_TO } from "@/content/pricing.generated";
 
 /**
- * Ad Sidekick, sold as its own product.
+ * Ad Sidekick, sold as its own product, on one page.
  *
  * This URL used to be a "coming soon" placeholder for done-for-you Meta
  * management. It keeps the URL because the search intent is an exact match
  * and it already ranks; what it sells is now the product.
+ *
+ * How it works and Pricing used to be pages of their own. They are sections
+ * here, reached by the tab bar, because the three pages told one continuous
+ * story and splitting it made a reader navigate to finish a sentence. The old
+ * URLs still answer — they render the same content and point their canonical
+ * at this page, so the ranking consolidates here rather than competing with
+ * itself.
  */
 export const metadata: Metadata = {
   title: "Ad Sidekick — run your Meta ads without logging into Meta | Rankify",
   description:
-    `Upload your ads and Ad Sidekick names them, builds the campaigns, tells you which are working, when to scale and what to turn off. For Shopify brands. From ${SIDEKICK_FROM}/mo, no contract.`,
+    `Upload your ads and Ad Sidekick names them, builds the campaigns, tells you which are working, when to scale and what to turn off. For Shopify brands. ${SIDEKICK_TIERS} a month, no contract.`,
   alternates: { canonical: "/meta-ads" },
 };
 
@@ -51,6 +59,25 @@ const DOES = [
   },
 ];
 
+/**
+ * The three plans as table columns, and the rows keyed to match.
+ *
+ * `PLAN_ROWS` already carries one `basic`/`pro`/`max` value per row, so the
+ * column ids are the plan ids and no mapping table is needed between the two.
+ */
+const COLUMNS: PlanColumn[] = SIDEKICK_PLANS.map((p) => ({
+  id: p.id,
+  name: p.name,
+  priceLabel: `$${p.priceAud}/mo`,
+  featured: p.featured,
+}));
+
+const MATRIX_ROWS = PLAN_ROWS.map((r) => ({
+  label: r.label,
+  note: r.note,
+  values: { basic: r.basic, pro: r.pro, max: r.max },
+}));
+
 export default function MetaAdsPage() {
   return (
     <>
@@ -58,7 +85,7 @@ export default function MetaAdsPage() {
       <SidekickNav current="overview" />
 
       {/* ---------- Hero ---------- */}
-      <section className="mx-auto max-w-[1400px] px-5 pb-6 pt-6 sm:px-10">
+      <section id="overview" className="mx-auto max-w-[1400px] scroll-mt-24 px-5 pb-6 pt-6 sm:px-10">
         <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-14">
           <div>
             <Reveal>
@@ -139,37 +166,52 @@ export default function MetaAdsPage() {
         </div>
       </Band>
 
-      {/* ---------- How it works, short version ---------- */}
-      <Band>
-        <Heading kicker="How it works" sub="Four steps, and you are in control of all of them. Nothing goes live without you.">
-          From an upload to a verdict.
+      {/* ---------- How it works ----------
+
+          The whole of the old /meta-ads/how-it-works page, section rather than
+          page. The four-step summary that used to sit here said the same thing
+          as stages 01-06 immediately above them, so it went: one telling of
+          the loop, in the detail that actually makes the product legible. */}
+      <Band id="how-it-works">
+        <Heading
+          kicker="How it works"
+          sub="This is the whole loop. Six steps, about three days, and you approve everything that goes live."
+        >
+          One ad, from your desktop to a verdict.
         </Heading>
-        <div className="mt-10 grid gap-8 lg:grid-cols-2">
-          {SIDEKICK_STEPS.map((s, i) => (
-            <Reveal key={s.n} delay={i * 0.05}>
-              <div className="flex gap-5">
-                <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-[color:var(--green-text)] text-[15px] font-bold text-white">
-                  {s.n}
-                </span>
+
+        <div className="mt-12 grid gap-16">
+          {SIDEKICK_STAGES.map((s, i) => (
+            <div
+              key={s.n}
+              className={`grid items-center gap-8 lg:grid-cols-2 lg:gap-14 ${
+                i % 2 === 1 ? "lg:[&>figure]:order-first" : ""
+              }`}
+            >
+              <Reveal>
                 <div>
-                  <h3 className="text-[19px] font-semibold tracking-[-0.02em]">{s.h}</h3>
-                  <p className="mt-2 text-[15px] leading-relaxed text-grey">{s.b}</p>
+                  <span className="text-[13px] font-bold tracking-[0.14em] text-[color:var(--green-text)]">
+                    {s.n}
+                  </span>
+                  <h3 className="mt-3 text-[clamp(22px,2.6vw,32px)] font-semibold leading-[1.1] tracking-[-0.03em]">
+                    {s.h}
+                  </h3>
+                  <p className="mt-4 max-w-[480px] text-[16px] leading-relaxed text-grey">{s.b}</p>
+                  {s.detail && (
+                    <p className="mt-4 max-w-[480px] border-l-2 border-[color:var(--green-text)]/30 pl-4 text-[15px] leading-relaxed text-grey">
+                      {s.detail}
+                    </p>
+                  )}
                 </div>
-              </div>
-            </Reveal>
+              </Reveal>
+              <Shot alt={s.alt} caption={s.caption} />
+            </div>
           ))}
         </div>
-        <div className="mt-10">
-          <Link
-            href="/meta-ads/how-it-works"
-            className="inline-flex items-center gap-2 text-[15px] font-semibold text-[color:var(--green-text)] underline-offset-4 hover:underline"
-          >
-            Follow one ad all the way through
-            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h13M12 5.5 18.5 12 12 18.5" />
-            </svg>
-          </Link>
-        </div>
+
+        <p className="mt-14 max-w-[620px] text-[17px] font-medium leading-relaxed">
+          That loop, every week, without you learning Meta first.
+        </p>
       </Band>
 
       {/* ---------- It teaches ---------- */}
@@ -194,16 +236,23 @@ export default function MetaAdsPage() {
         </div>
       </Band>
 
-      {/* ---------- Plans ---------- */}
+      {/* ---------- Pricing ----------
+
+          The whole of the old /meta-ads/pricing page. This page used to carry
+          its own copy of the three plan cards with the price at a different
+          size, which is how two screens showing the same three numbers came to
+          disagree about how to show them. One copy now, and the full table is
+          here rather than a click away. */}
       <Band id="pricing">
-        <Heading kicker="Pricing" sub="Every plan has the whole core product. Pro adds the creative production, Max adds the automation. People are never charged for — add your whole team.">
-          Three plans. No contract.
+        <Heading
+          kicker="Pricing"
+          sub={
+            "Basic is not a crippled tier. Upload, review, testing, winners, the scale checks, the budget planner and the daily P&L are on all three. Pro adds the creative production. Max adds the automation."
+          }
+        >
+          Every plan has the whole product.
         </Heading>
-        {/* The same panel as /meta-ads/pricing, so the plans look identical
-            wherever someone meets them. This page carried its own copy of the
-            cards with the price at 36px rather than 40px, which is how two
-            screens showing the same three numbers came to disagree about how
-            to show them. */}
+
         <Reveal className="mt-10">
           <PlanPanel>
             {SIDEKICK_PLANS.map((p) => (
@@ -214,20 +263,36 @@ export default function MetaAdsPage() {
                 note={p.pitch}
                 price={`$${p.priceAud}`}
                 period="/mo"
-                sub={`${p.brands} · ${p.creatives} · extra brand $${p.extraBrandAud}/mo`}
+                sub={`${p.brands} · ${p.creatives}`}
+                cta={{ label: "Get started", href: SIGNUP_HREF }}
                 featured={p.featured}
               />
             ))}
+            <PlanFootnote>
+              Every plan includes your whole team at no extra cost. Each extra brand is charged
+              per month and is shown in the table below.
+            </PlanFootnote>
           </PlanPanel>
         </Reveal>
-        <div className="mt-8 flex flex-col items-start gap-4">
+
+        <div className="mt-16">
+          <Heading kicker="Side by side" sub="Rendered from the same table the app enforces, so a row here is a page you will or will not find in your sidebar.">
+            Everything, line by line.
+          </Heading>
+
+          <Reveal className="mt-10">
+            <PlanPanel>
+              <PlanMatrix columns={COLUMNS} rows={MATRIX_ROWS} />
+              <PlanFootnote>
+                Prices are in Australian dollars, per month. No contract and no exit fee &mdash; turn
+                it off whenever you like.
+              </PlanFootnote>
+            </PlanPanel>
+          </Reveal>
+        </div>
+
+        <div className="mt-10">
           <SidekickCta />
-          <Link
-            href="/meta-ads/pricing"
-            className="text-[15px] font-semibold text-[color:var(--green-text)] underline-offset-4 hover:underline"
-          >
-            See everything each plan includes
-          </Link>
         </div>
       </Band>
 

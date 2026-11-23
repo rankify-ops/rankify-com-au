@@ -133,7 +133,12 @@ export function PlanRow({
         {note && <p className="mt-1 max-w-[560px] text-[13px] leading-snug text-grey">{note}</p>}
       </div>
 
-      <p className="shrink-0 text-left sm:text-right">
+      {/* Shrinkable below sm. `shrink-0` on a flex item holds it at its
+          max-content width, so a long `sub` line sets the whole block ~380px
+          wide and the panel, which is overflow-hidden, cuts the end of it off
+          on a phone. It only needs to resist shrinking from sm up, where it
+          shares the row with the name and the CTA. */}
+      <p className="max-w-full text-left sm:shrink-0 sm:text-right">
         <span className="text-[22px] font-semibold tabular-nums tracking-[-0.03em]">{price}</span>
         {period && <span className="ml-1 text-[12.5px] text-grey">{period}</span>}
         {sub && <span className="mt-0.5 block text-[12px] text-grey/80">{sub}</span>}

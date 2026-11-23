@@ -21,7 +21,10 @@ export const metadata: Metadata = {
   title: `Ad Sidekick pricing — ${SIDEKICK_TIERS} a month | Rankify`,
   description:
     "Every plan includes the whole core product: upload, review, testing, winners, the scale checks and the daily P&L. Pro adds creative production, Max adds automation. No contract.",
-  alternates: { canonical: "/meta-ads/pricing" },
+  // Pricing is a section of /meta-ads now. The URL still answers so
+  // nothing already linked or ranked breaks, and the canonical points at
+  // the page that carries the whole story.
+  alternates: { canonical: "/meta-ads" },
 };
 
 /**
