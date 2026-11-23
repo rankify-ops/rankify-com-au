@@ -2,185 +2,18 @@ import Image from "next/image";
 import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
-import { SmartLink } from "@/components/ui/SmartLink";
 import { PlusIcon } from "@/components/ui/PlusIcon";
+import { FeatureList, PlanFootnote, PlanPanel, PlanRow } from "@/components/ui/PlanTable";
 import { SectionHeading } from "@/components/service-page/SectionHeading";
 import type { PricingBlock } from "@/content/service-pages/types";
 
-function FeatureBadgeIcon() {
-  return (
-    <span className="flex h-5 w-5 flex-none items-center justify-center rounded-full bg-white/10">
-      <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M5 13l4 4L19 7" />
-      </svg>
-    </span>
-  );
-}
-
-/**
- * The pricing CTA.
- *
- * The circular badge on the end doubles as the hover fill: it scales up until
- * it floods the whole pill, and the label inverts to sit on top of it. That's
- * why the disc is a separate absolutely-positioned element behind the content
- * rather than the badge itself — the badge has to stay its own size while the
- * thing behind it grows.
- */
-function PricingCta({
-  href,
-  label,
-  onGreen,
-}: {
-  href: string;
-  label: string;
-  onGreen?: boolean;
-}) {
-  return (
-    <SmartLink
-      href={href}
-      className={`neu-btn group relative isolate mt-5 flex items-center justify-between gap-3 overflow-hidden rounded-full py-1.5 pl-6 pr-1.5 text-[15px] font-medium ${
-        onGreen
-          ? "neu-btn-dark bg-[var(--green-mid)] text-white"
-          : "neu-btn-light border border-line bg-white text-ink"
-      }`}
-    >
-      {/* The flood. Scale 18 from a 36px disc clears the widest card. */}
-      <span
-        aria-hidden
-        className={`pointer-events-none absolute right-1.5 top-1/2 z-[-1] h-9 w-9 -translate-y-1/2 rounded-full transition-transform duration-500 ease-out group-hover:scale-[18] motion-reduce:transition-none motion-reduce:group-hover:scale-100 ${
-          onGreen ? "bg-white" : "bg-[var(--green-mid)]"
-        }`}
-      />
-      <span
-        className={`relative transition-colors duration-300 ${
-          onGreen ? "group-hover:text-[var(--green-mid)]" : "group-hover:text-white"
-        }`}
-      >
-        {label}
-      </span>
-      {/* Inverts with the fill so the arrow stays legible once it lands. */}
-      <span
-        className={`relative flex h-9 w-9 flex-none items-center justify-center rounded-full transition-colors duration-300 ${
-          onGreen
-            ? "bg-white group-hover:bg-[var(--green-mid)]"
-            : "bg-[var(--green-mid)] group-hover:bg-white"
-        }`}
-      >
-        <svg
-          viewBox="0 0 24 24"
-          className={`h-3.5 w-3.5 transition-colors duration-300 ${
-            onGreen
-              ? "text-[var(--green-mid)] group-hover:text-white"
-              : "text-white group-hover:text-[var(--green-mid)]"
-          }`}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M7 17L17 7M9 7h8v8" />
-        </svg>
-      </span>
-    </SmartLink>
-  );
-}
-
-/**
- * Retainer/hourly pricing card.
- *
- * Measured against the Framer original rather than eyeballed: tier name 30px
- * at weight 500, price 40px at 600, the MOST POPULAR band 18px white on
- * #006B4B, 20px card radius, 30px padding. The old card had the name at
- * 15.5px — smaller than its own feature list — so the plans read as a wall of
- * prices with no names attached.
- */
-function TierCard({
-  tier,
-  assurance,
-}: {
-  tier: PricingBlock["tiers"][number];
-  assurance?: string;
-}) {
-  const hot = Boolean(tier.highlighted);
-
-  return (
-    // Every column is the same box; the plain ones just carry an empty slot
-    // where the featured card has its band. A margin can't do this — `mt` plus
-    // `h-full` makes the column overflow the row by the margin, which is what
-    // left the featured card's bottom edge 44px short of its neighbours.
-    <div className="flex h-full flex-col">
-      {tier.badge ? (
-        <div className="flex h-11 items-center justify-center rounded-t-[20px] bg-[var(--green-mid)] px-6 text-center text-[16px] font-normal leading-none text-white sm:text-[18px]">
-          {tier.badge}
-        </div>
-      ) : (
-        <div className="hidden h-11 lg:block" aria-hidden />
-      )}
-
-      <div
-        className={`neu flex flex-1 flex-col bg-white p-[26px] text-ink sm:p-[30px] ${
-          tier.badge ? "rounded-b-[20px]" : "rounded-[20px]"
-        }`}
-      >
-        {tier.name && (
-          <p className="text-[26px] font-medium leading-none tracking-[-0.03em] sm:text-[30px]">
-            {tier.name}
-          </p>
-        )}
-
-        {tier.spots && (
-          <span className="mt-3.5 inline-flex items-center gap-2.5 self-start text-[13px] text-grey">
-            {/* Same live-dot as the floating CTA bar: a solid dot with a ring
-                pinging out of it. Scarcity that sits still doesn't read as
-                scarcity. `cta-ping` is already no-op under reduced motion. */}
-            <span className="relative flex h-2 w-2 flex-none items-center justify-center">
-              <span className="cta-ping absolute inline-flex h-full w-full rounded-full bg-[#07a889]" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#07a889]" />
-            </span>
-            {tier.spots}
-          </span>
-        )}
-
-        <div className="mt-3.5 flex items-baseline gap-2">
-          <span className="text-[40px] font-semibold leading-none tracking-[-0.04em]">
-            {tier.price}
-          </span>
-          <span className="text-[14px] text-grey">{tier.period}</span>
-        </div>
-
-        {tier.note && <p className="mt-4 text-[14px] leading-snug text-grey">{tier.note}</p>}
-
-        <p className="mt-4 flex items-center gap-1.5 text-[12.5px] font-medium text-[var(--green-mid)]">
-          <PlusIcon dark className="h-3.5 w-3.5" /> {assurance ?? "100% Money back guarantee"}
-        </p>
-
-        <PricingCta href={tier.ctaHref} label={tier.ctaLabel} onGreen={hot} />
-
-        <ul className="mt-7 grid gap-3 border-t border-line pt-6">
-          {tier.features.map((f) => (
-            <li key={f} className="flex items-start gap-2.5 text-[14px] leading-snug text-ink">
-              <span className="mt-px flex h-[18px] w-[18px] flex-none items-center justify-center rounded-full bg-[var(--green-mid)]">
-                <svg viewBox="0 0 24 24" className="h-2.5 w-2.5" fill="none" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 13l4 4L19 7" />
-                </svg>
-              </span>
-              {f}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-}
-
 export function PricingBlockSection({ block, index }: { block: PricingBlock; index: number }) {
-  // The wide panel used to be gated on `block.addon`, so removing the SEO
-  // add-on silently collapsed this whole section into a 400px card. The layout
-  // is about having one headline offer, not about the add-on.
+  // One layout for every pricing block now, so there is no branch that can
+  // collapse the section when a field is absent. The old `usePanel` gate was
+  // keyed on `block.addon`, and dropping the SEO add-on quietly turned this
+  // whole band into a single 400px card.
   const tierCount = block.tiers.length;
-  const usePanel = tierCount === 1 && Boolean(block.tiers[0]?.features.length);
-  const tier = block.tiers[0];
+  const featureCols = tierCount >= 3 ? "sm:grid-cols-2 lg:grid-cols-3" : tierCount === 2 ? "sm:grid-cols-2" : "";
 
   return (
     <section
@@ -188,7 +21,12 @@ export function PricingBlockSection({ block, index }: { block: PricingBlock; ind
       className="grain mx-2 mt-8 scroll-mt-24 rounded-3xl bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white sm:mt-12 lg:mt-20"
     >
       <div className="relative z-[2] mx-auto max-w-[1400px] px-5 py-12 sm:px-10 sm:py-16 lg:py-20">
-        <div className={`mb-8 sm:mb-12 ${!usePanel && tierCount > 1 ? "text-center" : ""}`}>
+        {/* Heading in the same column as the panel, left-aligned, edges
+            lining up — the shape the billing page uses. It used to centre
+            itself for multi-tier blocks and left-align for single-tier ones,
+            which meant the same section changed alignment depending on how
+            many plans happened to be in it. */}
+        <div className="mx-auto mb-8 max-w-[940px] sm:mb-12">
           {/* Same heading treatment as every other section — this one was still
               on the old 32-58px scale with a plus-icon kicker. */}
           <SectionHeading
@@ -196,7 +34,6 @@ export function PricingBlockSection({ block, index }: { block: PricingBlock; ind
             heading={block.heading}
             sub={block.subheading}
             dark
-            centred={!usePanel && tierCount > 1}
           />
           {block.tag && (
             <Reveal delay={0.15} className="mt-8">
@@ -207,89 +44,69 @@ export function PricingBlockSection({ block, index }: { block: PricingBlock; ind
           )}
         </div>
 
-        {usePanel && tier ? (
-          <>
-            <Reveal delay={0.2} className="overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04]">
-              <div className="grid gap-10 p-7 sm:p-10 lg:grid-cols-2 lg:gap-16">
-                {/* Left column: the add-on when there is one, otherwise what
-                    the price actually buys — never the add-on's copy with no
-                    add-on under it. */}
-                <div className="flex flex-col justify-between gap-8">
-                  {block.addon ? (
-                    <>
-                      <div>
-                        <p className="text-[15.5px] font-medium">{block.addon.label}</p>
-                        <p className="mt-2 text-[14.5px] text-white/60">{block.addon.sub}</p>
-                      </div>
-                      <span className="text-[27px] font-semibold tracking-[-0.06em]">
-                        {block.addon.price}
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      <div>
-                        {tier.name && <p className="text-[15.5px] font-medium">{tier.name}</p>}
-                        {tier.spots && (
-                          <span className="mt-2 inline-flex items-center gap-1.5 text-[13px] text-white/60">
-                            <span className="h-1.5 w-1.5 rounded-full bg-[color:#07a889]" />
-                            {tier.spots}
-                          </span>
-                        )}
-                        <p className="mt-3 max-w-[320px] text-[14.5px] text-white/60">
-                          Everything below is included. Fixed quote before any work starts, and
-                          nothing gets billed that wasn&rsquo;t agreed.
-                        </p>
-                      </div>
-                      <p className="inline-flex items-center gap-2 text-[14px] text-white/70">
-                        <PlusIcon className="h-4 w-4" /> {block.assurance ?? "100% money back guarantee"}
-                      </p>
-                    </>
-                  )}
-                </div>
+        {/* The dashboards' table, not three price cards.
+            
+            Each tier used to be a 30px-padded card with its name at 26-30px
+            and its price at 40px, so a row of them read as a wall of numbers
+            with the names lost above them and the sentence that tells you
+            which plan you are squeezed underneath. A row holds the sentence,
+            and the prices still line up because they are `tabular-nums` in
+            one column instead of three separate cards.
+            
+            White panel rather than the old translucent one: on this gradient
+            a `bg-white/[0.04]` panel loses its own hairlines into the grain,
+            and the hairlines are what organise a table. */}
+        <Reveal delay={0.2} className="mx-auto max-w-[940px]">
+          <PlanPanel>
+            {/* Typed but unused by any page today. Rendered as a row rather
+                than its own layout branch, so the type stays honest without
+                a second design to maintain. */}
+            {block.addon && (
+              <PlanRow name={block.addon.label} note={block.addon.sub} price={block.addon.price} />
+            )}
 
-                <div>
-                  <div className="mb-8">
-                    <span className="text-[56px] font-semibold leading-none tracking-[-0.06em]">{tier.price}</span>
-                    <span className="ml-1 text-[15px] text-white/60">{tier.period}</span>
-                  </div>
-                  <ul className="grid gap-3">
-                    {tier.features.map((f) => (
-                      <li key={f} className="flex items-center gap-3 text-[14.5px] text-white">
-                        <FeatureBadgeIcon />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap items-center justify-between gap-4 border-t border-white/10 px-7 py-6 sm:px-10">
-                <div className="flex items-center gap-2 text-[14.5px]">
-                  {tier.note && <span className="text-white/60">{tier.note}</span>}
-                </div>
-                <Button href={tier.ctaHref} variant="light">
-                  {tier.ctaLabel}
-                </Button>
-              </div>
-            </Reveal>
-          </>
-        ) : (
-          <div
-            className={
-              block.tiers.length === 1
-                ? "mx-auto max-w-[400px]"
-                : "mx-auto grid max-w-[1120px] items-stretch gap-6 lg:grid-cols-3"
-            }
-          >
             {block.tiers.map((t) => (
-              // h-full so the cards in a row match height and the featured
-              // card's lift shows at the top rather than shortening it.
-              <Reveal key={t.name ?? t.price} scale className="h-full">
-                <TierCard tier={t} assurance={block.assurance} />
-              </Reveal>
+              <PlanRow
+                key={t.name ?? t.price}
+                name={t.name}
+                badge={t.badge}
+                meta={t.spots}
+                note={t.note}
+                price={t.price}
+                period={t.period}
+                cta={{ label: t.ctaLabel, href: t.ctaHref }}
+                featured={Boolean(t.highlighted)}
+              />
             ))}
-          </div>
-        )}
+
+            {/* Inclusions under the prices, one column per tier.
+                
+                Deliberately not a matrix: "Everything in Basic +" and
+                "Overflow hours $149/hr" are not features another column
+                either has or does not, so a shared grid would have to invent
+                rows and print dashes that mean nothing. */}
+            {block.tiers.some((t) => t.features.length > 0) && (
+              <div className={`grid gap-7 border-t border-line px-5 py-6 ${featureCols}`}>
+                {block.tiers.map((t) =>
+                  t.features.length ? (
+                    <FeatureList
+                      key={t.name ?? t.price}
+                      heading={tierCount > 1 ? (t.name ?? "Included") : undefined}
+                      items={t.features}
+                    />
+                  ) : null,
+                )}
+              </div>
+            )}
+
+            <PlanFootnote>
+              <span className="inline-flex items-center gap-1.5 font-medium text-[color:var(--green-mid)]">
+                <PlusIcon dark className="h-3.5 w-3.5" />
+                {block.assurance ?? "100% money back guarantee"}
+              </span>
+            </PlanFootnote>
+          </PlanPanel>
+        </Reveal>
 
         {block.lookingForMore && (
           <div className="mt-14 grid gap-4 sm:mt-20 sm:grid-cols-[auto_1fr] sm:items-start sm:gap-16">

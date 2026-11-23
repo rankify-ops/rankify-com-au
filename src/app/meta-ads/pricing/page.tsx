@@ -3,7 +3,9 @@ import { Header } from "@/components/layout/Header";
 import { ContactFooter } from "@/components/sections/ContactFooter";
 import { Reveal } from "@/components/ui/Reveal";
 import { ServiceFaq } from "@/components/service-page/ServiceFaq";
-import { Band, Heading, SidekickCta, SidekickNav } from "@/components/sidekick/SidekickChrome";
+import { Band, Heading, SidekickCta, SidekickNav, SIGNUP_HREF } from "@/components/sidekick/SidekickChrome";
+import { PlanFootnote, PlanMatrix, PlanPanel, PlanRow } from "@/components/ui/PlanTable";
+import type { PlanColumn } from "@/components/ui/PlanTable";
 import { PLAN_ROWS, SIDEKICK_PLANS, SIDEKICK_FAQ } from "@/content/sidekick";
 import { SIDEKICK_TIERS } from "@/content/pricing.generated";
 
@@ -22,16 +24,24 @@ export const metadata: Metadata = {
   alternates: { canonical: "/meta-ads/pricing" },
 };
 
-function Cell({ v }: { v: string | boolean }) {
-  if (v === true)
-    return (
-      <svg viewBox="0 0 24 24" className="mx-auto h-5 w-5 text-[color:var(--green-text)]" fill="currentColor">
-        <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.8 7.7-5.6 5.6a1 1 0 0 1-1.4 0l-2.6-2.6a1 1 0 1 1 1.4-1.4l1.9 1.9 4.9-4.9a1 1 0 0 1 1.4 1.4Z" />
-      </svg>
-    );
-  if (v === false) return <span className="text-grey/50">—</span>;
-  return <span className="text-[14.5px] font-medium">{v}</span>;
-}
+/**
+ * The three plans as table columns, and the rows keyed to match.
+ *
+ * `PLAN_ROWS` already carries one `basic`/`pro`/`max` value per row, so the
+ * column ids are the plan ids and no mapping table is needed between the two.
+ */
+const COLUMNS: PlanColumn[] = SIDEKICK_PLANS.map((p) => ({
+  id: p.id,
+  name: p.name,
+  priceLabel: `$${p.priceAud}/mo`,
+  featured: p.featured,
+}));
+
+const MATRIX_ROWS = PLAN_ROWS.map((r) => ({
+  label: r.label,
+  note: r.note,
+  values: { basic: r.basic, pro: r.pro, max: r.max },
+}));
 
 export default function SidekickPricingPage() {
   return (
@@ -56,40 +66,32 @@ export default function SidekickPricingPage() {
 
       {/* ---------- The three ---------- */}
       <Band>
-        <div className="grid gap-4 lg:grid-cols-3">
-          {SIDEKICK_PLANS.map((p) => (
-            <Reveal key={p.id}>
-              <div
-                className={`flex h-full flex-col rounded-2xl border p-7 ${
-                  p.featured
-                    ? "border-[color:var(--green-text)] bg-white shadow-[0_24px_60px_-34px_rgba(0,33,23,0.6)]"
-                    : "border-line bg-white"
-                }`}
-              >
-                {p.featured && (
-                  <span className="mb-3 self-start rounded-full bg-[color:var(--green-text)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-white">
-                    Most pick this
-                  </span>
-                )}
-                <h2 className="text-[22px] font-semibold tracking-[-0.025em]">{p.name}</h2>
-                <p className="mt-1 text-[14.5px] text-grey">{p.pitch}</p>
-                <p className="mt-5 text-[40px] font-semibold leading-none tracking-[-0.04em]">
-                  ${p.priceAud}
-                  <span className="text-[15px] font-medium text-grey">/mo</span>
-                </p>
-                <ul className="mt-5 grid gap-2 text-[14.5px] text-grey">
-                  <li>{p.brands}</li>
-                  <li>{p.creatives}</li>
-                  <li>Each extra brand ${p.extraBrandAud}/mo</li>
-                  <li>Your whole team, at no extra cost</li>
-                </ul>
-                <div className="mt-7">
-                  <SidekickCta />
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal>
+          {/* One panel, one row per plan. Three cards each with its own 40px
+              price put the numbers in a row and the names nowhere — and the
+              pitch, which is the only line that tells you which one you are,
+              had to be squeezed to 14.5px under the heading. A row has room
+              for the sentence. */}
+          <PlanPanel>
+            {SIDEKICK_PLANS.map((p) => (
+              <PlanRow
+                key={p.id}
+                name={p.name}
+                badge={p.featured ? "Most pick this" : undefined}
+                note={p.pitch}
+                price={`$${p.priceAud}`}
+                period="/mo"
+                sub={`${p.brands} · ${p.creatives}`}
+                cta={{ label: "Get started", href: SIGNUP_HREF }}
+                featured={p.featured}
+              />
+            ))}
+            <PlanFootnote>
+              Every plan includes your whole team at no extra cost. Each extra brand is charged
+              per month and is shown in the table below.
+            </PlanFootnote>
+          </PlanPanel>
+        </Reveal>
       </Band>
 
       {/* ---------- The full table ---------- */}
@@ -98,47 +100,19 @@ export default function SidekickPricingPage() {
           Everything, line by line.
         </Heading>
 
-        <div className="mt-10 overflow-x-auto">
-          <table className="w-full min-w-[720px] border-collapse text-left">
-            <thead>
-              <tr className="border-b border-line">
-                <th className="py-4 pr-4 text-[13px] font-semibold uppercase tracking-[0.12em] text-grey">
-                  What you get
-                </th>
-                {SIDEKICK_PLANS.map((p) => (
-                  <th key={p.id} className="px-4 py-4 text-center">
-                    <span className="block text-[16px] font-semibold tracking-[-0.02em]">{p.name}</span>
-                    <span className="block text-[13px] text-grey">${p.priceAud}/mo</span>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {PLAN_ROWS.map((r) => (
-                <tr key={r.label} className="border-b border-line/70">
-                  <td className="py-4 pr-4 align-top">
-                    <span className="block text-[15px] font-medium leading-snug">{r.label}</span>
-                    {r.note && <span className="mt-1 block max-w-[420px] text-[13.5px] text-grey">{r.note}</span>}
-                  </td>
-                  <td className="px-4 py-4 text-center align-top">
-                    <Cell v={r.basic} />
-                  </td>
-                  <td className="px-4 py-4 text-center align-top">
-                    <Cell v={r.pro} />
-                  </td>
-                  <td className="px-4 py-4 text-center align-top">
-                    <Cell v={r.max} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <p className="mt-6 max-w-[620px] text-[14.5px] leading-relaxed text-grey">
-          Prices are in Australian dollars, per month. No contract and no exit fee — turn it off
-          whenever you like.
-        </p>
+        {/* The old version of this was `min-w-[720px]` inside an
+            `overflow-x-auto`, so on a phone the whole comparison lived behind
+            a sideways drag — and the one column you cared about was never the
+            one on screen. PlanMatrix gives the phone a list per plan instead. */}
+        <Reveal className="mt-10">
+          <PlanPanel>
+            <PlanMatrix columns={COLUMNS} rows={MATRIX_ROWS} />
+            <PlanFootnote>
+              Prices are in Australian dollars, per month. No contract and no exit fee &mdash; turn
+              it off whenever you like.
+            </PlanFootnote>
+          </PlanPanel>
+        </Reveal>
       </Band>
 
       <ServiceFaq faq={SIDEKICK_FAQ} />

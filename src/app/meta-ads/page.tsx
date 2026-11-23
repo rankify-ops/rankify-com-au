@@ -6,6 +6,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { ServiceFaq } from "@/components/service-page/ServiceFaq";
 import { Shot } from "@/components/sidekick/Shot";
 import { Band, Heading, SidekickCta, SidekickNav } from "@/components/sidekick/SidekickChrome";
+import { PlanPanel, PlanRow } from "@/components/ui/PlanTable";
 import { SIDEKICK_FAQ, SIDEKICK_PLANS, SIDEKICK_STEPS, LEARNING_NOTES } from "@/content/sidekick";
 import { SIDEKICK_FROM, SIDEKICK_TO } from "@/content/pricing.generated";
 
@@ -198,36 +199,27 @@ export default function MetaAdsPage() {
         <Heading kicker="Pricing" sub="Every plan has the whole core product. Pro adds the creative production, Max adds the automation. People are never charged for — add your whole team.">
           Three plans. No contract.
         </Heading>
-        <div className="mt-10 grid gap-4 lg:grid-cols-3">
-          {SIDEKICK_PLANS.map((p) => (
-            <Reveal key={p.id}>
-              <div
-                className={`flex h-full flex-col rounded-2xl border p-7 ${
-                  p.featured
-                    ? "border-[color:var(--green-text)] bg-white shadow-[0_24px_60px_-34px_rgba(0,33,23,0.6)]"
-                    : "border-line bg-white"
-                }`}
-              >
-                {p.featured && (
-                  <span className="mb-3 self-start rounded-full bg-[color:var(--green-text)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-white">
-                    Most pick this
-                  </span>
-                )}
-                <h3 className="text-[20px] font-semibold tracking-[-0.02em]">{p.name}</h3>
-                <p className="mt-1 text-[14.5px] text-grey">{p.pitch}</p>
-                <p className="mt-5 text-[36px] font-semibold tracking-[-0.04em]">
-                  ${p.priceAud}
-                  <span className="text-[15px] font-medium text-grey">/mo</span>
-                </p>
-                <ul className="mt-5 grid gap-2 text-[14.5px] text-grey">
-                  <li>{p.brands}</li>
-                  <li>{p.creatives}</li>
-                  <li>Each extra brand ${p.extraBrandAud}/mo</li>
-                </ul>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+        {/* The same panel as /meta-ads/pricing, so the plans look identical
+            wherever someone meets them. This page carried its own copy of the
+            cards with the price at 36px rather than 40px, which is how two
+            screens showing the same three numbers came to disagree about how
+            to show them. */}
+        <Reveal className="mt-10">
+          <PlanPanel>
+            {SIDEKICK_PLANS.map((p) => (
+              <PlanRow
+                key={p.id}
+                name={p.name}
+                badge={p.featured ? "Most pick this" : undefined}
+                note={p.pitch}
+                price={`$${p.priceAud}`}
+                period="/mo"
+                sub={`${p.brands} · ${p.creatives} · extra brand $${p.extraBrandAud}/mo`}
+                featured={p.featured}
+              />
+            ))}
+          </PlanPanel>
+        </Reveal>
         <div className="mt-8 flex flex-col items-start gap-4">
           <SidekickCta />
           <Link
