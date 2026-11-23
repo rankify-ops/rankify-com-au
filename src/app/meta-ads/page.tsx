@@ -263,7 +263,7 @@ export default function MetaAdsPage() {
                 note={p.pitch}
                 price={`$${p.priceAud}`}
                 period="/mo"
-                sub={`${p.brands} · ${p.creatives}`}
+                sub={p.summary}
                 cta={{ label: "Get started", href: SIGNUP_HREF }}
                 featured={p.featured}
               />

@@ -33,7 +33,11 @@ export type SidekickPlan = {
   priceAud: number;
   brands: string;
   extraBrandAud: number;
+  /** "30 AI creatives a month", or "" on a plan that includes none. */
   creatives: string;
+  /** The line under the price. Built here so a plan with no creatives does
+   *  not print a separator with nothing after it. */
+  summary: string;
   pitch: string;
   /** The one we point most people at. */
   featured?: boolean;
@@ -53,6 +57,17 @@ const PLAN_PITCH: Record<string, string> = {
 const FEATURED_PLAN = "pro";
 
 /**
+ * Nothing, rather than "0 AI creatives a month".
+ *
+ * A plan can include none — Basic does from price record version 6 — and a
+ * count of zero is an absence, not a quantity. Printing it as one advertises
+ * a feature set to nothing.
+ */
+function creativesLine(n: number): string {
+  return n > 0 ? `${n} AI creatives a month` : "";
+}
+
+/**
  * Built from the CRM price record, not written out here.
  *
  * The numbers used to be a hand-kept copy of the list Stripe bills from, and a
@@ -65,10 +80,21 @@ export const SIDEKICK_PLANS: SidekickPlan[] = PRICING.products.ad_sidekick.tiers
   priceAud: t.per_month_cents / 100,
   brands: `${t.brands_included} ${t.brands_included === 1 ? "brand" : "brands"}`,
   extraBrandAud: t.extra_brand_per_month_cents / 100,
-  creatives: `${t.ai_creatives_per_month} AI creatives a month`,
+  creatives: creativesLine(t.ai_creatives_per_month),
+  summary: [
+    `${t.brands_included} ${t.brands_included === 1 ? "brand" : "brands"}`,
+    creativesLine(t.ai_creatives_per_month),
+  ]
+    .filter(Boolean)
+    .join(" · "),
   pitch: PLAN_PITCH[t.id] ?? "",
   featured: t.id === FEATURED_PLAN,
 }));
+
+/** A count for the table, or `false` where the plan includes none. */
+function creativeCell(n: number): string | false {
+  return n > 0 ? String(n) : false;
+}
 
 /** By id, for the rows below. */
 const PLAN = Object.fromEntries(PRICING.products.ad_sidekick.tiers.map((t) => [t.id, t]));
@@ -119,7 +145,17 @@ export const PLAN_ROWS: PlanRow[] = [
     max: true,
   },
   { label: "Meta, Shopify and Google Drive connected", basic: true, pro: true, max: true },
-  { label: "AI creatives a month", note: "Across every brand in the workspace", basic: "30", pro: "150", max: "600" },
+  {
+    label: "AI creatives a month",
+    note: "Across every brand in the workspace",
+    // From the record, not typed here: these were a hand-kept copy of three
+    // numbers that the record already holds, and a hand-kept copy drifts.
+    // A plan with none gets `false`, which the table draws as not included
+    // rather than as the number nought.
+    basic: creativeCell(PLAN.basic.ai_creatives_per_month),
+    pro: creativeCell(PLAN.pro.ai_creatives_per_month),
+    max: creativeCell(PLAN.max.ai_creatives_per_month),
+  },
   {
     label: "Create: personas, scripts and video templates",
     note: "Ads written and made from research on your own customers",
