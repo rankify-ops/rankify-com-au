@@ -232,7 +232,7 @@ export function HomeHero() {
             exception at 16px, because anything smaller makes iOS Safari zoom
             the page when it takes focus. */}
         <Reveal delay={0.2} className="mt-7 sm:mt-9">
-          <h1 className="mx-auto max-w-[680px] text-balance text-[clamp(22px,2.1vw,28px)] font-medium leading-[1.12] tracking-[-0.03em] text-white">
+          <h1 className="mx-auto max-w-[680px] text-balance text-[14.5px] font-medium leading-[1.35] tracking-[-0.02em] text-white sm:text-[clamp(22px,2.1vw,28px)] sm:leading-[1.12] sm:tracking-[-0.03em]">
             We engineer high-performance marketing, websites, apps, AI,
             automations and dashboards.{" "}
             <span className="text-white/55">Custom built for your business.</span>

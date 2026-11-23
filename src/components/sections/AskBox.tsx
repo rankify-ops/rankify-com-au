@@ -26,9 +26,9 @@ import { AskDialog } from "@/components/sections/AskDialog";
  * a 320px phone, and "a new website · Meta ads · a custom app" overflowed it.
  */
 const SUGGESTIONS = [
-  { label: "new website", ask: "I need a new website" },
-  { label: "Meta ads", ask: "I need help with my Meta ads" },
-  { label: "custom app", ask: "I need a custom app or internal tool built" },
+  { label: "New Website", ask: "I need a new website" },
+  { label: "Meta Ads", ask: "I need help with my Meta ads" },
+  { label: "Custom App", ask: "I need a custom app or internal tool built" },
 ];
 
 /**
