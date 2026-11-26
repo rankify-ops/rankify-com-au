@@ -12,6 +12,7 @@ import { StatsManifesto } from "@/components/sections/StatsManifesto";
 import { ServiceFaq } from "@/components/service-page/ServiceFaq";
 import { HOME_FAQ } from "@/content/home-faq";
 import { ContactFooter } from "@/components/sections/ContactFooter";
+import { PricingGlance } from "@/components/sections/PricingGlance";
 
 export default function Home() {
   return (
@@ -42,6 +43,9 @@ export default function Home() {
       <HomeCtaCards />
       <ComparisonSection block={HOME_COMPARISON} />
       <Projects />
+      {/* The home page carried no price at all. One table, every service,
+          read from the price record. */}
+      <PricingGlance />
       <WhyChooseUs />
       <Services />
       <Process />

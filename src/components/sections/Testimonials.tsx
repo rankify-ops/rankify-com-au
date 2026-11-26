@@ -1,3 +1,4 @@
+import { BRANDS } from "@/content/proof";
 import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 import { Stars } from "@/components/ui/Stars";
@@ -68,7 +69,7 @@ export function Testimonials({
             label="Reviews"
             heading="Every review is five stars."
             headingDim="That's not an accident."
-            sub="We've delivered 40+ projects that help companies generate real results."
+            sub={`${BRANDS} brands have trusted us with their website, store or ads.`}
           />
         </div>
 
@@ -97,7 +98,7 @@ export function Testimonials({
               ))}
             </div>
             <p className="max-w-[220px] text-[14.5px] text-grey sm:max-w-none">
-              <strong className="text-ink">40+</strong> Trusted by clients Australia wide
+              <strong className="text-ink">{BRANDS}</strong> brands, Australia wide
             </p>
             <Button href="https://g.page/r/CaTZLZ8xYIa5EAI/review" external className="flex-none whitespace-nowrap">
               Leave a review

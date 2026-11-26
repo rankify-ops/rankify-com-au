@@ -31,6 +31,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     page("/google-ads", 0.6, "monthly"),
     page("/meta-ads", 0.6, "monthly"),
     page("/ai-and-automation", 0.6, "monthly"),
+    page("/dashboards", 0.7, "monthly"),
+    page("/pricing", 0.8, "weekly"),
+    page("/about", 0.6, "monthly"),
     // proof and conversion
     page("/projects", 0.7, "monthly"),
     ...PROJECTS.map((p) => page(`/projects/${p.slug}`, 0.6, "yearly")),

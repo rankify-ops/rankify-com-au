@@ -27,18 +27,18 @@ export default function Page() {
       <p>
         If you&rsquo;ve invested in <Link href="/seo">SEO</Link> and seen little return,
         you&rsquo;re not alone. Many businesses think writing blog posts or targeting keywords is
-        enough—but often the missing link is far less obvious. In this article, we&rsquo;ll
+        enough, but often the missing link is far less obvious. In this article, we&rsquo;ll
         explain <strong>why SEO isn&rsquo;t working</strong>, including overlooked elements like
         backlinks, site structure, and outdated content. You&rsquo;ll walk away with a clear
-        roadmap for getting SEO to actually deliver.
+        roadmap for getting SEO to deliver.
       </p>
 
       <h2>The Usual SEO Pitfalls</h2>
-      <p>Many businesses focus on on-page changes and content—but still stumble due to:</p>
+      <p>Many businesses focus on on-page changes and content but still stumble due to:</p>
       <ul>
         <li>
           <strong>Site speed</strong>: Google&rsquo;s algorithm directly factors in page load
-          times. A delay of even 1–2 seconds can cause major drop-offs in traffic and conversions.{" "}
+          times. A delay of even 1 to 2 seconds can cause major drop-offs in traffic and conversions.{" "}
           <a
             href="https://developers.google.com/search/docs/appearance/core-web-vitals"
             target="_blank"
@@ -54,7 +54,7 @@ export default function Page() {
           <a href="https://ahrefs.com/blog/seo-mistakes/" target="_blank" rel="noopener noreferrer">
             Ahrefs
           </a>
-          , targeting the wrong keywords—or creating irrelevant content around them—is one of the
+          , targeting the wrong keywords, or creating irrelevant content around them, is one of the
           top reasons SEO strategies fail.
         </li>
         <li>
@@ -63,7 +63,7 @@ export default function Page() {
         </li>
         <li>
           <strong>Neglected internal linking</strong>: Good internal linking guides users and
-          search bots—without it, authority dissipates.
+          search bots. Without it, authority dissipates.
         </li>
       </ul>
 
@@ -84,7 +84,7 @@ export default function Page() {
       <h2>The Hidden Role of Backlinks in SEO Performance</h2>
       <p>
         Backlinks are still one of Google&rsquo;s most important ranking factors. Yet many
-        businesses ignore them—or rely on poor-quality links that do more harm than good.
+        businesses ignore them, or rely on poor-quality links that do more harm than good.
       </p>
       <ul>
         <li>
@@ -125,7 +125,7 @@ export default function Page() {
         it&rsquo;s incomplete.
       </p>
 
-      <h2>How to Make SEO Work Now — A Practical Checklist</h2>
+      <h2>How to Make SEO Work Now: A Practical Checklist</h2>
       <p>Here&rsquo;s what to focus on if you want SEO that performs:</p>
       <ul>
         <li>
@@ -139,7 +139,7 @@ export default function Page() {
         </li>
         <li>
           <strong>Match content to search intent</strong>: Use SERP analysis to understand what
-          users want—how-tos, definitions, tools, or buying guides. Avoid publishing content that
+          users want: how-tos, definitions, tools, or buying guides. Avoid publishing content that
           doesn&rsquo;t match what&rsquo;s ranking.
         </li>
         <li>
@@ -159,14 +159,14 @@ export default function Page() {
       <figure>
         <Image
           src={asset("/assets/images/GQ3TwWtBLiE54d0C0wn1cmnpGT0.webp")}
-          alt="Close-up of a handwritten SEO checklist with red and blue pencils, placed beside a white mug labeled 'K'—symbolising content planning and optimisation."
+          alt="Close-up of a handwritten SEO checklist with red and blue pencils, placed beside a white mug labelled 'K', symbolising content planning and optimisation."
           width={1000}
           height={1000}
           className="h-auto w-full"
         />
         <figcaption>
           Close-up of a handwritten SEO checklist with red and blue pencils, placed beside a white
-          mug labeled &lsquo;K&rsquo;—symbolising content planning and optimisation.
+          mug labelled &lsquo;K&rsquo;, symbolising content planning and optimisation.
         </figcaption>
       </figure>
 
@@ -178,10 +178,10 @@ export default function Page() {
         to scratch is important.
       </p>
       <p>
-        Want SEO that actually delivers? Focus on the things that matter:{" "}
+        For SEO that delivers, focus on the things that matter:{" "}
         <strong>speed</strong>, <strong>trust</strong>, <strong>intent</strong>, and{" "}
         <strong>authority</strong>. And build a strategy that treats content, links, and UX as one
-        system—not separate pieces.
+        system, not separate pieces.
       </p>
     </BlogPostTemplate>
   );

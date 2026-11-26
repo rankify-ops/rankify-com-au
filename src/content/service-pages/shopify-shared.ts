@@ -11,7 +11,7 @@ import type { CardGridBlock, FaqItem, MarqueeBlock } from "./types";
 import { SHOPIFY_HOURLY, SHOPIFY_HOURLY_MINIMUM, SHOPIFY_RETAINER_FROM, SHOPIFY_FROM } from "@/content/pricing.generated";
 
 export const SHOPIFY_CLOSING_NOTE =
-  "We believe that a website should be more than just a digital presence—it should be a tool that works for your business. That's why we prioritise performance, user experience in everything we create. We build websites that are fast, efficient, and easy to manage, so you can focus on what matters—running your business.";
+  "A website should be a tool that works for your business. That's why we prioritise performance and user experience in everything we create. We build websites that are fast, efficient, and easy to manage, so you can focus on running your business.";
 
 export const SHOPIFY_CLIENT_LOGOS: MarqueeBlock = {
   type: "marquee",
@@ -28,7 +28,7 @@ export const SHOPIFY_WHY_US: CardGridBlock = {
   theme: "paper",
   columns: 3,
   items: [
-    { idx: "01", title: "Expert Shopify Developer", desc: "Years of hands-on experience building custom stores, themes, and integrations — without the agency overhead." },
+    { idx: "01", title: "Expert Shopify Developer", desc: "Years of hands-on experience building custom stores, themes, and integrations, without the agency overhead." },
     { idx: "02", title: "AI-Accelerated Development", desc: "We use AI-powered tools to build and ship faster. What takes agencies weeks, we deliver in days." },
     { idx: "03", title: "Outstanding value for money", desc: "Senior-level Shopify development at a fraction of the agency cost. No bloated teams, no inflated invoices." },
   ],
@@ -36,7 +36,7 @@ export const SHOPIFY_WHY_US: CardGridBlock = {
 
 /** FAQ entries that apply no matter which page someone landed on. */
 export const SHOPIFY_COMMON_FAQ: FaqItem[] = [
-  { q: "Where are you based?", a: "We're based on the Gold Coast, Queensland. We work with Shopify clients across Australia — Sydney, Melbourne, Brisbane, Perth, Adelaide, and regional areas. All work is handled remotely with clear communication throughout." },
-  { q: "How is your pricing structured?", a: `We offer hourly development (${SHOPIFY_HOURLY}/hr${SHOPIFY_HOURLY_MINIMUM}), monthly retainers (from ${SHOPIFY_RETAINER_FROM}/month), and custom store builds (from ${SHOPIFY_FROM}). Every project is scoped and quoted before work begins. Payment is upfront — no invoicing after the fact.` },
-  { q: "What makes you different from larger Shopify agencies?", a: "You work directly with the person building your store. No account managers, no layers, no offshore teams. We handle design, development, and SEO in one team — nothing gets lost between departments. Our retainer clients get a dedicated developer who knows their store, not a rotating roster." },
+  { q: "Where are you based?", a: "We're based on the Gold Coast, Queensland. We work with Shopify clients across Australia: Sydney, Melbourne, Brisbane, Perth, Adelaide, and regional areas. All work is handled remotely with clear communication throughout." },
+  { q: "How is your pricing structured?", a: `We offer hourly development (${SHOPIFY_HOURLY}/hr${SHOPIFY_HOURLY_MINIMUM}), monthly retainers (from ${SHOPIFY_RETAINER_FROM}/month), and custom store builds (from ${SHOPIFY_FROM}). Every project is scoped and quoted before work begins. Payment is upfront, with no invoicing after the fact.` },
+  { q: "What makes you different from larger Shopify agencies?", a: "You work directly with the developer building your store. No account managers, no layers, no offshore teams. We handle design, development, and SEO in one team, so nothing gets lost between departments. Our retainer clients get a dedicated developer who knows their store, not a rotating roster." },
 ];

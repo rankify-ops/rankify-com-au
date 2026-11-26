@@ -42,7 +42,7 @@ const SECTIONS: LegalSection[] = [
     blocks: [
       {
         type: "p",
-        text: "Website builds other than Shopify carry a 30-day money-back guarantee. If you are not satisfied with the website we deliver, email us within 30 days of your purchase and we will refund the project fee in full. You do not need to give a reason. This 30-day money-back guarantee does not apply to Shopify builds.",
+        text: "Website builds priced under $3,500, other than Shopify builds, carry a 30-day money-back guarantee. If you are not satisfied with the website we deliver, email us within 30 days of the website's launch and we will refund the project fee in full. You do not need to give a reason. This 30-day money-back guarantee does not apply to website builds priced at $3,500 or more, to Shopify builds, or to any other service.",
       },
       {
         type: "p",
@@ -50,7 +50,7 @@ const SECTIONS: LegalSection[] = [
       },
       {
         type: "p",
-        text: "The guarantee covers the project fee for the build itself. It does not cover third-party costs paid on your behalf — domain registration, paid apps, stock imagery or advertising spend — which are non-refundable once incurred.",
+        text: "The guarantee covers the project fee for the build itself. It does not cover third-party costs paid on your behalf (domain registration, paid apps, stock imagery or advertising spend), which are non-refundable once incurred.",
       },
       {
         type: "h3",
@@ -62,7 +62,7 @@ const SECTIONS: LegalSection[] = [
       },
       {
         type: "p",
-        text: "When the Shopify store is transferred to you on final payment, the store, its theme, the custom code, and any assets we produce — including Klaviyo assets — become your property.",
+        text: "When the Shopify store is transferred to you on final payment, the store, its theme, the custom code, and any assets we produce, including Klaviyo assets, become your property.",
       },
       {
         type: "p",
@@ -180,7 +180,7 @@ export default function TermsOfServicePage() {
       <Header />
       <LegalPageTemplate
         title="Terms of service."
-        lastUpdated="23 November 2026"
+        lastUpdated="26 November 2026"
         intro='These Terms of Service ("Terms") govern your access to and use of rankify.com.au (the "Site"). By accessing or using our Site, you agree to these Terms.'
         sections={SECTIONS}
       />

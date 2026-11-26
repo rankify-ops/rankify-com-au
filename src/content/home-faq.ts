@@ -13,15 +13,15 @@ import { SEO_PER_PAGE } from "@/content/pricing.generated";
 export const HOME_FAQ: ServicePageData["faq"] = {
   heading: "FAQ.",
   subheading:
-    "Got questions? We've got answers. Here's everything you need to know about working with us.",
+    "Everything you need to know about working with us.",
   items: [
     {
       q: "How long does it take to build a website?",
-      a: "Most sites are live in 7–15 days from the point we have your content. Larger builds with a lot of pages take longer, and you'll get a clear timeline before any work starts.",
+      a: "Most sites are live in 7 to 15 days from the point we have your content. Larger builds with a lot of pages take longer, and you'll get a clear timeline before any work starts.",
     },
     {
       q: "Do you offer custom websites or use templates?",
-      a: "We create fully custom websites tailored to your brand. No generic templates — just unique, high-performing designs.",
+      a: "We create fully custom, high-performing websites tailored to your brand. No generic templates.",
     },
     {
       q: "What's included in your SEO services?",
@@ -29,7 +29,7 @@ export const HOME_FAQ: ServicePageData["faq"] = {
     },
     {
       q: "How does SEO pricing work?",
-      a: `${SEO_PER_PAGE} per page, per month, with a three month minimum. You pick the pages worth ranking and the price is simply that many pages — no open-ended retainer and no lock-in past the first three months.`,
+      a: `${SEO_PER_PAGE} per page, per month. You pick the pages worth ranking and the price is that many pages. There is no open-ended retainer: 3 month minimum, then month to month.`,
     },
     {
       q: "Can you redesign my existing website?",

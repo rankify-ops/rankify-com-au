@@ -70,11 +70,12 @@ export function SidekickCta({
  * two sub-pages that still answer at their old URLs these stay ordinary links
  * that land on the same sections.
  */
-export function SidekickNav({ current }: { current: "overview" | "how" | "pricing" }) {
+export function SidekickNav({ current }: { current: "overview" | "how" | "pricing" | "done" }) {
   const tabs = [
     { href: "/meta-ads#overview", label: "Overview", key: "overview" as const },
     { href: "/meta-ads#how-it-works", label: "How it works", key: "how" as const },
     { href: "/meta-ads#pricing", label: "Pricing", key: "pricing" as const },
+    { href: "/meta-ads#done-for-you", label: "Done for you", key: "done" as const },
   ];
   return (
     <nav className="mx-auto flex max-w-[1400px] flex-wrap items-center gap-x-5 gap-y-2 px-5 pb-2 pt-6 sm:px-10">

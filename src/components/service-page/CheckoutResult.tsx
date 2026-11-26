@@ -106,7 +106,7 @@ export function CheckoutResult() {
           {amount ? `${amount} paid` : "Payment received"}
           {data?.totalPages ? ` for a ${data.totalPages}-page build` : ""}. A receipt is on its way to{" "}
           <strong className="text-ink">{data?.email ?? "your inbox"}</strong>. We start on your project
-          straight away — we&rsquo;ll be in touch if we need anything from you, and again when the first
+          straight away. We&rsquo;ll be in touch if we need anything from you, and again when the first
           round is ready for your review.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">

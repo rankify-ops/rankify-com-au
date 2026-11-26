@@ -129,7 +129,7 @@ export function ContactHero() {
                   inputMode="tel"
                   autoComplete="tel"
                   pattern="[0-9\s\(\)\+\-]{8,20}"
-                  title="Enter a phone number we can reach you on — digits, spaces, + and () are fine."
+                  title="Enter a phone number we can reach you on. Digits, spaces, + and () are fine."
                   placeholder="0400 000 000"
                   className="w-full bg-transparent text-[15px] text-ink outline-none placeholder:text-grey"
                 />
@@ -168,7 +168,7 @@ export function ContactHero() {
                 </select>
               </div>
               <Button type="submit" className="justify-self-start">
-                {state === "sending" ? "Sending…" : state === "sent" ? "Sent — thanks!" : "Submit"}
+                {state === "sending" ? "Sending…" : state === "sent" ? "Sent, thanks" : "Submit"}
               </Button>
               {state === "error" && (
                 <p className="text-[13.5px] text-[#c0392b]">

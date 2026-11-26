@@ -35,8 +35,8 @@ export default function Page() {
           <strong>Speed is critical</strong>: Slow sites get penalised and ignored
         </li>
         <li>
-          <strong>Mobile is the priority</strong>: Not just responsive—fully built for
-          mobile-first flow
+          <strong>Mobile is the priority</strong>: Fully built for mobile-first flow, with
+          responsive as the baseline
         </li>
         <li>
           <strong>Attention spans are shorter</strong>: Users decide in seconds if they&rsquo;ll
@@ -65,26 +65,26 @@ export default function Page() {
         </li>
       </ul>
       <p>
-        These aren&rsquo;t trends—they&rsquo;re responses to how people use the internet now. And
-        performance isn&rsquo;t just about speed—it&rsquo;s about{" "}
+        These are responses to how people use the internet now, not trends. And
+        performance means speed plus{" "}
         <strong>clarity, structure, and purpose</strong>.
       </p>
 
       <h2>How We Built Rankify&rsquo;s Site With Performance in Mind</h2>
       <p>
-        When we built the Rankify site, the goal wasn&rsquo;t to be flashy—it was to be fast,
-        direct, and frictionless. We focused on:
+        When we built the Rankify site, the goal was to be fast,
+        direct, and frictionless, not flashy. We focused on:
       </p>
       <ul>
         <li>Keeping layouts minimal and easy to digest</li>
         <li>Using language that respects the reader&rsquo;s time</li>
         <li>Avoiding unnecessary animations or elements that slow things down</li>
-        <li>Making sure each page has a purpose—whether that&rsquo;s education or enquiry</li>
+        <li>Making sure each page has a purpose, either education or enquiry</li>
       </ul>
       <p>
         It reflects the kind of websites we build for clients: modern, clean, high-performing, and
         focused on results. If you&rsquo;re scanning the Rankify site, you&rsquo;ll notice
-        it&rsquo;s deliberately light—because light wins.
+        it&rsquo;s deliberately light, because light wins.
       </p>
 
       <h2>What Your Current Website Might Be Costing You</h2>
@@ -104,13 +104,13 @@ export default function Page() {
         </li>
       </ul>
       <p>
-        These issues don&rsquo;t always show up right away—but they add up. Every bounce, every
+        These issues don&rsquo;t always show up right away, but they add up. Every bounce, every
         missed enquiry, every user who clicks away is a lost opportunity.
       </p>
 
       <h2>Conclusion</h2>
       <p>
-        Modern websites aren&rsquo;t about trends—they&rsquo;re about survival. The way users
+        Modern websites are about survival, not trends. The way users
         interact with the web has changed dramatically in just a few years, and businesses that
         don&rsquo;t adapt are falling behind.
       </p>
@@ -119,7 +119,7 @@ export default function Page() {
         one that performs well is often the difference between growth and stagnation.
       </p>
       <p>
-        If your site feels dated, slow, or unclear—it probably is. And now is the time to fix it.
+        If your site feels dated, slow, or unclear, it probably is. Now is the time to fix it.
       </p>
     </BlogPostTemplate>
   );

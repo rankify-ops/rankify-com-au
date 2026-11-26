@@ -30,7 +30,7 @@ const DOORS = [
   {
     title: "Ad Sidekick",
     line: "What to upload, what to scale, and the daily P&L.",
-    href: "https://sidekick.rankify.com.au/login",
+    href: "https://app.adsidekick.io/login",
     icon: <path d="M4 10v4h3l6 4V6L7 10H4ZM17.5 9.2a4.2 4.2 0 0 1 0 5.6" />,
   },
 ];

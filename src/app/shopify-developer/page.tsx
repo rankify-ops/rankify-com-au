@@ -7,7 +7,7 @@ import { SHOPIFY_RETAINER_FROM, SHOPIFY_RETAINER_FROM_AMOUNT, SHOPIFY_HOURLY } f
 export const metadata: Metadata = {
   title: `Hire a Shopify Developer | Retainers from ${SHOPIFY_RETAINER_FROM}/mo | Rankify`,
   description:
-    "Ongoing Shopify development on retainer or by the hour. A dedicated developer who already knows your store — bug fixes, design changes, new features. 3 month minimum.",
+    "Ongoing Shopify development on retainer or by the hour. A dedicated developer who already knows your store, for bug fixes, design changes and new features. 3 month minimum.",
   alternates: { canonical: "/shopify-developer" },
   openGraph: {
     title: `Hire a Shopify Developer | Retainers from ${SHOPIFY_RETAINER_FROM}/mo | Rankify`,

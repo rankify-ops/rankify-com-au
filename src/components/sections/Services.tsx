@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { PlusIcon } from "@/components/ui/PlusIcon";
+import { WEBSITE_FROM, SHOPIFY_FROM } from "@/content/pricing.generated";
 
 /**
  * Mirrors the six items in the top nav — see src/content/nav.tsx. The homepage
@@ -18,21 +19,21 @@ const SERVICES = [
   {
     title: "Web Development",
     href: "/web-design-and-development",
-    desc: "Custom websites built around how your customers actually decide — not a template with your logo on it. From $2,999, live in 7–15 days.",
+    desc: `Custom websites built around how your customers decide, not a template with your logo on it. From ${WEBSITE_FROM}, live in 7 to 15 days.`,
     cat: "What's included",
     tags: ["Custom build", "Conversion-focused", "Mobile-first", "Speed optimised", "SEO-ready", "Unlimited revisions"],
   },
   {
     title: "Shopify Development",
     href: "/shopify-development-services",
-    desc: "Custom Liquid stores for brands that want to scale profitably. Migrations handled, apps built into the theme rather than bolted on. From $5,999.",
+    desc: `Custom Liquid stores for brands that want to scale profitably. Migrations handled, apps built into the theme rather than bolted on. From ${SHOPIFY_FROM}.`,
     cat: "What's included",
     tags: ["Custom Liquid themes", "Migrations", "Product & collection UX", "Checkout optimisation", "Apps built in", "Shopify Partner"],
   },
   {
     title: "SEO Optimisation",
     href: "/seo",
-    desc: "The cheapest lead source you'll ever own. Priced per page rather than as an open-ended retainer, and reported on in leads — not impressions.",
+    desc: "The cheapest lead source you'll ever own. Priced per page rather than as an open-ended retainer, and reported on in leads, not impressions.",
     cat: "What's included",
     tags: ["Technical SEO", "On-Page SEO", "Keyword Strategy", "Content Strategy", "Link Building", "Local SEO"],
   },
@@ -46,14 +47,14 @@ const SERVICES = [
   {
     title: "Meta Ads",
     href: "/meta-ads",
-    desc: "Facebook and Instagram campaigns where creative is treated as the main lever, with the pixel and CAPI set up so the data is actually usable.",
+    desc: "Facebook and Instagram campaigns where creative is treated as the main lever, with the pixel and CAPI set up so the data is usable.",
     cat: "What's included",
     tags: ["Creative strategy", "Catalogue ads", "Pixel & CAPI", "Retargeting", "Testing framework", "Reporting"],
   },
   {
     title: "AI & Automation",
     href: "/ai-and-automation",
-    desc: "The repetitive work eating your week, handed to software instead of a person — plus the dashboards and internal tools you actually run the business on.",
+    desc: "The repetitive work eating your week, handed to software instead of a person, plus the dashboards and internal tools you run the business on.",
     cat: "What we build",
     tags: ["Process automation", "Custom dashboards", "Internal tools", "Integrations", "Alerting", "AI consulting"],
   },

@@ -1,29 +1,43 @@
 import Image from "next/image";
 import { asset } from "@/lib/basePath";
+import { MockScreen, type Mock } from "@/components/capability/MockScreen";
 
 /**
  * A product screenshot.
  *
  * Captures go in `public/assets/product/` and are referenced by name. Where a
- * capture does not exist yet the component renders a labelled frame saying so,
- * rather than a stock image or a mocked-up number — a fake dashboard on a
- * pricing page is a claim about the product, and an untrue one.
+ * capture does not exist yet, pass `mock` and the step is drawn instead: the
+ * same layout with figures that belong to nobody, tagged "Sample data" in its
+ * own frame so it cannot be read as a result.
  *
- * The frame is deliberately obvious in that state. Nobody should be able to
- * ship this page believing the screenshots are done.
+ * With neither, it renders a frame that says "Screenshot to come". That state
+ * is deliberately obvious and must never ship: eight of them were live on
+ * /meta-ads for a month.
  */
 export function Shot({
   src,
+  mock,
   alt,
   caption,
   wide = false,
 }: {
+  /** Drawn in place of a capture that does not exist yet. */
+  mock?: Mock;
   /** File name inside public/assets/product, without the extension. */
   src?: string;
   alt: string;
   caption?: string;
   wide?: boolean;
 }) {
+  if (!src && mock) {
+    return (
+      <figure className="w-full">
+        <MockScreen mock={mock} />
+        {caption && <figcaption className="mt-3 text-[13.5px] text-grey">{caption}</figcaption>}
+      </figure>
+    );
+  }
+
   return (
     <figure className={wide ? "w-full" : "w-full"}>
       <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-[0_20px_50px_-30px_rgba(0,33,23,0.5)]">

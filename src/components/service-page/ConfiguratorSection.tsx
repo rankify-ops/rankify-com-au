@@ -1,5 +1,7 @@
 "use client";
 
+import { BRANDS } from "@/content/proof";
+import { GUARANTEE_DAYS, GUARANTEE_UNDER_DISPLAY, guaranteeApplies } from "@/content/guarantee";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
@@ -141,15 +143,27 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
   const byUs = pagesMode === "rankify";
   // In "we'll handle it" mode the picker isn't driving anything: the price is
   // the base build and the page list is scoped on the brief.
-  const totalPages = byUs ? includedPages : selected.length + servicePages + custom.length;
+  //
+  // On the per-page (SEO) model there is no base build, so "we'll handle it"
+  // used to resolve to zero included pages at a base price of zero: the form
+  // opened on "$0 /mo, Up to 0 pages included", which is also what Google
+  // read. It now opens on the core pages at the per-page price.
+  const totalPages = byUs
+    ? perPage
+      ? block.corePages.length
+      : includedPages
+    : selected.length + servicePages + custom.length;
   const extra = Math.max(0, totalPages - includedPages);
   const remaining = perPage ? 0 : Math.max(0, includedPages - totalPages);
-  const price = byUs
+  const price = byUs && !perPage
     ? basePrice
     : perPage
       ? totalPages * (block.pricePerPage ?? 0)
       : basePrice + extra * extraPagePrice;
   const canCheckout = (block.checkout ?? true) && checkoutConfigured;
+  // Shown beside the price only while that price is covered. A page with no
+  // guaranteeLabel (SEO) never shows one.
+  const showGuarantee = Boolean(block.guaranteeLabel) && guaranteeApplies(price);
 
   const toggle = (p: string) =>
     setSelected((cur) => (cur.includes(p) ? cur.filter((x) => x !== p) : [...cur, p]));
@@ -205,16 +219,16 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
           : `Pages (${totalPages}): ${[...selected, ...custom].join(", ")}`) +
           (servicePages ? `, ${servicePages} dedicated service page(s)` : ""),
         `Total: ${money(price)}`,
-        `Business: ${details.business || "—"} (${details.industry || "—"})`,
-        `Existing site: ${details.existing || "—"}`,
-        `About: ${details.about || "—"}`,
-        `Contact: ${details.name || "—"} · ${details.email || "—"} · ${details.phone || "—"}`,
+        `Business: ${details.business || "not provided"} (${details.industry || "not provided"})`,
+        `Existing site: ${details.existing || "not provided"}`,
+        `About: ${details.about || "not provided"}`,
+        `Contact: ${details.name || "not provided"} · ${details.email || "not provided"} · ${details.phone || "not provided"}`,
       ].join("\n"),
     [byUs, includedPages, totalPages, selected, custom, servicePages, price, details]
   );
 
   const mailto = `mailto:hello@rankify.com.au?subject=${encodeURIComponent(
-    `Website order — ${money(price)}`
+    `Website order: ${money(price)}`
   )}&body=${encodeURIComponent(summary)}`;
 
   // Selections only — the API prices the order itself, so a tampered payload
@@ -319,7 +333,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                   {/* One line in "we scope it" mode — the second half was still
                       printing "10 included" underneath, giving
                       "Up to 10 pages / 10 included". */}
-                  {byUs ? (
+                  {byUs && !perPage ? (
                     <>Up to {includedPages} pages included</>
                   ) : (
                     <>
@@ -342,9 +356,9 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                   )}
                 </p>
               </div>
-              <p className="mt-3 flex items-center gap-1.5 text-[12px] font-medium text-white/70">
+              <p className={`mt-3 items-center gap-1.5 text-[12px] font-medium text-white/70 ${showGuarantee ? "flex" : "hidden"}`}>
                 <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 flex-none text-[color:#07a889]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3.2 19 5.7v5.6c0 4.4-3 7.4-7 9.1-4-1.7-7-4.7-7-9.1V5.7z" /><path d="m9.2 11.9 2 2 3.6-3.8" /></svg>
-                {block.guaranteeLabel ?? "100% money-back guarantee, 30 days"}
+                {block.guaranteeLabel}
               </p>
               <p
                 className={`mt-3 rounded-xl px-3 py-2 text-[12.5px] font-medium leading-snug ${
@@ -358,8 +372,8 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                   : perPage
                   ? `${money(price * (block.minMonths ?? 1))} over the ${block.minMonths ?? 1} month minimum.`
                   : remaining > 0
-                    ? `You can select ${remaining} more page${remaining === 1 ? "" : "s"} before the price increases!`
-                    : `All ${includedPages} included pages used — every page after this adds ${money(extraPagePrice)}.`}
+                    ? `You can select ${remaining} more page${remaining === 1 ? "" : "s"} before the price increases.`
+                    : `All ${includedPages} included pages used. Every page after this adds ${money(extraPagePrice)}.`}
               </p>
             </div>
 
@@ -374,7 +388,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                   {/* Card payment is being wired up — until it is, the order
                       still has to reach us, so the same details go by email. */}
                   <p className="mt-2 max-w-[420px] text-[14.5px] text-white/60">
-                    {totalPages} pages, {money(price)} in full. Card checkout goes live shortly — send
+                    {totalPages} pages, {money(price)} in full. Card checkout goes live shortly. Send
                     your order through now and we&rsquo;ll get started, or book a call and we&rsquo;ll
                     walk through it together first.
                   </p>
@@ -397,7 +411,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                 <>
                   <div className="mb-6 flex items-center justify-between gap-4">
                     <p className="text-[12.5px] font-semibold uppercase tracking-[0.12em] text-white/50">
-                      Step {step} of 3 —{" "}
+                      Step {step} of 3:{" "}
                       {step === 1 ? "Your pages" : step === 2 ? "Your business" : "Your details"}
                     </p>
                     <StepDots step={step} total={3} />
@@ -457,8 +471,8 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                           <p className="mt-2 text-[14px] leading-relaxed text-white/65">
                             In the onboarding you tell us about your business, the services you
                             offer and what you want the site to achieve. From there we design a
-                            high-performance, conversion-focused website built on what actually
-                            works in your industry &mdash; drawn from thousands of high-performing
+                            high-performance, conversion-focused website built on what
+                            works in your industry, drawn from thousands of high-performing
                             sites and real performance data, not a template. Up to{" "}
                             {includedPages} pages included, at the same price.
                           </p>
@@ -466,9 +480,9 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                             {[
                               "Structure based on what converts in your industry, not a guess",
                               "A dedicated page per service where it earns one",
-                              block.guaranteeLabel
-                                ? "Same 30-day guarantee either way. Not for Shopify builds."
-                                : "Same 30-day money-back guarantee either way",
+                              ...(block.guaranteeLabel
+                                ? [`Same ${GUARANTEE_DAYS}-day guarantee either way, on websites under ${GUARANTEE_UNDER_DISPLAY}`]
+                                : []),
                             ].map((t) => (
                               <li key={t} className="flex items-start gap-2.5 text-[13.5px] leading-snug text-white/80">
                                 <span className="mt-[3px] flex h-[15px] w-[15px] flex-none items-center justify-center rounded-full bg-[color:#07a889]">
@@ -565,7 +579,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
 
                       <div className="mt-5">
                         <p className="mb-2 text-[12.5px] font-medium text-white/60">
-                          Don&rsquo;t see a page you need? Add it here.
+                          Add any page you need that isn&rsquo;t listed.
                         </p>
                         <div className="flex gap-2">
                           <input
@@ -666,8 +680,8 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                       {!canContinueFromBusiness && (
                         <p className="text-[13px] text-white/45">
                           {details.about.trim().length > 0 && details.about.trim().length < 20
-                            ? "Just a little more detail on what you do — one sentence is plenty."
-                            : "All four help us design something that actually fits your business."}
+                            ? "A little more detail on what you do. One sentence is plenty."
+                            : "All four help us design something that fits your business."}
                         </p>
                       )}
                     </div>
@@ -718,10 +732,10 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                           />
                           <p className="text-[14px] leading-snug">
                             <strong className="font-semibold">
-                              I&rsquo;ll start on your build as soon as this goes through.
+                              We&rsquo;ll start on your build as soon as this goes through.
                             </strong>
                             <span className="block text-[13px] text-white/60">
-                              Thomas Flood &middot; you deal with me directly, start to finish
+                              Thomas Flood &middot; you work with the developer who builds it
                             </span>
                           </p>
                         </div>
@@ -730,7 +744,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                           {[
                             ["M12 3.2 19 5.7v5.6c0 4.4-3 7.4-7 9.1-4-1.7-7-4.7-7-9.1V5.7zM9.2 11.9l2 2 3.6-3.8", "Not one refund requested to date"],
                             ["M6.5 10.5V7.5a5.5 5.5 0 0 1 11 0v3M5 10.5h14v9H5z", "Secure checkout, card details never stored"],
-                            ["M12 12.4a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4.8 20.2a7.4 7.4 0 0 1 14.4 0", "100+ brands trust us with their website"],
+                            ["M12 12.4a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4.8 20.2a7.4 7.4 0 0 1 14.4 0", `${BRANDS} brands trust us with their website`],
                             ["M12 7.5V12l3 1.8", "Replies from a person, usually same day"],
                           ].map(([d, label]) => (
                             <li key={label} className="flex items-start gap-2.5 text-[13px] leading-snug text-white/75">
@@ -752,7 +766,7 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                             ))}
                           </span>
                           <span className="text-[13px] text-white/70">
-                            <strong className="font-semibold text-white">5.0 on Google</strong> &mdash;
+                            <strong className="font-semibold text-white">5.0 on Google</strong>:
                             every review, no exceptions
                           </span>
                         </div>
@@ -798,8 +812,8 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                       )}
                       {step === 3
                         ? perPage
-                          ? `Get started — ${money(price)}/mo`
-                          : `Secure checkout — ${money(price)}`
+                          ? `Get started: ${money(price)}/mo`
+                          : `Secure checkout: ${money(price)}`
                         : "Continue"}
                     </button>
                   </div>
@@ -845,9 +859,9 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                 {/* The guarantee belongs with the number it applies to — the
                     objection it answers happens at the price, not in a section
                     further down the page. */}
-                <p className="mt-2.5 flex items-center gap-1.5 text-[12.5px] font-medium text-white/70">
+                <p className={`mt-2.5 items-center gap-1.5 text-[12.5px] font-medium text-white/70 ${showGuarantee ? "flex" : "hidden"}`}>
                   <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 flex-none text-[color:#07a889]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3.2 19 5.7v5.6c0 4.4-3 7.4-7 9.1-4-1.7-7-4.7-7-9.1V5.7z" /><path d="m9.2 11.9 2 2 3.6-3.8" /></svg>
-                  {block.guaranteeLabel ?? "100% money-back guarantee, 30 days"}
+                  {block.guaranteeLabel}
                 </p>
 
                 {/* Tells them how much room is left in the base price, which is
@@ -864,8 +878,8 @@ export function ConfiguratorSection({ block }: { block: ConfiguratorBlock }) {
                     : perPage
                       ? `${money(price * (block.minMonths ?? 1))} over the ${block.minMonths ?? 1} month minimum, then month to month.`
                       : remaining > 0
-                        ? `You can select ${remaining} more page${remaining === 1 ? "" : "s"} before the price increases!`
-                        : `All ${includedPages} included pages used — every page after this adds ${money(extraPagePrice)}.`}
+                        ? `You can select ${remaining} more page${remaining === 1 ? "" : "s"} before the price increases.`
+                        : `All ${includedPages} included pages used. Every page after this adds ${money(extraPagePrice)}.`}
                 </p>
               </div>
 

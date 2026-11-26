@@ -24,7 +24,7 @@ export default function Page() {
       <h2>Do Small Businesses Need SEO?</h2>
       <p>
         Many small business owners wonder if SEO is worth the effort. The answer:{" "}
-        <strong>yes—if you want visibility in search engines</strong>. Small businesses
+        <strong>yes, if you want visibility in search engines</strong>. Small businesses
         especially benefit because:
       </p>
       <ul>
@@ -34,11 +34,11 @@ export default function Page() {
       </ul>
       <p>
         If you&rsquo;re asking <em>do small businesses need SEO</em>, the short answer is
-        generally yes—especially if you&rsquo;re relying on customers finding your products or
+        generally yes, especially if you&rsquo;re relying on customers finding your products or
         services online.
       </p>
 
-      <h2>Why Do You Need SEO — Quick Stats</h2>
+      <h2>Why Do You Need SEO: Quick Stats</h2>
       <p>Let&rsquo;s back up that claim with data:</p>
       <ul>
         <li>
@@ -59,7 +59,7 @@ export default function Page() {
         especially for small or local businesses.
       </p>
 
-      <h2>Do Local Businesses Need SEO — Common Concerns</h2>
+      <h2>Do Local Businesses Need SEO: Common Concerns</h2>
       <p>
         A frequent question: <em>do local businesses need SEO</em> if they already rely on
         word-of-mouth or offline channels? Here&rsquo;s how to unpack it:
@@ -80,7 +80,7 @@ export default function Page() {
         frequently:
       </p>
       <ul>
-        <li>Yes—product pages, category landing pages, and long-tail terms help bring qualified buyers.</li>
+        <li>Yes. Product pages, category landing pages, and long-tail terms help bring qualified buyers.</li>
         <li>Searchers often use very specific queries before purchasing (&ldquo;best running shoes under $100&rdquo;).</li>
         <li>
           Investing in SEO can reduce reliance on paid ads and improve margins long-term, if well
@@ -103,22 +103,22 @@ export default function Page() {
       <h2>To recap:</h2>
       <ul>
         <li>
-          <em>Do you need SEO?</em> If you aim to be found online—especially as a small, local, or
-          eCommerce site—then yes, SEO matters.
+          <em>Do you need SEO?</em> If you aim to be found online, especially as a small, local, or
+          eCommerce site, then yes, SEO matters.
         </li>
         <li>
           We examined <em>do small businesses need SEO</em>, why you need SEO (with stats),{" "}
           <em>do local businesses need SEO</em>, and <em>do ecommerce sites need SEO</em>.
         </li>
         <li>
-          We also discussed when it might make sense to wait on SEO—for example, in early-stage
+          We also discussed when it might make sense to wait on SEO, for example in early-stage
           ventures or niche referral-only models.
         </li>
       </ul>
       <p>
         <strong>
-          Ready to improve your search presence? Start by auditing your site, choosing relevant
-          keywords, and creating useful content—then contact us or subscribe to get practical SEO
+          To improve your search presence, start by auditing your site, choosing relevant
+          keywords, and creating useful content. Then contact us or subscribe to get practical SEO
           guides.
         </strong>
       </p>

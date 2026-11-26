@@ -87,8 +87,10 @@ export type PricingBlock = {
   lookingForMore?: boolean;
   lookingForMoreCta?: { label: string; href: string };
   /**
-   * Replaces the "money back guarantee" line on the price. Unset keeps that
-   * line, which logo packages and Shopify retainers still use.
+   * The one line of terms under the prices. There is no default: it used to
+   * fall back to "100% money back guarantee", which printed that promise under
+   * a retainer with a three month minimum. A block says its own terms or says
+   * nothing.
    */
   assurance?: string;
 };

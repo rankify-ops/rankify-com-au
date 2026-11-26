@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import { WEBSITE_FROM, SHOPIFY_FROM, SEO_PER_PAGE, SHOPIFY_RETAINER_FROM } from "@/content/pricing.generated";
+import { WEBSITE_FROM, SHOPIFY_FROM, SEO_PER_PAGE, SHOPIFY_RETAINER_FROM, SIDEKICK_FROM } from "@/content/pricing.generated";
+import { DONE_FOR_YOU_FROM } from "@/content/sidekick";
 
 /* --- tiny stroke icons used on the menu choice cards --- */
 const I = ({ d }: { d: string }) => (
@@ -32,6 +33,8 @@ const Megaphone = () => <I d="M4 10v4h3l6 4V6L7 10H4ZM17.5 9.2a4.2 4.2 0 0 1 0 5
 const Doc = () => <I d="M5 3.5h14v17H5v-17ZM8.5 8h7M8.5 12h7M8.5 16h4" />;
 const Mail = () => <I d="M3.5 5.5h17v13h-17v-13ZM3.5 7l8.5 5.5L20.5 7" />;
 const Robot = () => <I d="M7.5 9.5h9a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2ZM12 6.5v3M12 4.2h.01M9.5 13.5h.01M14.5 13.5h.01M3.2 12.5v3M20.8 12.5v3" />;
+const Gauge = () => <I d="M4.2 17.5a8.5 8.5 0 1 1 15.6 0M12 14l4-5.2M12 15.2a1.2 1.2 0 1 0 0-2.4 1.2 1.2 0 0 0 0 2.4Z" />;
+const Box = () => <I d="M12 3.5 20 7.5v9l-8 4-8-4v-9l8-4ZM4 7.5l8 4 8-4M12 11.5v9" />;
 const Wrench = () => <I d="M15.6 4.4a5 5 0 0 0-6.4 6.4L4 16v4h4l5.2-5.2a5 5 0 0 0 6.4-6.4l-3 3-2.6-.7-.7-2.6 2.3-3.7Z" />;
 
 /**
@@ -55,6 +58,7 @@ const WEB = "/web-design-and-development";
 const SHOP = "/shopify-development-services";
 const DEV = "/shopify-developer";
 const AI = "/ai-and-automation";
+const DASH = "/dashboards";
 
 export const NAV_ITEMS: NavItem[] = [
   {
@@ -79,7 +83,7 @@ export const NAV_ITEMS: NavItem[] = [
         },
         {
           label: "I want work on my existing site",
-          sub: "Hourly development on your current Shopify, Framer or WordPress site.",
+          sub: "Fixes, new pages and new features on the site you already have. Billed by the hour.",
           // #what-we-build doesn't exist on the rebuilt page — the top of it is
           // at least a real destination until there's a section to aim at.
           href: WEB,
@@ -105,7 +109,7 @@ export const NAV_ITEMS: NavItem[] = [
     mega: {
       choices: [
         {
-          label: "I want a new website",
+          label: "I want a new store",
           sub: `Custom Shopify store designed and built from scratch. Stores from ${SHOPIFY_FROM}.`,
           href: SHOP,
           icon: <Cart />,
@@ -208,32 +212,71 @@ export const NAV_ITEMS: NavItem[] = [
     href: "/meta-ads",
     mega: {
       choices: [
+        // These four used to be e-commerce, lead gen and SaaS, pointing at
+        // sections the page never had. They now route by the real choice a
+        // visitor has here: run it yourself, or have it run.
         {
-          label: "I want Meta Ads for e-commerce",
-          sub: "Catalogue and prospecting campaigns, with creative treated as the main lever.",
-          href: "/meta-ads#ecommerce",
-          icon: <Cart />,
+          label: "I want to run them myself",
+          sub: `Ad Sidekick builds the campaigns and tells you what to scale and what to turn off. From ${SIDEKICK_FROM} a month.`,
+          href: "/meta-ads#overview",
+          icon: <Megaphone />,
         },
         {
-          label: "I want Meta Ads for lead gen",
-          sub: "Instant-form and click-to-site campaigns, with pixel and CAPI set up properly.",
-          href: "/meta-ads#lead-gen",
-          icon: <Phone />,
+          label: "I want Rankify to run them",
+          sub: `We build your campaigns and ads and manage the account. From ${DONE_FOR_YOU_FROM} a month.`,
+          href: "/meta-ads#done-for-you",
+          icon: <Shield />,
         },
         {
-          label: "I want Meta Ads for SaaS",
-          sub: "Trial and demo campaigns. Talk to us about scope before committing budget.",
-          href: "/meta-ads#saas",
-          icon: <Spark />,
+          label: "I want to see pricing",
+          sub: "Three Ad Sidekick plans, side by side. No contract and no exit fee.",
+          href: "/meta-ads#pricing",
+          icon: <Chart />,
         },
         {
           label: "I want to book a strategy call",
           sub: "We'll review your account, creative and tracking setup.",
           href: "/schedule-strategy-call",
-          icon: <Target />,
+          icon: <Phone />,
         },
       ],
       promo: { kicker: "Free audit", heading: "See exactly where your Meta Ads budget is being wasted.", ...BOOK },
+    },
+  },
+  {
+    // Its own item rather than one choice inside AI & Automation: it is the
+    // thing we have built the most of and the page with the most to show.
+    label: "Dashboards",
+    icon: <Gauge />,
+    href: DASH,
+    mega: {
+      choices: [
+        {
+          label: "I want a sales and profit dashboard",
+          sub: "Every channel you sell on, the costs against it, and what is left. Read live, never typed in.",
+          href: `${DASH}#sales-and-profit`,
+          icon: <Chart />,
+        },
+        {
+          label: "I want my ad accounts on one screen",
+          sub: "Spend and revenue on the same line, with which ads to scale and which to turn off.",
+          href: `${DASH}#ad-accounts`,
+          icon: <Target />,
+        },
+        {
+          label: "I want stock and operations tracked",
+          sub: "Landed cost, incoming shipments and suppliers, with stock written back to your store.",
+          href: `${DASH}#stock-and-operations`,
+          icon: <Box />,
+        },
+        {
+          label: "I want a hub built around my business",
+          sub: "Clients, invoices, alerts, approvals, AI agents. A hub can do anything your business does.",
+          href: `${DASH}#built-around-your-business`,
+          icon: <Wrench />,
+        },
+      ],
+      promo: { kicker: "Free scoping call", heading: "Tell us the numbers you check every week. See them on one screen.", ...BOOK },
     },
   },
   {
@@ -249,20 +292,21 @@ export const NAV_ITEMS: NavItem[] = [
           icon: <Bolt />,
         },
         {
-          label: "I want a custom business dashboard",
-          sub: "One live screen for the numbers you actually run the business on.",
-          href: `${AI}#dashboards`,
-          icon: <Chart />,
-        },
-        {
-          label: "I want an internal tool built",
-          sub: "Custom apps, alerting systems and calculators shaped around how you work.",
+          label: "I want an internal tool or app built",
+          sub: "Quoting tools, booking systems, client portals and back ends shaped around how you work.",
           href: `${AI}#internal-tools`,
           icon: <Wrench />,
         },
         {
+          // Dashboards used to be the choice here. It has its own menu now.
+          label: "I want AI agents in my business",
+          sub: "Assistants and agents that take the routine work, inside limits you set.",
+          href: `${AI}#ai-agents`,
+          icon: <Robot />,
+        },
+        {
           label: "I want AI consulting",
-          sub: "Where AI genuinely helps your business — and where it doesn't.",
+          sub: "Where AI pays in your business, where it does not, and what to build first.",
           href: `${AI}#consulting`,
           icon: <Phone />,
         },

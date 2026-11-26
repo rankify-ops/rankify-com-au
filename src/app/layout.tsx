@@ -19,7 +19,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Rankify | Marketing, Websites, Apps & AI Automation",
   description:
-    "High-performance marketing, websites, apps and AI automation for Australian businesses. Custom built, conversion focused, and priced up front — you work directly with the developer.",
+    "High-performance marketing, websites, apps and AI automation for Australian businesses. Custom built, conversion focused and priced up front. You work directly with the developer.",
   metadataBase: new URL("https://www.rankify.com.au"),
   alternates: { canonical: "/" },
   // Rendered into <head> at build time. Meta's crawler rejects a tag injected

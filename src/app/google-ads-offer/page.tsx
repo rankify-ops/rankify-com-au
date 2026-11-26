@@ -27,7 +27,7 @@ import { LandingPixel, StickyCta } from "@/components/landing/LandingChrome";
 export const metadata: Metadata = {
   title: "Google Ads Offer | Rankify × Adalytical",
   description:
-    "A new landing page, your Google Ads campaigns, the ad copy and the conversion tracking — built first, paid for only if you're happy with it.",
+    "A new landing page, your Google Ads campaigns, the ad copy and the conversion tracking. Built first, paid for only if you're happy with it.",
   robots: { index: false, follow: true },
   alternates: { canonical: "/google-ads-offer" },
 };
@@ -37,7 +37,7 @@ const CTA = "See if you qualify";
 const LOGO = "/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg";
 
 const BADGES = [
-  "Nothing upfront — see it before you pay",
+  "Nothing upfront: see it before you pay",
   "A landing page built to convert",
   "Google Ads campaigns set up and written",
   "Conversion tracking installed and tested",
@@ -50,17 +50,17 @@ const DELIVERABLES = [
   {
     n: "01",
     h: "A brand-new landing page",
-    b: "Not your existing site with the ads pointed at it. A page built for one job — turning a click from Google into an enquiry or a booked job.",
+    b: "Not your existing site with the ads pointed at it. A page built for one job: turning a click from Google into an enquiry or a booked job.",
   },
   {
     n: "02",
     h: "Your Google Ads campaigns, set up properly",
-    b: "Structure, keywords, match types, negatives, bidding, geo — the parts that decide whether your budget buys customers or clicks from people who were never going to call.",
+    b: "Structure, keywords, match types, negatives, bidding and geo: the parts that decide whether your budget buys customers or clicks from people who were never going to call.",
   },
   {
     n: "03",
     h: "The ads themselves, written for you",
-    b: "Headlines and descriptions written to match what people actually search when they're ready to spend money, not filler that burns budget on curiosity.",
+    b: "Headlines and descriptions written to match what people search when they're ready to spend money, not filler that burns budget on curiosity.",
   },
   {
     n: "04",
@@ -73,7 +73,7 @@ const STEPS = [
   {
     n: "01",
     h: "Tell us about your business",
-    b: "A short form — what you do, where you work, what a good customer is worth to you. It takes a couple of minutes and it tells us whether we can actually help.",
+    b: "A short form: what you do, where you work, what a good customer is worth to you. It takes a couple of minutes and it tells us whether we can help.",
   },
   {
     n: "02",
@@ -113,7 +113,7 @@ const PARTNER: PartnerBlock = {
     { label: "Australia's fastest growing Google Ads business", accent: true },
   ],
   body:
-    "Adalytical's founders led growth teams at Google before starting Australia's fastest growing Google Ads business. They run the campaigns. Rankify builds the page those campaigns send people to — which is the half most agencies hand back to you and hope for the best on. Neither part works without the other, so on this offer they're done together.",
+    "Adalytical's founders led growth teams at Google before starting Australia's fastest growing Google Ads business. They run the campaigns. Rankify builds the page those campaigns send people to, which is the half most agencies hand back to you and hope for the best on. Neither part works without the other, so on this offer they're done together.",
   quote:
     "We partner with Rankify when our clients are in need of a new website, Shopify store or landing pages — high-performance builds we know will convert.",
   people: [
@@ -154,15 +154,15 @@ const FAQ = {
   items: [
     {
       q: "What's the catch if I don't pay anything upfront?",
-      a: "There isn't one, but here's the honest reason we do it. Every ads agency on earth promises results before they've done any work, and you have no way of telling the good ones from the rest until your money's gone. So we've taken that off the table — we build it first, show you exactly what we've made, and you decide from there. It only works because we're selective about who we take on, which is what the form is for.",
+      a: "There isn't one. Here's why we do it. Every ads agency on earth promises results before they've done any work, and you have no way of telling the good ones from the rest until your money's gone. So we've taken that off the table. We build it first, show you exactly what we've made, and you decide from there. It only works because we're selective about who we take on, which is what the form is for.",
     },
     {
-      q: "Who actually does the work?",
-      a: "Both of us, on the parts we're each good at. Adalytical build and run the Google Ads campaigns — their founders led growth teams at Google before starting the business. Tom at Rankify builds the landing page the ads point at. You deal with the people doing the work, not an account manager relaying messages.",
+      q: "Who does the work?",
+      a: "Both of us, on the parts we're each good at. Adalytical build and run the Google Ads campaigns. Their founders led growth teams at Google before starting the business. Tom at Rankify builds the landing page the ads point at. You deal with the people doing the work, not an account manager relaying messages.",
     },
     {
       q: "Why does the landing page matter if the ads are good?",
-      a: "Because the ad only buys you the click. What happens after that — whether the page loads fast, says the right thing, and makes it obvious how to get in touch — decides whether that click becomes a job or a bounce. Running strong campaigns into a weak page is the most common way we see budget wasted, and it's why these two things are being done together rather than by two companies who never speak.",
+      a: "Because the ad only buys you the click. What happens after that decides whether that click becomes a job or a bounce: whether the page loads fast, says the right thing, and makes it obvious how to get in touch. Running strong campaigns into a weak page is the most common way we see budget wasted, and it's why these two things are being done together rather than by two companies who never speak.",
     },
     {
       q: "Who is this not for?",
@@ -241,7 +241,7 @@ export default function GoogleAdsOfferPage() {
                 Rankify have partnered with Adalytical to build a small number of service businesses
                 a brand-new landing page, set up their Google Ads campaigns, write the ads and
                 install the conversion tracking. We build it first and show you exactly what
-                we&rsquo;ve made — and only if you&rsquo;re happy with it do you pay.
+                we&rsquo;ve made. You pay only if you&rsquo;re happy with it.
               </p>
             </Reveal>
             <Reveal delay={0.15}>
@@ -387,7 +387,7 @@ export default function GoogleAdsOfferPage() {
           </Reveal>
           <Reveal delay={0.05} className="mt-8">
             <Cta light />
-            <p className="mt-4 text-[13.5px] text-white/60">Or email us — hello@rankify.com.au</p>
+            <p className="mt-4 text-[13.5px] text-white/60">Or email us at hello@rankify.com.au</p>
           </Reveal>
         </div>
       </section>

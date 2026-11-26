@@ -5,10 +5,12 @@ import { Reveal } from "@/components/ui/Reveal";
 import { ServiceFaq } from "@/components/service-page/ServiceFaq";
 import { Shot } from "@/components/sidekick/Shot";
 import { Band, Heading, SidekickCta, SidekickNav, SIGNUP_HREF } from "@/components/sidekick/SidekickChrome";
+import { Button } from "@/components/ui/Button";
+import { SmartLink } from "@/components/ui/SmartLink";
 import { PlanFootnote, PlanMatrix, PlanPanel, PlanRow } from "@/components/ui/PlanTable";
 import type { PlanColumn } from "@/components/ui/PlanTable";
-import { PLAN_ROWS, SIDEKICK_FAQ, SIDEKICK_PLANS, LEARNING_NOTES } from "@/content/sidekick";
-import { SIDEKICK_STAGES } from "@/content/sidekick-stages";
+import { DONE_FOR_YOU_FROM, DONE_FOR_YOU_POINTS, PLAN_ROWS, SIDEKICK_FAQ, SIDEKICK_PLANS, LEARNING_NOTES } from "@/content/sidekick";
+import { SIDEKICK_HERO_MOCK, SIDEKICK_NOTE_MOCK, SIDEKICK_STAGES } from "@/content/sidekick-stages";
 import { SIDEKICK_FROM, SIDEKICK_TIERS, SIDEKICK_TO } from "@/content/pricing.generated";
 
 /**
@@ -26,9 +28,9 @@ import { SIDEKICK_FROM, SIDEKICK_TIERS, SIDEKICK_TO } from "@/content/pricing.ge
  * itself.
  */
 export const metadata: Metadata = {
-  title: "Ad Sidekick — run your Meta ads without logging into Meta | Rankify",
+  title: "Meta Ads: run them with Ad Sidekick, or have us run them | Rankify",
   description:
-    `Upload your ads and Ad Sidekick names them, builds the campaigns, tells you which are working, when to scale and what to turn off. For Shopify brands. ${SIDEKICK_TIERS} a month, no contract.`,
+    `Run Meta ads without ever signing in to Meta. Ad Sidekick builds the campaigns and tells you what is winning and what to turn off, ${SIDEKICK_TIERS} a month. Or have us run them, from ${DONE_FOR_YOU_FROM} a month.`,
   alternates: { canonical: "/meta-ads" },
 };
 
@@ -43,7 +45,7 @@ const DOES = [
   },
   {
     h: "Tells you what is working",
-    b: "Which ads to scale, which to turn off, which to leave alone — and when, rather than on a hunch.",
+    b: "Which ads to scale, which to turn off and which to leave alone, and when. A reason every time, never a hunch.",
   },
   {
     h: "Keeps every winner",
@@ -110,19 +112,25 @@ export default function MetaAdsPage() {
             <Reveal delay={0.15} className="mt-8">
               <SidekickCta />
               <p className="mt-3.5 text-[13.5px] text-grey">
-                From {SIDEKICK_FROM}/mo. No contract, no exit fee.
+                From {SIDEKICK_FROM}/mo. No contract, no exit fee.{" "}
+                <SmartLink
+                  href="/meta-ads#done-for-you"
+                  className="font-semibold text-ink underline underline-offset-4"
+                >
+                  Or have us run them for you
+                </SmartLink>
               </p>
             </Reveal>
           </div>
           <Reveal delay={0.1}>
-            <Shot alt="The Ad Sidekick dashboard" caption="Every number for the brand, in one place." />
+            <Shot alt="The Ad Sidekick dashboard" caption="Every number for the brand, in one place." mock={SIDEKICK_HERO_MOCK} />
           </Reveal>
         </div>
       </section>
 
       {/* ---------- The argument ---------- */}
       <Band dark>
-        <Heading kicker="Why this exists" dark sub="An agency retainer does not buy ads. It buys the decisions about ads — and those decisions are a system that can be written down. Pay for the system, and the rest of the money goes on actually reaching customers.">
+        <Heading kicker="Why this exists" dark sub="An agency retainer does not buy ads. It buys the decisions about ads, and those decisions are a system that can be written down. Pay for the system, and the rest of the money goes on reaching customers.">
           You are not paying an agency for ads.
           <br />
           You are paying for their system.
@@ -131,7 +139,7 @@ export default function MetaAdsPage() {
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
             { k: "Your retainer", v: "whatever you pay now" },
-            { k: "Ad Sidekick", v: `${SIDEKICK_FROM} – ${SIDEKICK_TO}/mo` },
+            { k: "Ad Sidekick", v: `${SIDEKICK_FROM} to ${SIDEKICK_TO}/mo` },
             { k: "The difference", v: "goes into ad spend" },
             { k: "To know an ad works", v: "about 3 days" },
           ].map((c) => (
@@ -144,8 +152,8 @@ export default function MetaAdsPage() {
 
         <p className="mt-8 max-w-[720px] text-[15.5px] leading-relaxed text-white/60">
           The other half of the argument is that you are better placed to run this than an agency
-          is. You know the brand and the customer better than they ever will, and you actually
-          care whether it works. This is the system, handed to the person with the most at stake.
+          is. You know the brand and the customer better than they ever will, and you are the
+          one who cares most whether it works. This is the system, handed to the person with the most at stake.
         </p>
       </Band>
 
@@ -204,7 +212,7 @@ export default function MetaAdsPage() {
                   )}
                 </div>
               </Reveal>
-              <Shot alt={s.alt} caption={s.caption} />
+              <Shot alt={s.alt} caption={s.caption} mock={s.mock} />
             </div>
           ))}
         </div>
@@ -218,7 +226,7 @@ export default function MetaAdsPage() {
       <Band dark>
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div>
-            <Heading kicker="It teaches, it does not just run" dark sub="Short notes appear while you work, at the moment the thing being explained is on screen. The audience is people learning Meta, and every note has to change what you do next or it does not exist.">
+            <Heading kicker="It teaches as it runs" dark sub="Short notes appear while you work, at the moment the thing being explained is on screen. The audience is people learning Meta, and every note has to change what you do next or it does not exist.">
               You will understand your own ads.
             </Heading>
             <ul className="mt-8 grid gap-2.5">
@@ -232,7 +240,7 @@ export default function MetaAdsPage() {
               ))}
             </ul>
           </div>
-          <Shot alt="A Learning Note shown inside the app" caption="Taught at the moment it matters." />
+          <Shot alt="A Learning Note shown inside the app" caption="Taught at the moment it matters." mock={SIDEKICK_NOTE_MOCK} />
         </div>
       </Band>
 
@@ -284,8 +292,8 @@ export default function MetaAdsPage() {
             <PlanPanel>
               <PlanMatrix columns={COLUMNS} rows={MATRIX_ROWS} />
               <PlanFootnote>
-                Prices are in Australian dollars, per month. No contract and no exit fee &mdash; turn
-                it off whenever you like.
+                Prices are in Australian dollars, per month. No contract and no exit fee. Turn it
+                off whenever you like.
               </PlanFootnote>
             </PlanPanel>
           </Reveal>
@@ -293,6 +301,59 @@ export default function MetaAdsPage() {
 
         <div className="mt-10">
           <SidekickCta />
+        </div>
+      </Band>
+
+      {/* ---------- Done for you ----------
+
+          The menu, the ask box and the home card all said Rankify runs Meta
+          ads for clients, and this page never mentioned it. It is the same
+          system with our hands on it, which is why it sits after the product
+          rather than in place of it. */}
+      <Band id="done-for-you" dark>
+        <div className="grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-16">
+          <div>
+            <Heading
+              kicker="Done for you"
+              dark
+              sub="The same system, with our hands on it. We build your campaigns and your ads, tell you when to add more, what is winning and what to turn off. You never sign in to Meta."
+            >
+              Would you rather we ran it?
+            </Heading>
+            <ul className="mt-8 grid gap-2.5">
+              {DONE_FOR_YOU_POINTS.map((n) => (
+                <li key={n} className="flex items-start gap-3 text-[15.5px] leading-snug text-white/85">
+                  <svg viewBox="0 0 24 24" className="mt-[2px] h-[18px] w-[18px] flex-none text-[color:#3fd8bb]" fill="currentColor" aria-hidden>
+                    <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.8 7.7-5.6 5.6a1 1 0 0 1-1.4 0l-2.6-2.6a1 1 0 1 1 1.4-1.4l1.9 1.9 4.9-4.9a1 1 0 0 1 1.4 1.4Z" />
+                  </svg>
+                  {n}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <Reveal>
+            <div className="rounded-3xl border border-white/12 bg-white/[0.06] p-7 sm:p-9">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-white/55">
+                Meta ads management
+              </p>
+              <p className="mt-3 flex items-baseline gap-2">
+                <span className="text-[15px] text-white/60">from</span>
+                <span className="text-[clamp(40px,4.4vw,58px)] font-semibold leading-none tracking-[-0.04em]">
+                  {DONE_FOR_YOU_FROM}
+                </span>
+                <span className="text-[15px] text-white/60">/mo</span>
+              </p>
+              <p className="mt-4 text-[15px] leading-relaxed text-white/70">
+                Scoped to your account on a call, so you know the fee before anything starts.
+              </p>
+              <div className="mt-7">
+                <Button href="/schedule-strategy-call" variant="light" className="w-full justify-center">
+                  Book a strategy call
+                </Button>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </Band>
 

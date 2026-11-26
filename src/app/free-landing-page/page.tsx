@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BRANDS } from "@/content/proof";
 import { DarkFunnelPage, type FunnelConfig } from "@/components/landing/DarkFunnel";
 
 /**
@@ -16,7 +17,7 @@ import { DarkFunnelPage, type FunnelConfig } from "@/components/landing/DarkFunn
 export const metadata: Metadata = {
   title: "Free Landing Page in 48 Hours | Rankify",
   description:
-    "We'll build you a landing page in 48 hours, free, so you can see what the traffic you're already getting should actually be doing.",
+    "We'll build you a landing page in 48 hours, free, so you can see what the traffic you're already getting should be doing.",
   robots: { index: false, follow: true },
   alternates: { canonical: "/free-landing-page" },
 };
@@ -33,7 +34,7 @@ const CFG: FunnelConfig = {
 
   videoHeading: "This is what we'll build for you",
 
-  proof: { count: "1000+", label: "Businesses served" },
+  proof: { count: BRANDS, label: "Brands worked with" },
   bullets: [
     "Built in 48 hours",
     "Your brand, not a template",
@@ -50,11 +51,11 @@ const CFG: FunnelConfig = {
     {
       n: "2",
       h: "A quick fifteen minute call",
-      b: "So I understand the business, the offer, and who you're actually trying to reach. No pitch. I need this to build the thing properly.",
+      b: "So we understand the business, the offer, and who you're trying to reach. No pitch. We need this to build the thing properly.",
     },
     {
       n: "3",
-      h: "I build it, you have it in 48 hours",
+      h: "We build it, you have it in 48 hours",
       b: "A real landing page, your brand, built to convert the traffic you're already getting. Then you decide where to point it."
     },
   ],

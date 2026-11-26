@@ -15,7 +15,7 @@ import { SIDEKICK_FROM } from "@/content/pricing.generated";
  * people have to picture themselves using before they will pay for it.
  */
 export const metadata: Metadata = {
-  title: "How Ad Sidekick works — one ad, start to finish | Rankify",
+  title: "How Ad Sidekick works: one ad, from upload to verdict | Rankify",
   description:
     "Follow a single ad through Ad Sidekick: upload, naming and copy, campaign setup, three days of testing, a verdict, and the winner kept for next time.",
   // This page is now a section of /meta-ads. The URL still answers so
@@ -69,7 +69,7 @@ export default function HowItWorksPage() {
                   )}
                 </div>
               </Reveal>
-              <Shot alt={s.alt} caption={s.caption} />
+              <Shot alt={s.alt} caption={s.caption} mock={s.mock} />
             </div>
           ))}
         </div>

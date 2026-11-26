@@ -18,7 +18,7 @@ import { SIDEKICK_TIERS } from "@/content/pricing.generated";
  * so it has to stay in step with that file rather than be rewritten by hand.
  */
 export const metadata: Metadata = {
-  title: `Ad Sidekick pricing — ${SIDEKICK_TIERS} a month | Rankify`,
+  title: `Ad Sidekick pricing: ${SIDEKICK_TIERS} a month | Rankify`,
   description:
     "Every plan includes the whole core product: upload, review, testing, winners, the scale checks and the daily P&L. Pro adds creative production, Max adds automation. No contract.",
   // Pricing is a section of /meta-ads now. The URL still answers so
@@ -111,7 +111,7 @@ export default function SidekickPricingPage() {
           <PlanPanel>
             <PlanMatrix columns={COLUMNS} rows={MATRIX_ROWS} />
             <PlanFootnote>
-              Prices are in Australian dollars, per month. No contract and no exit fee &mdash; turn
+              Prices are in Australian dollars, per month. No contract and no exit fee. Turn
               it off whenever you like.
             </PlanFootnote>
           </PlanPanel>

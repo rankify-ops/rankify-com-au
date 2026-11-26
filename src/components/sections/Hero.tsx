@@ -60,7 +60,7 @@ export function Hero() {
             <p className="max-w-[480px] text-[clamp(19px,1.6vw,26px)] font-medium leading-[0.98] tracking-[-0.05em]">
               You work directly with us, and the goal is profit.{" "}
               <span className="text-white/65">
-                Not clicks, not views — the business performance that actually matters.
+                Clicks and views come second to the business performance that matters.
               </span>
             </p>
           </Reveal>
@@ -77,7 +77,7 @@ export function Hero() {
               <div className="flex flex-col gap-1">
                 <strong className="text-base font-semibold">Have a project in mind?</strong>
                 <span className="text-[12.5px] text-white/60">
-                  Thomas Flood – Director of Digital Strategy
+                  Thomas Flood, Director of Digital Strategy
                 </span>
                 <div id="hero-cta" className="mt-auto self-start">
                   <Button href="/schedule-strategy-call" variant="light" pulse className="px-5 py-2.5 text-[13.5px]">

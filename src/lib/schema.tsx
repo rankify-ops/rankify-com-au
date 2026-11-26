@@ -35,7 +35,7 @@ export const organisationSchema = {
   logo: `${SITE}/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg`,
   image: `${SITE}/assets/images/ha7iyKKaK8R1V7r8jKPhCa6P74.svg`,
   description:
-    "Web development, Shopify builds and SEO for Australian businesses. Custom built, conversion focused, priced up front — you work directly with the developer.",
+    "Web development, Shopify builds and SEO for Australian businesses. Custom built, conversion focused and priced up front. You work directly with the developer.",
   email: "hello@rankify.com.au",
   telephone: "+611300880860",
   priceRange: "$$",

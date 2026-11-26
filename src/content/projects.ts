@@ -41,7 +41,7 @@ export const PROJECTS: Project[] = [
     categories: ["Web Design", "SEO"],
     year: "2026",
     intro:
-      "In 2026, Myoko Embodied, a founder-led beef tallow skincare brand rooted in ancestral wellness, approached Rankify to rebuild their online store from the ground up. The goal was to create a modern, high-performance Shopify storefront that matched the integrity of the product — pure, slow-crafted skincare built from grass-fed tallow — while improving brand perception, educating new customers, and driving organic search visibility from day one.",
+      "In 2026, Myoko Embodied, a founder-led beef tallow skincare brand rooted in ancestral wellness, approached Rankify to rebuild their online store from the ground up. The goal was to create a modern, high-performance Shopify storefront that matched the integrity of the product (pure, slow-crafted skincare built from grass-fed tallow) while improving brand perception, educating new customers, and driving organic search visibility from day one.",
     meta: {
       year: "2026",
       industry: "Beef Tallow Skincare / Natural Beauty",
@@ -55,7 +55,7 @@ export const PROJECTS: Project[] = [
     ],
     challenges: [
       "The old site was functional but off-brand. It didn't show what made Myoko different, didn't educate customers on a product most have never knowingly used, and wasn't built to be found in search.",
-      "We had to solve all three at once — without losing the earthy, honest tone the brand is built on.",
+      "We had to solve all three at once without losing the earthy, honest tone the brand is built on.",
     ],
     liveUrl: "https://myokoembodied.au/",
     galleryBottom: [
@@ -64,7 +64,7 @@ export const PROJECTS: Project[] = [
       "/assets/images/etx6o7VHM46vMCVBdulQ2RRY5mE.webp",
     ],
     finalThoughts: [
-      "The new Myoko Embodied store is the brand's first real digital home — built to sell today, built to rank tomorrow.",
+      "The new Myoko Embodied store is the brand's first real digital home, built to sell today and built to rank tomorrow.",
       "For us at Rankify, this project was a chance to do what we do best: pair considered design with the technical SEO scaffolding most boutique ecommerce stores never get.",
     ],
   },
@@ -77,7 +77,7 @@ export const PROJECTS: Project[] = [
     categories: ["Web Design", "SEO"],
     year: "2026",
     intro:
-      "In 2026, Hawker Studios — a Gold Coast natural light photo studio with two Currumbin Waters locations — approached Rankify to rebuild their online presence. The goal was to create a fast, intuitive booking experience that let creators see the studios, check availability, and lock in a session in minutes, not back-and-forth emails.",
+      "In 2026, Hawker Studios, a Gold Coast natural light photo studio with two Currumbin Waters locations, approached Rankify to rebuild their online presence. The goal was to create a fast, intuitive booking experience that let creators see the studios, check availability, and lock in a session in minutes, not back-and-forth emails.",
     meta: {
       year: "2026",
       industry: "Photo & Content Studio",
@@ -91,7 +91,7 @@ export const PROJECTS: Project[] = [
     ],
     challenges: [
       "The old site made booking feel slow and uncertain. Creators couldn't get a real feel for the spaces, availability was unclear, and the path from \"this looks cool\" to \"I'm booked in\" had too many steps.",
-      "For a studio doing 500+ shoots a year across two locations, the booking flow had to be effortless — and the spaces had to sell themselves before anyone clicked book.",
+      "For a studio doing 500+ shoots a year across two locations, the booking flow had to be fast and simple, and the spaces had to sell themselves before anyone clicked book.",
     ],
     liveUrl: "https://www.hawker-studios.com/",
     galleryBottom: [
@@ -100,7 +100,7 @@ export const PROJECTS: Project[] = [
       "/assets/images/LYN7orwCSBUJG1cRGVCt1HUGrxI.webp",
     ],
     finalThoughts: [
-      "The new Hawker Studios site is the front door to two of the Gold Coast's best creative spaces — built for creators who want to book fast and shoot faster.",
+      "The new Hawker Studios site is the front door to two of the Gold Coast's best creative spaces, built for creators who want to book fast and shoot faster.",
       "For us at Rankify, this project was a chance to strip the friction out of a booking experience and let the studios do what they do best: look beautiful in natural light.",
     ],
   },

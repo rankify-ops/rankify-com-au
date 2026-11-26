@@ -11,7 +11,7 @@ import { BLOG_POSTS } from "@/content/blog-posts";
 export const metadata: Metadata = {
   title: "Blog | Rankify",
   description:
-    "Practical breakdowns of what works in web design, branding, and digital performance today. From design principles to technical optimisations—everything you need for digital success.",
+    "Practical breakdowns of what works in web design, branding, and digital performance today. Everything from design principles to technical optimisations.",
   alternates: { canonical: "/blog" },
 };
 
@@ -42,8 +42,7 @@ export default function BlogIndex() {
             </Reveal>
             <Reveal delay={0.2}>
               <p className="max-w-[520px] text-[16.5px] text-grey">
-                From design principles to technical optimisations—everything you need for digital
-                success.
+                Everything from design principles to technical optimisations.
               </p>
             </Reveal>
           </div>

@@ -23,14 +23,13 @@ export default function Page() {
     >
       <h2>Is TikTok Shop in Australia Yet?</h2>
       <p>
-        No—<strong>TikTok Shop is not officially available in Australia</strong> right now. TikTok
-        has confirmed that a full public rollout is still in development and hasn&rsquo;t been
-        launched to Australian users as of late 2025.
+        No. <strong>TikTok Shop is not officially available in Australia</strong>. As of November
+        2026 it has not launched to Australian users, and TikTok has not announced a date.
       </p>
       <p>
         However, some brands are already participating in early test programs, giving them
         limited access through international accounts or internal partnerships. So while the
-        feature isn&rsquo;t open to the public yet, it&rsquo;s coming—and fast.
+        feature isn&rsquo;t open to the public yet, it&rsquo;s coming fast.
       </p>
       <p>
         If you&rsquo;re searching for &ldquo;<strong>TikTok Shop Australia</strong>&rdquo; or
@@ -42,8 +41,8 @@ export default function Page() {
       <h2>Why TikTok Shop Matters for Australian Businesses</h2>
       <p>
         Globally, TikTok Shop has become a multi-billion-dollar channel, blending viral content
-        with seamless purchasing. In the US and Southeast Asia, creators are selling directly
-        through their videos—no website needed. That means:
+        with built-in checkout. In the US and Southeast Asia, creators are selling directly
+        through their videos, with no website needed. That means:
       </p>
       <ul>
         <li>Products are sold while users scroll, increasing impulse purchases.</li>
@@ -61,23 +60,23 @@ export default function Page() {
       </ul>
       <p>
         A <strong>strong brand presence on TikTok</strong> can mean extra clicks, more engagement,
-        and faster sales—all before the shop is even live locally.
+        and faster sales, all before the shop is even live locally.
       </p>
 
       <h2>When Is TikTok Shop Launching in Australia?</h2>
       <p>
-        While TikTok hasn&rsquo;t confirmed an exact launch date, most reports suggest a{" "}
-        <strong>2025 rollout</strong>, with phased access expected across the year. Tech insiders
-        and digital agencies have speculated that:
+        TikTok has not confirmed a launch date. The 2025 rollout many expected did not happen. In
+        August 2026, trade press reported that TikTok Shop was looking at opening in Australia in{" "}
+        <strong>early 2027</strong>, which TikTok has not confirmed. What can be said:
       </p>
       <ul>
-        <li>Beta access may open to select sellers in early-to-mid 2025.</li>
-        <li>A wider launch may happen by late 2025 or early 2026.</li>
-        <li>Commission rates are expected to align with global standards (around 5%–8%).</li>
+        <li>No Australian seller sign-up page has been published.</li>
+        <li>Any date you read online is unconfirmed until TikTok announces one.</li>
+        <li>Australian brands can already sell through TikTok Shop in the markets where it operates.</li>
       </ul>
       <p>
         TikTok Shop is already integrated with platforms like Shopify, which means sellers can
-        prepare integrations ahead of time—even before the official launch.
+        prepare integrations before the official launch.
       </p>
 
       <h2>How to Prepare for TikTok Shop Australia Now</h2>
@@ -111,10 +110,10 @@ export default function Page() {
 
       <h2>Conclusion</h2>
       <p>
-        So, <strong>is TikTok Shop in Australia?</strong> Not yet—but it&rsquo;s coming.
+        <strong>TikTok Shop is not in Australia yet</strong>, and there is no confirmed date.
         Businesses that prepare now will be in the best position to capitalise on the launch. With
-        TikTok&rsquo;s unique combination of discovery, content, and commerce, it&rsquo;s not just
-        another sales channel—it&rsquo;s a culture-shifting platform that rewards creativity and
+        TikTok&rsquo;s unique combination of discovery, content, and commerce, it is a
+        culture-shifting platform that rewards creativity and
         performance.
       </p>
       <p>

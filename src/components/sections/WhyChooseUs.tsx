@@ -1,3 +1,4 @@
+import { BRANDS_COUNT } from "@/content/proof";
 import { Reveal } from "@/components/ui/Reveal";
 import { PlusIcon } from "@/components/ui/PlusIcon";
 import { Counter } from "@/components/ui/Counter";
@@ -16,8 +17,8 @@ export function WhyChooseUs() {
           <div>
             <Reveal>
               <h2 className="text-[clamp(40px,3.55vw,68px)] font-medium leading-[0.92] tracking-[-0.06em]">
-                Proven results for every project,{" "}
-                <span className="text-grey">with a focus on design and functionality.</span>
+                Fast builds, fixed prices,{" "}
+                <span className="text-grey">and work measured in sales.</span>
               </h2>
             </Reveal>
             {/* The "Let's talk" button and its lead-in sentence lived here.
@@ -31,10 +32,9 @@ export function WhyChooseUs() {
           <div>
             <Reveal>
               <p className="text-[clamp(20px,1.7vw,32px)] font-semibold leading-tight tracking-[-0.06em]">
-                No fluff, just results.{" "}
+                Design that sells, and tools that save you time.{" "}
                 <span className="text-grey">
-                  Thoughtful design and tools that make your work easier. We focus on smart design and
-                  useful features, project after project.
+                  Every page and every feature is there because it earns its place.
                 </span>
               </p>
             </Reveal>
@@ -43,13 +43,13 @@ export function WhyChooseUs() {
               <Reveal>
                 <div className="grid grid-cols-[auto_1fr_auto] items-center gap-6 border-b border-line py-7">
                   <span className="min-w-[2.6ch] text-[clamp(56px,6vw,104px)] font-medium leading-none tracking-[-0.05em]">
-                    <Counter to={40} suffix="+" />
+                    <Counter to={BRANDS_COUNT} suffix="+" />
                   </span>
                   <span className="text-sm text-grey">01</span>
                   <span className="text-right text-[clamp(18px,1.4vw,24px)] font-semibold tracking-[-0.02em]">
-                    Successful projects completed
+                    Brands we have worked with
                     <small className="mt-1 block text-sm font-normal text-grey">
-                      We&rsquo;ve delivered 40 projects that help companies generate real results.
+                      Websites, stores, ad accounts and software, for businesses across Australia.
                     </small>
                   </span>
                 </div>

@@ -158,13 +158,17 @@ export function Header() {
             />
           </Link>
 
-          <div className="hidden items-center gap-6 xl:flex">
+          {/* Seven menus and two links do not fit a 1280px bar at the old 24px
+              gap: the Schedule Call button ran off the right edge. The gap
+              tightens below 2xl, and Blog (also in the footer and the mobile
+              drawer) only joins the bar once there is room for it. */}
+          <div className="hidden items-center gap-3 xl:flex 2xl:gap-6">
             {NAV_ITEMS.map((item) => (
               <div key={item.label} onMouseEnter={() => show(item.label)}>
                 <Link
                   href={item.href}
                   onClick={hideNow}
-                  className={`flex items-center gap-1.5 whitespace-nowrap text-[14.5px] font-medium transition-opacity ${
+                  className={`flex items-center gap-1.5 whitespace-nowrap text-[14px] font-medium transition-opacity 2xl:text-[14.5px] ${
                     activeKey === item.label ? "opacity-100" : "opacity-85 hover:opacity-100"
                   }`}
                 >
@@ -190,7 +194,9 @@ export function Header() {
                 key={l.href}
                 href={l.href}
                 onMouseEnter={hideNow}
-                className="whitespace-nowrap text-[14.5px] font-medium opacity-85 transition-opacity hover:opacity-100"
+                className={`whitespace-nowrap text-[14px] font-medium opacity-85 transition-opacity hover:opacity-100 2xl:text-[14.5px] ${
+                  l.href === "/blog" ? "hidden 2xl:inline" : ""
+                }`}
               >
                 {l.label}
               </Link>
@@ -205,7 +211,7 @@ export function Header() {
               <LoginMenu />
             </div>
             <div className="hidden xl:block" onMouseEnter={hideNow}>
-              <Button href="/schedule-strategy-call" pulse>Schedule Call</Button>
+              <Button href="/schedule-strategy-call" pulse className="whitespace-nowrap">Schedule Call</Button>
             </div>
           </div>
         </nav>
@@ -263,7 +269,7 @@ export function Header() {
                 </button>
               </div>
 
-              {/* Mirrors the desktop nav: same five items, and tapping one
+              {/* Mirrors the desktop nav: same items, and tapping one
                   opens the same four choices the hover panel shows. */}
               <nav className="relative z-[2] mb-5 flex flex-col">
                 {NAV_ITEMS.map((item) => {
@@ -314,6 +320,21 @@ export function Header() {
                                 option you actually want. Taking more of the
                                 screen is the right trade here. */}
                             <li className="grid gap-2.5 pb-4 pt-1">
+                              {/* On desktop the menu label is itself a link to
+                                  the page. Here the label only expands, so
+                                  without this row the page could be reached
+                                  through one of its four intents and no other
+                                  way. */}
+                              <Link
+                                href={item.href}
+                                onClick={closeMenu}
+                                className="flex items-center justify-between rounded-2xl bg-[color:#07a889]/15 px-4 py-3 text-[14.5px] font-semibold text-white active:bg-[color:#07a889]/25"
+                              >
+                                See everything in {item.label}
+                                <span aria-hidden className="text-[color:#07a889]">
+                                  →
+                                </span>
+                              </Link>
                               {item.mega.choices.map((c) => (
                                 <SmartLink
                                   key={c.label}
@@ -340,6 +361,19 @@ export function Header() {
                                   </span>
                                 </SmartLink>
                               ))}
+                              <Link
+                                href={item.mega.promo.ctaHref}
+                                onClick={closeMenu}
+                                className="mt-0.5 block px-1 text-[13.5px] leading-snug text-white/60"
+                              >
+                                <span className="mb-1 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:#07a889]">
+                                  {item.mega.promo.kicker}
+                                </span>{" "}
+                                {item.mega.promo.heading}{" "}
+                                <span className="font-semibold text-white underline underline-offset-2">
+                                  {item.mega.promo.ctaLabel}
+                                </span>
+                              </Link>
                             </li>
                           </motion.ul>
                         )}
@@ -389,6 +423,26 @@ export function Header() {
                 >
                   Get in touch
                 </Link>
+                <p className="pt-1.5 text-center text-[13.5px] text-white/55">
+                  Already a client?{" "}
+                  <a
+                    href="https://app.rankify.com.au/login"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-white underline underline-offset-2"
+                  >
+                    Website Editor
+                  </a>{" "}
+                  or{" "}
+                  <a
+                    href="https://app.adsidekick.io/login"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-white underline underline-offset-2"
+                  >
+                    Ad Sidekick
+                  </a>
+                </p>
               </div>
             </div>
           </motion.div>

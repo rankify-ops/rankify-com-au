@@ -1,19 +1,16 @@
 import type { Metadata } from "next";
-import { DarkFunnelPage } from "@/components/landing/DarkFunnel";
-import { freeHomepageFunnel } from "@/content/free-homepage-funnel";
+import { RedirectPage } from "@/components/ui/RedirectPage";
 
 /**
- * The same page as /free-homepage, kept alive because it was shared while
- * the funnel was being built. Canonical points at the real URL.
+ * This address was shared while the free homepage funnel was being built, so
+ * it forwards to the real one and does not 404 for whoever still has the link.
  */
 export const metadata: Metadata = {
   title: "Free Homepage in 48 Hours | Rankify",
-  description:
-    "We'll build your new homepage free and have it in your hands in 48 hours. See it before you spend a cent on the full site.",
   robots: { index: false, follow: true },
   alternates: { canonical: "/free-homepage" },
 };
 
 export default function FreeHomepageV2Page() {
-  return <DarkFunnelPage cfg={freeHomepageFunnel} />;
+  return <RedirectPage to="/free-homepage" label="Go to the free homepage offer" />;
 }

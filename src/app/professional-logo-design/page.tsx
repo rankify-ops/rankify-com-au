@@ -7,7 +7,7 @@ import { BRANDING_FROM, BRANDING_FROM_AMOUNT } from "@/content/pricing.generated
 export const metadata: Metadata = {
   title: `Professional Logo Design | Custom Branding from ${BRANDING_FROM} | Rankify`,
   description:
-    `Expertly designed, custom logo and brand identity from ${BRANDING_FROM}. Top 1% global design talent, fast turnarounds, and full ownership of every file you're sent.`,
+    `Expertly designed, custom logo and brand identity from ${BRANDING_FROM}. Designed with our specialist branding partner, with fast turnarounds and full ownership of every file you're sent.`,
   alternates: { canonical: "/professional-logo-design" },
   openGraph: {
     title: `Professional Logo Design | Custom Branding from ${BRANDING_FROM} | Rankify`,

@@ -1,3 +1,4 @@
+import { BRANDS } from "@/content/proof";
 import Image from "next/image";
 import { asset } from "@/lib/basePath";
 import { Reveal } from "@/components/ui/Reveal";
@@ -40,7 +41,7 @@ export function TrustRow() {
       <div className="contents sm:block">
         <Stars className="h-3.5 w-3.5" />
         <p className="w-full text-[13.5px] text-grey sm:mt-0.5 sm:w-auto">
-          <strong className="text-ink">Trusted by 100+</strong> brands worldwide
+          <strong className="text-ink">Trusted by {BRANDS}</strong> brands
         </p>
       </div>
     </div>

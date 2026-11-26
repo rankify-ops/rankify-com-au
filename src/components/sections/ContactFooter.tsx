@@ -78,12 +78,12 @@ export function ContactPrompt() {
                     {state === "sending"
                       ? "Sending…"
                       : state === "sent"
-                        ? "Thanks — we'll be in touch!"
+                        ? "Thanks, we'll be in touch"
                         : "Send Message"}
                   </button>
                   {state === "error" && (
                     <p className="text-[12.5px] text-[#c0392b]">
-                      That didn&rsquo;t send — please email hello@rankify.com.au.
+                      That didn&rsquo;t send. Please email hello@rankify.com.au.
                     </p>
                   )}
                   <p className="mt-3.5 text-[12.5px] text-grey">
@@ -111,7 +111,7 @@ export function ContactPrompt() {
               </Reveal>
               <Reveal delay={0.1}>
                 <p className="mb-9 max-w-[380px] text-white/65">
-                  Tell us about your project—whether it&rsquo;s a Website, SEO or Branding.
+                  Tell us what you need: a website, a store, ads, a dashboard or an app.
                 </p>
               </Reveal>
               <div className="mt-8 grid gap-8 border-t border-white/15 pt-8 sm:grid-cols-2">
@@ -121,7 +121,7 @@ export function ContactPrompt() {
                   </svg>
                   <strong className="mb-1 block text-[17px] font-semibold">Quick response.</strong>
                   <p className="max-w-[300px] text-[14.5px] text-white/60">
-                    If you&rsquo;re ready to create and collaborate, we&rsquo;d love to hear from you.
+                    Send us a message when you&rsquo;re ready to start and we&rsquo;ll get back to you.
                   </p>
                 </Reveal>
                 <Reveal delay={0.25}>
@@ -151,8 +151,8 @@ export function SiteFooter() {
           <div className="grid gap-10 pb-10 sm:pb-16 lg:grid-cols-2 lg:gap-20">
             <Reveal>
               <p className="max-w-[420px] text-[clamp(18px,1.6vw,24px)] font-medium leading-snug tracking-[-0.02em] text-grey">
-                Whether you&rsquo;re looking to build a stunning website, boost your brand, or drive
-                measurable results, <span className="text-ink">we&rsquo;re here to help.</span>
+                For a new website, a stronger brand or results you can
+                measure, <span className="text-ink">we&rsquo;re here to help.</span>
               </p>
               <div className="mt-8 flex items-center gap-3.5">
                 <Image
@@ -201,7 +201,7 @@ export function SiteFooter() {
                   {subState === "sending"
                     ? "Subscribing…"
                     : subState === "sent"
-                      ? "Subscribed!"
+                      ? "Subscribed"
                       : "Subscribe"}
                 </Button>
               </form>
@@ -232,10 +232,13 @@ export function SiteFooter() {
                   ["SEO Optimisation", "/seo"],
                   ["Google Ads", "/google-ads"],
                   ["Meta Ads", "/meta-ads"],
+                  ["Dashboards", "/dashboards"],
                   ["AI & Automation", "/ai-and-automation"],
                   // Branding is no longer in the top nav — the footer keeps the
                   // page linked so it stays crawlable and sellable.
                   ["Logo & Branding", "/professional-logo-design"],
+                  ["Pricing", "/pricing"],
+                  ["About", "/about"],
                   ["Schedule Call", "/schedule-strategy-call"],
                   ["Contact", "/contact"],
                   ["Blog", "/blog"],

@@ -5,8 +5,6 @@ import { freeHomepageFunnel } from "@/content/free-homepage-funnel";
 /**
  * The live ads destination. The URL is fixed in Meta's ad sets, so the
  * page behind it changes and the URL never does.
- *
- * The light page that used to be here is parked at /free-homepage-v1.
  */
 export const metadata: Metadata = {
   title: "Free Homepage in 48 Hours | Rankify",

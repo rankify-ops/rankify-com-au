@@ -12,25 +12,26 @@ import type { ServicePageData } from "./types";
 import { SHOPIFY_WHY_US } from "./shopify-shared";
 import { WEB_CLIENT_LOGOS } from "./client-logos";
 import { WEBSITE_FROM, HOSTING_PER_YEAR } from "@/content/pricing.generated";
+import { GUARANTEE_LABEL, GUARANTEE_UNDER_DISPLAY } from "@/content/guarantee";
 
 const CLOSING_NOTE =
-  "We believe that a website should be more than just a digital presence—it should be a tool that works for your business. That's why we prioritise performance, user experience in everything we create. We build websites that are fast, efficient, and easy to manage, so you can focus on what matters—running your business.";
+  "A website should be a tool that works for your business. That's why we prioritise performance and user experience in everything we create. We build websites that are fast, efficient, and easy to manage, so you can focus on running your business.";
 
 export const webDesignAndDevelopment: ServicePageData = {
   hero: {
     variant: "showcase",
-    heading: "High-performance websites that actually convert traffic to drive real profit and growth to your business.",
+    heading: "High-performance websites that convert traffic into profit and growth for your business.",
     // No subheading: the headline already carries the promise, same as the
     // reference. No Shopify Partner badge either — this page isn't Shopify.
     intro:
-      "From all trades — plumbers, builders, solar — to tech and accounting firms. I've built the lot. I'm a perfectionist, not a single pixel out of line, and I build so your traffic actually calls you or buys your product. Check out my work and results.",
+      "From plumbers, builders, solar and every other trade to tech and accounting firms, we've built the lot. We're perfectionists, not a single pixel out of line, and we build so your traffic calls you or buys your product. Check out our work and results.",
     badges: [
       "Custom-built, conversion-focused",
       "Direct developer access, no middlemen",
       // Leads with the promise; the two-round mechanic is spelled out in the
       // process section rather than hedged here.
       "Unlimited revisions",
-      "30-day money-back guarantee (not Shopify builds)",
+      GUARANTEE_LABEL,
     ],
     // The call leads now. Someone who wants the price can still get to it in
     // one click, but the page opens on a conversation rather than a checkout.
@@ -46,9 +47,9 @@ export const webDesignAndDevelopment: ServicePageData = {
     {
       type: "devcard",
       anchorId: "your-developer",
-      heading: "Hey — I'm your developer.",
+      heading: "You work with the developer who builds it.",
       body:
-        "You'll work with me directly, as your only point of contact. No outsourcing, no juniors, no account managers — just me. I build websites that actually drive revenue and profit, and I'm genuinely good at it. Have a look through the page, and when you're ready we'll launch a high-performance website for your business at a fraction of what an agency would charge you — live faster, and performing better.",
+        "One point of contact, and it is the person doing the work. No outsourcing, no juniors, no account managers. We build websites that drive revenue and profit, and we're good at it. Have a look through the page, and when you're ready we'll launch a high-performance website for your business at a fraction of what an agency would charge you, live faster and performing better.",
       photo: "/assets/images/fZdV1icYbXIkqfVAekWtJEAifo.png",
       name: "Thomas Flood",
       role: "Director of Digital Strategy",
@@ -73,9 +74,9 @@ export const webDesignAndDevelopment: ServicePageData = {
           headline: "17 leads in the first month + $150K in revenue",
           liveUrl: "https://primegroupbuild.com.au/",
           summary:
-            "Prime Group didn't want a design project. He wanted the phone ringing. Seven days after we started, the site was live — and inside a fortnight a single booked job had paid for the website, the month's ad spend, and still left him in profit.",
+            "Prime Group didn't want a design project. He wanted the phone ringing. Seven days after we started, the site was live. Inside a fortnight a single booked job had paid for the website, the month's ad spend, and still left him in profit.",
           results: [
-            "One booked job paid for the entire build — and the month's ads on top",
+            "One booked job paid for the entire build and the month's ads on top",
             "17 leads and $150K in revenue in the first month, from a site live in 7 days",
             "Profitable before most agencies deliver a first draft",
             "Everything after that job was margin, not recovery",
@@ -98,7 +99,7 @@ export const webDesignAndDevelopment: ServicePageData = {
           timeline: "Bookings up 32%",
           liveUrl: "https://www.hawker-studios.com/",
           summary:
-            "A Gold Coast natural light studio with two Currumbin Waters locations. They needed creators to see the spaces, check availability and lock in a session in minutes — instead of a chain of back-and-forth emails.",
+            "A Gold Coast natural light studio with two Currumbin Waters locations. They needed creators to see the spaces, check availability and lock in a session in minutes, instead of a chain of back-and-forth emails.",
           results: [
             "Bookings up 32% once the new booking system went live",
             "Booking handled on the site, not over email",
@@ -133,13 +134,13 @@ export const webDesignAndDevelopment: ServicePageData = {
           logoScale: 0.7,
           industry: "Heat Pumps & Hot Water",
           timeline: "Cost per lead down 60%",
-          headline: "Cost per lead down 60% — $87 to $35",
+          headline: "Cost per lead down 60%, from $87 to $35",
           liveUrl: "https://peninsulaheatpumps.com.au/",
           // Before = March, after = August, same ad account. The drop lands the
           // week of 25 May, which is when the new site went live.
           results: [
             "Cost per lead down 60%, from $87.12 to $34.59",
-            "Conversion rate up from 5.6% to 14.6% — nearly three times as many visitors enquiring",
+            "Conversion rate up from 5.6% to 14.6%, nearly three times as many visitors enquiring",
             "The change lands the week of 25 May, the week the new site went live",
           ],
         },
@@ -156,7 +157,7 @@ export const webDesignAndDevelopment: ServicePageData = {
           // A referral partner rather than a client — the proof here is that an
           // ads agency sends us the builds their own campaigns depend on.
           summary:
-            "Adalytical rely on Rankify for the builds behind their campaigns — entire websites, landing pages, and every conversion element on them. Their ads get the click; the page has to book the job or get the sale.",
+            "Adalytical rely on Rankify for the builds behind their campaigns: entire websites, landing pages, and every conversion element on them. Their ads get the click; the page has to book the job or get the sale.",
           quote:
             "We partner with Rankify when our clients are in need of a new website, Shopify store or landing pages — high-performance builds we know will convert.",
           quoteName: "Jackson Wallace",
@@ -168,26 +169,26 @@ export const webDesignAndDevelopment: ServicePageData = {
     {
       type: "comparison",
       anchorId: "vs-agency",
-      tableTitle: "Seriously.. look at the difference!",
+      tableTitle: "Look at the difference.",
       agencyLabel: "Typical Agency",
       usLabel: "Rankify",
       rows: [
         { icon: "person", label: "Who you talk to", agency: "Account managers, juniors, whoever", us: "Just the developer" },
-        { icon: "clock", label: "Timeline", agency: "2–4 months", us: "7–15 days" },
-        { icon: "dollar", label: "Build Cost", agency: "$20k–$40k+", us: "A fraction of that" },
+        { icon: "clock", label: "Timeline", agency: "2 to 4 months", us: "7 to 15 days" },
+        { icon: "dollar", label: "Build Cost", agency: "$20k to $40k+", us: "A fraction of that" },
         { icon: "repeat", label: "Retainer", agency: "Mandatory, up to $500/mo", us: "Optional, only if you want ongoing work" },
         { icon: "trending", label: "Built to convert", agency: "Looks nice, maybe", us: "Engineered to sell, and looks better" },
         { icon: "revisions", label: "Revisions", agency: "Billed hourly", us: "Unlimited, submitted in 2 rounds" },
         { icon: "shield", label: "Hosting & security", agency: "Up to $600/yr, ongoing", us: `We host & secure it, ${HOSTING_PER_YEAR}/yr` },
-        { icon: "card", label: "Ongoing cost / year", agency: "$2,000 – $7,000+", us: `${HOSTING_PER_YEAR} hosting, nothing else`, highlight: true },
+        { icon: "card", label: "Ongoing cost / year", agency: "$2,000 to $7,000+", us: `${HOSTING_PER_YEAR} hosting, nothing else`, highlight: true },
       ],
-      footnote: `Agency retainers add up every single year. With me it's ${HOSTING_PER_YEAR} a year for hosting and security, and nothing else unless you ask for it.`,
-      eyebrow: "One developer. Whole-agency output.",
-      heading: "A developer who knows AI, conversion, and design is a whole agency in one person.",
+      footnote: `Agency retainers add up every single year. With us it's ${HOSTING_PER_YEAR} a year for hosting and security, and nothing else unless you ask for it.`,
+      eyebrow: "Whole-agency output.",
+      heading: "Developers who know AI, conversion and design do the work of a whole agency.",
       body: [
-        "Developers who build with AI are unbeatable on speed — what took a team months now takes one person days, with **cleaner, more optimised code**. Add real conversion knowledge and genuine taste, and you get everything a high-end agency delivers, from the one person who actually does the work.",
-        "Here's the part agencies won't tell you: the work got faster for everyone. **They just keep the savings. I pass them straight on to you.** Same high-end result, a fraction of the price — because I'm not paying for overhead, and I'm not here to rip you off.",
-        "I'm genuinely passionate about building **high-performance sites that look as good as they convert**.",
+        "Developers who build with AI are unbeatable on speed. What took a team months now takes a developer days, with **cleaner, more optimised code**. Add conversion knowledge and taste, and you get everything a high-end agency delivers, from the developer who does the work.",
+        "Here's the part agencies won't tell you: the work got faster for everyone. **They keep the savings. We pass them on to you.** Same high-end result at a fraction of the price, because we're not paying for overhead and we're not here to rip you off.",
+        "We build **high-performance sites that look as good as they convert**.",
       ],
     },
     {
@@ -240,7 +241,7 @@ export const webDesignAndDevelopment: ServicePageData = {
           idx: "01",
           title: "Expert Web Developer",
           icon: "Expert Shopify Developer",
-          desc: "Years of hands-on experience building custom websites, custom features, and the integrations behind them — without the agency overhead.",
+          desc: "Years of hands-on experience building custom websites, custom features, and the integrations behind them, without the agency overhead.",
         },
         {
           idx: "02",
@@ -283,12 +284,12 @@ export const webDesignAndDevelopment: ServicePageData = {
       headingDim: "How do we get everything on your website right?",
       columns: 3,
       items: [
-        { idx: "01", title: "Get your price, or talk it through", image: "/assets/images/Z6tHt1zj6Xzi4mqYcUDecqw9s.png", desc: "Already know roughly what you need? Use the configurator above, pick your pages, see the exact price, and check out. Prefer to talk first? Book a call and we'll go through it together — what you need, what you don't, and what it'll cost. No pressure either way." },
-        { idx: "02", title: "Fill in the onboarding form", image: "/assets/images/DPStQ1OLWHQEotlRG324OWMdXgA.png", desc: "The moment you order, we send you one form. Your logo, your business details, the services you offer, and anything else you think we should know. That's the only homework — and if you don't have a logo or copy, tell us and we'll sort it." },
-        { idx: "03", title: "We design and build it", image: "/assets/images/OcCBB2O75VsaHiIw8nfSpLAtJjo.webp", desc: "You get a custom site — modern, fast, and on brand. Not a template. Every page is laid out around the way your customers actually decide, with the conversion elements that make them call or buy in the right places. Content, forms, tracking and SEO all handled." },
-        { idx: "04", title: "Unlimited revisions", image: "/assets/images/BRmVb3sj222Zc8G43z2kcUcKHy8.webp", desc: "Change as much as you like. A colour, a headline, every page, the whole design if it isn't right — there's no cap on what you can ask for, and nothing gets called out of scope or billed per change. Changes come back to us in two rounds, so send everything you want in one hit and we'll work through the lot." },
-        { idx: "05", title: "Launch", image: "/assets/images/jeJzliriilgkAa6aYwiNxC60o.webp", desc: `We handle the domain, the DNS and going live. Your site is custom coded, so there's no page builder for you to wrestle with — send us changes any time and we make them, twice a month, at no charge. Live in 7–15 days from sign-off, hosted and secured for ${HOSTING_PER_YEAR} a year.` },
-        { idx: "06", title: "Getting traffic to it", image: "/assets/images/htpsqYBKyKw4QhDxfxQWLbtZXE.webp", desc: "A website only earns once people find it. When you're ready, the same team handles the SEO and the ads that bring in the traffic — and we keep improving the site as you grow. Optional, and only when it makes sense for you.", cta: { label: "Talk about growing traffic", href: "/schedule-strategy-call" } },
+        { idx: "01", title: "Get your price, or talk it through", image: "/assets/images/Z6tHt1zj6Xzi4mqYcUDecqw9s.png", desc: "If you already know roughly what you need, use the configurator on this page: pick your pages, see the exact price, and check out. If you'd rather talk first, book a call and we'll go through what you need, what you don't, and what it'll cost. No pressure either way." },
+        { idx: "02", title: "Fill in the onboarding form", image: "/assets/images/DPStQ1OLWHQEotlRG324OWMdXgA.png", desc: "The moment you order, we send you one form. Your logo, your business details, the services you offer, and anything else you think we should know. That's the only homework. If you don't have a logo or copy, tell us and we'll sort it." },
+        { idx: "03", title: "We design and build it", image: "/assets/images/OcCBB2O75VsaHiIw8nfSpLAtJjo.webp", desc: "You get a custom site that's modern, fast, and on brand. No templates. Every page is laid out around the way your customers decide, with the conversion elements that make them call or buy in the right places. Content, forms, tracking and SEO all handled." },
+        { idx: "04", title: "Unlimited revisions", image: "/assets/images/BRmVb3sj222Zc8G43z2kcUcKHy8.webp", desc: "Change as much as you like. A colour, a headline, every page, the whole design if it isn't right. There's no cap on what you can ask for, and nothing gets called out of scope or billed per change. Changes come back to us in two rounds, so send everything you want in one hit and we'll work through the lot." },
+        { idx: "05", title: "Launch", image: "/assets/images/jeJzliriilgkAa6aYwiNxC60o.webp", desc: `We handle the domain, the DNS and going live. Your site is custom coded, so there's no page builder for you to wrestle with. Send us changes any time and we make them, twice a month, at no charge. Live in 7 to 15 days from sign-off, hosted and secured for ${HOSTING_PER_YEAR} a year.` },
+        { idx: "06", title: "Getting traffic to it", image: "/assets/images/htpsqYBKyKw4QhDxfxQWLbtZXE.webp", desc: "A website only earns once people find it. When you're ready, the same team handles the SEO and the ads that bring in the traffic, and we keep improving the site as you grow. Optional, and only when it makes sense for you.", cta: { label: "Talk about growing traffic", href: "/schedule-strategy-call" } },
       ],
     },
     {
@@ -299,7 +300,7 @@ export const webDesignAndDevelopment: ServicePageData = {
       // the one where they do the work.
       heading: "Your website, priced before you commit.",
       blurb:
-        "Hand us the whole thing and we'll scope the pages, or pick them yourself — either way you see the price up front and we build a site that converts.",
+        "Hand us the whole thing and we'll scope the pages, or pick them yourself. Either way you see the price up front and we build a site that converts.",
       basePrice: 2999,
       includedPages: 10,
       extraPagePrice: 200,
@@ -319,8 +320,8 @@ export const webDesignAndDevelopment: ServicePageData = {
         "Careers",
         "Location Pages",
       ],
-      tip: "For each main service you offer we recommend a dedicated page — they rank on their own terms and convert far better than one combined services page.",
-      guaranteeLabel: "30-day money-back guarantee. Not for Shopify builds.",
+      tip: "For each main service you offer we recommend a dedicated page. They rank on their own terms and convert far better than one combined services page.",
+      guaranteeLabel: `${GUARANTEE_LABEL}.`,
       ctaLabel: "Book a call",
       ctaHref: "/schedule-strategy-call",
     },
@@ -342,7 +343,7 @@ export const webDesignAndDevelopment: ServicePageData = {
         { label: "Australia's fastest growing Google Ads business", accent: true },
       ],
       body:
-        "Adalytical's campaigns only work if the page converts, so when their clients need a new website, landing pages or the conversion elements around them, they bring us in. Their founders led growth teams at Google before starting Australia's fastest growing Google Ads business — they know exactly what a page has to do, and they don't build it themselves.",
+        "Adalytical's campaigns only work if the page converts, so when their clients need a new website, landing pages or the conversion elements around them, they bring us in. Their founders led growth teams at Google before starting Australia's fastest growing Google Ads business. They know exactly what a page has to do, and they don't build it themselves.",
       quote:
         "We partner with Rankify when our clients are in need of a new website, Shopify store or landing pages — high-performance builds we know will convert.",
       people: [
@@ -360,7 +361,7 @@ export const webDesignAndDevelopment: ServicePageData = {
       heading: "30-day money-back guarantee.",
       headingDim: "The risk is ours, not yours.",
       promise:
-        "Take 30 days with the finished site. If you're not satisfied with what we built, ask for a refund and you'll get one — no argument and no exit interview. This doesn't apply to Shopify builds.",
+        `Take 30 days from launch with the finished site. If you're not satisfied with what we built, ask for a refund and you'll get one, with no argument and no exit interview. The guarantee covers websites under ${GUARANTEE_UNDER_DISPLAY}. It doesn't apply to Shopify builds.`,
       points: [
         "Unlimited revisions, submitted in two rounds",
         "Fixed price agreed before a line is written",
@@ -381,10 +382,10 @@ export const webDesignAndDevelopment: ServicePageData = {
       // `icon` points at the old Shopify titles so the artwork survives the
       // rename — see src/content/service-icons.ts.
       items: [
-        { idx: "01", anchorId: "custom-website-build", icon: "Custom Shopify Store Design & Build", title: "Custom Website Design & Build", desc: "We design and build fully custom websites. Not a template with your logo dropped in — a site built around your services, your customers, and the way they actually decide who to call. Responsive, fast, and built to convert." },
+        { idx: "01", anchorId: "custom-website-build", icon: "Custom Shopify Store Design & Build", title: "Custom Website Design & Build", desc: "We design and build fully custom websites. No template with your logo dropped in. Each site is built around your services, your customers, and the way they decide who to call. Responsive, fast, and built to convert." },
         { idx: "02", anchorId: "custom-functionality", icon: "Custom Shopify Theme Development", title: "Custom Features & Functionality", desc: "Booking forms, quote calculators, filtered galleries, member areas, live feeds from the tools you already use. If a page builder can't do it, we write it." },
-        { idx: "03", anchorId: "rebuilds-and-migrations", icon: "Shopify Migration", title: "Rebuilds & Migrations", desc: "Stuck on WordPress, Wix, Squarespace, or a build that's slowing you down? We move everything across — pages, content, images, and URL redirects — so you launch fast without losing the rankings you already have." },
-        { idx: "04", anchorId: "seo-included", icon: "Shopify SEO Setup & Optimisation", title: "SEO Built In From Day One", desc: "Every site we build includes SEO foundations as standard — title tags, meta descriptions, heading structure, image optimisation, schema markup, URL structure, and site speed. Not bolted on after the fact. Built in from the first commit." },
+        { idx: "03", anchorId: "rebuilds-and-migrations", icon: "Shopify Migration", title: "Rebuilds & Migrations", desc: "If you're stuck on WordPress, Wix, Squarespace, or a build that's slowing you down, we move everything across: pages, content, images, and URL redirects. You launch fast without losing the rankings you already have." },
+        { idx: "04", anchorId: "seo-included", icon: "Shopify SEO Setup & Optimisation", title: "SEO Built In From Day One", desc: "Every site we build includes SEO foundations as standard: title tags, meta descriptions, heading structure, image optimisation, schema markup, URL structure, and site speed. Built in from the first commit, not bolted on after the fact." },
       ],
     },
     {
@@ -401,7 +402,7 @@ export const webDesignAndDevelopment: ServicePageData = {
           title: "DIY or AI Website Builders",
           desc: [
             "Generic templates that look like every other site in your industry.",
-            "No custom functionality — stuck with whatever the builder gives you.",
+            "No custom functionality. You're stuck with whatever the builder gives you.",
             "SEO issues you won't know about until you're not ranking.",
             "Broken mobile layouts, slow page speeds, no schema markup.",
             "Hours spent troubleshooting instead of running your business.",
@@ -412,12 +413,12 @@ export const webDesignAndDevelopment: ServicePageData = {
           idx: "02",
           title: "With other freelancers or agencies",
           desc: [
-            "Agencies charge $20k–$40k+ for the same scope of work.",
+            "Agencies charge $20k to $40k+ for the same scope of work.",
             "Freelancers disappear mid-project or go unresponsive.",
-            "Passed between project managers — never speak to the developer.",
+            "Passed between project managers, never speaking to the developer.",
             "Slow timelines, weeks of waiting for simple changes.",
             "Cookie-cutter builds disguised as “custom” development.",
-            "No ongoing support after launch — you're on your own.",
+            "No ongoing support after launch. You're on your own.",
           ],
         },
         {
@@ -426,7 +427,7 @@ export const webDesignAndDevelopment: ServicePageData = {
           desc: [
             "Custom development, no shortcuts.",
             "Direct access to your developer, every time.",
-            "AI-accelerated workflow — agency quality in a fraction of the time.",
+            "AI-accelerated workflow: agency quality in a fraction of the time.",
             "SEO, schema, and speed optimisation built into every build.",
             "Fixed quotes with no surprise invoices.",
             "Ongoing support so your site keeps improving after launch.",
@@ -437,16 +438,16 @@ export const webDesignAndDevelopment: ServicePageData = {
   ],
   faq: {
     heading: "FAQ.",
-    subheading: "Got questions? We've got answers. Here's everything you need to know about working with us.",
+    subheading: "Everything you need to know about working with us.",
     closingNote: CLOSING_NOTE,
     items: [
       {
         q: "How much does web design cost, and how long does it take?",
-        a: `A website is ${WEBSITE_FROM}. That's the base price whether you need one page or ten — ten pages are included, and every page after that is $200. Build time is 7–15 days from the day the design is signed off. Pick your pages in the configurator above and you'll see the exact price before you commit. Larger projects with custom functionality are quoted separately, but you'll always have the number before any work starts.`,
+        a: `A website is ${WEBSITE_FROM}. That's the base price whether you need one page or ten. Ten pages are included, and every page after that is $200. Build time is 7 to 15 days from the day the design is signed off. Pick your pages in the configurator above and you'll see the exact price before you commit. Larger projects with custom functionality are quoted separately, but you'll always have the number before any work starts.`,
       },
       {
         q: "Why is web design important for my business?",
-        a: "Your website is your digital storefront—often the first impression customers have of your brand. A professionally designed website builds trust, improves user experience, and helps convert visitors into paying customers. It's essential for showcasing your brand, driving traffic, and staying competitive in today's digital world.",
+        a: "Your website is your digital storefront, and often the first impression customers have of your brand. A professionally designed website builds trust, improves user experience, and helps convert visitors into paying customers. It's essential for showcasing your brand, driving traffic, and staying competitive.",
       },
       {
         q: "What is included in your web design services?",
@@ -454,27 +455,27 @@ export const webDesignAndDevelopment: ServicePageData = {
       },
       {
         q: "How do you ensure my website is mobile-friendly?",
-        a: "We use responsive design techniques to create websites that adapt seamlessly to any device—desktops, tablets, and smartphones. This ensures your site looks great and functions smoothly, providing an excellent user experience across all platforms.",
+        a: "We use responsive design techniques to build websites that adapt to any device: desktops, tablets, and smartphones. Your site looks great and functions smoothly on all of them.",
       },
       {
         q: "Do you provide SEO as part of the web design process?",
-        a: "Yes! Our web design process incorporates SEO best practices from the start. This includes optimising page structure, metadata, image compression, and fast loading speeds to improve your website's visibility on search engines like Google.",
+        a: "Yes. Our web design process incorporates SEO best practices from the start. This includes optimising page structure, metadata, image compression, and fast loading speeds to improve your website's visibility on search engines like Google.",
       },
       {
         q: "Can you help with content creation for my website?",
-        a: "Absolutely. Our team can assist with creating or optimising website content, including text, images, and videos. We focus on crafting engaging and SEO-friendly content that aligns with your brand and speaks directly to your target audience.",
+        a: "Yes. We can create or optimise your website content, including text, images, and videos. We write engaging, SEO-friendly content that fits your brand and speaks directly to your target audience.",
       },
       {
         q: "Do you offer eCommerce website design?",
-        a: "Yes — but selling products online is its own build, with its own platform and its own pricing, so it's covered on our online store page rather than here. If you're setting up a full store, start there. If you just need a handful of products alongside a service website, mention it on the call and we'll scope it in.",
+        a: "Yes, but selling products online is its own build, with its own platform and its own pricing, so it's covered on our online store page rather than here. If you're setting up a full store, start there. If you just need a handful of products alongside a service website, mention it on the call and we'll scope it in.",
       },
       {
         q: "What platform do you use to build websites?",
-        a: "We primarily use Framer, and WordPress where a client needs it. We also work with other platforms depending on your requirements — the platform is chosen to suit the project, not the other way around. Online stores are a separate build, covered on our online store page.",
+        a: "Every site is custom coded, not assembled in a page builder, and comes with a back end where you ask for a change in plain words and approve it before it goes live. If you have a site you want to keep, we can work on it by the hour. Online stores are a separate build on Shopify, covered on our online store page.",
       },
       {
         q: "What kind of businesses do you work with?",
-        a: "We work with businesses across a wide range of industries, including retail and eCommerce, professional services (lawyers, accountants, etc.), healthcare and allied health, hospitality and tourism, real estate and construction, and nonprofits and educational institutions. Whether you're a startup or an established business, we can design a website tailored to your needs.",
+        a: "We work with businesses across a wide range of industries, including retail and eCommerce, professional services (lawyers, accountants, etc.), healthcare and allied health, hospitality and tourism, real estate and construction, and nonprofits and educational institutions. For a startup or an established business, we can design a website tailored to your needs.",
       },
       {
         q: "What support do you provide after the website launch?",
@@ -486,7 +487,7 @@ export const webDesignAndDevelopment: ServicePageData = {
       },
       {
         q: "Do you work with clients outside the Gold Coast?",
-        a: "Absolutely! While we're based on the Gold Coast, we provide web design services to clients across Australia, including Sydney, Melbourne, Brisbane, Perth, and Adelaide. We also serve international clients, collaborating remotely to deliver exceptional results.",
+        a: "Yes. We're based on the Gold Coast and provide web design services to clients across Australia, including Sydney, Melbourne, Brisbane, Perth, and Adelaide. We also serve international clients, collaborating remotely.",
       },
     ],
   },

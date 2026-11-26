@@ -8,8 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "pricing": "node scripts/pricing/fetch-pricing.mjs",
+    "check:copy": "node scripts/check-copy.mjs",
     "predev": "npm run pricing",
-    "prebuild": "npm run pricing"
+    "prebuild": "npm run pricing && npm run check:copy"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",

@@ -2,7 +2,7 @@ import type { ServicePageData } from "./types";
 import { PRICING, BRANDING_FROM } from "@/content/pricing.generated";
 
 const CLOSING_NOTE =
-  "We believe that a website should be more than just a digital presence—it should be a tool that works for your business. That's why we prioritise performance, user experience in everything we create. We build websites that are fast, efficient, and easy to manage, so you can focus on what matters—running your business.";
+  "A website should be a tool that works for your business. That's why we prioritise performance and user experience in everything we create. We build websites that are fast, efficient, and easy to manage, so you can focus on running your business.";
 
 const CLIENT_LOGOS = [
   { src: "/assets/images/9KRTqgfzcr6lbBrR3RhLVtjuy2w.png", alt: "Quanta" },
@@ -19,15 +19,10 @@ export const professionalLogoDesign: ServicePageData = {
     heading: `Expertly designed, custom branding from only ${BRANDING_FROM}.`,
     subheading: "Professional Logo Design",
     intro:
-      "Unique handcrafted logos and brand kits made to look world-class, without the agency bloat. For companies who want to move fast, and make it big.",
-    badges: ["Made by real people, not AI", "Delivered in 48 Hours", "Fully Custom Branding", "100% Money Back Guarantee"],
+      "Unique handcrafted logos and brand kits, without the agency bloat. For companies who want to move fast and make it big.",
+    badges: ["Made by real people, not AI", "Delivered in 48 Hours", "Fully Custom Branding"],
     ctaPrimary: { label: "View Pricing", href: "#pricing" },
     ctaSecondary: { label: "Schedule free strategy Call", href: "/schedule-strategy-call" },
-    asSeenOn: [
-      { src: "/assets/images/psHihbx2FwcPF45CRFDdedjKH8.png", alt: "Forbes" },
-      { src: "/assets/images/cfY8xXscwK2lAhTXvPl1kEs269k.png", alt: "MarketersMEDIA" },
-      { src: "/assets/images/A95IsIxbsbVHPdgqhj66RJr6LUI.png", alt: "Y Combinator" },
-    ],
     heroImage: "/assets/images/tZMwmuHhWyXZ97SxJhiT59RfE.webp",
   },
   blocks: [
@@ -39,7 +34,7 @@ export const professionalLogoDesign: ServicePageData = {
       eyebrow: "Rankify®",
       heading: "Be the business that customers trust, instantly.",
       subheading:
-        "Attract leads and gain undeniable credibility in your industry. “Rankify built an incredible brand in no time. No dragged-out process or endless calls—just bold, thoughtful design with fast delivery and zero time-wasting.” — J Gregory, Founder of Tintek.",
+        "Attract leads and gain undeniable credibility in your industry. J Gregory, Founder of Tintek: “Rankify built an incredible brand in no time. No dragged-out process or endless calls—just bold, thoughtful design with fast delivery and zero time-wasting.”",
       columns: 4,
       items: [
         { idx: "01", title: "Built to Be Recognised", image: "/assets/images/obSfGICIGftT1jemF9l88ZVgq8.webp", desc: "Branding that cuts through. Clean, distinct, and easy to remember." },
@@ -53,12 +48,12 @@ export const professionalLogoDesign: ServicePageData = {
       theme: "paper",
       kicker: "About us",
       eyebrow: "Rankify®",
-      heading: "Not another random agency. Our branding team has launched world-renowned brands.",
-      subheading: "Whether you're just starting out or scaling fast, we build branding that fits your business model — and your goals.",
+      heading: "Not another random agency. Identity work, done by specialists.",
+      subheading: "Just starting out or scaling fast, we build branding that fits your business model and your goals.",
       cta: { label: "Download an example Brandbook", href: BRANDBOOK_PDF },
       columns: 3,
       items: [
-        { idx: "01", title: "Top 1% global design talent", image: "/assets/images/zMBKfktKEArgfZATsnj6tOLv70.webp", desc: "You get elite design without the agency overhead." },
+        { idx: "01", title: "A specialist branding partner", image: "/assets/images/zMBKfktKEArgfZATsnj6tOLv70.webp", desc: "Logo work is done with our branding partner, whose designers do identity work all day. You get that level of design without the agency overhead." },
         { idx: "02", title: "Ultra-fast turnaround times", image: "/assets/images/XWEDr11WL8JbpakEqAcCchDeus.webp", desc: "No waiting weeks. Projects are delivered in 48 hours*." },
         { idx: "03", title: "Outstanding value for money", image: "/assets/images/OECo219uHza5AeUiVtkwAohfrc.webp", desc: "Agency-quality branding at a fraction of the cost." },
       ],
@@ -88,19 +83,18 @@ export const professionalLogoDesign: ServicePageData = {
         { idx: "01", title: "Place your order or book a call", image: "/assets/images/Z6tHt1zj6Xzi4mqYcUDecqw9s.png", desc: "Choose a package or chat with us if you want to ask a few questions first." },
         { idx: "02", title: "Fill out the quick brief", image: "/assets/images/MZ0yaqVg6wHUMgg2q3hXdIgvww.png", desc: "Once you order, you'll get a short form to tell us what your business is and what kind of brand you want." },
         { idx: "03", title: "We design your logo options", image: "/assets/images/W33401Z0M5PC0bxbNpMVuyXuo.png", desc: "Our designers create 3 unique logo concepts based on your brief. First concepts delivered in 48 hours." },
-        { idx: "04", title: "Review and refine, as many times as needed", image: "/assets/images/qkDu1brXwaTKYpcOFLahxPBAvc.png", desc: "Pick a concept and request any changes — no limits. We'll keep adjusting until it's right." },
+        { idx: "04", title: "Review and refine, as many times as needed", image: "/assets/images/qkDu1brXwaTKYpcOFLahxPBAvc.png", desc: "Pick a concept and request any changes, with no limits. We'll keep adjusting until it's right." },
       ],
     },
     {
       type: "pricing",
       eyebrow: "Premium Quality",
-      heading: "World-class branding for 10x less than regular creative agencies.",
-      subheading: "The average cost of professional branding in Australia is $7,500*. Our packages start from $499.",
+      heading: "Custom branding for 10x less than regular creative agencies.",
+      subheading: `The average cost of professional branding in Australia is $7,500*. Our packages start from ${BRANDING_FROM}.`,
       lookingForMore: true,
       tiers: [
         {
           name: "Basic",
-          spots: "Only 7 spots today",
           price: PRICING.products.branding.packages[0].price_display,
           period: "/ per package",
           features: [
@@ -123,7 +117,6 @@ export const professionalLogoDesign: ServicePageData = {
           name: "Premium Branding",
           badge: "MOST POPULAR",
           highlighted: true,
-          spots: "Only 7 spots today",
           price: PRICING.products.branding.packages[1].price_display,
           period: "/ per package",
           features: [
@@ -131,7 +124,7 @@ export const professionalLogoDesign: ServicePageData = {
             `${PRICING.products.branding.packages[1].logo_concepts} logo concepts included (in total)`,
             "Complete Brand Guidelines",
             "Brand Competitive Analysis",
-            "Color palettes",
+            "Colour palettes",
             "Brand typography",
             "Social media kit",
             "3D mockups",
@@ -146,7 +139,6 @@ export const professionalLogoDesign: ServicePageData = {
         },
         {
           name: "Brand Powerhouse",
-          spots: "Only 7 spots today",
           price: PRICING.products.branding.packages[2].price_display,
           period: "/ per package",
           features: [
@@ -175,14 +167,14 @@ export const professionalLogoDesign: ServicePageData = {
       eyebrow: "Rankify®",
       heading: "What do you get?",
       subheading:
-        "Whether you're just starting out or scaling fast, we build branding that fits your business model — and your goals. Check out the graphic to see what's included, alternatively download an example Brandbook via the link below.",
+        "Just starting out or scaling fast, we build branding that fits your business model and your goals. Check the graphic to see what's included, or download an example Brandbook via the link below.",
       cta: { label: "Download an example Brandbook", href: BRANDBOOK_PDF },
       columns: 4,
       items: [
-        { idx: "01", title: "Logo Concepts", image: "/assets/images/0pmCyszEKjA438SWEszFK7AzIc.png", desc: "Get three custom logo options to choose from—each built to reflect your brand's vision and purpose." },
-        { idx: "02", title: "Digital Brand Book", image: "/assets/images/PX2WDpmUcicyjWmeadixTdrkQ.webp", desc: "A clean, modern guide with your logo, fonts, colours, and usage rules—so your brand stays consistent everywhere." },
+        { idx: "01", title: "Logo Concepts", image: "/assets/images/0pmCyszEKjA438SWEszFK7AzIc.png", desc: "Get three custom logo options to choose from, each built to reflect your brand's vision and purpose." },
+        { idx: "02", title: "Digital Brand Book", image: "/assets/images/PX2WDpmUcicyjWmeadixTdrkQ.webp", desc: "A clean, modern guide with your logo, fonts, colours, and usage rules, so your brand stays consistent everywhere." },
         { idx: "03", title: "Unlimited Revisions", image: "/assets/images/LKZXoTsScXeAhBt0K1ZoWJcI.webp", desc: "We don't stop until it's perfect. Refine and tweak your logo as many times as you need." },
-        { idx: "04", title: "Social Media Kit, Stationary & Source Files", image: "/assets/images/dXwAKoXSUCjnZBiR7DDZTprIBE.webp", desc: "Get everything you need: business cards, social templates, print files, and editable source files—ready to go." },
+        { idx: "04", title: "Social Media Kit, Stationery & Source Files", image: "/assets/images/dXwAKoXSUCjnZBiR7DDZTprIBE.webp", desc: "Get everything you need: business cards, social templates, print files, and editable source files, ready to go." },
       ],
     },
     {
@@ -215,8 +207,8 @@ export const professionalLogoDesign: ServicePageData = {
           idx: "03",
           title: "With Rankify",
           desc: [
-            "World-class branding, that will position you as a market leader.",
-            "Money back guarantee and delivered in 48 hours.",
+            "Custom branding that will position you as a market leader.",
+            "Delivered in 48 hours.",
             "Unbeatable value, endless ROI.",
           ],
         },
@@ -225,22 +217,22 @@ export const professionalLogoDesign: ServicePageData = {
   ],
   faq: {
     heading: "FAQ.",
-    subheading: "Got questions? We've got answers. Here's everything you need to know about working with us.",
+    subheading: "Here's everything you need to know about working with us.",
     closingNote: CLOSING_NOTE,
     items: [
       { q: "Who is this for?", a: "Anyone launching or scaling a business who wants a legit logo without waiting weeks or burning cash on an overpriced agency." },
-      { q: "Do I own the logo?", a: "Yes. It's fully yours. You can trademark it and use it across digital, print, packaging, merch — anywhere." },
-      { q: "What's your design approach?", a: "Simple. Distinct. Memorable. We design logos that actually feel like your brand — not just another icon." },
-      { q: "What makes this different?", a: "You get top-tier design made fast and affordable. Same quality big startups pay thousands for — without the inflated price tag." },
+      { q: "Do I own the logo?", a: "Yes. It's fully yours. You can trademark it and use it anywhere: digital, print, packaging, merch." },
+      { q: "What's your design approach?", a: "Simple. Distinct. Memorable. We design logos that feel like your brand rather than another icon." },
+      { q: "What makes this different?", a: "You get top-tier design made fast and affordable. The same quality big startups pay thousands for, without the inflated price tag." },
       { q: "What's included in the social and stationery kits?", a: "Social kit: ready-to-use profile icons and cover designs for all your platforms. Stationery kit: business card, letterhead, and anything else you need to look polished." },
       { q: "How fast is delivery?", a: "Most logos are delivered in 48 hours." },
-      { q: "Why not just use AI?", a: "AI gives you a placeholder. We give you a real brand. If you want something original that people trust, you need custom work." },
-      { q: "What's in the brand book?", a: "Everything you need to stay consistent — logo usage rules, colours, fonts, mockups, and style direction. Easy to follow. Easy to scale." },
-      { q: "How do you deliver this fast?", a: "Our team has decades of experience and a tight process. No meetings. No back and forth. Just sharp execution from the start." },
-      { q: "Why is this so affordable?", a: "We work smart. No bloated teams or overhead. Just solid systems and global designers doing what they're good at — fast." },
+      { q: "Why not use AI?", a: "AI gives you a placeholder. We give you a real brand. If you want something original that people trust, you need custom work." },
+      { q: "What's in the brand book?", a: "Everything you need to stay consistent: logo usage rules, colours, fonts, mockups, and style direction. Easy to follow. Easy to scale." },
+      { q: "How do you deliver this fast?", a: "A tight process. No meetings and no back and forth, with sharp execution from the start." },
+      { q: "Why is this so affordable?", a: "We work smart. No bloated teams or overhead. Just solid systems and global designers doing what they're good at, fast." },
       { q: "Who's designing my logo?", a: "A small, curated team of expert designers. Every project is reviewed by senior creatives before you see it." },
-      { q: "What industries do you work with?", a: "All of them. From solo founders to fast-growing startups — across tech, retail, health, real estate, and more." },
-      { q: "What if I'm not happy with it?", a: "You'll get revisions until it's right. If we still can't nail it, you get a full refund." },
+      { q: "What industries do you work with?", a: "All of them. From solo founders to fast-growing startups, across tech, retail, health, real estate, and more." },
+      { q: "What if I'm not happy with it?", a: "You'll get revisions until it's right." },
     ],
   },
 };

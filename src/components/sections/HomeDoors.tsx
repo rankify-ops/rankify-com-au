@@ -62,7 +62,7 @@ const CARDS: Card[] = [
   {
     kicker: "Websites",
     title: "Get a high performance website built",
-    line: "A custom build made around how your customers actually buy, not a template.",
+    line: "Custom built around how your customers buy. Live in 7 to 15 days, with a back end you change in plain words.",
     href: "/web-design-and-development",
     sub: "New Builds / Redesigns / Landing Pages",
     // Tom's own artwork, not lucide. It arrived as a 1200px white square with
@@ -89,7 +89,7 @@ const CARDS: Card[] = [
     kicker: "Meta Ads",
     title: "Ad Sidekick",
     sub: "Meta / Facebook / Instagram Ads",
-    line: "Run them yourself in our app, or hand them over and we run them for you.",
+    line: "Run Meta ads without ever signing in. We build your campaigns and ads, then tell you when to add more, what is winning and what to turn off.",
     href: "/meta-ads",
     brand: true,
     icon: <MetaMark />,
@@ -97,7 +97,7 @@ const CARDS: Card[] = [
   {
     kicker: "Shopify",
     title: "Build or fix a Shopify store",
-    line: "Custom Liquid stores for brands scaling profitably. Migrations handled.",
+    line: "Custom Liquid stores, migrations handled, and a developer on call once it is live.",
     href: "/shopify-development-services",
     sub: "New Stores / Hire a Developer / Apps",
     brand: true,
@@ -106,7 +106,7 @@ const CARDS: Card[] = [
   {
     kicker: "Google Ads",
     title: "Search and Shopping, pointed at profit",
-    line: "Campaigns built to sell, with the tracking wired up properly from day one.",
+    line: "Run by an ex-Google team and sent to a page we build, with every call and sale tracked.",
     href: "/google-ads",
     sub: "Search / Shopping / Tracking",
     brand: true,
@@ -118,32 +118,32 @@ const CARDS: Card[] = [
     // single place it happens, so it read as the vaguest card on the row.
     title: "Show in Google and AI chatbot results",
     sub: "Local Maps / Search Engines / AI",
-    line: "Priced per page instead of an open-ended retainer, and reported in leads.",
+    line: "Priced per page, not as an open-ended retainer. Reported in leads.",
     href: "/seo",
     icon: <I icon={Search} />,
   },
   {
     kicker: "Apps & automation",
     title: "Custom tools, apps and AI automation",
-    line: "The repetitive work eating your week, handed to software instead of a person.",
+    line: "The manual jobs eating your week, handed to software built for your business.",
     href: "/ai-and-automation",
     sub: "Internal Tools / Custom Apps / AI Automation",
     icon: <I icon={Workflow} />,
   },
   {
     kicker: "Dashboards",
-    title: "Business dashboards",
-    line: "One live screen for the numbers you actually run the business on.",
+    title: "Every number you run on, on one screen",
+    line: "Sales, ad spend, stock and profit, live from the systems you already use.",
     // Same destination the header's dashboard entry uses, so the two cannot
     // drift apart.
-    href: "/ai-and-automation#dashboards",
+    href: "/dashboards",
     sub: "Sales / Ad Spend / Profit",
     icon: <I icon={Gauge} />,
   },
   {
     kicker: "Branding",
     title: "A logo and brand that fits",
-    line: "The identity the rest of it hangs off, done once and done properly.",
+    line: "The identity everything else hangs off. Done once, done properly.",
     href: "/professional-logo-design",
     sub: "Logos / Brand Kits / Guidelines",
     icon: <I icon={Palette} />,

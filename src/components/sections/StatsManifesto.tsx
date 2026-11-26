@@ -10,19 +10,19 @@ export function StatsManifesto() {
           </Reveal>
           <Reveal>
             <p className="mb-8 text-[clamp(28px,2.8vw,52px)] font-medium leading-[1.08] tracking-[-0.05em]">
-              Every project we take on is designed for long-term success.
+              We build things that keep earning after launch day.
             </p>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="max-w-[780px] text-[clamp(17px,1.3vw,22px)] font-medium tracking-[-0.02em] text-grey">
-              Our approach is simple: we focus on functionality, speed, and clarity, ensuring that every
-              project serves a clear purpose without unnecessary complexity.
+              A website that loads fast and turns visitors into enquiries. A store that sells. An ad
+              account that reports profit. Software that takes a job off your desk.
             </p>
           </Reveal>
           <Reveal delay={0.2}>
             <p className="mt-[18px] max-w-[780px] text-[clamp(17px,1.3vw,22px)] font-medium tracking-[-0.02em] text-grey">
-              We don&rsquo;t overpromise or use flashy marketing language. We simply build well-designed,
-              functional websites and strategies that help businesses succeed.
+              Each one is built by people who do this every day, with the newest tools, at a price
+              you know before we start.
             </p>
           </Reveal>
         </div>

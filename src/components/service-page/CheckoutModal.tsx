@@ -1,5 +1,6 @@
 "use client";
 
+import { GUARANTEE_DAYS, GUARANTEE_LABEL, GUARANTEE_UNDER_DISPLAY } from "@/content/guarantee";
 import Image from "next/image";
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
@@ -93,10 +94,11 @@ export function CheckoutModal({
               </svg>
             </span>
             <p className="text-[13.5px] leading-snug text-ink">
-              <strong className="font-semibold">100% money-back guarantee.</strong>{" "}
+              <strong className="font-semibold">{GUARANTEE_LABEL}.</strong>{" "}
               <span className="text-grey">
-                Not satisfied with your website within 30 days? Email us and we refund the project
-                fee in full. This doesn&rsquo;t apply to Shopify builds.
+                If you are not satisfied within {GUARANTEE_DAYS} days of launch, email us and we
+                refund the project fee in full. It doesn&rsquo;t apply to builds of{" "}
+                {GUARANTEE_UNDER_DISPLAY} or more, or to Shopify builds.
               </span>
             </p>
           </div>

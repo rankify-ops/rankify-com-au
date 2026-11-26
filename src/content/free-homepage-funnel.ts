@@ -1,4 +1,5 @@
 import type { FunnelConfig } from "@/components/landing/DarkFunnel";
+import { BRANDS } from "@/content/proof";
 
 /**
  * Funnel A, the website offer.
@@ -6,10 +7,10 @@ import type { FunnelConfig } from "@/components/landing/DarkFunnel";
  * Audience: owners with no site, an outdated one, or one that isn't bringing
  * work in. Free asset: a homepage in 48 hours. Paid outcome: the full build.
  *
- * It lives here rather than in a route because two URLs serve it: /free-homepage,
- * which the live ads point at, and /free-homepage-v2, which they pointed at
- * while it was being built. Two copies of a config this long drift apart the
- * first time either one is edited.
+ * It lives here rather than in the route so the page file stays a few lines
+ * long. /free-homepage is the address the live ads point at.
+ * /free-homepage-v2, which was shared while this was being built, now forwards
+ * there.
  */
 
 const VSL =
@@ -33,10 +34,10 @@ export const freeHomepageFunnel: FunnelConfig = {
     { t: 44, label: "Five client results" },
     { t: 102, label: "Same traffic, only the page changed" },
     { t: 133, label: "What most websites miss" },
-    { t: 167, label: "Who I am" },
-    { t: 178, label: "Platforms and agencies I've worked with" },
+    { t: 167, label: "Who we are" },
+    { t: 178, label: "Platforms and agencies we've worked with" },
     { t: 204, label: "What most web developers don't know" },
-    { t: 224, label: "What I'll do for you" },
+    { t: 224, label: "What we'll do for you" },
     { t: 239, label: "How it works, the three steps" },
     { t: 266, label: "Your own AI web developer" },
     { t: 285, label: "Making a change by text, email or the app" },
@@ -45,7 +46,7 @@ export const freeHomepageFunnel: FunnelConfig = {
     { t: 351, label: "Next step" },
   ],
 
-  proof: { count: "1000+", label: "Businesses served" },
+  proof: { count: BRANDS, label: "Brands worked with" },
   bullets: [
     "Built in 48 hours",
     "Your brand, not a template",
@@ -62,11 +63,11 @@ export const freeHomepageFunnel: FunnelConfig = {
     {
       n: "2",
       h: "A quick fifteen minute call",
-      b: "So I understand the business, your services, and the customer you're after. No pitch. I need it to build the thing properly.",
+      b: "So we understand the business, your services, and the customer you're after. No pitch. We need it to build the thing properly.",
     },
     {
       n: "3",
-      h: "I build it, you have it in 48 hours",
+      h: "We build it, you have it in 48 hours",
       b: "A real homepage, your brand, built to convert. Then you decide whether you want the rest of the site.",
     },
   ],

@@ -23,7 +23,7 @@ export default function Page() {
     >
       <p>
         Your logo is often the first thing people notice about your business. But beyond
-        aesthetics, a good logo does real work—it builds recognition, signals trust, and sets the
+        aesthetics, a good logo does real work: it builds recognition, signals trust, and sets the
         tone for your entire brand. In this post, we&rsquo;ll break down{" "}
         <strong>why logo design is important</strong>, especially in a digital-first world where
         attention spans are short and impressions are made in seconds.
@@ -33,7 +33,7 @@ export default function Page() {
       <p>People judge your business in seconds. And in most cases, your logo is the first visual they encounter.</p>
       <ul>
         <li>A clean, professional logo suggests confidence, quality, and clarity</li>
-        <li>A dated or amateur logo creates hesitation—even if your product is great</li>
+        <li>A dated or amateur logo creates hesitation, even if your product is great</li>
         <li>Your logo sets the tone for how your brand is perceived across all platforms</li>
       </ul>
       <p>
@@ -53,7 +53,7 @@ export default function Page() {
       <p>Over time, that visual becomes shorthand for your entire reputation.</p>
 
       <h2>Trust, Consistency, and Credibility</h2>
-      <p>A well-designed logo isn&rsquo;t just visual—it&rsquo;s strategic.</p>
+      <p>A well-designed logo is strategic as well as visual.</p>
       <ul>
         <li>It builds trust through consistency (across ads, site, packaging, etc.)</li>
         <li>It makes your brand feel real, established, and intentional</li>
@@ -61,7 +61,7 @@ export default function Page() {
       </ul>
       <p>
         <strong>Trust is a ranking factor.</strong> And your visual identity plays a part in how
-        users—and Google—judge you.
+        users and Google judge you.
       </p>
 
       <h2>Good Design Performs Better Online</h2>
@@ -73,14 +73,14 @@ export default function Page() {
         <li>It improves brand retention in Google search results, especially when paired with good titles and meta previews</li>
       </ul>
       <p>
-        Whether you&rsquo;re running SEO, paid ads, or social campaigns—your logo affects how
+        Across SEO, paid ads, and social campaigns, your logo affects how
         you&rsquo;re seen and whether you&rsquo;re remembered.
       </p>
 
       <h2>Conclusion</h2>
       <p>
-        <strong>So, why is logo design important?</strong> Because it&rsquo;s the foundation of
-        how your brand looks, feels, and performs. A strong logo doesn&rsquo;t just look good—it
+        <strong>Logo design is important</strong> because it&rsquo;s the foundation of
+        how your brand looks, feels, and performs. A strong logo looks good and it
         works. It builds recognition, earns trust, supports your marketing, and makes your
         business feel credible from the first glance.
       </p>

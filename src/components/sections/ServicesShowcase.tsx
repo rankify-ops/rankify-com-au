@@ -15,7 +15,7 @@ import { WEBSITE_FROM, SHOPIFY_FROM, SEO_PER_PAGE } from "@/content/pricing.gene
  */
 const BLURBS: Record<string, { line: string; price: string }> = {
   "Web Development": {
-    line: "Custom sites built around how your customers actually decide. Live in 7–15 days.",
+    line: "Custom sites built around how your customers decide. Live in 7 to 15 days.",
     price: `From ${WEBSITE_FROM}`,
   },
   Shopify: {

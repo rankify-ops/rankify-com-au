@@ -27,6 +27,25 @@
 
 import { PRICING } from "@/content/pricing.generated";
 
+/**
+ * Done-for-you Meta ads, the starting monthly fee.
+ *
+ * Tom gave this figure on 26 Nov 2026. It is the one price on the site that
+ * is not read from the HQ price record, because the record has no product for
+ * it yet. When it gets one, read it from pricing.generated and delete this.
+ */
+export const DONE_FOR_YOU_FROM = "$1,000";
+
+/** What "done for you" covers. Tom's own description of the service. */
+export const DONE_FOR_YOU_POINTS = [
+  "Campaigns, audiences and ad sets built and managed for you",
+  "Ads named, written and launched from the creative you send",
+  "Told when the account needs more ads, before results drop",
+  "A straight call on what is winning, what to scale and what to turn off",
+  "Pixel and Conversions API set up properly",
+  "A daily P&L you can open any time",
+];
+
 export type SidekickPlan = {
   id: "basic" | "pro" | "max";
   name: string;
@@ -124,7 +143,7 @@ export const PLAN_ROWS: PlanRow[] = [
   },
   {
     label: "Everyone in your team",
-    note: "People are never charged for — add the whole agency",
+    note: "People are never charged for, so add the whole agency",
     basic: true,
     pro: true,
     max: true,
@@ -174,7 +193,7 @@ export const PLAN_ROWS: PlanRow[] = [
   { label: "Your own naming convention and performance targets", basic: false, pro: true, max: true },
   {
     label: "Autopilot",
-    note: "Makes ads on a schedule and sends them to Review — nothing goes live without you",
+    note: "Makes ads on a schedule and sends them to Review, and nothing goes live without you",
     basic: false,
     pro: false,
     max: true,
@@ -199,7 +218,7 @@ export const SIDEKICK_STEPS = [
   {
     n: "2",
     h: "It builds the campaign",
-    b: "Audiences, campaigns and ad sets set up for you, with the number of ads your budget actually supports — one ad on its own cannot be compared to anything.",
+    b: "Audiences, campaigns and ad sets set up for you, with the number of ads your budget supports. One ad on its own cannot be compared to anything.",
     shot: "setup",
   },
   {
@@ -231,7 +250,7 @@ export const SIDEKICK_FAQ = {
   items: [
     {
       q: "Do I need to know Meta Ads?",
-      a: "No. It sets the campaigns up and tells you what to do next. It also teaches as you go — short notes appear at the moment the thing being explained is on screen, rather than in a manual nobody opens.",
+      a: "No. It sets the campaigns up and tells you what to do next. It also teaches as you go: short notes appear at the moment the thing being explained is on screen, rather than in a manual nobody opens.",
     },
     {
       q: "Is there a contract?",
@@ -239,7 +258,7 @@ export const SIDEKICK_FAQ = {
     },
     {
       q: "Who is it for?",
-      a: "Ecommerce brands on Shopify that are already doing well and want ads to be easier. It is not a rescue for a store that isn't selling — if the product isn't landing yet, ads won't fix that and we'd rather say so.",
+      a: "Ecommerce brands on Shopify that are already doing well and want ads to be easier. It is not a rescue for a store that isn't selling. If the product isn't landing yet, ads won't fix that and we'd rather say so.",
     },
     {
       q: "Does it spend my money on its own?",
@@ -247,7 +266,7 @@ export const SIDEKICK_FAQ = {
     },
     {
       q: "What does it cost against an agency?",
-      a: "An agency retainer buys the decisions about ads, not the ads themselves. Those decisions are a system, and this is that system. Whatever you are paying a retainer now, the difference is budget you can put into actually reaching customers.",
+      a: "An agency retainer buys the decisions about ads, not the ads themselves. Those decisions are a system, and this is that system. Whatever you are paying a retainer now, the difference is budget you can put into reaching customers.",
     },
   ],
 };

@@ -31,7 +31,7 @@ export function useWeb3Form(subject: string) {
 
     if (!ACCESS_KEY) {
       // Better a visible failure with a mailto fallback than a fake thank you.
-      console.error("NEXT_PUBLIC_WEB3FORMS_KEY is not set — form not sent");
+      console.error("NEXT_PUBLIC_WEB3FORMS_KEY is not set: form not sent");
       setState("error");
       return;
     }

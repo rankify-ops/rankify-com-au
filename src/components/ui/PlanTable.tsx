@@ -83,12 +83,15 @@ export function PlanRow({
   badge,
   meta,
   note,
+  prefix,
   price,
   period,
   sub,
   cta,
   featured = false,
 }: {
+  /** Small word before the figure, e.g. "from". */
+  prefix?: string;
   name?: string;
   /** Small pill beside the name, e.g. "Most popular". */
   badge?: string;
@@ -139,6 +142,7 @@ export function PlanRow({
           on a phone. It only needs to resist shrinking from sm up, where it
           shares the row with the name and the CTA. */}
       <p className="max-w-full text-left sm:shrink-0 sm:text-right">
+        {prefix && <span className="mr-1.5 text-[12.5px] text-grey">{prefix}</span>}
         <span className="text-[22px] font-semibold tabular-nums tracking-[-0.03em]">{price}</span>
         {period && <span className="ml-1 text-[12.5px] text-grey">{period}</span>}
         {sub && <span className="mt-0.5 block text-[12px] text-grey/80">{sub}</span>}
@@ -274,7 +278,7 @@ export function PlanMatrix({
                     />
                     <span>
                       {r.label}
-                      {typeof v === "string" && <span className="text-grey"> &mdash; {v}</span>}
+                      {typeof v === "string" && <span className="text-grey">: {v}</span>}
                     </span>
                   </li>
                 );

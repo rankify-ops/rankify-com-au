@@ -5,14 +5,14 @@ import { seo } from "@/content/service-pages/seo";
 import { SEO_PER_PAGE, SEO_PER_PAGE_AMOUNT, SEO_MINIMUM_MONTHS } from "@/content/pricing.generated";
 
 export const metadata: Metadata = {
-  title: `SEO Services | ${SEO_PER_PAGE} Per Page, No Lock-In | Rankify`,
+  title: `SEO for Google, Maps and AI Search | ${SEO_PER_PAGE} Per Page | Rankify`,
   description:
-    "SEO priced per page, not as an open-ended retainer. Technical fixes made by the developer who built the site, real reporting on rankings, traffic and leads.",
+    "SEO priced per page, not as an open-ended retainer. Local and Google Maps, search engines and AI chatbot results, with reporting on rankings, traffic and leads.",
   alternates: { canonical: "/seo" },
   openGraph: {
-    title: `SEO Services | ${SEO_PER_PAGE} Per Page, No Lock-In | Rankify`,
+    title: `SEO for Google, Maps and AI Search | ${SEO_PER_PAGE} Per Page | Rankify`,
     description:
-      "SEO priced per page, not as an open-ended retainer. Real reporting on rankings, traffic and leads — no lock-in contracts.",
+      `SEO priced per page, not as an open-ended retainer. Local, Google and AI search, reported in leads. ${SEO_MINIMUM_MONTHS} month minimum.`,
     url: "https://www.rankify.com.au/seo",
     type: "website",
   },

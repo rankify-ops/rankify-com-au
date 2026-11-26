@@ -99,12 +99,14 @@ export function PricingBlockSection({ block, index }: { block: PricingBlock; ind
               </div>
             )}
 
-            <PlanFootnote>
-              <span className="inline-flex items-center gap-1.5 font-medium text-[color:var(--green-mid)]">
-                <PlusIcon dark className="h-3.5 w-3.5" />
-                {block.assurance ?? "100% money back guarantee"}
-              </span>
-            </PlanFootnote>
+            {block.assurance && (
+              <PlanFootnote>
+                <span className="inline-flex items-center gap-1.5 font-medium text-[color:var(--green-mid)]">
+                  <PlusIcon dark className="h-3.5 w-3.5" />
+                  {block.assurance}
+                </span>
+              </PlanFootnote>
+            )}
           </PlanPanel>
         </Reveal>
 
@@ -116,10 +118,10 @@ export function PricingBlockSection({ block, index }: { block: PricingBlock; ind
             <div>
               <Reveal delay={0.1}>
                 <p className="max-w-[620px] text-[19px] font-medium leading-snug tracking-[-0.02em]">
-                  <span className="text-white">Add marketing, SEO, or Branding—</span>
+                  <span className="text-white">Add marketing, SEO or branding.</span>{" "}
                   <span className="text-white/60">
-                    flexible tools to strengthen your project. We&rsquo;ll shape a solution that fits your
-                    business, not ours.
+                    Each one can be added to your project. We&rsquo;ll scope it around your business,
+                    not ours.
                   </span>
                 </p>
               </Reveal>
