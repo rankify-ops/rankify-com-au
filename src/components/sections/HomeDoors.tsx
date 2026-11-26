@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { asset } from "@/lib/basePath";
@@ -7,6 +8,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { AskBox } from "@/components/sections/AskBox";
 import { FloatingPartners } from "@/components/sections/FloatingPartners";
 import { SectionHeading } from "@/components/service-page/SectionHeading";
+import { Gauge, Palette, Search, Workflow } from "lucide-react";
+import { GoogleAdsMark, MetaMark, ShopifyMark } from "@/components/ui/BrandMark";
 
 /**
  * The home page's first sections.
@@ -28,35 +31,31 @@ type Card = {
   kicker: string;
   title: string;
   line: string;
+  /** The three things this card actually covers, in plain words. */
+  sub?: string;
   href: string;
   icon: ReactNode;
-  /** The one we most want pressed. */
-  accent?: boolean;
+  /** Real brand mark rather than a line icon: needs a neutral tile. */
+  brand?: boolean;
 };
 
 /**
- * One drawing grid for all eight card icons.
+ * The service icons.
  *
- * They were drawn ad hoc and it showed at size: the robot's ears and
- * antenna, the cart's wheels and the target's centre were detached
- * one-pixel specks that smeared into the tile at 22px, the speaker's wave
- * ran past the viewBox, and the sparkle and the star were the same shape
- * twice. Every mark here is a continuous stroke, each one fills roughly the
- * same 17 of the 24 units so none looks heavier than its neighbour, and no
- * two silhouettes repeat.
+ * Hand-drawn glyphs sat badly next to three real brand marks -- a stroke
+ * somebody eyeballed, beside logos drawn by the companies that own them.
+ * These come from lucide, which the plan tables already use, so there is one
+ * icon set in the project rather than two.
+ *
+ * Still one rule, the one the hand-drawn set was redrawn for: no two
+ * silhouettes repeat. A window, a magnifier, linked nodes, a dial and a
+ * palette share no outline, so none of the five reads as its neighbour at
+ * this size. That is why Dashboards is a dial rather than the obvious bar chart
+ * and Websites a window rather than a panel grid -- those two would have
+ * been the same rectangle twice.
  */
-const I = ({ children }: { children: ReactNode }) => (
-  <svg
-    viewBox="0 0 24 24"
-    className="h-[22px] w-[22px]"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.7"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    {children}
-  </svg>
+const I = ({ icon: Icon }: { icon: typeof Search }) => (
+  <Icon className="h-[26px] w-[26px]" strokeWidth={1.7} absoluteStrokeWidth />
 );
 
 const CARDS: Card[] = [
@@ -65,87 +64,71 @@ const CARDS: Card[] = [
     title: "Get a high performance website built",
     line: "A custom build made around how your customers actually buy, not a template.",
     href: "/web-design-and-development",
-    accent: true,
-    // A browser window, not code brackets: what is being sold is the site,
-    // not the writing of it.
+    sub: "New Builds / Redesigns / Landing Pages",
+    // Tom's own artwork, not lucide. It arrived as a 1200px white square with
+    // no alpha, so it is cropped to the glyph (the source carried 8% padding a
+    // side, which would have made it the smallest mark on the row) and the
+    // white turned transparent by distance rather than a threshold -- a hard
+    // cut leaves a white fringe on every curve at this size.
     icon: (
-      <I>
-        <path d="M4 4.5h16A1.5 1.5 0 0 1 21.5 6v12a1.5 1.5 0 0 1-1.5 1.5H4A1.5 1.5 0 0 1 2.5 18V6A1.5 1.5 0 0 1 4 4.5Z" />
-        <path d="M2.5 9h19M5.6 6.8h2.6" />
-      </I>
+      <Image
+        src={asset("/assets/partners/websites-www.png")}
+        alt=""
+        width={256}
+        height={256}
+        className="h-[26px] w-[26px]"
+      />
     ),
   },
   {
-    kicker: "Ecommerce",
+    // "Ecommerce" over a product name told a first-time visitor nothing
+    // about what this card sells. The kicker is now the platform, which also
+    // puts it in step with the Google Ads card beside it, and the line under
+    // the title says which platforms in plain words -- it will not fit in the
+    // kicker, which has 103px of room against the 218px that phrase needs.
+    kicker: "Meta Ads",
     title: "Ad Sidekick",
-    line: "Run your Meta ads without logging into Meta. Told what to upload, when to scale and what to turn off.",
+    sub: "Meta / Facebook / Instagram Ads",
+    line: "Run them yourself in our app, or hand them over and we run them for you.",
     href: "/meta-ads",
-    // A megaphone with its handle, which reads as advertising. The speaker
-    // this replaces had its sound wave cut off by the edge of the viewBox.
-    icon: (
-      <I>
-        <path d="M18.5 5.2v13.6l-9-3.3V8.5l9-3.3Z" />
-        <path d="M9.5 8.5H6a2.6 2.6 0 0 0 0 5.2h3.5" />
-        <path d="m8.9 13.9 1.1 4.5a1.5 1.5 0 0 0 2.9-.7l-.9-3.8" />
-      </I>
-    ),
+    brand: true,
+    icon: <MetaMark />,
   },
   {
     kicker: "Shopify",
     title: "Build or fix a Shopify store",
     line: "Custom Liquid stores for brands scaling profitably. Migrations handled.",
     href: "/shopify-development-services",
-    // A bag rather than a trolley: the trolley's two wheels were isolated
-    // dots that vanished at this size.
-    icon: (
-      <I>
-        <path d="M5.6 7.8h12.8l1 11.7H4.6l1-11.7Z" />
-        <path d="M9 7.8V6.4a3 3 0 0 1 6 0v1.4" />
-      </I>
-    ),
-  },
-  {
-    kicker: "SEO",
-    title: "Get found for what you sell",
-    line: "Priced per page instead of an open-ended retainer, and reported in leads.",
-    href: "/seo",
-    icon: (
-      <I>
-        <path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14Z" />
-        <path d="m16.1 16.1 4.4 4.4" />
-      </I>
-    ),
+    sub: "New Stores / Hire a Developer / Apps",
+    brand: true,
+    icon: <ShopifyMark />,
   },
   {
     kicker: "Google Ads",
     title: "Search and Shopping, pointed at profit",
     line: "Campaigns built to sell, with the tracking wired up properly from day one.",
     href: "/google-ads",
-    // Crosshairs make it a reticle. Two bare concentric circles read as a
-    // record, or a loading spinner.
-    icon: (
-      <I>
-        <path d="M12 20.3a8.3 8.3 0 1 0 0-16.6 8.3 8.3 0 0 0 0 16.6Z" />
-        <path d="M12 15.9a3.9 3.9 0 1 0 0-7.8 3.9 3.9 0 0 0 0 7.8Z" />
-        <path d="M12 2v1.7M12 20.3V22M2 12h1.7M20.3 12H22" />
-      </I>
-    ),
+    sub: "Search / Shopping / Tracking",
+    brand: true,
+    icon: <GoogleAdsMark />,
+  },
+  {
+    kicker: "SEO",
+    // "Get found for what you sell" described the outcome without naming a
+    // single place it happens, so it read as the vaguest card on the row.
+    title: "Show in Google and AI chatbot results",
+    sub: "Local Maps / Search Engines / AI",
+    line: "Priced per page instead of an open-ended retainer, and reported in leads.",
+    href: "/seo",
+    icon: <I icon={Search} />,
   },
   {
     kicker: "Apps & automation",
     title: "Custom tools, apps and AI automation",
     line: "The repetitive work eating your week, handed to software instead of a person.",
     href: "/ai-and-automation",
-    // A cycle, which is what automation looks like. The robot it replaces
-    // was seven marks in a 24px box, four of them floating.
-    icon: (
-      <I>
-        <path d="M20.4 11A8.5 8.5 0 0 0 5.9 6.6L3.5 9" />
-        <path d="M3.5 4.4V9H8.1" />
-        <path d="M3.6 13a8.5 8.5 0 0 0 14.5 4.4l2.4-2.4" />
-        <path d="M20.5 19.6V15h-4.6" />
-      </I>
-    ),
+    sub: "Internal Tools / Custom Apps / AI Automation",
+    icon: <I icon={Workflow} />,
   },
   {
     kicker: "Dashboards",
@@ -154,33 +137,22 @@ const CARDS: Card[] = [
     // Same destination the header's dashboard entry uses, so the two cannot
     // drift apart.
     href: "/ai-and-automation#dashboards",
-    // Bars on a baseline. A rising line would have read as the cycle arrows
-    // two cards earlier, and a framed chart as the browser window on the
-    // first card; bars share a silhouette with neither.
-    icon: (
-      <I>
-        <path d="M3.5 20.2h17" />
-        <path d="M7 20.2v-6.7M12 20.2V9M17 20.2V5.2" />
-      </I>
-    ),
+    sub: "Sales / Ad Spend / Profit",
+    icon: <I icon={Gauge} />,
   },
   {
     kicker: "Branding",
     title: "A logo and brand that fits",
     line: "The identity the rest of it hangs off, done once and done properly.",
     href: "/professional-logo-design",
-    // A colour drop, which reads as paint rather than as a rating.
-    icon: (
-      <I>
-        <path d="M12 3.4c3.3 3.6 6.1 7 6.1 10.1a6.1 6.1 0 0 1-12.2 0c0-3.1 2.8-6.5 6.1-10.1Z" />
-      </I>
-    ),
+    sub: "Logos / Brand Kits / Guidelines",
+    icon: <I icon={Palette} />,
   },
 ];
 
 export function HomeHero() {
   return (
-    <section className="grain relative mx-2 overflow-hidden rounded-[32px] bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white">
+    <section className="grain relative mx-2 flex flex-1 flex-col overflow-hidden rounded-[32px] bg-[radial-gradient(120%_140%_at_20%_0%,#06382a_0%,var(--green-deep)_45%,#010f0a_100%)] text-white sm:block sm:flex-none">
       {/* The old hero's background, unchanged: same gradient, same looping
           clip at the same opacity. */}
       <video
@@ -215,7 +187,7 @@ export function HomeHero() {
       {/* svh, not vh: on a phone vh is the height with the browser chrome
           hidden, so a vh-tall hero sits taller than the screen and pushes its
           own bottom out of sight until you scroll. svh is the visible height. */}
-      <div className="relative z-[3] flex flex-col items-center justify-center px-3.5 pb-14 pt-12 text-center sm:min-h-[calc(100svh-72px)] sm:px-10 sm:pb-20 sm:pt-16 lg:min-h-[calc(100svh-60px)]">
+      <div className="relative z-[3] flex flex-1 flex-col items-center justify-center px-3.5 pb-14 pt-12 text-center sm:min-h-[calc(100svh-72px)] sm:flex-none sm:px-10 sm:pb-20 sm:pt-16 lg:min-h-[calc(100svh-60px)]">
         {/* Outside Reveal: it animates opacity and transform, and either one
             cancels the glass this box is drawn with. */}
         <div className="mt-6 flex w-full justify-center sm:mt-9">
@@ -264,11 +236,13 @@ export function HomeCtaCards() {
             >
               <span className="flex items-start justify-between gap-3">
                 <span
-                  className={`flex h-12 w-12 flex-none items-center justify-center rounded-[14px] ${
-                    c.accent
-                      ? "bg-[color:var(--green-text)] text-white"
-                      : "bg-[color:var(--green-text)]/10 text-[color:var(--green-text)]"
-                  }`}
+                  // One tile for all eight. The brand marks need a neutral
+                  // ground -- a green wash under Meta blue or Shopify green
+                  // muddies both -- and a row where three tiles are white and
+                  // five are green reads as two unrelated sets rather than one
+                  // row. The service icons keep the green stroke, so the colour
+                  // is still there; it is in the mark instead of behind it.
+                  className="flex h-12 w-12 flex-none items-center justify-center rounded-[14px] border border-line bg-white text-[color:var(--green-text)]"
                 >
                   {c.icon}
                 </span>
@@ -280,6 +254,11 @@ export function HomeCtaCards() {
               <h3 className="mt-5 text-[clamp(17px,1.4vw,20px)] font-semibold leading-[1.15] tracking-[-0.025em]">
                 {c.title}
               </h3>
+              {c.sub && (
+                <p className="mt-1.5 text-[13px] font-medium leading-snug text-[color:var(--green-text)]">
+                  {c.sub}
+                </p>
+              )}
               <p className="mt-2.5 flex-1 text-[14.5px] leading-relaxed text-grey">
                 {c.line}
               </p>
